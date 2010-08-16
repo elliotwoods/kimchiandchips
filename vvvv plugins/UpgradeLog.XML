@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="PluginTemplateCpp">
+</Property><Property Name="Solution File" Value="C:\jobs\kimchi and chips\plugins\openFrameworks\PluginTemplateCpp.sln">
+</Property><Property Name="User Options File" Value="C:\jobs\kimchi and chips\plugins\openFrameworks\PluginTemplateCpp.suo">
+</Property><Property Name="Date" Value="11 November 2009">
+</Property><Property Name="Time" Value="20:46">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="PluginTemplateCpp.sln" Description="File successfully backed up as C:\jobs\kimchi and chips\plugins\openFrameworks\PluginTemplateCpp.sln.old">
+</Event><Event ErrorLevel="0" Project="" Source="PluginTemplateCpp.suo" Description="File successfully backed up as C:\jobs\kimchi and chips\plugins\openFrameworks\PluginTemplateCpp.suo.old">
+</Event><Event ErrorLevel="0" Project="PluginTemplateCpp" Source="PluginTemplateCpp\PluginTemplateCpp.vcproj" Description="Web deployment to the local IIS server is no longer supported. The Web Deployment build tool has been removed from your project settings.">
+</Event><Event ErrorLevel="1" Project="PluginTemplateCpp" Source="PluginTemplateCpp\PluginTemplateCpp.vcproj" Description="This application has been updated to include settings related to the User Account Control (UAC) feature of Windows Vista. By default, when run on Windows Vista with UAC enabled, this application is marked to run with the same privileges as the process that launched it. This marking also disables the application from running with virtualization. You can change UAC related settings from the Property Pages of the project.">
+</Event><Event ErrorLevel="0" Project="PluginTemplateCpp" Source="PluginTemplateCpp\PluginTemplateCpp.vcproj" Description="Project file successfully backed up as 'C:\jobs\kimchi and chips\plugins\openFrameworks\PluginTemplateCpp\PluginTemplateCpp.vcproj.8.00.old'.">
+</Event><Event ErrorLevel="0" Project="PluginTemplateCpp" Source="PluginTemplateCpp\PluginTemplateCpp.vcproj" Description="Project upgraded successfully.">
+</Event><Event ErrorLevel="3" Project="PluginTemplateCpp" Source="PluginTemplateCpp\PluginTemplateCpp.vcproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="PluginInterfaces" Source="..\_PluginInterfaces\trunk\PluginInterfaces.csproj" Description="Project file successfully backed up as C:\jobs\kimchi and chips\plugins\_PluginInterfaces\trunk\PluginInterfaces.csproj.old">
+</Event><Event ErrorLevel="0" Project="PluginInterfaces" Source="..\_PluginInterfaces\trunk\PluginInterfaces.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="PluginInterfaces" Source="..\_PluginInterfaces\trunk\PluginInterfaces.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Utils" Source="..\_Utils\trunk\Utils.csproj" Description="Project file successfully backed up as C:\jobs\kimchi and chips\plugins\_Utils\trunk\Utils.csproj.old">
+</Event><Event ErrorLevel="0" Project="Utils" Source="..\_Utils\trunk\Utils.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="Utils" Source="..\_Utils\trunk\Utils.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="PluginTemplateCpp.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="PluginTemplateCpp.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="PluginInterfaces" Source="..\_PluginInterfaces\trunk\PluginInterfaces.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="Utils" Source="..\_Utils\trunk\Utils.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>
