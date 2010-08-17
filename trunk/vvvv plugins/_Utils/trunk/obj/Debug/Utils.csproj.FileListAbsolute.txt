@@ -1,0 +1,5 @@
+C:\jobs\kimchi and chips\plugins\_Utils\trunk\bin\_Utils.dll
+C:\jobs\kimchi and chips\plugins\_Utils\trunk\bin\_Utils.pdb
+C:\jobs\kimchi and chips\plugins\_Utils\trunk\obj\Debug\ResolveAssemblyReference.cache
+C:\jobs\kimchi and chips\plugins\_Utils\trunk\obj\Debug\_Utils.dll
+C:\jobs\kimchi and chips\plugins\_Utils\trunk\obj\Debug\_Utils.pdb

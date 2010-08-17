@@ -1,0 +1,7 @@
+C:\jobs\kimchi and chips\plugins\_PluginInterfaces\trunk\bin\_PluginInterfaces.dll
+C:\jobs\kimchi and chips\plugins\_PluginInterfaces\trunk\bin\_PluginInterfaces.pdb
+C:\jobs\kimchi and chips\plugins\_PluginInterfaces\trunk\bin\_Utils.dll
+C:\jobs\kimchi and chips\plugins\_PluginInterfaces\trunk\bin\_Utils.pdb
+C:\jobs\kimchi and chips\plugins\_PluginInterfaces\trunk\obj\Debug\ResolveAssemblyReference.cache
+C:\jobs\kimchi and chips\plugins\_PluginInterfaces\trunk\obj\Debug\_PluginInterfaces.dll
+C:\jobs\kimchi and chips\plugins\_PluginInterfaces\trunk\obj\Debug\_PluginInterfaces.pdb
