@@ -1,0 +1,6 @@
+C:\jobs\kimchi and chips\plugins\_Utils\trunk\bin\_Utils.dll
+C:\jobs\kimchi and chips\plugins\_Utils\trunk\obj\Release\ResolveAssemblyReference.cache
+C:\jobs\kimchi and chips\plugins\_Utils\trunk\obj\Release\_Utils.dll
+C:\jobs\kimchi and chips\plugins\vvvv plugins\_Utils\trunk\bin\_Utils.dll
+C:\jobs\kimchi and chips\plugins\vvvv plugins\_Utils\trunk\obj\Release\ResolveAssemblyReference.cache
+C:\jobs\kimchi and chips\plugins\vvvv plugins\_Utils\trunk\obj\Release\_Utils.dll
