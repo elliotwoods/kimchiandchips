@@ -163,7 +163,7 @@
 		</Configuration>
 		<Configuration
 			Name="vvvv|Win32"
-			OutputDirectory="..\..\..\..\..\vvvv\vvvv_40beta22\plugins"
+			OutputDirectory="c:\vvvv\vvvv_40beta22\plugins"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
@@ -187,6 +187,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="&quot;C:\jobs\kimchi and chips\plugins\vvvv plugins\polyfitND\PluginTemplateCpp&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
@@ -347,14 +348,6 @@
 			Name="polyfitcpp"
 			>
 			<File
-				RelativePath=".\basisTransformIndicies.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\basisTransformIndicies.h"
-				>
-			</File>
-			<File
 				RelativePath=".\FitBase.cpp"
 				>
 			</File>
@@ -376,6 +369,14 @@
 			</File>
 			<File
 				RelativePath=".\polyNfit.h"
+				>
+			</File>
+			<File
+				RelativePath=".\powerBases.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\powerBases.h"
 				>
 			</File>
 		</Filter>

@@ -3,3 +3,8 @@ C:\jobs\kimchi and chips\plugins\_Utils\trunk\bin\vvvv\_Utils.pdb
 C:\jobs\kimchi and chips\plugins\_Utils\trunk\obj\vvvv\ResolveAssemblyReference.cache
 C:\jobs\kimchi and chips\plugins\_Utils\trunk\obj\vvvv\_Utils.dll
 C:\jobs\kimchi and chips\plugins\_Utils\trunk\obj\vvvv\_Utils.pdb
+C:\jobs\kimchi and chips\plugins\vvvv plugins\_Utils\trunk\bin\vvvv\_Utils.dll
+C:\jobs\kimchi and chips\plugins\vvvv plugins\_Utils\trunk\bin\vvvv\_Utils.pdb
+C:\jobs\kimchi and chips\plugins\vvvv plugins\_Utils\trunk\obj\vvvv\ResolveAssemblyReference.cache
+C:\jobs\kimchi and chips\plugins\vvvv plugins\_Utils\trunk\obj\vvvv\_Utils.dll
+C:\jobs\kimchi and chips\plugins\vvvv plugins\_Utils\trunk\obj\vvvv\_Utils.pdb

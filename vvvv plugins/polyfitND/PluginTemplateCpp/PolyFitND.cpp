@@ -5,7 +5,9 @@
 //
 //
 
-#include "stdafx.h"
+//		vvvv plugin
+
+#include "Stdafx.h"
 
 #include "PolyFitND.h"
 
@@ -19,6 +21,9 @@ namespace PolyFitND
 	PolyFitND::PolyFitND()
 	{
 		_boolConfigChanged=true;
+		_hasSuccess=false;
+		_debugMessage = gcnew String("");
+
 
 	}
 
@@ -30,7 +35,7 @@ namespace PolyFitND
 
 	void PolyFitND::SetPluginHost(IPluginHost ^ Host) 
 	{
-		Host->Log(TLogType::Debug,"Here");
+		Host->Log(TLogType::Debug,"Second test");
 		this->FHost = Host;
 
 		array<String ^> ^ arr = gcnew array<String ^>(1);
@@ -47,11 +52,25 @@ namespace PolyFitND
 		vPinDimensionsIn->SetSubType(1,MAX_DIMENSIONS,1,3,false,false,true);
 		vPinDimensionsOut->SetSubType(1,MAX_DIMENSIONS,1,3,false,false,true);
 
+		array<String ^> ^ strBasesNames = gcnew array<String ^>(2);
+		strBasesNames[0] = "power series - triangular";
+		strBasesNames[1] = "power series - square";
+
+
+		FHost->UpdateEnum("PolyFitND bases types", "power series - triangular", strBasesNames);
+
+		FHost->CreateEnumInput("Bases type", TSliceMode::Single, TPinVisibility::True, this->vPinInBasesType);
+		vPinInBasesType->SetSubType("PolyFitND bases types");
+
+
 		FHost->CreateValueOutput("Coefficients",1,arr,TSliceMode::Dynamic,TPinVisibility::True,this->vPinOutCoefficients);
 		FHost->CreateValueOutput("Bases indicies",1,arr,TSliceMode::Dynamic,TPinVisibility::True,vPinOutBasisIndicies);
 		vPinOutBasisIndicies->SetSubType(0,MAX_ORDER,1,0,false,false,true);
 
 		FHost->CreateStringOutput("Message",TSliceMode::Single,TPinVisibility::True,this->vPinOutMessage);
+
+		FHost->CreateValueOutput("Sucess",1,arr,TSliceMode::Single,TPinVisibility::True,this->vPinOutHasSuccess);
+		vPinOutHasSuccess->SetSubType(0,1,1,0,false,false,true);
 	}
 
 	void PolyFitND::Configurate(IPluginConfig^ Input) 
@@ -59,7 +78,12 @@ namespace PolyFitND
 
 	void PolyFitND::Evaluate(int SpreadMax) 
 	{
-		
+		if (vPinInBasesType->PinIsChanged)
+		{
+			_boolConfigChanged=true;
+			changeBases();
+		}
+
 		if (vPinDimensionsIn->PinIsChanged || vPinDimensionsOut->PinIsChanged)
 		{
 			_boolConfigChanged=true;
@@ -72,24 +96,29 @@ namespace PolyFitND
 			changeOrder();
 		}
 
+		if (_boolConfigChanged)
+		{
+			if (_boolFitCreated)
+				delete _fit;
+			
+			_fit = new polyNfit(order, dimensionsIn, dimensionsOut, _basisType);
+			_boolFitCreated=true;
+		
+		}
+
+
 		if (_boolConfigChanged || vPinInX->PinIsChanged || vPinInXDash->PinIsChanged)
 		{
 			_boolConfigChanged=false;
 			evalPoly();
+			returnBasisIndicies();
 		}
-
-		//move this into the change bit?
-		returnBasisIndicies();
 
 
 	}	
 
 	void PolyFitND::changeDimensions()
 	{
-		if (_boolFitCreated)
-		{			
-			delete _fit;
-		}
 
 		double currentDimensionsIn, currentDimensionsOut;
 		double currentOrder;
@@ -102,9 +131,6 @@ namespace PolyFitND
 		dimensionsOut = int(currentDimensionsOut);
 		order = int(currentOrder);
 
-		_fit = new polyNfit(order, dimensionsIn, dimensionsOut);
-		
-		_boolFitCreated=true;
 	}
 
 	void PolyFitND::changeOrder()
@@ -113,19 +139,24 @@ namespace PolyFitND
 		double currentOrder;
 		vPinInOrder->GetValue(0,currentOrder);
 		order=int(currentOrder);
+	}
 
-		delete _fit;
-		_fit = new polyNfit(order,dimensionsIn,dimensionsOut);
-
-		returnBasisIndicies();
+	void PolyFitND::changeBases()
+	{  
+		vPinInBasesType->GetOrd(0, _basisType);
 	}
 
 	void PolyFitND::evalPoly()
 	{
-		
-		// reset error message
-		vPinOutMessage->SetString(0, "");
+		_debugMessage = "";
+		_hasSuccess=true;
 
+		if (dimensionsIn<1 || dimensionsOut<1)
+		{
+			_hasSuccess=false;
+			_debugMessage = "Dimensions set to 0";
+			return;
+		}
 
 		// --------------
 		// FILL VECTORS
@@ -180,6 +211,7 @@ namespace PolyFitND
 			vecSetDataOut.push_back(vecDataOut);
 
 		}
+		
 		try {
 			if (_nDataSets>0 && _nDataPoints>0)
 				_fit->init(vecSetDataIn[0], vecSetDataIn[0], _nDataPoints);
@@ -187,9 +219,14 @@ namespace PolyFitND
 
 		catch(char * message)
 		{
-			String^ clistr = gcnew String(message);
-			vPinOutMessage->SetString(0, clistr);
+			_debugMessage = gcnew String(message);
+			//String^ clistr = gcnew String(message);
+			_hasSuccess = false;
 		}
+		
+		//output debug info
+		vPinOutMessage->SetString(0, _debugMessage);
+		vPinOutHasSuccess->SetValue(0, (_hasSuccess ? 1 : 0));
 
 		// ----------------------------
 		// RETURN COEFFICIENTS
@@ -230,18 +267,20 @@ namespace PolyFitND
 
 	void PolyFitND::returnBasisIndicies()
 	{
-		double *vOutPointer;
-		int nBasisIndicies = _fit->vecBasisIndicies.size();
-		
-		vPinOutBasisIndicies->SliceCount = dimensionsIn * nBasisIndicies;
-		
-
-		for (int iIndicies = 0; iIndicies < nBasisIndicies; ++iIndicies)
+		if (_hasSuccess)
 		{
-			for (int iDimension = 0; iDimension < dimensionsIn; ++iDimension)
+			int nBasisIndicies = _fit->vecBasisIndicies.size();
+			
+			vPinOutBasisIndicies->SliceCount = dimensionsIn * nBasisIndicies;
+			
+
+			for (int iIndicies = 0; iIndicies < nBasisIndicies; ++iIndicies)
 			{
-				vPinOutBasisIndicies->SetValue(iIndicies*dimensionsIn+iDimension,
-										_fit->vecBasisIndicies[iIndicies][iDimension]);
+				for (int iDimension = 0; iDimension < dimensionsIn; ++iDimension)
+				{
+					vPinOutBasisIndicies->SetValue(iIndicies*dimensionsIn+iDimension,
+											_fit->vecBasisIndicies[iIndicies][iDimension]);
+				}
 			}
 		}
 	}

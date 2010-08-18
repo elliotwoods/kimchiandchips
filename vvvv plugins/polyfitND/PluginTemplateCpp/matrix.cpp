@@ -136,6 +136,7 @@ bool Matrix::repackFrom(int is, int js) {
     }
     --i;
   }
+  return true;
 }
 
 
