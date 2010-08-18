@@ -5,6 +5,8 @@
 //
 //
 
+//		vvvv plugin
+
 #pragma once
 
 #include "polyNfit.h"
@@ -31,21 +33,28 @@ namespace PolyFitND {
 			IValueIn^			vPinDimensionsIn;
 			IValueIn^			vPinDimensionsOut;
 
+			IEnumIn^			vPinInBasesType;
+
 			IValueOut^			vPinOutCoefficients;
 			IValueOut^			vPinOutBasisIndicies;
 			IStringOut^			vPinOutMessage;
+			IValueOut^			vPinOutHasSuccess;
 			/////////////////////////////////////
 
 			/////////////////////////////////////
 			// VARIABLES
 			//
+			bool			_hasSuccess;
 			bool			_boolFitCreated;
 			bool			_boolConfigChanged;
 
 			int				_nDataSets;
 			int				_nDataPoints;
+			int				_basisType;
 			int				order;
 			int				dimensionsIn, dimensionsOut;
+
+			String^			_debugMessage;
 			/////////////////////////////////////
 			
 			/////////////////////////////////////
@@ -58,6 +67,7 @@ namespace PolyFitND {
 			// FUNCTIONS
 			void			changeDimensions();
 			void			changeOrder();
+			void			changeBases();
 
 			void			evalPoly();
 			void			returnBasisIndicies();

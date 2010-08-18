@@ -37,7 +37,7 @@
 			Name="Release|Win32"
 			>
 			<DebugSettings
-				Command=""
+				Command="C:\vvvv\vvvv_40beta22\vvvv.exe"
 				WorkingDirectory=""
 				CommandArguments=""
 				Attach="false"

@@ -9,15 +9,17 @@
  */
 
 #include "FitBase.h"
-#include "basisTransformIndicies.h"
+#include "powerBases.h"
 
-class polyNfit : public basisTransformIndicies, public FitBase
+class polyNfit : public powerBases, public FitBase
 {
 public:
-	polyNfit(int order, int indim, int outdim) :
+	polyNfit(int order, int indim, int outdim, int basesShape) :
  		_order(order),
-		FitBase(updateBasisIndicies(indim,order), indim, outdim)
-		{ };
+		FitBase(updateBasisIndicies(indim,order), indim, outdim),
+		powerBases(basesShape)
+		{
+		};
 
 	
 protected:

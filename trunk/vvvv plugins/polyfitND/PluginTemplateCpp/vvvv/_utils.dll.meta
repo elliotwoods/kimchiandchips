@@ -2,53 +2,10 @@ Assembly _Utils, Version=1.0.*, Culture=Invariant Language (Invariant Country):
 	hash=SHA1, flags=PublicKey
 Assembly mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=SHA1, flags=None
-Assembly System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
-	hash=SHA1, flags=None
 Assembly System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
 	hash=SHA1, flags=None
-Class VVVV.Utils.VMath.Tweener: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
-    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Methods:
-    QuadEaseIn(Double): PrivateScope, Public, Static, HideBySig
-    QuadEaseOut(Double): PrivateScope, Public, Static, HideBySig
-    QuadEaseInOut(Double): PrivateScope, Public, Static, HideBySig
-    QuadEaseOutIn(Double): PrivateScope, Public, Static, HideBySig
-    CubicEaseIn(Double): PrivateScope, Public, Static, HideBySig
-    CubicEaseOut(Double): PrivateScope, Public, Static, HideBySig
-    CubicEaseInOut(Double): PrivateScope, Public, Static, HideBySig
-    CubicEaseOutIn(Double): PrivateScope, Public, Static, HideBySig
-    QuarticEaseIn(Double): PrivateScope, Public, Static, HideBySig
-    QuarticEaseOut(Double): PrivateScope, Public, Static, HideBySig
-    QuarticEaseInOut(Double): PrivateScope, Public, Static, HideBySig
-    QuarticEaseOutIn(Double): PrivateScope, Public, Static, HideBySig
-    QuinticEaseIn(Double): PrivateScope, Public, Static, HideBySig
-    QuinticEaseOut(Double): PrivateScope, Public, Static, HideBySig
-    QuinticEaseInOut(Double): PrivateScope, Public, Static, HideBySig
-    QuinticEaseOutIn(Double): PrivateScope, Public, Static, HideBySig
-    SinusoidalEaseIn(Double): PrivateScope, Public, Static, HideBySig
-    SinusoidalEaseOut(Double): PrivateScope, Public, Static, HideBySig
-    SinusoidalEaseInOut(Double): PrivateScope, Public, Static, HideBySig
-    SinusoidalEaseOutIn(Double): PrivateScope, Public, Static, HideBySig
-    ExponentialEaseIn(Double): PrivateScope, Public, Static, HideBySig
-    ExponentialEaseOut(Double): PrivateScope, Public, Static, HideBySig
-    ExponentialEaseInOut(Double): PrivateScope, Public, Static, HideBySig
-    ExponentialEaseOutIn(Double): PrivateScope, Public, Static, HideBySig
-    CircularEaseIn(Double): PrivateScope, Public, Static, HideBySig
-    CircularEaseOut(Double): PrivateScope, Public, Static, HideBySig
-    CircularEaseInOut(Double): PrivateScope, Public, Static, HideBySig
-    CircularEaseOutIn(Double): PrivateScope, Public, Static, HideBySig
-    ElasticEaseIn(Double): PrivateScope, Public, Static, HideBySig
-    ElasticEaseOut(Double): PrivateScope, Public, Static, HideBySig
-    ElasticEaseInOut(Double): PrivateScope, Public, Static, HideBySig
-    ElasticEaseOutIn(Double): PrivateScope, Public, Static, HideBySig
-    BackEaseIn(Double): PrivateScope, Public, Static, HideBySig
-    BackEaseOut(Double): PrivateScope, Public, Static, HideBySig
-    BackEaseInOut(Double): PrivateScope, Public, Static, HideBySig
-    BackEaseOutIn(Double): PrivateScope, Public, Static, HideBySig
-    BounceEaseIn(Double): PrivateScope, Public, Static, HideBySig
-    BounceEaseOut(Double): PrivateScope, Public, Static, HideBySig
-    BounceEaseInOut(Double): PrivateScope, Public, Static, HideBySig
-    BounceEaseOutIn(Double): PrivateScope, Public, Static, HideBySig
+Assembly System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
 Class VVVV.Utils.OSC.OSCPacket: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Properties:
@@ -64,89 +21,33 @@ Class VVVV.Utils.OSC.OSCPacket: AutoLayout, AnsiClass, Class, Public, Abstract, 
     get_Values(): PrivateScope, Public, HideBySig, SpecialName
     Append(Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
     IsBundle(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
-Struct VVVV.Utils.VMath.TMapMode: AutoLayout, AnsiClass, Class, Public, Sealed
-  :System.Enum
-  Fields:
-    Int32 value__ : Public, SpecialName, RTSpecialName
-    VVVV.Utils.VMath.TMapMode Float = 0 : Public, Static, Literal, HasDefault
-    VVVV.Utils.VMath.TMapMode Clamp = 1 : Public, Static, Literal, HasDefault
-    VVVV.Utils.VMath.TMapMode Wrap = 2 : Public, Static, Literal, HasDefault
-Class VVVV.Utils.VMath.VMath: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+Class VVVV.Utils.VColor.VColor: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
-    VVVV.Utils.VMath.Matrix4x4 IdentityMatrix : Public, Static, InitOnly
-    Double CycToRad = 6.28318530717959 : Public, Static, Literal, HasDefault
-    Double RadToCyc = 0.159154943091895 : Public, Static, Literal, HasDefault
-    Double DegToRad = 0.0174532925199433 : Public, Static, Literal, HasDefault
-    Double RadToDeg = 57.2957795130823 : Public, Static, Literal, HasDefault
-    Double DegToCyc = 0.00277777777777778 : Public, Static, Literal, HasDefault
-    Double CycToDeg = 360 : Public, Static, Literal, HasDefault
+    VVVV.Utils.VColor.RGBAColor Red : Public, Static, InitOnly
+    VVVV.Utils.VColor.RGBAColor Green : Public, Static, InitOnly
+    VVVV.Utils.VColor.RGBAColor Blue : Public, Static, InitOnly
+    VVVV.Utils.VColor.RGBAColor White : Public, Static, InitOnly
+    VVVV.Utils.VColor.RGBAColor Black : Public, Static, InitOnly
   Methods:
-    Min(Double, Double): PrivateScope, Public, Static, HideBySig
-    Max(Double, Double): PrivateScope, Public, Static, HideBySig
-    Clamp(Double, Double, Double): PrivateScope, Public, Static, HideBySig
-    Clamp(Int32, Int32, Int32): PrivateScope, Public, Static, HideBySig
-    Clamp(Vector2D, Double, Double): PrivateScope, Public, Static, HideBySig
-    Clamp(Vector3D, Double, Double): PrivateScope, Public, Static, HideBySig
-    Clamp(Vector4D, Double, Double): PrivateScope, Public, Static, HideBySig
-    Clamp(Vector2D, Vector2D, Vector2D): PrivateScope, Public, Static, HideBySig
-    Clamp(Vector3D, Vector3D, Vector3D): PrivateScope, Public, Static, HideBySig
-    Clamp(Vector4D, Vector4D, Vector4D): PrivateScope, Public, Static, HideBySig
-    Abs(Double): PrivateScope, Public, Static, HideBySig
-    Abs(Vector2D): PrivateScope, Public, Static, HideBySig
-    Abs(Vector3D): PrivateScope, Public, Static, HideBySig
-    Abs(Vector4D): PrivateScope, Public, Static, HideBySig
-    Dist(Double, Double): PrivateScope, Public, Static, HideBySig
-    Dist(Vector2D, Vector2D): PrivateScope, Public, Static, HideBySig
-    Dist(Vector3D, Vector3D): PrivateScope, Public, Static, HideBySig
-    Dist(Vector4D, Vector4D): PrivateScope, Public, Static, HideBySig
-    Map(Double, Double, Double, Double, Double, TMapMode): PrivateScope, Public, Static, HideBySig
-    Map(Vector2D, Double, Double, Double, Double, TMapMode): PrivateScope, Public, Static, HideBySig
-    Map(Vector3D, Double, Double, Double, Double, TMapMode): PrivateScope, Public, Static, HideBySig
-    Map(Vector4D, Double, Double, Double, Double, TMapMode): PrivateScope, Public, Static, HideBySig
-    Map(Vector2D, Vector2D, Vector2D, Vector2D, Vector2D, TMapMode): PrivateScope, Public, Static, HideBySig
-    Map(Vector3D, Vector3D, Vector3D, Vector3D, Vector3D, TMapMode): PrivateScope, Public, Static, HideBySig
-    Map(Vector4D, Vector4D, Vector4D, Vector4D, Vector4D, TMapMode): PrivateScope, Public, Static, HideBySig
-    Lerp(Double, Double, Double): PrivateScope, Public, Static, HideBySig
-    Lerp(Vector2D, Vector2D, Double): PrivateScope, Public, Static, HideBySig
-    Lerp(Vector3D, Vector3D, Double): PrivateScope, Public, Static, HideBySig
-    Lerp(Vector4D, Vector4D, Double): PrivateScope, Public, Static, HideBySig
-    Bilerp(Vector2D, Double, Double, Double, Double): PrivateScope, Public, Static, HideBySig
-    Bilerp(Vector2D, Vector2D, Vector2D, Vector2D, Vector2D): PrivateScope, Public, Static, HideBySig
-    Bilerp(Vector2D, Vector3D, Vector3D, Vector3D, Vector3D): PrivateScope, Public, Static, HideBySig
-    Bilerp(Vector2D, Vector4D, Vector4D, Vector4D, Vector4D): PrivateScope, Public, Static, HideBySig
-    Trilerp(Vector3D, Double, Double, Double, Double, Double, Double, Double, Double): PrivateScope, Public, Static, HideBySig
-    Trilerp(Vector3D, Vector2D, Vector2D, Vector2D, Vector2D, Vector2D, Vector2D, Vector2D, Vector2D): PrivateScope, Public, Static, HideBySig
-    Trilerp(Vector3D, Vector3D, Vector3D, Vector3D, Vector3D, Vector3D, Vector3D, Vector3D, Vector3D): PrivateScope, Public, Static, HideBySig
-    Trilerp(Vector3D, Vector4D, Vector4D, Vector4D, Vector4D, Vector4D, Vector4D, Vector4D, Vector4D): PrivateScope, Public, Static, HideBySig
-    SolveCubic(Double, Double, Double, Double, Double): PrivateScope, Public, Static, HideBySig
-    Slerp(Vector4D, Vector4D, Double): PrivateScope, Public, Static, HideBySig
-    Slerp(Vector3D, Vector3D, Double): PrivateScope, Public, Static, HideBySig
-    Cartesian(Double, Double, Double): PrivateScope, Public, Static, HideBySig
-    CartesianVVVV(Double, Double, Double): PrivateScope, Public, Static, HideBySig
-    Polar(Double, Double, Double): PrivateScope, Public, Static, HideBySig
-    Polar(Vector3D): PrivateScope, Public, Static, HideBySig
-    Translate(Double, Double, Double): PrivateScope, Public, Static, HideBySig
-    Translate(Vector3D): PrivateScope, Public, Static, HideBySig
-    Scale(Double, Double, Double): PrivateScope, Public, Static, HideBySig
-    Scale(Vector3D): PrivateScope, Public, Static, HideBySig
-    RotateX(Double): PrivateScope, Public, Static, HideBySig
-    RotateY(Double): PrivateScope, Public, Static, HideBySig
-    RotateZ(Double): PrivateScope, Public, Static, HideBySig
-    Rotate(Double, Double, Double): PrivateScope, Public, Static, HideBySig
-    Rotate(Vector3D): PrivateScope, Public, Static, HideBySig
-    Transform(Double, Double, Double, Double, Double, Double, Double, Double, Double): PrivateScope, Public, Static, HideBySig
-    Transform(Vector3D, Vector3D, Vector3D): PrivateScope, Public, Static, HideBySig
-    Transpose(Matrix4x4): PrivateScope, Public, Static, HideBySig
-    Inverse(Matrix4x4): PrivateScope, Public, Static, HideBySig
-    Det(Matrix4x4): PrivateScope, Public, Static, HideBySig
-    BilerpMatrix(Vector4D, Vector4D, Vector4D, Vector4D): PrivateScope, Public, Static, HideBySig
-Class VVVV.Utils.OSC.OSCReceiver: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
-    Void .ctor(Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Complement(RGBAColor): PrivateScope, Public, Static, HideBySig
+    Offset(RGBAColor, Double): PrivateScope, Public, Static, HideBySig
+    Invert(Color): PrivateScope, Public, Static, HideBySig
+    LerpRGBA(RGBAColor, RGBAColor, Double): PrivateScope, Public, Static, HideBySig
+    BilerpRGBA(Double, Double, RGBAColor, RGBAColor, RGBAColor, RGBAColor): PrivateScope, Public, Static, HideBySig
+    Brightness(RGBAColor): PrivateScope, Public, Static, HideBySig
+    HSLAToColor(Double, Double, Double, Double): PrivateScope, Public, Static, HideBySig
+    FromHSVA(Double, Double, Double, Double): PrivateScope, Public, Static, HideBySig
+    HSVtoRGB(Double, Double, Double, Double&(Out), Double&(Out), Double&(Out)): PrivateScope, Public, Static, HideBySig
+    RGBtoHSV(Double, Double, Double, Double&(Out), Double&(Out), Double&(Out)): PrivateScope, Public, Static, HideBySig
+    HSLtoRGB(Double, Double, Double, Double&(Out), Double&(Out), Double&(Out)): PrivateScope, Public, Static, HideBySig
+    RGBtoHSL(Double, Double, Double, Double&(Out), Double&(Out), Double&(Out)): PrivateScope, Public, Static, HideBySig
+Class VVVV.Utils.OSC.OSCTransmitter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
     Connect(): PrivateScope, Public, HideBySig
     Close(): PrivateScope, Public, HideBySig
-    Receive(): PrivateScope, Public, HideBySig
+    Send(OSCPacket): PrivateScope, Public, HideBySig
 Class VVVV.Utils.OSC.OSCBundle: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :VVVV.Utils.OSC.OSCPacket
     Void .ctor(Int64): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -194,134 +95,6 @@ Struct VVVV.Utils.VMath.Vector2D: AutoLayout, AnsiClass, Class, Public, Sequenti
     op_LessThan(Vector2D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
     op_GreaterThanOrEqual(Vector2D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
     op_LessThanOrEqual(Vector2D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
-Struct VVVV.Utils.VMath.Vector3D: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
-  :System.ValueType
-    Void .ctor(VVVV.Utils.VMath.Vector3D): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-    Void .ctor(VVVV.Utils.VMath.Vector2D): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-    Void .ctor(VVVV.Utils.VMath.Vector2D, Double): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-    Void .ctor(Double, Double, Double): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-    Void .ctor(Double): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Fields:
-    Double x : Public
-    Double y : Public
-    Double z : Public
-  Properties:
-    VVVV.Utils.VMath.Vector2D xy 'get set' : 
-    VVVV.Utils.VMath.Vector2D xz 'get set' : 
-    VVVV.Utils.VMath.Vector2D yz 'get set' : 
-    Double Item [Int32] 'get set' : 
-  Methods:
-    get_xy(): PrivateScope, Public, HideBySig, SpecialName
-    set_xy(Vector2D): PrivateScope, Public, HideBySig, SpecialName
-    get_xz(): PrivateScope, Public, HideBySig, SpecialName
-    set_xz(Vector2D): PrivateScope, Public, HideBySig, SpecialName
-    get_yz(): PrivateScope, Public, HideBySig, SpecialName
-    set_yz(Vector2D): PrivateScope, Public, HideBySig, SpecialName
-    get_Item(Int32): PrivateScope, Public, HideBySig, SpecialName
-    set_Item(Int32, Double): PrivateScope, Public, HideBySig, SpecialName
-    op_UnaryPlus(Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_UnaryNegation(Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_LogicalNot(Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_OnesComplement(Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Addition(Vector3D, Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Addition(Vector3D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Addition(Double, Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Subtraction(Vector3D, Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Subtraction(Vector3D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Subtraction(Double, Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Multiply(Vector3D, Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Multiply(Vector3D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Multiply(Double, Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Division(Vector3D, Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Division(Vector3D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Division(Double, Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Modulus(Vector3D, Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Modulus(Vector3D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Modulus(Double, Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_BitwiseAnd(Vector3D, Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_BitwiseOr(Vector3D, Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_GreaterThan(Vector3D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_LessThan(Vector3D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_GreaterThanOrEqual(Vector3D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_LessThanOrEqual(Vector3D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
-Struct VVVV.Utils.VColor.RGBAColor: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
-  :System.ValueType
-    Void .ctor(Double, Double, Double, Double): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Fields:
-    Double R : Public
-    Double G : Public
-    Double B : Public
-    Double A : Public
-  Properties:
-    System.Drawing.Color Color 'get set' : 
-  Methods:
-    get_Color(): PrivateScope, Public, HideBySig, SpecialName
-    set_Color(Color): PrivateScope, Public, HideBySig, SpecialName
-    ToString(): PrivateScope, Public, Virtual, HideBySig
-    op_Implicit(RGBAColor): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Implicit(Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Implicit(Color): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Explicit(RGBAColor): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_UnaryPlus(RGBAColor): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_UnaryNegation(RGBAColor): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_LogicalNot(RGBAColor): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_OnesComplement(RGBAColor): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Addition(RGBAColor, RGBAColor): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Subtraction(RGBAColor, RGBAColor): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Multiply(RGBAColor, Double): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Multiply(Double, RGBAColor): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Multiply(RGBAColor, RGBAColor): PrivateScope, Public, Static, HideBySig, SpecialName
-Struct VVVV.Utils.VMath.Vector4D: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
-  :System.ValueType
-    Void .ctor(VVVV.Utils.VMath.Vector4D): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-    Void .ctor(VVVV.Utils.VMath.Vector3D): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-    Void .ctor(VVVV.Utils.VMath.Vector3D, Double): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-    Void .ctor(VVVV.Utils.VMath.Vector2D): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-    Void .ctor(VVVV.Utils.VMath.Vector2D, VVVV.Utils.VMath.Vector2D): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-    Void .ctor(VVVV.Utils.VMath.Vector2D, Double, Double): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-    Void .ctor(Double, Double, Double, Double): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-    Void .ctor(Double): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Fields:
-    Double x : Public
-    Double y : Public
-    Double z : Public
-    Double w : Public
-  Properties:
-    VVVV.Utils.VMath.Vector2D xy 'get set' : 
-    VVVV.Utils.VMath.Vector3D xyz 'get set' : 
-    Double Item [Int32] 'get set' : 
-  Methods:
-    get_xy(): PrivateScope, Public, HideBySig, SpecialName
-    set_xy(Vector2D): PrivateScope, Public, HideBySig, SpecialName
-    get_xyz(): PrivateScope, Public, HideBySig, SpecialName
-    set_xyz(Vector3D): PrivateScope, Public, HideBySig, SpecialName
-    get_Item(Int32): PrivateScope, Public, HideBySig, SpecialName
-    set_Item(Int32, Double): PrivateScope, Public, HideBySig, SpecialName
-    op_UnaryPlus(Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_UnaryNegation(Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_LogicalNot(Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_OnesComplement(Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Addition(Vector4D, Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Addition(Vector4D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Addition(Double, Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Subtraction(Vector4D, Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Subtraction(Vector4D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Subtraction(Double, Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Multiply(Vector4D, Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Multiply(Vector4D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Multiply(Double, Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Division(Vector4D, Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Division(Vector4D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Division(Double, Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Modulus(Vector4D, Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Modulus(Vector4D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_Modulus(Double, Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_BitwiseAnd(Vector4D, Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_BitwiseOr(Vector4D, Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_GreaterThan(Vector4D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_LessThan(Vector4D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_GreaterThanOrEqual(Vector4D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
-    op_LessThanOrEqual(Vector4D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
 Struct VVVV.Utils.VMath.Matrix4x4: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
     Void .ctor(VVVV.Utils.VMath.Matrix4x4): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -396,33 +169,270 @@ Struct VVVV.Utils.VMath.Matrix4x4: AutoLayout, AnsiClass, Class, Public, Sequent
     op_Division(Matrix4x4, Double): PrivateScope, Public, Static, HideBySig, SpecialName
     op_Division(Double, Matrix4x4): PrivateScope, Public, Static, HideBySig, SpecialName
     ToString(): PrivateScope, Public, Virtual, HideBySig
-Class VVVV.Utils.VColor.VColor: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
-    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Struct VVVV.Utils.VMath.Vector3D: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(VVVV.Utils.VMath.Vector3D): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(VVVV.Utils.VMath.Vector2D): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(VVVV.Utils.VMath.Vector2D, Double): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Double, Double, Double): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Double): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
-    VVVV.Utils.VColor.RGBAColor Red : Public, Static, InitOnly
-    VVVV.Utils.VColor.RGBAColor Green : Public, Static, InitOnly
-    VVVV.Utils.VColor.RGBAColor Blue : Public, Static, InitOnly
-    VVVV.Utils.VColor.RGBAColor White : Public, Static, InitOnly
-    VVVV.Utils.VColor.RGBAColor Black : Public, Static, InitOnly
+    Double x : Public
+    Double y : Public
+    Double z : Public
+  Properties:
+    VVVV.Utils.VMath.Vector2D xy 'get set' : 
+    VVVV.Utils.VMath.Vector2D xz 'get set' : 
+    VVVV.Utils.VMath.Vector2D yz 'get set' : 
+    Double Item [Int32] 'get set' : 
   Methods:
-    Complement(RGBAColor): PrivateScope, Public, Static, HideBySig
-    Offset(RGBAColor, Double): PrivateScope, Public, Static, HideBySig
-    Invert(Color): PrivateScope, Public, Static, HideBySig
-    LerpRGBA(RGBAColor, RGBAColor, Double): PrivateScope, Public, Static, HideBySig
-    BilerpRGBA(Double, Double, RGBAColor, RGBAColor, RGBAColor, RGBAColor): PrivateScope, Public, Static, HideBySig
-    Brightness(RGBAColor): PrivateScope, Public, Static, HideBySig
-    HSLAToColor(Double, Double, Double, Double): PrivateScope, Public, Static, HideBySig
-    FromHSVA(Double, Double, Double, Double): PrivateScope, Public, Static, HideBySig
-    HSVtoRGB(Double, Double, Double, Double&(Out), Double&(Out), Double&(Out)): PrivateScope, Public, Static, HideBySig
-    RGBtoHSV(Double, Double, Double, Double&(Out), Double&(Out), Double&(Out)): PrivateScope, Public, Static, HideBySig
-    HSLtoRGB(Double, Double, Double, Double&(Out), Double&(Out), Double&(Out)): PrivateScope, Public, Static, HideBySig
-    RGBtoHSL(Double, Double, Double, Double&(Out), Double&(Out), Double&(Out)): PrivateScope, Public, Static, HideBySig
-Class VVVV.Utils.OSC.OSCTransmitter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
-    Void .ctor(System.String, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    get_xy(): PrivateScope, Public, HideBySig, SpecialName
+    set_xy(Vector2D): PrivateScope, Public, HideBySig, SpecialName
+    get_xz(): PrivateScope, Public, HideBySig, SpecialName
+    set_xz(Vector2D): PrivateScope, Public, HideBySig, SpecialName
+    get_yz(): PrivateScope, Public, HideBySig, SpecialName
+    set_yz(Vector2D): PrivateScope, Public, HideBySig, SpecialName
+    get_Item(Int32): PrivateScope, Public, HideBySig, SpecialName
+    set_Item(Int32, Double): PrivateScope, Public, HideBySig, SpecialName
+    op_UnaryPlus(Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_UnaryNegation(Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_LogicalNot(Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_OnesComplement(Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Addition(Vector3D, Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Addition(Vector3D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Addition(Double, Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Subtraction(Vector3D, Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Subtraction(Vector3D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Subtraction(Double, Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Multiply(Vector3D, Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Multiply(Vector3D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Multiply(Double, Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Division(Vector3D, Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Division(Vector3D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Division(Double, Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Modulus(Vector3D, Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Modulus(Vector3D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Modulus(Double, Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_BitwiseAnd(Vector3D, Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_BitwiseOr(Vector3D, Vector3D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_GreaterThan(Vector3D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_LessThan(Vector3D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_GreaterThanOrEqual(Vector3D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_LessThanOrEqual(Vector3D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
+Struct VVVV.Utils.VMath.Vector4D: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(VVVV.Utils.VMath.Vector4D): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(VVVV.Utils.VMath.Vector3D): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(VVVV.Utils.VMath.Vector3D, Double): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(VVVV.Utils.VMath.Vector2D): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(VVVV.Utils.VMath.Vector2D, VVVV.Utils.VMath.Vector2D): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(VVVV.Utils.VMath.Vector2D, Double, Double): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Double, Double, Double, Double): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Double): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double x : Public
+    Double y : Public
+    Double z : Public
+    Double w : Public
+  Properties:
+    VVVV.Utils.VMath.Vector2D xy 'get set' : 
+    VVVV.Utils.VMath.Vector3D xyz 'get set' : 
+    Double Item [Int32] 'get set' : 
+  Methods:
+    get_xy(): PrivateScope, Public, HideBySig, SpecialName
+    set_xy(Vector2D): PrivateScope, Public, HideBySig, SpecialName
+    get_xyz(): PrivateScope, Public, HideBySig, SpecialName
+    set_xyz(Vector3D): PrivateScope, Public, HideBySig, SpecialName
+    get_Item(Int32): PrivateScope, Public, HideBySig, SpecialName
+    set_Item(Int32, Double): PrivateScope, Public, HideBySig, SpecialName
+    op_UnaryPlus(Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_UnaryNegation(Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_LogicalNot(Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_OnesComplement(Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Addition(Vector4D, Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Addition(Vector4D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Addition(Double, Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Subtraction(Vector4D, Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Subtraction(Vector4D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Subtraction(Double, Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Multiply(Vector4D, Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Multiply(Vector4D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Multiply(Double, Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Division(Vector4D, Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Division(Vector4D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Division(Double, Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Modulus(Vector4D, Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Modulus(Vector4D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Modulus(Double, Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_BitwiseAnd(Vector4D, Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_BitwiseOr(Vector4D, Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_GreaterThan(Vector4D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_LessThan(Vector4D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_GreaterThanOrEqual(Vector4D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_LessThanOrEqual(Vector4D, Double): PrivateScope, Public, Static, HideBySig, SpecialName
+Class VVVV.Utils.OSC.OSCReceiver: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
     Connect(): PrivateScope, Public, HideBySig
     Close(): PrivateScope, Public, HideBySig
-    Send(OSCPacket): PrivateScope, Public, HideBySig
+    Receive(): PrivateScope, Public, HideBySig
+Struct VVVV.Utils.VMath.TMapMode: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    VVVV.Utils.VMath.TMapMode Float = 0 : Public, Static, Literal, HasDefault
+    VVVV.Utils.VMath.TMapMode Clamp = 1 : Public, Static, Literal, HasDefault
+    VVVV.Utils.VMath.TMapMode Wrap = 2 : Public, Static, Literal, HasDefault
+Class VVVV.Utils.VMath.VMath: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    VVVV.Utils.VMath.Matrix4x4 IdentityMatrix : Public, Static, InitOnly
+    Double CycToRad = 6.28318530717959 : Public, Static, Literal, HasDefault
+    Double RadToCyc = 0.159154943091895 : Public, Static, Literal, HasDefault
+    Double DegToRad = 0.0174532925199433 : Public, Static, Literal, HasDefault
+    Double RadToDeg = 57.2957795130823 : Public, Static, Literal, HasDefault
+    Double DegToCyc = 0.00277777777777778 : Public, Static, Literal, HasDefault
+    Double CycToDeg = 360 : Public, Static, Literal, HasDefault
+  Methods:
+    Min(Double, Double): PrivateScope, Public, Static, HideBySig
+    Max(Double, Double): PrivateScope, Public, Static, HideBySig
+    Zmod(Int32, Int32): PrivateScope, Public, Static, HideBySig
+    Clamp(Double, Double, Double): PrivateScope, Public, Static, HideBySig
+    Clamp(Int32, Int32, Int32): PrivateScope, Public, Static, HideBySig
+    Clamp(Vector2D, Double, Double): PrivateScope, Public, Static, HideBySig
+    Clamp(Vector3D, Double, Double): PrivateScope, Public, Static, HideBySig
+    Clamp(Vector4D, Double, Double): PrivateScope, Public, Static, HideBySig
+    Clamp(Vector2D, Vector2D, Vector2D): PrivateScope, Public, Static, HideBySig
+    Clamp(Vector3D, Vector3D, Vector3D): PrivateScope, Public, Static, HideBySig
+    Clamp(Vector4D, Vector4D, Vector4D): PrivateScope, Public, Static, HideBySig
+    Abs(Double): PrivateScope, Public, Static, HideBySig
+    Abs(Vector2D): PrivateScope, Public, Static, HideBySig
+    Abs(Vector3D): PrivateScope, Public, Static, HideBySig
+    Abs(Vector4D): PrivateScope, Public, Static, HideBySig
+    Dist(Double, Double): PrivateScope, Public, Static, HideBySig
+    Dist(Vector2D, Vector2D): PrivateScope, Public, Static, HideBySig
+    Dist(Vector3D, Vector3D): PrivateScope, Public, Static, HideBySig
+    Dist(Vector4D, Vector4D): PrivateScope, Public, Static, HideBySig
+    Map(Double, Double, Double, Double, Double, TMapMode): PrivateScope, Public, Static, HideBySig
+    Map(Vector2D, Double, Double, Double, Double, TMapMode): PrivateScope, Public, Static, HideBySig
+    Map(Vector3D, Double, Double, Double, Double, TMapMode): PrivateScope, Public, Static, HideBySig
+    Map(Vector4D, Double, Double, Double, Double, TMapMode): PrivateScope, Public, Static, HideBySig
+    Map(Vector2D, Vector2D, Vector2D, Vector2D, Vector2D, TMapMode): PrivateScope, Public, Static, HideBySig
+    Map(Vector3D, Vector3D, Vector3D, Vector3D, Vector3D, TMapMode): PrivateScope, Public, Static, HideBySig
+    Map(Vector4D, Vector4D, Vector4D, Vector4D, Vector4D, TMapMode): PrivateScope, Public, Static, HideBySig
+    Lerp(Double, Double, Double): PrivateScope, Public, Static, HideBySig
+    Lerp(Vector2D, Vector2D, Double): PrivateScope, Public, Static, HideBySig
+    Lerp(Vector3D, Vector3D, Double): PrivateScope, Public, Static, HideBySig
+    Lerp(Vector4D, Vector4D, Double): PrivateScope, Public, Static, HideBySig
+    Bilerp(Vector2D, Double, Double, Double, Double): PrivateScope, Public, Static, HideBySig
+    Bilerp(Vector2D, Vector2D, Vector2D, Vector2D, Vector2D): PrivateScope, Public, Static, HideBySig
+    Bilerp(Vector2D, Vector3D, Vector3D, Vector3D, Vector3D): PrivateScope, Public, Static, HideBySig
+    Bilerp(Vector2D, Vector4D, Vector4D, Vector4D, Vector4D): PrivateScope, Public, Static, HideBySig
+    Trilerp(Vector3D, Double, Double, Double, Double, Double, Double, Double, Double): PrivateScope, Public, Static, HideBySig
+    Trilerp(Vector3D, Vector2D, Vector2D, Vector2D, Vector2D, Vector2D, Vector2D, Vector2D, Vector2D): PrivateScope, Public, Static, HideBySig
+    Trilerp(Vector3D, Vector3D, Vector3D, Vector3D, Vector3D, Vector3D, Vector3D, Vector3D, Vector3D): PrivateScope, Public, Static, HideBySig
+    Trilerp(Vector3D, Vector4D, Vector4D, Vector4D, Vector4D, Vector4D, Vector4D, Vector4D, Vector4D): PrivateScope, Public, Static, HideBySig
+    SolveCubic(Double, Double, Double, Double, Double): PrivateScope, Public, Static, HideBySig
+    Slerp(Vector4D, Vector4D, Double): PrivateScope, Public, Static, HideBySig
+    Slerp(Vector3D, Vector3D, Double): PrivateScope, Public, Static, HideBySig
+    Cartesian(Double, Double, Double): PrivateScope, Public, Static, HideBySig
+    CartesianVVVV(Double, Double, Double): PrivateScope, Public, Static, HideBySig
+    Polar(Double, Double, Double): PrivateScope, Public, Static, HideBySig
+    Polar(Vector3D): PrivateScope, Public, Static, HideBySig
+    Translate(Double, Double, Double): PrivateScope, Public, Static, HideBySig
+    Translate(Vector3D): PrivateScope, Public, Static, HideBySig
+    Scale(Double, Double, Double): PrivateScope, Public, Static, HideBySig
+    Scale(Vector3D): PrivateScope, Public, Static, HideBySig
+    RotateX(Double): PrivateScope, Public, Static, HideBySig
+    RotateY(Double): PrivateScope, Public, Static, HideBySig
+    RotateZ(Double): PrivateScope, Public, Static, HideBySig
+    Rotate(Double, Double, Double): PrivateScope, Public, Static, HideBySig
+    Rotate(Vector3D): PrivateScope, Public, Static, HideBySig
+    Transform(Double, Double, Double, Double, Double, Double, Double, Double, Double): PrivateScope, Public, Static, HideBySig
+    Transform(Vector3D, Vector3D, Vector3D): PrivateScope, Public, Static, HideBySig
+    Transpose(Matrix4x4): PrivateScope, Public, Static, HideBySig
+    Inverse(Matrix4x4): PrivateScope, Public, Static, HideBySig
+    Det(Matrix4x4): PrivateScope, Public, Static, HideBySig
+    BilerpMatrix(Vector4D, Vector4D, Vector4D, Vector4D): PrivateScope, Public, Static, HideBySig
+Struct VVVV.Utils.VColor.RGBAColor: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Double, Double, Double, Double): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double R : Public
+    Double G : Public
+    Double B : Public
+    Double A : Public
+  Properties:
+    System.Drawing.Color Color 'get set' : 
+  Methods:
+    get_Color(): PrivateScope, Public, HideBySig, SpecialName
+    set_Color(Color): PrivateScope, Public, HideBySig, SpecialName
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+    op_Implicit(RGBAColor): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Implicit(Vector4D): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Implicit(Color): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Explicit(RGBAColor): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_UnaryPlus(RGBAColor): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_UnaryNegation(RGBAColor): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_LogicalNot(RGBAColor): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_OnesComplement(RGBAColor): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Addition(RGBAColor, RGBAColor): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Subtraction(RGBAColor, RGBAColor): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Multiply(RGBAColor, Double): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Multiply(Double, RGBAColor): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Multiply(RGBAColor, RGBAColor): PrivateScope, Public, Static, HideBySig, SpecialName
+Class VVVV.Utils.OSC.OSCMessage: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :VVVV.Utils.OSC.OSCPacket
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Object): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Unpack(Byte[], Int32&): PrivateScope, Public, Static, HideBySig
+    Append(Object): PrivateScope, Public, Virtual, HideBySig
+    IsBundle(): PrivateScope, Public, Virtual, HideBySig
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+Class VVVV.Utils.VMath.Tweener: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    QuadEaseIn(Double): PrivateScope, Public, Static, HideBySig
+    QuadEaseOut(Double): PrivateScope, Public, Static, HideBySig
+    QuadEaseInOut(Double): PrivateScope, Public, Static, HideBySig
+    QuadEaseOutIn(Double): PrivateScope, Public, Static, HideBySig
+    CubicEaseIn(Double): PrivateScope, Public, Static, HideBySig
+    CubicEaseOut(Double): PrivateScope, Public, Static, HideBySig
+    CubicEaseInOut(Double): PrivateScope, Public, Static, HideBySig
+    CubicEaseOutIn(Double): PrivateScope, Public, Static, HideBySig
+    QuarticEaseIn(Double): PrivateScope, Public, Static, HideBySig
+    QuarticEaseOut(Double): PrivateScope, Public, Static, HideBySig
+    QuarticEaseInOut(Double): PrivateScope, Public, Static, HideBySig
+    QuarticEaseOutIn(Double): PrivateScope, Public, Static, HideBySig
+    QuinticEaseIn(Double): PrivateScope, Public, Static, HideBySig
+    QuinticEaseOut(Double): PrivateScope, Public, Static, HideBySig
+    QuinticEaseInOut(Double): PrivateScope, Public, Static, HideBySig
+    QuinticEaseOutIn(Double): PrivateScope, Public, Static, HideBySig
+    SinusoidalEaseIn(Double): PrivateScope, Public, Static, HideBySig
+    SinusoidalEaseOut(Double): PrivateScope, Public, Static, HideBySig
+    SinusoidalEaseInOut(Double): PrivateScope, Public, Static, HideBySig
+    SinusoidalEaseOutIn(Double): PrivateScope, Public, Static, HideBySig
+    ExponentialEaseIn(Double): PrivateScope, Public, Static, HideBySig
+    ExponentialEaseOut(Double): PrivateScope, Public, Static, HideBySig
+    ExponentialEaseInOut(Double): PrivateScope, Public, Static, HideBySig
+    ExponentialEaseOutIn(Double): PrivateScope, Public, Static, HideBySig
+    CircularEaseIn(Double): PrivateScope, Public, Static, HideBySig
+    CircularEaseOut(Double): PrivateScope, Public, Static, HideBySig
+    CircularEaseInOut(Double): PrivateScope, Public, Static, HideBySig
+    CircularEaseOutIn(Double): PrivateScope, Public, Static, HideBySig
+    ElasticEaseIn(Double): PrivateScope, Public, Static, HideBySig
+    ElasticEaseOut(Double): PrivateScope, Public, Static, HideBySig
+    ElasticEaseInOut(Double): PrivateScope, Public, Static, HideBySig
+    ElasticEaseOutIn(Double): PrivateScope, Public, Static, HideBySig
+    BackEaseIn(Double): PrivateScope, Public, Static, HideBySig
+    BackEaseOut(Double): PrivateScope, Public, Static, HideBySig
+    BackEaseInOut(Double): PrivateScope, Public, Static, HideBySig
+    BackEaseOutIn(Double): PrivateScope, Public, Static, HideBySig
+    BounceEaseIn(Double): PrivateScope, Public, Static, HideBySig
+    BounceEaseOut(Double): PrivateScope, Public, Static, HideBySig
+    BounceEaseInOut(Double): PrivateScope, Public, Static, HideBySig
+    BounceEaseOutIn(Double): PrivateScope, Public, Static, HideBySig
 Struct VVVV.Utils.SharedMemory.SharedMemoryCreationFlag: AutoLayout, AnsiClass, Class, Public, Sealed
   :System.Enum
   Fields:
@@ -446,12 +456,3 @@ Class VVVV.Utils.SharedMemory.Segment: AutoLayout, AnsiClass, Class, Public, Sea
     SetData(Object): PrivateScope, Public, HideBySig
     Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
     CopyByteArrayToSharedMemory(IntPtr, Int32): PrivateScope, Public, HideBySig
-Class VVVV.Utils.OSC.OSCMessage: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
-  :VVVV.Utils.OSC.OSCPacket
-    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-    Void .ctor(System.String, System.Object): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Methods:
-    Unpack(Byte[], Int32&): PrivateScope, Public, Static, HideBySig
-    Append(Object): PrivateScope, Public, Virtual, HideBySig
-    IsBundle(): PrivateScope, Public, Virtual, HideBySig
-    ToString(): PrivateScope, Public, Virtual, HideBySig

@@ -88,7 +88,12 @@ namespace PolyFitND
 
 		int nDataPoints = vPinInInput->SliceCount / dimensionsIn;
 		int nBases = vPinInBasisIndicies->SliceCount / dimensionsIn;
-		int nDataSets = vPinInCoefficients->SliceCount / (nBases * dimensionsOut);
+		int nDataSets;
+		
+		if (nBases*dimensionsOut!=0)
+			nDataSets = vPinInCoefficients->SliceCount / (nBases * dimensionsOut);
+		else
+			nDataSets = 0;
 
 		//temporary variables per basis inner loop
 		double dataIn;
