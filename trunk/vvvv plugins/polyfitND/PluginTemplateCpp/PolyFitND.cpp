@@ -35,7 +35,6 @@ namespace PolyFitND
 
 	void PolyFitND::SetPluginHost(IPluginHost ^ Host) 
 	{
-		Host->Log(TLogType::Debug,"Second test");
 		this->FHost = Host;
 
 		array<String ^> ^ arr = gcnew array<String ^>(1);
@@ -52,9 +51,11 @@ namespace PolyFitND
 		vPinDimensionsIn->SetSubType(1,MAX_DIMENSIONS,1,3,false,false,true);
 		vPinDimensionsOut->SetSubType(1,MAX_DIMENSIONS,1,3,false,false,true);
 
-		array<String ^> ^ strBasesNames = gcnew array<String ^>(2);
+		array<String ^> ^ strBasesNames = gcnew array<String ^>(4);
 		strBasesNames[0] = "power series - triangular";
 		strBasesNames[1] = "power series - square";
+		strBasesNames[2] = "power series - square minus highest";
+		strBasesNames[3] = "Pade approximate - first order test";
 
 
 		FHost->UpdateEnum("PolyFitND bases types", "power series - triangular", strBasesNames);
@@ -109,10 +110,13 @@ namespace PolyFitND
 
 		if (_boolConfigChanged || vPinInX->PinIsChanged || vPinInXDash->PinIsChanged)
 		{
+			_hasSuccess=false;
 			_boolConfigChanged=false;
 			evalPoly();
 			returnBasisIndicies();
 		}
+
+		vPinOutHasSuccess->SetValue(0, (_hasSuccess ? 1 : 0));
 
 
 	}	
@@ -162,7 +166,7 @@ namespace PolyFitND
 		// FILL VECTORS
 		// --------------
 
-		_nDataPoints = vPinInX->SliceCount  / dimensionsIn;
+		_nDataPoints = min(vPinInX->SliceCount  / dimensionsIn, vPinInXDash->SliceCount / dimensionsOut);
 		if (_nDataPoints>0)
 			_nDataSets = max(vPinInXDash->SliceCount / (_nDataPoints*dimensionsOut), 1);
 		else
@@ -211,10 +215,14 @@ namespace PolyFitND
 			vecSetDataOut.push_back(vecDataOut);
 
 		}
+
+		// ----------------------------
+		// RUN FIT
+		// ----------------------------
 		
 		try {
 			if (_nDataSets>0 && _nDataPoints>0)
-				_fit->init(vecSetDataIn[0], vecSetDataIn[0], _nDataPoints);
+				_fit->init(vecSetDataIn[0], vecSetDataOut[0], _nDataPoints);
 		}
 
 		catch(char * message)
@@ -226,7 +234,6 @@ namespace PolyFitND
 		
 		//output debug info
 		vPinOutMessage->SetString(0, _debugMessage);
-		vPinOutHasSuccess->SetValue(0, (_hasSuccess ? 1 : 0));
 
 		// ----------------------------
 		// RETURN COEFFICIENTS
@@ -260,7 +267,7 @@ namespace PolyFitND
 				for (int iBasis=0; iBasis < nBases; ++iBasis)
 					vOutPointer[iDataSet * nCoefficients +
 								iBasis * dimensionsOut +
-								iDimensionOut] = coefficients[iDimensionOut*nBases + iBasis];
+								iDimensionOut] = _hasSuccess * coefficients[iDimensionOut*nBases + iBasis];
 			}
 		}
 	}
