@@ -272,14 +272,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\PolyFitND.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\PolyValND.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\Stdafx.cpp"
 				>
 				<FileConfiguration
@@ -313,14 +305,6 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath=".\PolyFitND.h"
-				>
-			</File>
-			<File
-				RelativePath=".\PolyValND.h"
-				>
-			</File>
 			<File
 				RelativePath=".\resource.h"
 				>
@@ -380,12 +364,40 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="Node"
+			>
+			<File
+				RelativePath=".\Pade.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Pade.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PolyFitND.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PolyFitND.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PolyValND.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PolyValND.h"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\ClassDiagram1.cd"
 			>
 		</File>
 		<File
-			RelativePath=".\ReadMe.txt"
+			RelativePath="..\..\_PluginInterfaces\trunk\PluginInterface1.cs"
 			>
 		</File>
 	</Files>

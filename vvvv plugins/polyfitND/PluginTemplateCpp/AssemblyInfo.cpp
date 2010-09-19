@@ -14,9 +14,9 @@ using namespace System::Security::Permissions;
 [assembly:AssemblyTitleAttribute("v4PolyFitND")];
 [assembly:AssemblyDescriptionAttribute("")];
 [assembly:AssemblyConfigurationAttribute("")];
-[assembly:AssemblyCompanyAttribute("vux")];
+[assembly:AssemblyCompanyAttribute("sugokuGENKI")];
 [assembly:AssemblyProductAttribute("v4PolyFitND")];
-[assembly:AssemblyCopyrightAttribute("Copyright (c) vux 2008")];
+[assembly:AssemblyCopyrightAttribute("Copyright (c) sugokuGENKI 2010")];
 [assembly:AssemblyTrademarkAttribute("")];
 [assembly:AssemblyCultureAttribute("")];
 

@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv40beta21.dtd" >
-   <PATCH nodename="C:\jobs\plugins\polyfitND\polytest 1D.v4p">
-   <BOUNDS height="6000" left="-16095" top="5940" type="Window" width="9000">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv40beta22.dtd" >
+   <PATCH nodename="C:\jobs\kimchi and chips\plugins\vvvv plugins\polyfitND\polytest 1D.v4p">
+   <BOUNDS height="6000" left="4935" top="3405" type="Window" width="9000">
    </BOUNDS>
    <NODE componentmode="Hidden" id="7" nodename="Expr (Value)">
    <BOUNDS height="0" left="2220" top="4005" type="Node" width="0">
@@ -12,30 +12,6 @@
    <PIN pinname="Output" visible="1">
    </PIN>
    <PIN pinname="x" visible="1">
-   </PIN>
-   </NODE>
-   <NODE componentmode="Hidden" id="6" nodename=":PLUGINS:\polyfitND.dll|PolyFitND.TemplateCpp">
-   <BOUNDS height="0" left="1590" top="4785" type="Node" width="0">
-   </BOUNDS>
-   <BOUNDS height="0" left="1590" top="4785" type="Box" width="0">
-   </BOUNDS>
-   <BOUNDS height="0" left="3840" top="-1815" type="Window" width="0">
-   </BOUNDS>
-   <PIN pinname="Order" slicecount="1" values="2">
-   </PIN>
-   <PIN pinname="Input Dimensions" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="Output Dimensions" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="x&apos; " visible="1">
-   </PIN>
-   <PIN pinname="x " visible="1">
-   </PIN>
-   <PIN pinname="Coefficients" visible="1">
-   </PIN>
-   <PIN pinname="Bases indicies" visible="1">
-   </PIN>
-   <PIN pinname="x&apos; XY" visible="1">
    </PIN>
    </NODE>
    <NODE componentmode="Hidden" id="5" nodename="LinearSpread (Spreads)">
@@ -62,8 +38,6 @@
    <PIN pinname="Descriptive Name" slicecount="1" values="coefficients">
    </PIN>
    </NODE>
-   <LINK dstnodeid="4" dstpinname="Y Input Value" srcnodeid="6" srcpinname="Coefficients">
-   </LINK>
    <NODE componentmode="InABox" id="3" nodename="IOBox (Value Advanced)">
    <BOUNDS height="0" left="1425" top="6015" type="Node" width="0">
    </BOUNDS>
@@ -78,16 +52,14 @@
    <PIN pinname="Descriptive Name" slicecount="1" values="indicies">
    </PIN>
    </NODE>
-   <LINK dstnodeid="3" dstpinname="Y Input Value" srcnodeid="6" srcpinname="Bases indicies">
-   </LINK>
    <NODE componentmode="InABox" id="2" nodename="IOBox (String)">
-   <BOUNDS height="0" left="2610" top="3495" type="Node" width="0">
+   <BOUNDS height="0" left="2655" top="3495" type="Node" width="0">
    </BOUNDS>
-   <BOUNDS height="285" left="2610" top="3495" type="Box" width="1530">
+   <BOUNDS height="285" left="2655" top="3495" type="Box" width="1530">
    </BOUNDS>
    <BOUNDS height="160" left="6030" top="3435" type="Window" width="215">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" values="|2+3*x+4*pow(x,2)|">
+   <PIN pinname="Input String" slicecount="1" values="2+3*x+4*x*x">
    </PIN>
    <PIN pinname="Output String" visible="1">
    </PIN>
@@ -124,8 +96,34 @@
    </NODE>
    <LINK dstnodeid="0" dstpinname="XY" srcnodeid="1" srcpinname="Y Output Value">
    </LINK>
-   <LINK srcnodeid="7" srcpinname="Output" dstnodeid="6" dstpinname="x&apos; ">
+   <NODE nodename=":PLUGINS:\polyfitND.dll|PolyFitND.PolyFitND" componentmode="Hidden" id="8">
+   <BOUNDS type="Node" left="1350" top="4725" width="4365" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1350" top="4725" width="0" height="0">
+   </BOUNDS>
+   <BOUNDS type="Window" left="7710" top="6765" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="x " visible="1">
+   </PIN>
+   <PIN pinname="x&apos; " visible="1">
+   </PIN>
+   <PIN pinname="Order" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Input Dimensions" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Output Dimensions" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Coefficients" visible="1">
+   </PIN>
+   <PIN pinname="Bases indicies" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="5" srcpinname="Output" dstnodeid="8" dstpinname="x ">
    </LINK>
-   <LINK srcnodeid="5" srcpinname="Output" dstnodeid="6" dstpinname="x ">
+   <LINK srcnodeid="7" srcpinname="Output" dstnodeid="8" dstpinname="x&apos; ">
+   </LINK>
+   <LINK srcnodeid="8" srcpinname="Coefficients" dstnodeid="4" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="8" srcpinname="Bases indicies" dstnodeid="3" dstpinname="Y Input Value">
    </LINK>
    </PATCH>

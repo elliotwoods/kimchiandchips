@@ -15,9 +15,9 @@
    </PIN>
    </NODE>
    <NODE componentmode="Hidden" id="6" nodename=":PLUGINS:\polyfitND.dll|PolyFitND.TemplateCpp">
-   <BOUNDS height="0" left="5925" top="4020" type="Node" width="0">
+   <BOUNDS height="0" left="1590" top="4785" type="Node" width="0">
    </BOUNDS>
-   <BOUNDS height="0" left="5925" top="4020" type="Box" width="0">
+   <BOUNDS height="0" left="1590" top="4785" type="Box" width="0">
    </BOUNDS>
    <BOUNDS height="0" left="3840" top="-1815" type="Window" width="0">
    </BOUNDS>
@@ -49,9 +49,9 @@
    <LINK dstnodeid="7" dstpinname="x" srcnodeid="5" srcpinname="Output">
    </LINK>
    <NODE componentmode="InABox" id="4" nodename="IOBox (Value Advanced)">
-   <BOUNDS height="0" left="5745" top="4725" type="Node" width="0">
+   <BOUNDS height="0" left="1410" top="5490" type="Node" width="0">
    </BOUNDS>
-   <BOUNDS height="240" left="5745" top="4725" type="Box" width="2610">
+   <BOUNDS height="240" left="1410" top="5490" type="Box" width="2610">
    </BOUNDS>
    <BOUNDS height="160" left="1395" top="-735" type="Window" width="215">
    </BOUNDS>
@@ -65,9 +65,9 @@
    <LINK dstnodeid="4" dstpinname="Y Input Value" srcnodeid="6" srcpinname="Coefficients">
    </LINK>
    <NODE componentmode="InABox" id="3" nodename="IOBox (Value Advanced)">
-   <BOUNDS height="0" left="5760" top="5250" type="Node" width="0">
+   <BOUNDS height="0" left="1425" top="6015" type="Node" width="0">
    </BOUNDS>
-   <BOUNDS height="240" left="5760" top="5250" type="Box" width="2610">
+   <BOUNDS height="240" left="1425" top="6015" type="Box" width="2610">
    </BOUNDS>
    <BOUNDS height="160" left="1695" top="-435" type="Window" width="215">
    </BOUNDS>
