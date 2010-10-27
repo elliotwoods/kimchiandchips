@@ -66,11 +66,11 @@ bool Camera::init()
 	_grabber.setDeviceID(ID);
 	_grabber.videoSettings();
 	
-	_grabber.initGrabber(camWidth,camHeight);
+	bool success = _grabber.initGrabber(camWidth,camHeight);
 	
 	_charGrabFrame = new unsigned char [camWidth*camHeight];
 
-	success = true;
+	return success;
 
 #endif
 

@@ -339,8 +339,8 @@
 				8B5C88601271898400AA9B44 /* scrHistograms.h */,
 				8B5C88611271898400AA9B44 /* scrTexture.cpp */,
 				8B5C88621271898400AA9B44 /* scrTexture.h */,
-				8B3A2E24127805AC006144DE /* scrGroup.h */,
 				8B3A2E25127805AC006144DE /* scrGroup.cpp */,
+				8B3A2E24127805AC006144DE /* scrGroup.h */,
 			);
 			name = screens;
 			sourceTree = "<group>";
