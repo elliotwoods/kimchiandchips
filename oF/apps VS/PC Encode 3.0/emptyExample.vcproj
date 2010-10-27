@@ -203,38 +203,6 @@
 				>
 			</File>
 			<Filter
-				Name="statics"
-				>
-				<File
-					RelativePath=".\src\PCAssets.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\PCAssets.h"
-					>
-				</File>
-				<File
-					RelativePath=".\src\PCConfig.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\PCConfig.h"
-					>
-				</File>
-				<File
-					RelativePath=".\src\PCconstants.h"
-					>
-				</File>
-				<File
-					RelativePath=".\src\PCLogger.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\PCLogger.h"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="App"
 				>
 				<File
@@ -262,11 +230,19 @@
 					>
 				</File>
 				<File
-					RelativePath=".\PCManager.cpp"
+					RelativePath=".\src\PCLogger.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\PCManager.h"
+					RelativePath=".\src\PCLogger.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\PCManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\PCManager.h"
 					>
 				</File>
 			</Filter>
@@ -279,6 +255,14 @@
 				</File>
 				<File
 					RelativePath=".\src\Camera.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\PCConfig.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\PCConfig.h"
 					>
 				</File>
 				<File
@@ -320,82 +304,90 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="CV-GUI"
+			Name="ofxCVgui"
 			>
 			<File
-				RelativePath="..\..\libraries\GUI library\btnBase.cpp"
+				RelativePath="..\..\..\addons\ofxCVgui\src\btnBase.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libraries\GUI library\btnBase.h"
+				RelativePath="..\..\..\addons\ofxCVgui\src\btnBase.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libraries\GUI library\GUI.cpp"
+				RelativePath="..\..\..\addons\ofxCVgui\src\GUIAssets.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libraries\GUI library\GUI.h"
+				RelativePath="..\..\..\addons\ofxCVgui\src\GUIAssets.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libraries\GUI library\GUIAssets.cpp"
+				RelativePath="..\..\..\addons\ofxCVgui\src\GUIConstants.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libraries\GUI library\GUIAssets.h"
+				RelativePath="..\..\..\addons\ofxCVgui\src\GUIGlobal.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libraries\GUI library\GUIConstants.h"
+				RelativePath="..\..\..\addons\ofxCVgui\src\GUIGlobal.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libraries\GUI library\GUIGlobal.cpp"
+				RelativePath="..\..\..\addons\ofxCVgui\src\Histogram.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libraries\GUI library\GUIGlobal.h"
+				RelativePath="..\..\..\addons\ofxCVgui\src\Histogram.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libraries\GUI library\Histogram.cpp"
+				RelativePath="..\..\..\addons\ofxCVgui\src\ofxKCScreensGUI.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libraries\GUI library\Histogram.h"
+				RelativePath="..\..\..\addons\ofxCVgui\src\ofxKCScreensGUI.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libraries\GUI library\scrBase.cpp"
+				RelativePath="..\..\..\addons\ofxCVgui\src\scrBase.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libraries\GUI library\scrBase.h"
+				RelativePath="..\..\..\addons\ofxCVgui\src\scrBase.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libraries\GUI library\scrBaseMarkers.cpp"
+				RelativePath="..\..\..\addons\ofxCVgui\src\scrBaseMarkers.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libraries\GUI library\scrBaseMarkers.h"
+				RelativePath="..\..\..\addons\ofxCVgui\src\scrBaseMarkers.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libraries\GUI library\scrHistograms.cpp"
+				RelativePath="..\..\..\addons\ofxCVgui\src\scrGroup.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libraries\GUI library\scrHistograms.h"
+				RelativePath="..\..\..\addons\ofxCVgui\src\scrGroup.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libraries\GUI library\scrTexture.cpp"
+				RelativePath="..\..\..\addons\ofxCVgui\src\scrHistograms.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libraries\GUI library\scrTexture.h"
+				RelativePath="..\..\..\addons\ofxCVgui\src\scrHistograms.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\addons\ofxCVgui\src\scrTexture.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\addons\ofxCVgui\src\scrTexture.h"
 				>
 			</File>
 		</Filter>
