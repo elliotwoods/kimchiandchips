@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B3A2E26127805AC006144DE /* scrGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B3A2E25127805AC006144DE /* scrGroup.cpp */; };
 		8B4FA9321276F2A000D08FE2 /* PCManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B4FA9311276F2A000D08FE2 /* PCManager.cpp */; };
 		8B5C88631271898400AA9B44 /* btnBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B5C884F1271898400AA9B44 /* btnBase.cpp */; };
 		8B5C88641271898400AA9B44 /* ofxKCScreensGUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B5C88521271898400AA9B44 /* ofxKCScreensGUI.cpp */; };
@@ -101,6 +102,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8B3A2E24127805AC006144DE /* scrGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrGroup.h; sourceTree = "<group>"; };
+		8B3A2E25127805AC006144DE /* scrGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scrGroup.cpp; sourceTree = "<group>"; };
 		8B4FA9311276F2A000D08FE2 /* PCManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PCManager.cpp; sourceTree = "<group>"; };
 		8B5C88491271898400AA9B44 /* button-plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-plus.png"; sourceTree = "<group>"; };
 		8B5C884A1271898400AA9B44 /* button-plus_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-plus_over.png"; sourceTree = "<group>"; };
@@ -336,6 +339,8 @@
 				8B5C88601271898400AA9B44 /* scrHistograms.h */,
 				8B5C88611271898400AA9B44 /* scrTexture.cpp */,
 				8B5C88621271898400AA9B44 /* scrTexture.h */,
+				8B3A2E24127805AC006144DE /* scrGroup.h */,
+				8B3A2E25127805AC006144DE /* scrGroup.cpp */,
 			);
 			name = screens;
 			sourceTree = "<group>";
@@ -748,6 +753,7 @@
 				8B5C886A1271898400AA9B44 /* scrHistograms.cpp in Sources */,
 				8B5C886B1271898400AA9B44 /* scrTexture.cpp in Sources */,
 				8B4FA9321276F2A000D08FE2 /* PCManager.cpp in Sources */,
+				8B3A2E26127805AC006144DE /* scrGroup.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
