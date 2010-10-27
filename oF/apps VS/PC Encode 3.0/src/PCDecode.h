@@ -62,7 +62,8 @@ class PCDecode : public PCConfig
 		unsigned char *			_charCameraSpacePreview;
 		unsigned char *			_charProjectorSpacePreview;
 	
-		scrBase					*_scrSend, *_scrFrameData, *_scrThreshold, *_scrHistograms, *_scrBinary, *_scrCamera;
+		scrBase					*_scrSend, *_scrFrameData, *_scrThreshold, *_scrBinary, *_scrCamera;
+		scrHistograms			*_scrHistograms;
 	
 	private: 
 		void					checkParity();

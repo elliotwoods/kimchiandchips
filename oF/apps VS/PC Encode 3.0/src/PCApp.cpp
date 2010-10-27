@@ -19,20 +19,24 @@ void PCApp::setup(){
 	ofSetVerticalSync(true);
 	ofSetLogLevel(OF_LOG_VERBOSE);
 	
-	//setup scannerc
+	//setup scanner
 	_scanner.setup();
 	
 	//add screens
+	scrGroup *grid = new scrGroup();
+	_screens->mainScreen = grid;
+	
 	for (int iCam=0; iCam<PCConfig().nCameras; iCam++)
 	{
- 		_screens->addScreen(_scanner._decoder[iCam]->_scrSend);
-		_screens->addScreen(_scanner._decoder[iCam]->_scrFrameData);
-		_screens->addScreen(_scanner._decoder[iCam]->_scrBinary);
-		_screens->addScreen(_scanner._decoder[iCam]->_scrThreshold);
-		_screens->addScreen(_scanner._decoder[iCam]->_scrHistograms);
-		_screens->addScreen(_scanner._decoder[iCam]->_scrCamera);
+ 		grid->screens.push_back(_scanner._decoder[iCam]->_scrSend);
+		grid->screens.push_back(_scanner._decoder[iCam]->_scrFrameData);
+		grid->screens.push_back(_scanner._decoder[iCam]->_scrBinary);
+		grid->screens.push_back(_scanner._decoder[iCam]->_scrThreshold);
+		grid->screens.push_back(_scanner._decoder[iCam]->_scrHistograms);
+		grid->screens.push_back(_scanner._decoder[iCam]->_scrCamera);
 	}
-	_screens->arrange();
+	
+	grid->setBounds(0, 0, ofGetWidth(), ofGetHeight());
 }
 
 //--------------------------------------------------------------

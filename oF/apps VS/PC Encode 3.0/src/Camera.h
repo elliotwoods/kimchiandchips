@@ -6,7 +6,13 @@
  *  Copyright 2009 Kimchi and Chips. All rights reserved.
  *
  */
-#define PCENCODE_CAM_CLEYE
+#include "ofMain.h"
+
+#ifdef TARGET_OSX
+	#define PCENCODE_CAM_DEFAULT
+#else
+	#define PCENCODE_CAM_CLEYE
+#endif
 
 #ifdef PCENCODE_CAM_DEFAULT
 #endif
@@ -19,8 +25,6 @@
 	#include <dc1394/dc1394.h>
 #endif
 
-
-#include "ofMain.h"
 #include "PCconstants.h"
 #include "PCConfig.h"
 
