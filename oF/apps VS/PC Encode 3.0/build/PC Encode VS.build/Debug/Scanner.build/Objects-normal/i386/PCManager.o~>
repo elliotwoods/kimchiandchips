@@ -1,0 +1,2 @@
+/Users/elliot/openFrameworks 0.6/apps/elliots/PC Encode VS/src/PCManager.cpp: In member function 'void PCManager::videoSettings()':
+/Users/elliot/openFrameworks 0.6/apps/elliots/PC Encode VS/src/PCManager.cpp:109: error: 'class Camera' has no member named 'videoSettings'

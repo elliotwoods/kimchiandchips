@@ -1,0 +1,5 @@
+In file included from /Users/elliot/openFrameworks 0.6/apps/elliots/PC Encode VS/src/Payloads/PayloadGraycode.cpp:10:
+/Users/elliot/openFrameworks 0.6/apps/elliots/PC Encode VS/src/Payloads/PayloadGraycode.h:19: error: conflicting return type specified for 'virtual bool PayloadGraycode::decode(int, int&, int&, bool&)'
+/Users/elliot/openFrameworks 0.6/apps/elliots/PC Encode VS/src/Payloads/PayloadBase.h:43: error:   overriding 'virtual void PayloadBase::decode(int, int&, int&, bool&)'
+/Users/elliot/openFrameworks 0.6/apps/elliots/PC Encode VS/src/Payloads/PayloadGraycode.cpp:52: error: prototype for 'bool PayloadGraycode::decode(int, int&, int&)' does not match any in class 'PayloadGraycode'
+/Users/elliot/openFrameworks 0.6/apps/elliots/PC Encode VS/src/Payloads/PayloadGraycode.h:19: error: candidate is: virtual bool PayloadGraycode::decode(int, int&, int&, bool&)
