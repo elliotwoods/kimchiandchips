@@ -9,21 +9,34 @@
 
 #include "scrBase.h"
 
+#define SCRGROUP_TYPE_GRID 0
+#define SCRGROUP_TYPE_SWAP 1
+#define SCRGROUP_TYPE_TABS 2
+
+
 class scrGroup : public scrBase
 {
-	// it's just the same as default. can we use that?
-	//	scrGroup(enumShowCursor showCursor, bool hasCursorEvents, string caption);
+public:
+	scrGroup();
+	void				mouseOver(int x, int y) { };
+	void				mouseDown(int x, int y) { };
+	void				mouseReleased(int x, int y) { };
 	
-	void						draw(int x, int y, int width, int height);
+	void				findScreen(int &x, int &y, int &iScreen, float &xX, float &xY);
 	
-	void						mouseDown(float xX, float xY, int x, int y);
+	int					groupType;
+	int					gridWidth;
 	
-	void						arrange();
-	
-	int							groupType;
-	vector<scrBase*>			screens;
+	vector<scrBase*>	screens;
 	
 	
 private:
-	std::vector<Histogram*>	_vecHistograms;
+	void				drawContent();
+
+	void				doResize();
+	void				arrangeGrid();
+	
+	int					gridHeight;
+	int					iScreenMaximised;
+
 };
