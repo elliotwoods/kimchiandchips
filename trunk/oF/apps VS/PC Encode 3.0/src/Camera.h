@@ -6,7 +6,7 @@
  *  Copyright 2009 Kimchi and Chips. All rights reserved.
  *
  */
-#define PCENCODE_CAM_DEFAULT
+#define PCENCODE_CAM_CLEYE
 
 #ifdef PCENCODE_CAM_DEFAULT
 #endif

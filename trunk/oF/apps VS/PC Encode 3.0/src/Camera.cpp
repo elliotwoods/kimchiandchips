@@ -70,23 +70,19 @@ bool Camera::init()
 	
 	_charGrabFrame = new unsigned char [camWidth*camHeight];
 
+	success = true;
+
 #endif
 
 #ifdef PCENCODE_CAM_CLEYE
 
-	_grabber.setDeviceID(0);
+	_grabber.setDeviceID(ID);
 	bool success = _grabber.initGrabber(camWidth,camHeight);
 
 	_grabber.setAutoExposure(false);
 	_grabber.setAutoGain(false);
 	_grabber.setGain(gain);
 	_grabber.setExposure(exposure);
-
-	//this is to detect/circumvent bugs
-	//that i'm having with this driver
-	continuous=true;
-
-
 	return success;
 
 #endif
