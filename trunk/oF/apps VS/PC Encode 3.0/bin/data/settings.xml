@@ -15,7 +15,7 @@
 		<cameras width="640" height="480"
 		 gain="20" exposure="128" delay="200">
 			<camera id="0" />
-			<camera id="1" />
+			<!--camera id="1" /-->
 		</cameras>
 		 
 		

@@ -126,7 +126,7 @@ void PCApp::keyPressed(int key){
 	switch (key)
 	{
 		case 'f': // f = fullscreen
-			_screens->doFullscreen();
+			ofSetFullscreen(_screens->doFullscreen());
 			break;
 
 		case 32: // SPACE = run system
@@ -167,7 +167,7 @@ void PCApp::mouseMoved(int x, int y ){
 	
 	_screens->interfaceNudge();
 	
-	_screens->mouseOver(x, y);
+	_screens->mouseMoved(x, y);
 
 }
 
@@ -179,7 +179,7 @@ void PCApp::mouseDragged(int x, int y, int button){
 		_screens->mouseDown(x, y);
 	}
 	
-	_screens->mouseOver(x, y);
+	_screens->mouseMoved(x, y);
 	
 }
 

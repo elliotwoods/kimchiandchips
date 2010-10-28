@@ -76,7 +76,6 @@ void PCLogger::save()
 void PCLogger::saveConfig(string filename)
 {
 	ofstream iofOutput(filename.c_str(), ios::out);
-	
 	iofOutput	<< projWidth << "\t"
 				<< projHeight << "\t"
 				<< interleaveWidth << "\t"
