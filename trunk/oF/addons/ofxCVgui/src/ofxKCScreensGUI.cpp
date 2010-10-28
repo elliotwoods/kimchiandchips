@@ -71,3 +71,10 @@ void ofxKCScreensGUI::mouseReleased(int x, int y)
 }
 
 //------------------------------------------------------------------------------------------------
+
+void ofxKCScreensGUI::resize(int x, int y)
+{
+	_width = x;
+	_height = y;
+	mainScreen->setBounds(_x,_y,_width,_height);
+}

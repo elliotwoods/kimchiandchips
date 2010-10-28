@@ -41,6 +41,8 @@ public:
 	void					interfaceOn() { g_enableUserInterface(); }
 	void					interfaceOff() { g_disableUserInterface(); }
 	void					interfaceNudge() {g_userAction(); }
+
+	void					resize(int x, int y);
 	
 private:
 	float					_x, _y, _width, _height;
