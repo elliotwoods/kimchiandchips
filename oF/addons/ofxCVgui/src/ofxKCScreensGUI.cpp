@@ -22,9 +22,12 @@ ofxKCScreensGUI::ofxKCScreensGUI(float x, float y, float width, float height)
 	assetLoad();
 }
 
-void ofxKCScreensGUI::doFullscreen()
+bool ofxKCScreensGUI::doFullscreen()
 {
-	mainScreen->hitMaximise();
+	if (mainScreen->isHit(_mousex, _mousey))
+		mainScreen->hitMaximise(_mousex, _mousey);
+	
+	return mainScreen->isFullscreen;
 }
 
 void ofxKCScreensGUI::update()
@@ -44,10 +47,14 @@ void ofxKCScreensGUI::draw()
 
 //------------------------------------------------------------------------------------------------
 
-void ofxKCScreensGUI::mouseOver(int x, int y)
+void ofxKCScreensGUI::mouseMoved(int x, int y)
 {
 	if (mainScreen->isHit(x, y))
-		mainScreen->mouseOver(x, y);
+		mainScreen->mouseMoved(x, y);
+	
+	_mousex = x;
+	_mousey = y;
+
 	interfaceNudge();
 }
 
@@ -62,6 +69,7 @@ void ofxKCScreensGUI::mouseReleased(int x, int y)
 {
 	if (mainScreen->hasCursorAttached)
 		mainScreen->mouseReleased(x, y);
+	
 	interfaceNudge();
 }
 

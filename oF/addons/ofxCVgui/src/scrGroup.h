@@ -9,23 +9,19 @@
 
 #include "scrBase.h"
 
-#define SCRGROUP_TYPE_GRID 0
-#define SCRGROUP_TYPE_SWAP 1
-#define SCRGROUP_TYPE_TABS 2
-
-
 class scrGroup : public scrBase
 {
 public:
 	scrGroup();
 	
-	int					findGrid(int &x, int &y);
+	int					findScreen(int x, int y);
 	
-	void				mouseOver(int x, int y);
+	void				mouseMoved(int x, int y);
 	void				mouseDown(int x, int y);
 	void				mouseReleased(int x, int y);
 	
-	int					groupType;
+	bool				hitMaximise(int x, int y);
+	
 	int					gridWidth;
 	
 	vector<scrBase*>	screens;
@@ -35,7 +31,6 @@ private:
 	void				drawContent();
 
 	void				doResize();
-	void				arrangeGrid();
 	
 	int					gridHeight;
 	int					iScreenMaximised;

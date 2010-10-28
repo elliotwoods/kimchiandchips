@@ -16,8 +16,6 @@
 scrGroup::scrGroup() :
 scrBase(cursor_none, true, "")
 {
-	groupType = SCRGROUP_TYPE_GRID;
-	
 	gridWidth = -1;
 	iScreenMaximised = -1;
 }
@@ -26,31 +24,23 @@ scrBase(cursor_none, true, "")
 
 void scrGroup::drawContent()
 {
-	for (int i=0; i<screens.size(); i++)
-		screens[i]->draw();
+	if (!_isFullscreen)
+		for (int i=0; i<screens.size(); i++)
+			screens[i]->draw();
+	else
+		screens[iScreenMaximised]->draw();
 }
 
 //////////////////////////////////////////////////////
 
 void scrGroup::doResize()
 {
-	switch (groupType) {
-		case SCRGROUP_TYPE_GRID:
-			arrangeGrid();
-			break;
-		default:
-			break;
-	}	
-}
-
-void scrGroup::arrangeGrid()
-{	
 	double nScreens = screens.size();
 	
 	if (gridWidth==-1)
 		gridWidth = ceil(sqrt(double(nScreens)));
 	
-	int gridHeight = ceil(nScreens / double(gridWidth));
+	gridHeight = ceil(nScreens / double(gridWidth));
 	
 	//code for arranging grid
 	int ix, iy;
@@ -69,10 +59,9 @@ void scrGroup::arrangeGrid()
 		
 		screens[i]->setBounds(x, y, w, h);
 	}
-	
 }
 
-int scrGroup::findGrid(int &x, int &y)
+int scrGroup::findScreen(int x, int y)
 {
 	int iScreen; // return value
 	
@@ -80,7 +69,7 @@ int scrGroup::findGrid(int &x, int &y)
 	int h = _height / gridHeight;
 	
 	
-	if (iScreenMaximised>=0)
+	if (iScreenMaximised != -1)
 		iScreen=iScreenMaximised;
 	
 	else
@@ -94,7 +83,7 @@ int scrGroup::findGrid(int &x, int &y)
 	}
 	
 	if (iScreen<0 || iScreen>screens.size()-1)
-		iScreen=-1;
+		iSfcreen=-1;
 
 	return iScreen;
 	
@@ -102,11 +91,11 @@ int scrGroup::findGrid(int &x, int &y)
 
 //////////////////////////////////////////////////////
 
-void scrGroup::mouseOver(int x, int y)
+void scrGroup::mouseMoved(int x, int y)
 {
 	FOREACH_SCREEN
 		if (screens[iScreen]->isHit(x,y))
-			screens[iScreen]->mouseOver(x,y);
+			screens[iScreen]->mouseMoved(x,y);
 }
 
 void scrGroup::mouseDown(int x, int y)
@@ -124,3 +113,26 @@ void scrGroup::mouseReleased(int x, int y)
 }
 
 //////////////////////////////////////////////////////
+
+bool scrGroup::hitMaximise(int x, int y)
+{
+	if (!_isFullscreen)
+	{
+		int iScreen = findScreen(x, y);
+
+		if (iScreen != -1)
+
+			if (screens[iScreen]->hitMaximise(x,y))
+			{
+				iScreenMaximised = iScreen;
+				_isFullscreen = true;
+				return true;
+			}
+	}
+	
+	screens[iScreenMaximised]->hitMaximise(x,y,false);
+	iScreenMaximised = -1;
+	_isFullscreen=false;
+	return false;
+	
+}
