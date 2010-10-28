@@ -60,7 +60,7 @@ void PCLogger::save()
 	//with path for iostream to access file
 	string strFileWithPath;
 #ifdef TARGET_WIN32
-	strFileWithPath = "..\\..\\..\\data\\" + strFilename;
+	strFileWithPath = ".\\data\\" + strFilename;
 #else
 	strFileWithPath = "../../../data/" + strFilename;
 #endif
