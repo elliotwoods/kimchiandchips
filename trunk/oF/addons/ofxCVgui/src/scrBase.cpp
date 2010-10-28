@@ -10,7 +10,8 @@
 
 #include "ofxKCScreensGUI.h"
 
-scrBase::scrBase(enumShowCursor showCursor, bool showMarkers, string caption)
+scrBase::scrBase(enumShowCursor showCursor, bool showMarkers, string caption) :
+isFullscreen(_isFullscreen)
 {
 	
 	_showCursor = showCursor;
@@ -19,7 +20,7 @@ scrBase::scrBase(enumShowCursor showCursor, bool showMarkers, string caption)
 	_btnMaximise = new btnBase(button_toggle, *_assetButtonPlus, *_assetButtonPlus_over);
 	_vecInterfaceButtons.push_back(_btnMaximise);
 //	ofAddListener(_btnMaximise->buttonHit, this, &scrBase::hitMaximise);
-	isFullscreen = false;
+	_isFullscreen = false;
 	
 	hasCursorAttached = false;
 	
@@ -145,9 +146,16 @@ void scrBase::drawInterface()
 }
 
 //---------------------------------------------------------------------------------
-void scrBase::hitMaximise()
+bool scrBase::hitMaximise(int x, int y)
 {
-	isFullscreen = !isFullscreen;
+	_isFullscreen = !_isFullscreen;
+	return _isFullscreen;
+}
+
+bool scrBase::hitMaximise(int x, int y, bool input)
+{
+	_isFullscreen = input;
+	return _isFullscreen;
 }
 
 void scrBase::setBounds(int x, int y, int w, int h)
@@ -162,7 +170,7 @@ void scrBase::setBounds(int x, int y, int w, int h)
 
 void scrBase::getLiveBounds(int &x, int &y, int &w, int &h)
 {
-	if (isFullscreen)
+	if (_isFullscreen)
 	{
 		x = 0;
 		y = 0;

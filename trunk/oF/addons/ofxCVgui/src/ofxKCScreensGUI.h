@@ -29,12 +29,12 @@ public:
 	
 	scrBase*				mainScreen;
 	
-	void					doFullscreen();
+	bool					doFullscreen();
 	
 	void					update();
 	void					draw();
 	
-	void					mouseOver(int x, int y);
+	void					mouseMoved(int x, int y);
 	void					mouseDown(int x, int y);
 	void					mouseReleased(int x, int y);
 	
@@ -45,4 +45,5 @@ public:
 private:
 	float					_x, _y, _width, _height;
 	bool					isMaximised;
+	int						_mousex, _mousey;
 };

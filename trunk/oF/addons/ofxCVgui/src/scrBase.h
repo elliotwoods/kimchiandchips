@@ -30,11 +30,14 @@ public:
 	
 	bool					isHit(int x, int y);
 	
-	virtual void			mouseOver(int x, int y) { };
 	virtual void			mouseDown(int x, int y) { };
+	virtual void			mouseMoved(int x, int y) { };
 	virtual void			mouseReleased(int x, int y) { };
 	
-	void					hitMaximise();
+	virtual bool			hitMaximise(int x, int y);
+	virtual bool			hitMaximise(int x, int y, bool input);
+	const bool				&isFullscreen;
+	
 	void					setBounds(int x, int y, int w, int h);
 	
 	void					getStatus(string &strStatus) { };
@@ -43,8 +46,6 @@ public:
 	
 	void					updateInterface();
 	bool					isUserActive();
-		
-	bool					isFullscreen;
 	
 	bool					hasCursorAttached;
 	
@@ -63,6 +64,7 @@ protected:
 	bool					transformMouse(float mouseX, float mouseY, float &screenX, float &screenY);
 	
 	int						_x, _y, _width, _height;
+	bool					_isFullscreen;
 	
 	ofPoint					_ptCursorPosition;
 	
@@ -72,6 +74,8 @@ protected:
 	btnBase					*_btnMaximise;
 	
 	float					_lastLocalInterfaceUpdate;
+	
+	int						_mousex, _mousey;
 
 };
 
