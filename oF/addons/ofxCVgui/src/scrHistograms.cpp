@@ -7,23 +7,26 @@
  *
  */
 
-#include "ofxKCScreensGUI.h"
+#include "scrHistograms.h"
 
 scrHistograms::scrHistograms(enumShowCursor showCursor, bool hasCursorEvents, string caption)
-: scrBase(showCursor, hasCursorEvents, enum_histogram, caption)
+: scrBase(showCursor, hasCursorEvents, caption)
 {
 }
 
-void scrHistograms::draw(int x, int y, int width, int height)
+void scrHistograms::drawContent()
 {
+	int x, y, w, h;
+	getLiveBounds(x, y, w, h);
+	
 	int nHistograms = _vecHistograms.size();
 	if (nHistograms>0)
 	{
-		int histogramHeight = height/nHistograms;
+		int histogramHeight = h/nHistograms;
 		
 		for (int iHistogram = 0; iHistogram < nHistograms; iHistogram++)
 		{
-			_vecHistograms.at(iHistogram)->draw(x, y + (histogramHeight*iHistogram), width, histogramHeight);
+			_vecHistograms.at(iHistogram)->draw(x, y + (histogramHeight*iHistogram), w, histogramHeight);
 		}
 	}
 	
@@ -34,9 +37,12 @@ void scrHistograms::addHistogram(Histogram &histogram)
 	_vecHistograms.push_back(&histogram);
 }
 
-void scrHistograms::mouseDown(float xX, float xY, int x, int y)
+void scrHistograms::mouseDown(int x, int y)
 {
-	scrBase::mouseDown(xX, xY, x, y);
+	scrBase::mouseDown(x, y);
+	
+	float xX, xY;
+	transformMouse(x, y, xX, xY);
 	
 	int nHistograms = _vecHistograms.size();
 

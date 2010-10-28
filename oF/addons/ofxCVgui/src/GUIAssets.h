@@ -27,7 +27,4 @@ protected:
 	static int				_colSwatch1[5];	
 	
 	static ofTrueTypeFont	*_typer;
-	
-	static int				_nScreenSlotsX, _nScreenSlotsY;
-	static float			_width, _height;
 };

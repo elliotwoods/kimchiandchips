@@ -7,17 +7,17 @@
  *
  */
 
-#include "ofxKCScreensGUI.h"
+#include "scrTexture.h"
 
 scrTexture::scrTexture(enumShowCursor showCursor, bool hasCursorEvents, ofTexture &texture, string caption)
-: scrBase(showCursor, hasCursorEvents, enum_texture, caption)
+: scrBase(showCursor, hasCursorEvents, caption)
 {
 	_texture = &texture;
 	_hasTwoTextures=false;
 }
 
 scrTexture::scrTexture(enumShowCursor showCursor, bool hasCursorEvents, ofTexture &texture, ofTexture &texture2, string caption)
-: scrBase(showCursor, hasCursorEvents, enum_texture, caption
+: scrBase(showCursor, hasCursorEvents, caption
 		  )
 {
 	_texture = &texture;
@@ -31,9 +31,12 @@ scrTexture::scrTexture(enumShowCursor showCursor, bool hasCursorEvents, ofTextur
 	ofAddListener(_btnSwitchTexture->buttonHit, this, &scrTexture::doSwitchTexture);
 }
 
-void scrTexture::draw(int x, int y, int width, int height)
+void scrTexture::drawContent()
 {
-	chooseTextureToDraw()->draw(x, y, width, height);
+	int x, y, w, h;
+	getLiveBounds(x, y, w, h);
+	
+	chooseTextureToDraw()->draw(x, y, w, h);
 }
 
 void scrTexture::doSwitchTexture(int &dummyval)

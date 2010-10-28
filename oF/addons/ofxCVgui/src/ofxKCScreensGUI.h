@@ -17,6 +17,7 @@
 
 #include "scrTexture.h"
 #include "scrHistograms.h"
+#include "scrGroup.h"
 
 #include "ofMain.h"
 
@@ -24,12 +25,11 @@
 class ofxKCScreensGUI : public GUIGlobal, public GUIAssets
 {
 public:
-							ofxKCScreensGUI(int nScreenSlotsX, int nScreenSlotsY, float width, float height);
-							ofxKCScreensGUI();
-	void					arrange();
+							ofxKCScreensGUI(float x, float y, float width, float height);
+	
+	scrBase*				mainScreen;
 	
 	void					doFullscreen();
-	void					doSwitchTexture() { };
 	
 	void					update();
 	void					draw();
@@ -37,26 +37,12 @@ public:
 	void					mouseOver(int x, int y);
 	void					mouseDown(int x, int y);
 	void					mouseReleased(int x, int y);
-	void					findScreen(int &x, int &y, int &iScreen, float &xX, float &xY);
-	
-	void					addScreen(scrBase *Screen);
 	
 	void					interfaceOn() { g_enableUserInterface(); }
 	void					interfaceOff() { g_disableUserInterface(); }
 	void					interfaceNudge() {g_userAction(); }
 	
-	int						nScreens()  { return _vecGUI.size(); }
-	
-	string					status;
-	
 private:
-	void					checkMaximised();
-	
-	std::vector<scrBase*>	_vecGUI;
-	
-	int						_iScreenHover;
-	int						_iScreenMaximised;
-	
-	int						dummyval; //for event
-
+	float					_x, _y, _width, _height;
+	bool					isMaximised;
 };

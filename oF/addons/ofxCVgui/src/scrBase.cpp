@@ -10,18 +10,18 @@
 
 #include "ofxKCScreensGUI.h"
 
-scrBase::scrBase(enumShowCursor showCursor, bool showMarkers, enumScreenType screenType, string caption)
+scrBase::scrBase(enumShowCursor showCursor, bool showMarkers, string caption)
 {
 	
 	_showCursor = showCursor;
 	_showMarkers = showMarkers;
 	
-	_screenType = screenType;
-	
 	_btnMaximise = new btnBase(button_toggle, *_assetButtonPlus, *_assetButtonPlus_over);
 	_vecInterfaceButtons.push_back(_btnMaximise);
-	ofAddListener(_btnMaximise->buttonHit, this, &scrBase::hitMaximise);
-	maximised = false;
+//	ofAddListener(_btnMaximise->buttonHit, this, &scrBase::hitMaximise);
+	isFullscreen = false;
+	
+	hasCursorAttached = false;
 	
 	_strCaption = caption;
 
@@ -36,12 +36,18 @@ scrBase::~scrBase()
 	_vecInterfaceButtons.clear();
 }
 
-bool scrBase::transformMouse(float mouseX, int mouseY, float &screenX, float &screenY)
+bool scrBase::isHit(int x, int y)
+{
+	return (x>=_x && y>=_y &&
+			x<=_x+_width && y <=_y+_height);
+}
+
+bool scrBase::transformMouse(float mouseX, float mouseY, float &screenX, float &screenY)
 // transforms the mouse into screen coords
 // returns 'true' if mouse is inside this screen
 {
-	screenX = (float(mouseX) - float(_x)) / _width;
-	screenY = (float(mouseY) - float(_y)) / _height;
+	screenX = (mouseX - float(_x)) / _width;
+	screenY = (mouseY - float(_y)) / _height;
 	
 	if (screenX >= 0 && screenX <= 1)
 		if (screenY >= 0 && screenY <= 1)
@@ -52,24 +58,14 @@ bool scrBase::transformMouse(float mouseX, int mouseY, float &screenX, float &sc
 
 void scrBase::draw()
 {
-	if (maximised)
-	{
-		//draw contents and interface fullscreen
-		draw(0,0,ofGetScreenWidth(),ofGetScreenHeight());
-		drawInterface(0,0,ofGetScreenWidth(),ofGetScreenHeight());
-		
-	} else {
-		//draw contents and interface in bounds
-		draw(bounds.x,bounds.y,
-			 bounds.width,bounds.height);
-		drawInterface(bounds.x,bounds.y,
-					  bounds.width,bounds.height);
-	}
+	drawContent();
+	drawInterface();
 }
 
-void scrBase::drawInterface(int x, int y, int width, int height)
+void scrBase::drawInterface()
 {
-	
+	int x, y, width, height;
+	getLiveBounds(x, y, width, height);
 	//
 	// MARKERS
 	//
@@ -148,70 +144,36 @@ void scrBase::drawInterface(int x, int y, int width, int height)
 	ofPopStyle();
 }
 
-
 //---------------------------------------------------------------------------------
-
-void scrBase::mouseOver(float xX, float xY, int x, int y)
+void scrBase::hitMaximise()
 {
-	mouseOverInterface(x, y);
+	isFullscreen = !isFullscreen;
 }
 
-void scrBase::mouseDown(float xX, float xY, int x, int y)
+void scrBase::setBounds(int x, int y, int w, int h)
 {
-	mouseDownInterface(x, y);
-}
-
-void scrBase::mouseReleased(float xX, float xY, int x, int y)
-{
-	mouseReleasedInterface(x, y);
-}
-
-void scrBase::mouseOverInterface(int x, int y)
-{
-	if (y>bounds.height-GUI_INTERFACE_BUTTON_SIZE)
-	{
-		int iButton = (bounds.width-x)/GUI_INTERFACE_BUTTON_SIZE;
-	}
+	_x = x;
+	_y = y;
+	_width = w;
+	_height = h;
 	
+	doResize();
 }
 
-void scrBase::mouseDownInterface(int x, int y)
+void scrBase::getLiveBounds(int &x, int &y, int &w, int &h)
 {
-	//cursor
-	if (_showCursor > cursor_none)
+	if (isFullscreen)
 	{
-		moveCursor(float(x)/float(bounds.width),
-				   float(y)/float(bounds.height));
-	}
-}
-
-void scrBase::mouseReleasedInterface(int x, int y)
-{
-	int width, height;
-	
-	//offset
-	if (maximised == true)
-	{
-		width = ofGetScreenWidth();
-		height = ofGetScreenHeight();
+		x = 0;
+		y = 0;
+		w = ofGetWidth();
+		h = ofGetHeight();
 	} else {
-		width = bounds.width;
-		height = bounds.height;
+		x = _x;
+		y = _y;
+		w = _width;
+		h = _height;
 	}
-
-	//buttons
-	if (y>height-GUI_INTERFACE_BUTTON_SIZE)
-	{
-		int iButton = (width-x)/GUI_INTERFACE_BUTTON_SIZE;
-		
-		if (iButton<_vecInterfaceButtons.size())
-			_vecInterfaceButtons.at(iButton)->mouseReleased();
-	}	
-}
-
-void scrBase::hitMaximise(int &dummyval)
-{
-	maximised = !maximised;
 }
 
 //---------------------------------------------------------------------------------
@@ -224,7 +186,6 @@ void scrBase::moveCursor(float x, float y)
 
 	ofNotifyEvent(evtCursorMove, _ptCursorPosition, this);
 }
-
 
 //---------------------------------------------------------------------------------
 void scrBase::updateInterface()
