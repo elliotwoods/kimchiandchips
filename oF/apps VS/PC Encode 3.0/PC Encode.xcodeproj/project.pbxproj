@@ -235,6 +235,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8B08B3991279729500914672 /* Groups */ = {
+			isa = PBXGroup;
+			children = (
+				8B3A2E25127805AC006144DE /* scrGroup.cpp */,
+				8B3A2E24127805AC006144DE /* scrGroup.h */,
+			);
+			name = Groups;
+			sourceTree = "<group>";
+		};
 		8B5C88461271898400AA9B44 /* ofxKCScreensGUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -331,6 +340,7 @@
 		8BA979FC12718A1D00D2312F /* screens */ = {
 			isa = PBXGroup;
 			children = (
+				8B08B3991279729500914672 /* Groups */,
 				8B5C885B1271898400AA9B44 /* scrBase.cpp */,
 				8B5C885C1271898400AA9B44 /* scrBase.h */,
 				8B5C885D1271898400AA9B44 /* scrBaseMarkers.cpp */,
@@ -339,8 +349,6 @@
 				8B5C88601271898400AA9B44 /* scrHistograms.h */,
 				8B5C88611271898400AA9B44 /* scrTexture.cpp */,
 				8B5C88621271898400AA9B44 /* scrTexture.h */,
-				8B3A2E25127805AC006144DE /* scrGroup.cpp */,
-				8B3A2E24127805AC006144DE /* scrGroup.h */,
 			);
 			name = screens;
 			sourceTree = "<group>";
