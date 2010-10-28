@@ -25,7 +25,12 @@ void PCLogger::save()
 		return;
 	
 	string strFilename = getDateString();
-	
+	#ifdef TARGET_WIN32
+		strFilename = "logs\\" + strFilename;
+	#else
+		strFilename = "logs/" + strFilename;
+	#endif
+
 	//////////////////////////////////////////////////////
 	// SAVE IMAGES
 	//////////////////////////////////////////////////////
@@ -33,11 +38,7 @@ void PCLogger::save()
 	{
 		
 		string strExtension = ".png";
-	#ifdef TARGET_WIN32
-		strFilename = "logs\\" + strFilename;
-	#else
-		strFilename = "logs/" + strFilename;
-	#endif
+		string strIndex = "[" + ofToString(iDecoder,0) + "]";
 		
 		
 		_imgCameraSpacePreview.setFromPixels(_decoders->at(iDecoder)->_charCameraSpacePreview,
@@ -48,8 +49,8 @@ void PCLogger::save()
 												camWidth, camHeight,
 												OF_IMAGE_COLOR, true);
 		
-		_imgCameraSpacePreview.saveImage(strFilename + "-camera" + strExtension);
-		_imgProjectorSpacePreview.saveImage(strFilename + "-projector" + strExtension);
+		_imgCameraSpacePreview.saveImage(strFilename + "-camera" + strIndex + strExtension);
+		_imgProjectorSpacePreview.saveImage(strFilename + "-projector" + strIndex + strExtension);
 	}
 	//////////////////////////////////////////////////////
 
@@ -104,7 +105,8 @@ void PCLogger::savePixelsText(string filename)
 {
 	//save in row format:
 	
-	//	i	ix	iy	meanx	meany	sigmax	sigmay	iLastFind	nFinds
+	//	i	ix	iy
+	//				meanX	meanY	sigmaX	sigmaY sigmaR	iLastFind	nFinds
 	
 	ofstream iofOutput(filename.c_str(), ios::out);
 	
@@ -113,26 +115,25 @@ void PCLogger::savePixelsText(string filename)
 	PCPixelSlim *pixelFinds;
 	
 	for (int iPP=0; iPP<projWidth*projHeight; iPP++)
+	{
+		iofOutput << iPP << "\t" <<
+			(iPP % projWidth) << "\t" <<
+			int(iPP / projWidth);
+
 		for (int iDec=0; iDec<_decoders->size(); iDec++)
 		{
-			iofOutput << iPP << "\t" <<
-						(iPP % projWidth) << "\t" <<
-						int(iPP / projWidth) << "\t";
-			
-			for (int iDec=0; iDec<_decoders->size(); iDec++)
-			{
-				pixelFinds = _decoders->at(iDec)->projPixels[iPP];
-		
-				iofOutput <<	pixelFinds->_meanXdash.x << "\t" << pixelFinds->_meanXdash.y << "\t" <<
+			pixelFinds = _decoders->at(iDec)->projPixels[iPP];
+	
+			iofOutput << "\t"<< pixelFinds->_meanXdash.x << "\t" << pixelFinds->_meanXdash.y << "\t" <<
 								pixelFinds->_sigmaXdash.x << "\t" <<  pixelFinds->_sigmaXdash.y << "\t" <<
 								pixelFinds->_sigmaRdash << "\t" << 
 								pixelFinds->_iLastFoundPixel << "\t" << 
 								pixelFinds->_nFinds;
-			}
-			
-			iofOutput << endl;
 		}
-	
+			
+		iofOutput << endl;
+	}
+
     iofOutput.close();
 }
 

@@ -219,5 +219,5 @@ void PCApp::mouseDown(int x, int y)
 
 //--------------------------------------------------------------
 void PCApp::windowResized(int w, int h){
-
+	_screens->resize(w, h);
 }

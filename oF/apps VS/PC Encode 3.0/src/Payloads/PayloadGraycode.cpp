@@ -53,6 +53,9 @@ bool PayloadGraycode::decode(int reading, int &iX, int &iY)
 {
 	bool valid = (reading > 0) && (reading < maxIndex);
 
+	if (!valid)
+		return false;
+
 	int pixIndex = dataInverse[reading];
 				
 	iX = pixIndex % nPixelsPerInterleaveX;
