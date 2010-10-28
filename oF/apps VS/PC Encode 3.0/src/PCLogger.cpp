@@ -124,7 +124,7 @@ void PCLogger::savePixelsText(string filename)
 			{
 				pixelFinds = _decoders->at(iDec)->projPixels[iPP];
 		
-				iofOutput <<	pixelFinds->_meanXdash.x << "\t" << cpixelFinds->_meanXdash.y << "\t" <<
+				iofOutput <<	pixelFinds->_meanXdash.x << "\t" << pixelFinds->_meanXdash.y << "\t" <<
 								pixelFinds->_sigmaXdash.x << "\t" <<  pixelFinds->_sigmaXdash.y << "\t" <<
 								pixelFinds->_sigmaRdash << "\t" << 
 								pixelFinds->_iLastFoundPixel << "\t" << 
