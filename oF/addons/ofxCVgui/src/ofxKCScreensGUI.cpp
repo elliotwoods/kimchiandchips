@@ -24,10 +24,7 @@ ofxKCScreensGUI::ofxKCScreensGUI(float x, float y, float width, float height)
 
 bool ofxKCScreensGUI::doFullscreen()
 {
-	if (mainScreen->isHit(_mousex, _mousey))
-		mainScreen->hitMaximise(_mousex, _mousey);
-	
-	return mainScreen->isFullscreen;
+	return mainScreen->hitMaximise(_mousex, _mousey);
 }
 
 void ofxKCScreensGUI::update()

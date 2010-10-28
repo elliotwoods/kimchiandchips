@@ -83,7 +83,7 @@ int scrGroup::findScreen(int x, int y)
 	}
 	
 	if (iScreen<0 || iScreen>screens.size()-1)
-		iSfcreen=-1;
+		iScreen=-1;
 
 	return iScreen;
 	
