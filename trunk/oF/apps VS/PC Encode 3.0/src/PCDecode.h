@@ -65,6 +65,9 @@ class PCDecode : public PCConfig
 		scrBase					*_scrSend, *_scrFrameData, *_scrThreshold, *_scrBinary, *_scrCamera;
 		scrHistograms			*_scrHistograms;
 	
+		std::vector<PCPixel*>	projPixels;
+		std::vector<PCPixel*>	camPixels;
+	
 	private: 
 		void					checkParity();
 		void					updateThresholdSelection(int &iSelectionClass);
@@ -80,9 +83,6 @@ class PCDecode : public PCConfig
 		ofTexture				*_texCamera;
 		ofTexture				_texCameraSpacePreview, _texProjectorSpacePreview;
 		//ofxShader				_shadLookup;
-		
-		std::vector<PCPixel*>	_projPixels;
-		std::vector<PCPixel*>	_camPixels;
 		
 		Histogram	 *			_histThresholdRange;
 		Histogram	 *			_histNFinds;

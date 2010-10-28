@@ -39,16 +39,18 @@ void PCManager::setup()
 		//instantiate the encoder
 		_encoder = new PCEncode(_payload);
 		
-		//instantiate cameras, decoders, loggers
+		//instantiate cameras, decoders
 		FOREACH_CAMERA
 		{
 			_camera.push_back(new Camera());
 			_decoder.push_back(new PCDecode(_payload, _camera[iCam], _encoder->_texOutput));
-			_logger.push_back(new PCLogger(_encoder, _decoder[iCam]));
 			
 			_camera[iCam]->ID = camIDs[iCam];
 			_camera[iCam]->init();
 		}
+		
+		//instantiate logger
+		_logger = new PCLogger(_encoder, &_decoder);
 		
 		isInitialised=true;
 	} else
@@ -94,9 +96,10 @@ void PCManager::close()
 	{
 		_camera[i]->close();
 		delete _camera[i];
-		delete _logger[i];
 		delete _decoder[i];
 	}
+	
+	delete _logger;
 	delete _encoder;
 	delete _payload;
 }
@@ -143,7 +146,7 @@ void PCManager::clear()
 
 void PCManager::readFrame()
 {
-	ofLog(OF_LOG_VERBOSE, "PCManager: Read frame " + ofToString(iFrame, 0));
+//	ofLog(OF_LOG_VERBOSE, "PCManager: Read frame " + ofToString(iFrame, 0));
 	if (state==STATE_CALIBRATING)
 		FOREACH_CAMERA
 		_decoder[iCam]->addCalibrationFrame();
@@ -170,7 +173,7 @@ void PCManager::readFrame()
 
 void PCManager::advanceFrame()
 {
-	ofLog(OF_LOG_VERBOSE, "PCManager: Advance frame from " + ofToString(iFrame, 0));
+//	ofLog(OF_LOG_VERBOSE, "PCManager: Advance frame from " + ofToString(iFrame, 0));
 	if (state>0)
 		iFrame++;
 	
@@ -189,14 +192,13 @@ void PCManager::advanceFrame()
 		case STATE_SCANNING:
 			if (iFrame >= _payload->totalFrames)
 			{
-				FOREACH_CAMERA
-					_logger[iCam]->save();
+				_logger->save();
 				stop();
 				ofLog(OF_LOG_VERBOSE, "PCManager: end scan");
 			}
 			break;
 	}
-	ofLog(OF_LOG_VERBOSE, "PCManager: Advance frame to " + ofToString(iFrame, 0));
+//	ofLog(OF_LOG_VERBOSE, "PCManager: Advance frame to " + ofToString(iFrame, 0));
 }
 
 void PCManager::writeFrame()

@@ -49,10 +49,10 @@ void PCApp::update(){
 
 void PCApp::draw(){
 	
-	if (_scanner.state>0)
-		ofLog(OF_LOG_VERBOSE, "PCApp: Draw iFrame " + 
-			  ofToString(_scanner.iFrame, 0));
-	
+//	if (_scanner.state>0)
+//		ofLog(OF_LOG_VERBOSE, "PCApp: Draw iFrame " + 
+//			  ofToString(_scanner.iFrame, 0));
+//	
 	//reset frame variables
 	//move these to a seperate function if gets too large
 //	sprintf(_strDebug, "");

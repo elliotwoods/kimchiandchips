@@ -46,8 +46,9 @@ public:
 
 	PCEncode			*_encoder;
 	vector<PCDecode*>	_decoder;
-	vector<PCLogger*>	_logger;
 	PayloadBase			*_payload;
+	
+	PCLogger			*_logger;
 	
 	vector<Camera*>		_camera;
 

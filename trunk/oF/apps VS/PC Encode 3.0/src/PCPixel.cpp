@@ -3,7 +3,7 @@
  *  PCEncode
  *
  *  Created by Elliot Woods on 14/01/2010.
- *  Copyright 2010 __MyCompanyName__. All rights reserved.
+ *  Copyright 2010 Kimchi and Chips. All rights reserved.
  *
  */
 
@@ -18,8 +18,8 @@ void PCPixel::clear()
 {
 	_nFinds=0;
 	
-	_MeanXdash.x=0;
-	_MeanXdash.y=0;
+	_meanXdash.x=0;
+	_meanXdash.y=0;
 		
 	_iLastFoundPixel=-1;
 	
@@ -34,8 +34,8 @@ void PCPixel::clear()
 void PCPixel::addFind(int iPixelDash, float xXdash, float xYdash)
 {
 	_nFinds++;
-	_MeanXdash.x = (_MeanXdash.x*(_nFinds-1) + xXdash) / _nFinds;
-	_MeanXdash.y = (_MeanXdash.y*(_nFinds-1) + xYdash) / _nFinds;
+	_meanXdash.x = (_meanXdash.x*(_nFinds-1) + xXdash) / _nFinds;
+	_meanXdash.y = (_meanXdash.y*(_nFinds-1) + xYdash) / _nFinds;
 	
 	_iLastFoundPixel = iPixelDash;
 	
@@ -52,8 +52,8 @@ void PCPixel::calcDeviation()
 	
 	for (int iFind = 0; iFind < _nFinds; iFind++)
 	{
-		_sigmaXdash.x += (_findsXdash.at(iFind).x - _MeanXdash.x) * (_findsXdash.at(iFind).x - _MeanXdash.x);
-		_sigmaXdash.y += (_findsXdash.at(iFind).x - _MeanXdash.y) * (_findsXdash.at(iFind).y - _MeanXdash.y);
+		_sigmaXdash.x += (_findsXdash.at(iFind).x - _meanXdash.x) * (_findsXdash.at(iFind).x - _meanXdash.x);
+		_sigmaXdash.y += (_findsXdash.at(iFind).x - _meanXdash.y) * (_findsXdash.at(iFind).y - _meanXdash.y);
 	}
 	
 	_sigmaXdash.x = sqrt(_sigmaXdash.x/f_nFinds);
@@ -65,14 +65,14 @@ void PCPixel::calcDeviation()
 
 void PCPixel::getData(float &MeanXdash, float &MeanYdash)
 {
-	MeanXdash = _MeanXdash.x;
-	MeanYdash = _MeanXdash.y;	
+	MeanXdash = _meanXdash.x;
+	MeanYdash = _meanXdash.y;	
 }
 
 void PCPixel::getData(float &MeanXdash, float &MeanYdash, float &SigmaXXdash, float &SigmaXYdash, int &iLastFoundIdash)
 {
-	MeanXdash = _MeanXdash.x;
-	MeanYdash = _MeanXdash.y;
+	MeanXdash = _meanXdash.x;
+	MeanYdash = _meanXdash.y;
 	SigmaXXdash = _sigmaXdash.x;
 	SigmaXYdash = _sigmaXdash.y;
 	iLastFoundIdash = _iLastFoundPixel;
