@@ -67,9 +67,29 @@ void PCManager::update()
 	//if we're scanning,
 	//then loop until a fresh frame
 	//**TODO** code this with parallel timing for each cam!
+	bool hasNewImageSum=false;
+	bool *hasNewImage = new bool[nCameras];
 	FOREACH_CAMERA
-		while (!_decoder[iCam]->capture() && state > 0)
-			ofSleepMillis(10);
+		hasNewImage[iCam] = false;
+
+	while (hasNewImageSum==false)
+	{
+		hasNewImageSum = true;
+		FOREACH_CAMERA
+			if (!hasNewImage[iCam])
+			{
+				hasNewImage[iCam] = _decoder[iCam]->capture();
+				hasNewImageSum &= hasNewImage[iCam];
+			}
+
+		//if we're not scanning, it doesn't matter
+		//if the frame is new, let's break out
+		if (state==0)
+			break;
+
+		ofSleepMillis(10);
+	}
+	delete[] hasNewImage;		
 	//////////////////////////
 	
 	//////////////////////////
@@ -94,8 +114,6 @@ void PCManager::close()
 {
 	for (int i=0; i<nCameras; i++)
 	{
-		_camera[i]->close();
-		delete _camera[i];
 		delete _decoder[i];
 	}
 	
@@ -135,6 +153,7 @@ void PCManager::start()
 void PCManager::stop()
 {
 	state = STATE_STANDBY;
+	iFrame = 0;
 }
 
 void PCManager::clear()
@@ -210,9 +229,9 @@ void PCManager::writeFrame()
 	
 	else if(state==STATE_SCANNING)
 	{
-		if (_payload->iScanInterleaveFrame(iFrame)==0)
-			FOREACH_CAMERA
-			_decoder[iCam]->clearInterleave();
+//		if (_payload->iScanInterleaveFrame(iFrame)==0)
+//			FOREACH_CAMERA
+//				_decoder[iCam]->clearInterleave();
 		
 		_encoder->updateScanFrame(_payload->iScanInterleaveFrame(iFrame),
 								  _payload->iInterleave(iFrame));

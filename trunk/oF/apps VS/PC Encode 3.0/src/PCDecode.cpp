@@ -89,8 +89,6 @@ PCDecode::~PCDecode()
 
 	delete _histThresholdRange;
 	delete _histNFinds;
-
-	delete _charCamera;
 	
 	delete _charBinary;
 	delete _charFrameDataPreview;

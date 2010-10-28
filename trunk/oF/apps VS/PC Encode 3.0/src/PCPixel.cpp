@@ -29,6 +29,7 @@ void PCPixel::clear()
 
 	if (_findsXdash.size() > 0)
 		_findsXdash.clear();
+
 }
 
 void PCPixel::addFind(int iPixelDash, float xXdash, float xYdash)
