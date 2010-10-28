@@ -17,7 +17,6 @@ enum enumGUIButtonState { button_wait, button_over, button_down };
 enum enumGUIButtonType {button_bang, button_toggle};
 
 enum enumShowCursor { cursor_none, cursor_x, cursor_y, cursor_xy };
-enum enumScreenType { enum_texture, enum_histogram };
 
 #define GUI_INTERFACE_BUTTON_SIZE 16
 #define GUI_INTERFACE_BORDER_LINE_WIDTH 4

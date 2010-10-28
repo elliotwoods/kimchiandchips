@@ -20,7 +20,7 @@ public:
 	void		doSwitchTexture(int &dummyval);
 	
 protected:
-	void		draw(int x, int y, int width, int height);
+	void			drawContent();
 
 	ofTexture		*chooseTextureToDraw();
 	ofTexture		* _texture, *_texture2;

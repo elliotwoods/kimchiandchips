@@ -23,20 +23,19 @@
 class scrBase : public scrBaseMarkers, public GUIAssets
 {
 public:
-	scrBase(enumShowCursor showCursor, bool showMarkers, enumScreenType screenType, string caption);
+	scrBase(enumShowCursor showCursor, bool showMarkers, string caption);
 	~scrBase();
 	
-	virtual void			draw();
+	void					draw(); // please override the private one below
 	
-	virtual void			mouseOver(float xX, float xY, int x, int y);
-	virtual void			mouseDown(float xX, float xY, int x, int y);
-	virtual void			mouseReleased(float xX, float xY, int x, int y);
+	bool					isHit(int x, int y);
 	
-	virtual void			mouseOverInterface(int x, int y);
-	virtual void			mouseDownInterface(int x, int y);
-	virtual void			mouseReleasedInterface(int x, int y);
+	virtual void			mouseOver(int x, int y) { };
+	virtual void			mouseDown(int x, int y) { };
+	virtual void			mouseReleased(int x, int y) { };
 	
-	void					hitMaximise(int &dummyval);
+	void					hitMaximise();
+	void					setBounds(int x, int y, int w, int h);
 	
 	void					getStatus(string &strStatus) { };
 	
@@ -44,15 +43,10 @@ public:
 	
 	void					updateInterface();
 	bool					isUserActive();
-	ofRectangle				bounds;
+		
+	bool					isFullscreen;
 	
-	virtual void			addHistogram(Histogram &histogram) { }
-	
-	bool					operator < ( const scrBase &cmp );
-	
-	bool					maximised;
-	
-	enumScreenType			_screenType;
+	bool					hasCursorAttached;
 	
 	enumShowCursor			_showCursor;
 	ofEvent<ofPoint>		evtCursorMove;
@@ -60,10 +54,13 @@ public:
 	string					_strCaption;
 	
 protected:
-	void					drawInterface(int x, int y, int width, int height);
-	virtual void			draw(int x, int y, int width, int height) = 0;
+	virtual void			doResize() { };
+	void					getLiveBounds(int &x, int &y, int &w, int &h); //also considers fullscreen
 	
-	bool					transformMouse(float mouseX, int mouseY, float &screenX, float &screenY);
+	virtual void			drawContent()=0;
+	void					drawInterface();
+	
+	bool					transformMouse(float mouseX, float mouseY, float &screenX, float &screenY);
 	
 	int						_x, _y, _width, _height;
 	

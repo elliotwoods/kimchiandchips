@@ -18,11 +18,12 @@ class scrGroup : public scrBase
 {
 public:
 	scrGroup();
-	void				mouseOver(int x, int y) { };
-	void				mouseDown(int x, int y) { };
-	void				mouseReleased(int x, int y) { };
 	
-	void				findScreen(int &x, int &y, int &iScreen, float &xX, float &xY);
+	int					findGrid(int &x, int &y);
+	
+	void				mouseOver(int x, int y);
+	void				mouseDown(int x, int y);
+	void				mouseReleased(int x, int y);
 	
 	int					groupType;
 	int					gridWidth;

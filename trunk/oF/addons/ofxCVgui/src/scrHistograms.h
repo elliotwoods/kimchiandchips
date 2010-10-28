@@ -17,12 +17,12 @@ class scrHistograms : public scrBase
 public:
 	scrHistograms(enumShowCursor showCursor, bool hasCursorEvents, string caption);
 	
-	void						draw(int x, int y, int width, int height);
+	void						drawContent();
 	void						drawHistogram();
 	
 	void						addHistogram(Histogram &histogram);
 	
-	virtual void				mouseDown(float xX, float xY, int x, int y);
+	virtual void				mouseDown(int x, int y);
 
 private:
 	std::vector<Histogram*>	_vecHistograms;

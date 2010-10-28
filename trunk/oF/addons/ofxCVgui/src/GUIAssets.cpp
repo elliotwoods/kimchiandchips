@@ -15,11 +15,6 @@ ofImage *GUIAssets::_assetButtonSwitch = new ofImage();
 ofImage *GUIAssets::_assetButtonSwitch_over = new ofImage();
 ofTrueTypeFont *GUIAssets::_typer = new ofTrueTypeFont();
 
-int GUIAssets::_nScreenSlotsX=2;
-int GUIAssets::_nScreenSlotsY=2;
-float GUIAssets::_width=1024;
-float GUIAssets::_height=768;
-
 
 int GUIAssets::_colSwatch1[5] = { 0xF0044F, 0x08E39F, 0x0904FA, 0xE8FA65, 0xE8FA65};
 
