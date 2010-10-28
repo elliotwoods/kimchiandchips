@@ -22,6 +22,6 @@
 		<threshold percentile="0.5" />
 	</decoding>
 	
-	<logging on="0" />
+	<logging on="1" />
 	
 </settings>

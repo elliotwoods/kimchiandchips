@@ -13,7 +13,17 @@
 #include "ofMain.h"
 #include <math.h>
 
-class PCPixel
+class PCPixelSlim
+{
+public:
+	ofPoint _meanXdash, _sigmaXdash;
+	float				_sigmaRdash; // standard deviation on X
+	
+	int _iLastFoundPixel;
+	int _nFinds;	
+};
+
+class PCPixel : public PCPixelSlim
 {
 	public:
 		PCPixel();
@@ -31,13 +41,7 @@ class PCPixel
 	
 		int	getNFinds();
 	
-	private:
-		ofPoint _MeanXdash, _sigmaXdash;
-		float				_sigmaRdash; // standard deviation on X
-
-		int _iLastFoundPixel;
-		int _nFinds;
-		
+	protected:
 		std::vector<int>		_findsIdash;
 		std::vector<ofPoint>	_findsXdash;
 	

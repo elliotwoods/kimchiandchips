@@ -55,10 +55,10 @@ PCDecode::PCDecode(PayloadBase *payload, Camera *camera, ofTexture &output)
 	_texProjectorSpacePreview.allocate(camWidth, camHeight, GL_RGB);
 	
 	for (int iPixel=0; iPixel<nProjPixels; iPixel++)
-		_projPixels.push_back(new PCPixel());
+		projPixels.push_back(new PCPixel());
 	
 	for (int iPixel=0; iPixel<nCamPixels; iPixel++)
-		_camPixels.push_back(new PCPixel());
+		camPixels.push_back(new PCPixel());
 	
 	_histThresholdRange = new Histogram("Difference between MIN and MAX to calc threshold.", 256);
 	_histNFinds = new Histogram("Camera pixels found per projector pixel.", nProjPixels);
@@ -155,7 +155,7 @@ void PCDecode::updateSpacePreview(int width, int height, unsigned char data[], o
 
 void PCDecode::updateCameraSpacePreview()
 {
-	updateSpacePreview(projWidth,projHeight,_charCameraSpacePreview,_texCameraSpacePreview, _projPixels);
+	updateSpacePreview(projWidth,projHeight,_charCameraSpacePreview,_texCameraSpacePreview, projPixels);
 }
 
 void PCDecode::drawCameraSpacePreview(int screenx, int screeny)
@@ -175,7 +175,7 @@ void PCDecode::drawCameraSpacePreview()
 
 void PCDecode::updateProjectorSpacePreview()
 {
-	updateSpacePreview(camWidth,camHeight,_charProjectorSpacePreview,_texProjectorSpacePreview, _camPixels);
+	updateSpacePreview(camWidth,camHeight,_charProjectorSpacePreview,_texProjectorSpacePreview, camPixels);
 }
 
 void PCDecode::drawProjectorSpacePreview(int screenx, int screeny)
@@ -197,7 +197,7 @@ void PCDecode::moveSendCursor(ofPoint &ptCursorPosition)
 	
 	if (iPixel>0 && iPixel < projWidth * projHeight)
 	{
-		_projPixels.at(iPixel)->getData(&vecXdash);
+		projPixels.at(iPixel)->getData(&vecXdash);
 		
 		_scrFrameData->setMarkers(vecXdash);
 		
@@ -335,9 +335,9 @@ void PCDecode::calcInterleave(int iInterleave)
 				
 				if (isValid)
 				{
-					_projPixels.at(iProjectorPixel)->addFind(iCamPixel, xCamX, xCamY);
+					projPixels.at(iProjectorPixel)->addFind(iCamPixel, xCamX, xCamY);
 				
-					_camPixels.at(iCamPixel)->addFind(iProjectorPixel, xProjectorX, xProjectorY);
+					camPixels.at(iCamPixel)->addFind(iProjectorPixel, xProjectorX, xProjectorY);
 				}
 			}
 		}
@@ -390,10 +390,10 @@ void PCDecode::clear()
 	int nCamPixels = camWidth*camHeight;
 
 	for (int iProjectorPixel = 0; iProjectorPixel<projWidth*projHeight; iProjectorPixel++)
-		_projPixels.at(iProjectorPixel)->clear();
+		projPixels.at(iProjectorPixel)->clear();
 	
 	for (int iCameraPixel = 0; iCameraPixel < nCamPixels; iCameraPixel++)
-		_camPixels.at(iCameraPixel)->clear();
+		camPixels.at(iCameraPixel)->clear();
 	
 	clearInterleave();
 
@@ -430,7 +430,7 @@ int PCDecode::getFrameParity(int iCameraPixel)
 int PCDecode::getNFinds(int iProjectorPixel)
 {
 	if (iProjectorPixel>=0 && iProjectorPixel<projWidth*projHeight)
-		return _projPixels.at(iProjectorPixel)->getNFinds();
+		return projPixels.at(iProjectorPixel)->getNFinds();
 	else
 		return 0;
 }
@@ -439,6 +439,6 @@ void PCDecode::getFoundPixelData(int iProjectorPixel, float &CamMeanX, float &Ca
 {
 	
 	if (iProjectorPixel>=0 && iProjectorPixel<projWidth*projHeight)
-		_projPixels.at(iProjectorPixel)->getData(CamMeanX, CamMeanY, CamSigmaX, CamSigmaY, iLastFoundCameraPixel);
+		projPixels.at(iProjectorPixel)->getData(CamMeanX, CamMeanY, CamSigmaX, CamSigmaY, iLastFoundCameraPixel);
 	
 }

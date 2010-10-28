@@ -9,10 +9,10 @@
 
 #include "PCincludes.h"
 
-PCLogger::PCLogger(PCEncode *encoder, PCDecode *decoder)
+PCLogger::PCLogger(PCEncode *encoder, vector<PCDecode*> *decoders)
 {
 	_encoder = encoder;
-	_decoder = decoder;
+	_decoders = decoders;
 	
 	_imgCameraSpacePreview.setUseTexture(false);
 	_imgProjectorSpacePreview.setUseTexture(false);
@@ -21,23 +21,120 @@ PCLogger::PCLogger(PCEncode *encoder, PCDecode *decoder)
 
 void PCLogger::save()
 {
-	// if logging is turned off, then skip
 	if (!isLogging)
 		return;
 	
-	string strFilename = getDateString() + getConfigString();
-	string strExtension = ".png";
+	string strFilename = getDateString();
 	
-	_imgCameraSpacePreview.setFromPixels(_decoder->_charCameraSpacePreview,
-										 projWidth, projHeight,
-										 OF_IMAGE_COLOR, true);
+	//////////////////////////////////////////////////////
+	// SAVE IMAGES
+	//////////////////////////////////////////////////////
+	for (int iDecoder=0; iDecoder<_decoders->size(); iDecoder++)
+	{
+		
+		string strExtension = ".png";
+	#ifdef TARGET_WIN32
+		strFilename = "logs\\" + strFilename;
+	#else
+		strFilename = "logs/" + strFilename;
+	#endif
+		
+		
+		_imgCameraSpacePreview.setFromPixels(_decoders->at(iDecoder)->_charCameraSpacePreview,
+											 projWidth, projHeight,
+											 OF_IMAGE_COLOR, true);
+		
+		_imgProjectorSpacePreview.setFromPixels(_decoders->at(iDecoder)->_charProjectorSpacePreview,
+												camWidth, camHeight,
+												OF_IMAGE_COLOR, true);
+		
+		_imgCameraSpacePreview.saveImage(strFilename + "-camera" + strExtension);
+		_imgProjectorSpacePreview.saveImage(strFilename + "-projector" + strExtension);
+	}
+	//////////////////////////////////////////////////////
+
+	//////////////////////////////////////////////////////
+	// SAVE DATA
+	//////////////////////////////////////////////////////
+	//first we have to create the filename
+	//with path for iostream to access file
+	string strFileWithPath;
+#ifdef TARGET_WIN32
+	strFileWithPath = "..\\..\\..\\data\\" + strFilename;
+#else
+	strFileWithPath = "../../../data/" + strFilename;
+#endif
 	
-	_imgProjectorSpacePreview.setFromPixels(_decoder->_charProjectorSpacePreview,
-											camWidth, camHeight,
-											OF_IMAGE_COLOR, true);
 	
-	_imgCameraSpacePreview.saveImage(strFilename + "-camera" + strExtension);
-	_imgProjectorSpacePreview.saveImage(strFilename + "-projector" + strExtension);
+	saveConfig(strFileWithPath + "-config.txt");
+	savePixelsText(strFileWithPath + "-data.txt");
+	savePixelsBinary(strFileWithPath + ".bin");
+	//////////////////////////////////////////////////////
+
+}
+
+void PCLogger::saveConfig(string filename)
+{
+	ofstream iofOutput(filename.c_str(), ios::out);
+	
+	iofOutput	<< projWidth << "\t"
+				<< projHeight << "\t"
+				<< interleaveWidth << "\t"
+				<< camWidth << "\t"
+				<< camHeight << "\t"
+				<< _decoders->size() << endl;
+	
+	iofOutput.close();
+}
+
+void PCLogger::savePixelsBinary(string filename)
+{
+	ofstream iofOutput(filename.c_str(), ios::out | ios::binary);
+    
+	for (int iPP=0; iPP<projWidth*projHeight; iPP++)
+		for (int iDec=0; iDec<_decoders->size(); iDec++)
+			
+			iofOutput.write((char*) (PCPixelSlim*)
+							_decoders->at(iDec)->projPixels[iPP],
+							sizeof(PCPixelSlim));
+	
+    iofOutput.close();
+}
+
+void PCLogger::savePixelsText(string filename)
+{
+	//save in row format:
+	
+	//	i	ix	iy	meanx	meany	sigmax	sigmay	iLastFind	nFinds
+	
+	ofstream iofOutput(filename.c_str(), ios::out);
+	
+	iofOutput.precision(20);
+	
+	PCPixelSlim *pixelFinds;
+	
+	for (int iPP=0; iPP<projWidth*projHeight; iPP++)
+		for (int iDec=0; iDec<_decoders->size(); iDec++)
+		{
+			iofOutput << iPP << "\t" <<
+						(iPP % projWidth) << "\t" <<
+						int(iPP / projWidth) << "\t";
+			
+			for (int iDec=0; iDec<_decoders->size(); iDec++)
+			{
+				pixelFinds = _decoders->at(iDec)->projPixels[iPP];
+		
+				iofOutput <<	pixelFinds->_meanXdash.x << "\t" << cpixelFinds->_meanXdash.y << "\t" <<
+								pixelFinds->_sigmaXdash.x << "\t" <<  pixelFinds->_sigmaXdash.y << "\t" <<
+								pixelFinds->_sigmaRdash << "\t" << 
+								pixelFinds->_iLastFoundPixel << "\t" << 
+								pixelFinds->_nFinds;
+			}
+			
+			iofOutput << endl;
+		}
+	
+    iofOutput.close();
 }
 
 string PCLogger::getDateString()
@@ -51,17 +148,4 @@ string PCLogger::getDateString()
 	strftime(datestring, 50, format, &hereandnow);
 	
 	return string(datestring);
-}
-
-string PCLogger::getConfigString()
-{
-	char configstring[50];
-	
-	sprintf(configstring, " p=%d,%d c=%d,%d i=%d,%d, e=%d, t=%1.1f",
-			projWidth, projHeight,
-			camWidth, camHeight,
-			interleaveWidth, interleaveHeight,
-			errorBits, thresholdPercentile);
-	
-	return string(configstring);
 }

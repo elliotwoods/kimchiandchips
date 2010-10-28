@@ -14,22 +14,26 @@
 #include "ofMain.h"
 
 #include <ctime>
+#include <iostream>
+#include <fstream>
 
 class PCLogger : public PCConfig
 {
 	
 public:
-	PCLogger(PCEncode *encoder, PCDecode *decoder);
+	PCLogger(PCEncode *encoder, vector<PCDecode*> *decoders);
 	
 	void		save();
 	
 private:
+	void		saveConfig(string filename);
+	void		savePixelsBinary(string filename);
+	void		savePixelsText(string filename);
 
 	string		getDateString();
-	string		getConfigString();
 	
-	PCDecode *	_decoder;
-	PCEncode *	_encoder;	
+	vector<PCDecode*>	*_decoders;
+	PCEncode			*_encoder;	
 	
 	ofImage		_imgCameraSpacePreview, _imgProjectorSpacePreview;
 
