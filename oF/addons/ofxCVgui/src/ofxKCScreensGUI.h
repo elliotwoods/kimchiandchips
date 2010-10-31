@@ -17,7 +17,10 @@
 
 #include "scrTexture.h"
 #include "scrHistograms.h"
-#include "scrGroup.h"
+
+#include "scrGroupGrid.h"
+#include "scrGroupTabbed.h"
+
 
 #include "ofMain.h"
 

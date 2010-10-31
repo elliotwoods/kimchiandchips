@@ -10,7 +10,7 @@
 
 #include "ofxKCScreensGUI.h"
 
-scrBase::scrBase(enumShowCursor showCursor, bool showMarkers, string caption) :
+scrBase::scrBase(enumShowCursor showCursor, bool showMarkers, string _caption) :
 isFullscreen(_isFullscreen)
 {
 	
@@ -24,7 +24,9 @@ isFullscreen(_isFullscreen)
 	
 	hasCursorAttached = false;
 	
-	_strCaption = caption;
+	caption = _caption;
+	
+	_hasInterface = true;
 
 }
 
@@ -60,13 +62,19 @@ bool scrBase::transformMouse(float mouseX, float mouseY, float &screenX, float &
 void scrBase::draw()
 {
 	drawContent();
-	drawInterface();
+	
+	if (_hasInterface)
+		drawInterface();
 }
 
 void scrBase::drawInterface()
 {
 	int x, y, width, height;
 	getLiveBounds(x, y, width, height);
+	
+	int x2, y2;
+	x2 = x+width; y2 = y+height;
+	
 	//
 	// MARKERS
 	//
@@ -85,10 +93,14 @@ void scrBase::drawInterface()
 	ofSetLineWidth(GUI_INTERFACE_BORDER_LINE_WIDTH);
 	ofSetColor(255,255,255);
 	
-	ofRect(x+(GUI_INTERFACE_BORDER_LINE_WIDTH/2),
-		   y+(GUI_INTERFACE_BORDER_LINE_WIDTH/2),
-		   width-GUI_INTERFACE_BORDER_LINE_WIDTH,
-		   height-GUI_INTERFACE_BORDER_LINE_WIDTH);
+	int inset=GUI_INTERFACE_BORDER_LINE_WIDTH/2;
+	
+	//top,bottom,left,right
+	ofLine(x, y+inset, x2, y+inset);
+	ofLine(x, y2-inset, x2, y2-inset);
+	
+	ofLine(x+inset, y, x+inset, y2);
+	ofLine(x2-inset, y2, x2-inset, y2);
 	
 	ofPopStyle();
 	
@@ -135,13 +147,13 @@ void scrBase::drawInterface()
 	ofSetColor(255,255,255);
 	ofSetLineWidth(0);
 	ofFill();
-	ofRectangle boundBox = _typer->getStringBoundingBox(_strCaption, x, y+GUI_FONT_SIZE);
+	ofRectangle boundBox = _typer->getStringBoundingBox(caption, x, y+GUI_FONT_SIZE);
 	ofRect(boundBox.x, boundBox.y, boundBox.width, boundBox.height);
 	ofPopStyle();
 	
 	ofPushStyle();
 	ofSetColor(0, 0, 0);
-	_typer->drawString(_strCaption, x, y+GUI_FONT_SIZE);
+	_typer->drawString(caption, x, y+GUI_FONT_SIZE);
 	ofPopStyle();
 }
 
