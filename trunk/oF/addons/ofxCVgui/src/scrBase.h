@@ -23,7 +23,7 @@
 class scrBase : public scrBaseMarkers, public GUIAssets
 {
 public:
-	scrBase(enumShowCursor showCursor, bool showMarkers, string caption);
+	scrBase(enumShowCursor showCursor, bool showMarkers, string _caption);
 	~scrBase();
 	
 	void					draw(); // please override the private one below
@@ -39,6 +39,7 @@ public:
 	const bool				&isFullscreen;
 	
 	void					setBounds(int x, int y, int w, int h);
+	virtual void			doResize() { };
 	
 	void					getStatus(string &strStatus) { };
 	
@@ -52,10 +53,9 @@ public:
 	enumShowCursor			_showCursor;
 	ofEvent<ofPoint>		evtCursorMove;
 	
-	string					_strCaption;
+	string					caption;
 	
 protected:
-	virtual void			doResize() { };
 	void					getLiveBounds(int &x, int &y, int &w, int &h); //also considers fullscreen
 	
 	virtual void			drawContent()=0;
@@ -76,6 +76,8 @@ protected:
 	float					_lastLocalInterfaceUpdate;
 	
 	int						_mousex, _mousey;
+	
+	bool					_hasInterface;
 
 };
 

@@ -14,20 +14,12 @@
 class scrTexture : public scrBase {
 
 public:
-	scrTexture(enumShowCursor showCursor, bool hasCursorEvents, ofTexture &texture, string caption);
-	scrTexture(enumShowCursor showCursor, bool hasCursorEvents, ofTexture &texture, ofTexture &texture2, string caption);
-
-	void		doSwitchTexture(int &dummyval);
+	scrTexture(enumShowCursor showCursor, bool hasCursorEvents, ofTexture &texture, string _caption);
 	
 protected:
 	void			drawContent();
-
-	ofTexture		*chooseTextureToDraw();
-	ofTexture		* _texture, *_texture2;
-	bool			_hasTwoTextures;
-	bool			_selectedTexture;
 	
-	btnBase			*_btnSwitchTexture;
+	ofTexture		* _texture;
 	
 	void			* _onMouseOver(float x, float y);
 	

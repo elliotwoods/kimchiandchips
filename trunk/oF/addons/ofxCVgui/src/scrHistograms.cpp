@@ -9,8 +9,8 @@
 
 #include "scrHistograms.h"
 
-scrHistograms::scrHistograms(enumShowCursor showCursor, bool hasCursorEvents, string caption)
-: scrBase(showCursor, hasCursorEvents, caption)
+scrHistograms::scrHistograms(enumShowCursor showCursor, bool hasCursorEvents, string _caption)
+: scrBase(showCursor, hasCursorEvents, _caption)
 {
 }
 
