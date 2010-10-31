@@ -10,7 +10,7 @@
 
 #include "PCincludes.h"
 
-PCDecode::PCDecode(PayloadBase *payload, Camera *camera, ofTexture &output)
+PCDecode::PCDecode(PayloadBase *payload, Camera *camera)
 {		
 	_payload = payload;
 	_camera = camera;
@@ -67,10 +67,12 @@ PCDecode::PCDecode(PayloadBase *payload, Camera *camera, ofTexture &output)
 	ofAddListener(_histThresholdRange->updateSelection,this,&PCDecode::updateThresholdSelection);
 
 
-	_scrSend = new scrTexture(cursor_xy, false, output, _texCameraSpacePreview, "Output / Cameraspace");
-	ofAddListener(_scrSend->evtCursorMove, this, &PCDecode::moveSendCursor);
+	_scrProjectorSpace = new scrTexture(cursor_xy, false, _texCameraSpacePreview, "Projector space preview");
+	ofAddListener(_scrProjectorSpace->evtCursorMove, this, &PCDecode::moveSendCursor);
 	
-	_scrFrameData = new scrTexture(cursor_none, true, *_texFrameDataPreview, _texProjectorSpacePreview, "Frame data / Projectorspace");
+	_scrFrameData = new scrTexture(cursor_none, true, *_texFrameDataPreview, "Frame data");
+	
+	_scrCameraSpace = new scrTexture(cursor_none, true, _texProjectorSpacePreview, "Camera space preview");
 	
 	_scrBinary = new scrTexture(cursor_none, false, *_texBinary, "Binary image");
 	
@@ -108,8 +110,9 @@ PCDecode::~PCDecode()
 	delete _intFrameParity;
 	delete _boolFrameValid;
 	
-	delete _scrSend;
 	delete _scrFrameData;
+	delete _scrCameraSpace;
+	delete _scrProjectorSpace;
 	
 }
 
@@ -126,7 +129,7 @@ bool PCDecode::capture()
 	for (int i=0; i<nCamPixels; i++)
 	{
 		_boolBinary[i] = _charCamera[i] > _charThreshold[i];
-		_charBinary[i] = 255*_boolBinary[i];
+		_charBinary[i] = (_boolBinary[i] && _boolThresholdMask[i]) * 255;
 	}
 	
 	_texBinary->loadData(_charBinary, camWidth, camHeight, GL_LUMINANCE);

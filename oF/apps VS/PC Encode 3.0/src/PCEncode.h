@@ -15,6 +15,8 @@
 #include "scrTexture.h"
 #include "PCConfig.h"
 
+#include "scrTexture.h"
+
 #include "PayloadBase.h"
 
 class PCEncode : public PCConfig 
@@ -33,11 +35,11 @@ public:
 	void					updateScanFrame(int iScanInterleaveFrame, int iInterleave);
 	void					updateCalibrationFrame(int iCalibrationFrame);
 	
-
+	scrTexture				scrSend;
+private:
+	
 	ofTexture				_texOutput;
 	unsigned char *			_texCharOutput;
-	
-private:
 	
 	PayloadBase				*_payload;
 	

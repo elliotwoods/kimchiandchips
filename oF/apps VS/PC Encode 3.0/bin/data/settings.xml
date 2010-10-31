@@ -6,8 +6,8 @@
 				<projector width="1440" height="900" />
 				<projector width="32" height="16" />
 			-->
-			<projector width="1920" height="1080" />
-			<interleave width="4" height="4" />
+			<projector width="1440" height="900" />
+			<interleave width="2" height="2" />
 			<errorcheck nFrames="3" />
 	</encoding>
 	
@@ -15,7 +15,7 @@
 		<cameras width="640" height="480"
 		 gain="40" exposure="128" delay="200">
 			<camera id="0" />
-			<camera id="1" />
+			<!--camera id="1" /-->
 		</cameras>
 		 
 		

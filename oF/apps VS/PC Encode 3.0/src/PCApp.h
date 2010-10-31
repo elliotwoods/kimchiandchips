@@ -3,6 +3,7 @@
 
 
 #include "ofMain.h"
+
 #include "ofxKCScreensGUI.h"
 
 #include "PCconstants.h"
@@ -37,11 +38,12 @@ class PCApp : public ofBaseApp {
 		void windowResized(int w, int h);
 	
 	private:
-		//GUI stuff. maybe move this to screens?
-		//maybe it's already moved?
-		int					_MouseStartX, _MouseStartY;
-		float				_MouseStartScreenFloatX, _MouseStartScreenFloatY;
-		int					_MouseStartScreenPixX, _MouseStartScreenPixY;
+		string				getDateString();
+//		//GUI stuff. maybe move this to screens?
+//		//maybe it's already moved?
+//		int					_MouseStartX, _MouseStartY;
+//		float				_MouseStartScreenFloatX, _MouseStartScreenFloatY;
+//		int					_MouseStartScreenPixX, _MouseStartScreenPixY;
 	
 	
 		PCManager			_scanner;

@@ -28,7 +28,7 @@
 class PCDecode : public PCConfig 
 {
 	public:
-		PCDecode(PayloadBase *payload, Camera *camera, ofTexture &output);
+		PCDecode(PayloadBase *payload, Camera *camera);
 		~PCDecode();
 	
 		bool capture();
@@ -62,7 +62,8 @@ class PCDecode : public PCConfig
 		unsigned char *			_charCameraSpacePreview;
 		unsigned char *			_charProjectorSpacePreview;
 	
-		scrBase					*_scrSend, *_scrFrameData, *_scrThreshold, *_scrBinary, *_scrCamera;
+		scrBase					*_scrFrameData, *_scrThreshold, *_scrBinary, *_scrCamera;
+		scrBase					*_scrProjectorSpace, *_scrCameraSpace;
 		scrHistograms			*_scrHistograms;
 	
 		std::vector<PCPixel*>	projPixels;

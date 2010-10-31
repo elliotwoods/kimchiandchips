@@ -19,16 +19,19 @@ PCLogger::PCLogger(PCEncode *encoder, vector<PCDecode*> *decoders)
 	
 }
 
-void PCLogger::save()
+void PCLogger::save(string filename)
 {
+	// ** TODO ** 
+	//this needs to be replaced with a kind
+	//'what to log' rather than
+	//'whether to log'
 	if (!isLogging)
 		return;
 	
-	string strFilename = getDateString();
 	#ifdef TARGET_WIN32
-		strFilename = "logs\\" + strFilename;
+		filename = "logs\\" + filename;
 	#else
-		strFilename = "logs/" + strFilename;
+		filename = "logs/" + filename;
 	#endif
 
 	//////////////////////////////////////////////////////
@@ -49,8 +52,8 @@ void PCLogger::save()
 												camWidth, camHeight,
 												OF_IMAGE_COLOR, true);
 		
-		_imgCameraSpacePreview.saveImage(strFilename + "-camera" + strIndex + strExtension);
-		_imgProjectorSpacePreview.saveImage(strFilename + "-projector" + strIndex + strExtension);
+		_imgCameraSpacePreview.saveImage(filename + "-camera" + strIndex + strExtension);
+		_imgProjectorSpacePreview.saveImage(filename + "-projector" + strIndex + strExtension);
 	}
 	//////////////////////////////////////////////////////
 
@@ -61,9 +64,9 @@ void PCLogger::save()
 	//with path for iostream to access file
 	string strFileWithPath;
 #ifdef TARGET_WIN32
-	strFileWithPath = ".\\data\\" + strFilename;
+	strFileWithPath = ".\\data\\" + filename;
 #else
-	strFileWithPath = "../../../data/" + strFilename;
+	strFileWithPath = "../../../data/" + filename;
 #endif
 	
 	
@@ -135,17 +138,4 @@ void PCLogger::savePixelsText(string filename)
 	}
 
     iofOutput.close();
-}
-
-string PCLogger::getDateString()
-{
-	char datestring[10];
-
-	time_t now = time(0);
-	tm hereandnow=*localtime(&now);
-
-	const char format[]="%Y%m%d";
-	strftime(datestring, 50, format, &hereandnow);
-	
-	return string(datestring);
 }

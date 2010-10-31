@@ -43,7 +43,7 @@ void PCManager::setup()
 		FOREACH_CAMERA
 		{
 			_camera.push_back(new Camera());
-			_decoder.push_back(new PCDecode(_payload, _camera[iCam], _encoder->_texOutput));
+			_decoder.push_back(new PCDecode(_payload, _camera[iCam]));
 			
 			_camera[iCam]->ID = camIDs[iCam];
 			_camera[iCam]->init();
@@ -161,6 +161,11 @@ void PCManager::clear()
 	FOREACH_CAMERA
 		_decoder[iCam]->clear();
 }
+
+void PCManager::save(string filenameBase)
+{
+	_logger->save(filenameBase);
+}
 ////////////////////////////////////////////////////////////
 
 void PCManager::readFrame()
@@ -211,7 +216,6 @@ void PCManager::advanceFrame()
 		case STATE_SCANNING:
 			if (iFrame >= _payload->totalFrames)
 			{
-				_logger->save();
 				stop();
 				ofLog(OF_LOG_VERBOSE, "PCManager: end scan");
 			}

@@ -23,14 +23,12 @@ class PCLogger : public PCConfig
 public:
 	PCLogger(PCEncode *encoder, vector<PCDecode*> *decoders);
 	
-	void		save();
+	void		save(string filename);
 	
 private:
 	void		saveConfig(string filename);
 	void		savePixelsBinary(string filename);
 	void		savePixelsText(string filename);
-
-	string		getDateString();
 	
 	vector<PCDecode*>	*_decoders;
 	PCEncode			*_encoder;	

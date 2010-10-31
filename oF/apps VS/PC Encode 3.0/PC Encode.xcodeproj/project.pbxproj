@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8B3A2E26127805AC006144DE /* scrGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B3A2E25127805AC006144DE /* scrGroup.cpp */; };
+		8B3A2E26127805AC006144DE /* scrGroupBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B3A2E25127805AC006144DE /* scrGroupBase.cpp */; };
 		8B4FA9321276F2A000D08FE2 /* PCManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B4FA9311276F2A000D08FE2 /* PCManager.cpp */; };
 		8B5C88631271898400AA9B44 /* btnBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B5C884F1271898400AA9B44 /* btnBase.cpp */; };
 		8B5C88641271898400AA9B44 /* ofxKCScreensGUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B5C88521271898400AA9B44 /* ofxKCScreensGUI.cpp */; };
@@ -33,6 +33,8 @@
 		8B6B965912717C2F0090C147 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B6B965312717C2F0090C147 /* tinyxmlerror.cpp */; };
 		8B6B965A12717C2F0090C147 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B6B965412717C2F0090C147 /* tinyxmlparser.cpp */; };
 		8B6B965B12717C2F0090C147 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B6B965612717C2F0090C147 /* ofxXmlSettings.cpp */; };
+		8BE1355C127B0543008C822D /* scrGroupGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BE1355B127B0543008C822D /* scrGroupGrid.cpp */; };
+		8BE136F7127D4464008C822D /* scrGroupTabbed.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BE136F6127D4464008C822D /* scrGroupTabbed.cpp */; };
 		E45BE0AA0E8CC67C009D7055 /* GLee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE0A90E8CC67C009D7055 /* GLee.a */; };
 		E45BE2E40E8CC69C009D7055 /* rtAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE2E30E8CC69C009D7055 /* rtAudio.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -102,8 +104,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		8B3A2E24127805AC006144DE /* scrGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrGroup.h; sourceTree = "<group>"; };
-		8B3A2E25127805AC006144DE /* scrGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scrGroup.cpp; sourceTree = "<group>"; };
+		8B3A2E24127805AC006144DE /* scrGroupBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrGroupBase.h; sourceTree = "<group>"; };
+		8B3A2E25127805AC006144DE /* scrGroupBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scrGroupBase.cpp; sourceTree = "<group>"; };
 		8B4FA9311276F2A000D08FE2 /* PCManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PCManager.cpp; sourceTree = "<group>"; };
 		8B5C88491271898400AA9B44 /* button-plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-plus.png"; sourceTree = "<group>"; };
 		8B5C884A1271898400AA9B44 /* button-plus_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-plus_over.png"; sourceTree = "<group>"; };
@@ -131,15 +133,15 @@
 		8B5C88621271898400AA9B44 /* scrTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrTexture.h; sourceTree = "<group>"; };
 		8B6B95FE12716F9A0090C147 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		8B6B95FF12716F9A0090C147 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
-		8B6B960212716F9A0090C147 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		8B6B960212716F9A0090C147 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = "<group>"; };
 		8B6B960412716F9A0090C147 /* PayloadBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PayloadBase.cpp; sourceTree = "<group>"; };
 		8B6B960512716F9A0090C147 /* PayloadBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayloadBase.h; sourceTree = "<group>"; };
 		8B6B960612716F9A0090C147 /* PayloadBinary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PayloadBinary.cpp; sourceTree = "<group>"; };
 		8B6B960712716F9A0090C147 /* PayloadBinary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayloadBinary.h; sourceTree = "<group>"; };
 		8B6B960812716F9A0090C147 /* PayloadGraycode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PayloadGraycode.cpp; sourceTree = "<group>"; };
 		8B6B960912716F9A0090C147 /* PayloadGraycode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayloadGraycode.h; sourceTree = "<group>"; };
-		8B6B960A12716F9A0090C147 /* PCApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PCApp.cpp; sourceTree = "<group>"; };
-		8B6B960B12716F9A0090C147 /* PCApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCApp.h; sourceTree = "<group>"; };
+		8B6B960A12716F9A0090C147 /* PCApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PCApp.cpp; path = src/PCApp.cpp; sourceTree = "<group>"; };
+		8B6B960B12716F9A0090C147 /* PCApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCApp.h; path = src/PCApp.h; sourceTree = "<group>"; };
 		8B6B960E12716F9A0090C147 /* PCConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PCConfig.cpp; sourceTree = "<group>"; };
 		8B6B960F12716F9A0090C147 /* PCConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCConfig.h; sourceTree = "<group>"; };
 		8B6B961012716F9A0090C147 /* PCconstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCconstants.h; sourceTree = "<group>"; };
@@ -162,6 +164,11 @@
 		8B6B965712717C2F0090C147 /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
 		8BD206BC1271B73C00A9AB03 /* todo.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = todo.rtf; sourceTree = "<group>"; };
 		8BD2072612730D0E00A9AB03 /* settings.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = settings.xml; path = bin/data/settings.xml; sourceTree = "<group>"; };
+		8BE13557127B0527008C822D /* scrGroupSwap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrGroupSwap.h; sourceTree = "<group>"; };
+		8BE1355A127B0543008C822D /* scrGroupGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrGroupGrid.h; sourceTree = "<group>"; };
+		8BE1355B127B0543008C822D /* scrGroupGrid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scrGroupGrid.cpp; sourceTree = "<group>"; };
+		8BE136F5127D4464008C822D /* scrGroupTabbed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrGroupTabbed.h; sourceTree = "<group>"; };
+		8BE136F6127D4464008C822D /* scrGroupTabbed.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scrGroupTabbed.cpp; sourceTree = "<group>"; };
 		E45BE0390E8CC647009D7055 /* FreeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FreeImage.h; path = ../../../libs/freeimage/include/FreeImage.h; sourceTree = SOURCE_ROOT; };
 		E45BE03F0E8CC650009D7055 /* fmod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fmod.h; path = ../../../libs/fmodex/include/fmod.h; sourceTree = SOURCE_ROOT; };
 		E45BE0400E8CC650009D7055 /* fmod.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = fmod.hpp; path = ../../../libs/fmodex/include/fmod.hpp; sourceTree = SOURCE_ROOT; };
@@ -238,8 +245,13 @@
 		8B08B3991279729500914672 /* Groups */ = {
 			isa = PBXGroup;
 			children = (
-				8B3A2E25127805AC006144DE /* scrGroup.cpp */,
-				8B3A2E24127805AC006144DE /* scrGroup.h */,
+				8B3A2E25127805AC006144DE /* scrGroupBase.cpp */,
+				8B3A2E24127805AC006144DE /* scrGroupBase.h */,
+				8BE13557127B0527008C822D /* scrGroupSwap.h */,
+				8BE1355A127B0543008C822D /* scrGroupGrid.h */,
+				8BE1355B127B0543008C822D /* scrGroupGrid.cpp */,
+				8BE136F5127D4464008C822D /* scrGroupTabbed.h */,
+				8BE136F6127D4464008C822D /* scrGroupTabbed.cpp */,
 			);
 			name = Groups;
 			sourceTree = "<group>";
@@ -351,6 +363,16 @@
 				8B5C88621271898400AA9B44 /* scrTexture.h */,
 			);
 			name = screens;
+			sourceTree = "<group>";
+		};
+		8BE13660127C72FA008C822D /* Calibrate App */ = {
+			isa = PBXGroup;
+			children = (
+				8B6B960212716F9A0090C147 /* main.cpp */,
+				8B6B960A12716F9A0090C147 /* PCApp.cpp */,
+				8B6B960B12716F9A0090C147 /* PCApp.h */,
+			);
+			name = "Calibrate App";
 			sourceTree = "<group>";
 		};
 		E45BE0360E8CC5DE009D7055 /* libs */ = {
@@ -533,10 +555,11 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				8BE13660127C72FA008C822D /* Calibrate App */,
 				E4B69B5B0A3A1756003C02F2 /* ScannerDebug.app */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				8BD2072612730D0E00A9AB03 /* settings.xml */,
-				E4B69E1C0A3A1BDC003C02F2 /* src */,
+				E4B69E1C0A3A1BDC003C02F2 /* PC scanner */,
 				8B5C88461271898400AA9B44 /* ofxKCScreensGUI */,
 				8B6B964E12717C2F0090C147 /* ofxXmlSettings */,
 				E4C2422310CC54B6004149E2 /* openFrameworks */,
@@ -545,17 +568,14 @@
 			);
 			sourceTree = "<group>";
 		};
-		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
+		E4B69E1C0A3A1BDC003C02F2 /* PC scanner */ = {
 			isa = PBXGroup;
 			children = (
 				8B4FA9311276F2A000D08FE2 /* PCManager.cpp */,
 				8B6B962912716FC30090C147 /* PCManager.h */,
 				8B6B95FE12716F9A0090C147 /* Camera.cpp */,
 				8B6B95FF12716F9A0090C147 /* Camera.h */,
-				8B6B960212716F9A0090C147 /* main.cpp */,
 				8B6B960312716F9A0090C147 /* Payloads */,
-				8B6B960A12716F9A0090C147 /* PCApp.cpp */,
-				8B6B960B12716F9A0090C147 /* PCApp.h */,
 				8B6B960E12716F9A0090C147 /* PCConfig.cpp */,
 				8B6B960F12716F9A0090C147 /* PCConfig.h */,
 				8B6B961012716F9A0090C147 /* PCconstants.h */,
@@ -569,6 +589,7 @@
 				8B6B961812716F9A0090C147 /* PCPixel.cpp */,
 				8B6B961912716F9A0090C147 /* PCPixel.h */,
 			);
+			name = "PC scanner";
 			path = src;
 			sourceTree = SOURCE_ROOT;
 		};
@@ -761,7 +782,9 @@
 				8B5C886A1271898400AA9B44 /* scrHistograms.cpp in Sources */,
 				8B5C886B1271898400AA9B44 /* scrTexture.cpp in Sources */,
 				8B4FA9321276F2A000D08FE2 /* PCManager.cpp in Sources */,
-				8B3A2E26127805AC006144DE /* scrGroup.cpp in Sources */,
+				8B3A2E26127805AC006144DE /* scrGroupBase.cpp in Sources */,
+				8BE1355C127B0543008C822D /* scrGroupGrid.cpp in Sources */,
+				8BE136F7127D4464008C822D /* scrGroupTabbed.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

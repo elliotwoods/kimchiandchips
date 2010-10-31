@@ -37,7 +37,9 @@ public:
 	void	calibrate();
 	void	start();
 	void	stop(); //force early stop
+
 	void	clear();
+	void	save(string filenameBase);
 	
 	bool	isInitialised;
 	bool	hasData;
