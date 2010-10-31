@@ -100,7 +100,7 @@ void scrBase::drawInterface()
 	ofLine(x, y2-inset, x2, y2-inset);
 	
 	ofLine(x+inset, y, x+inset, y2);
-	ofLine(x2-inset, y2, x2-inset, y2);
+	ofLine(x2-inset, y, x2-inset, y2);
 	
 	ofPopStyle();
 	

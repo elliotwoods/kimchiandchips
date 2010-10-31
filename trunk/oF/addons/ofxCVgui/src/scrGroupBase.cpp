@@ -71,7 +71,12 @@ bool scrGroupBase::hitMaximise(int x, int y)
 				iScreenMaximised = iScreen;
 				_isFullscreen = true;
 				return true;
+			} else {
+				iScreenMaximised = -1;
+				_isFullscreen = false;
+				return false;
 			}
+
 		else
 			return false;
 	}
@@ -80,5 +85,29 @@ bool scrGroupBase::hitMaximise(int x, int y)
 	iScreenMaximised = -1;
 	_isFullscreen=false;
 	return false;
+}
+
+bool scrGroupBase::hitMaximise(int x, int y, bool input)
+{
+	int iScreen;
 	
+	if (_isFullscreen)
+		iScreen = iScreenMaximised;
+	else
+		iScreen = findScreen(x, y);
+	
+	//if we're not referencing a screen,
+	//i.e. our cursor is outside of screen
+	//selection area, then let's not do anything
+	if (iScreen == -1)
+		return _isFullscreen;
+	
+	screens[iScreen]->hitMaximise(x, y, input);
+	
+	_isFullscreen = input;
+	if (input)
+		iScreenMaximised = iScreen;
+	
+	return input;
+
 }
