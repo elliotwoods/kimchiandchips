@@ -4,7 +4,7 @@
 
 PCApp::PCApp()
 {
-	_screens = new ofxKCScreensGUI(4,3,ofGetWidth(),ofGetHeight());
+	_screens = new ofxKCScreensGUI(0,0,ofGetWidth(),ofGetHeight());
 
 }
 
@@ -23,13 +23,27 @@ void PCApp::setup(){
 	_scanner.setup();
 	
 	//add screens
-	scrGroup *grid = new scrGroup();
+	scrGroupGrid *grid = new scrGroupGrid();
+	scrGroupTabbed *scrSendGroup = new scrGroupTabbed();
+	
 	_screens->mainScreen = grid;
+	
+	//add the projection space group first to the grid
+	grid->push(scrSendGroup);
+	
+	//add the send message to the send group (first screen)
+	scrSendGroup->push(&_scanner._encoder->scrSend);
 	
 	for (int iCam=0; iCam<PCConfig().nCameras; iCam++)
 	{
- 		grid->screens.push_back(_scanner._decoder[iCam]->_scrSend);
-		grid->screens.push_back(_scanner._decoder[iCam]->_scrFrameData);
+		//add projection space preview to the send group
+		scrSendGroup->push(_scanner._decoder[iCam]->_scrProjectorSpace);
+		
+		scrGroupTabbed *scrCamDataGroup = new scrGroupTabbed();
+		scrCamDataGroup->push(_scanner._decoder[iCam]->_scrFrameData);
+		scrCamDataGroup->push(_scanner._decoder[iCam]->_scrCameraSpace);
+		grid->push(scrCamDataGroup);
+		
 		grid->screens.push_back(_scanner._decoder[iCam]->_scrBinary);
 		grid->screens.push_back(_scanner._decoder[iCam]->_scrThreshold);
 		grid->screens.push_back(_scanner._decoder[iCam]->_scrHistograms);
@@ -130,16 +144,20 @@ void PCApp::keyPressed(int key){
 			break;
 
 		case 32: // SPACE = run system
-			_scanner.start();
+			if (_scanner.state==0)
+				_scanner.start();
+			else
+				_scanner.stop();
 			break;
 			
 		case 'c': // c = calibrate threshold
 			_scanner.calibrate();
 			break;
 
-		case 's': // s = stop current activity and standby
-			_scanner.stop();
+		case 's': // s = save current activity
+			_scanner.save(getDateString());
 			break;
+		
 
 // currently out of order
 // causes a GDB crash, might not crash without GDB
@@ -192,14 +210,14 @@ void PCApp::mousePressed(int x, int y, int button){
 	{
 		int ScreenX, ScreenY;
 		
-		_MouseStartX = x;
-		_MouseStartY = y;
-		
-		_MouseStartScreenPixX = x % PC_SCREEN_RESOLUTION_X;
-		_MouseStartScreenPixY = y % PC_SCREEN_RESOLUTION_Y;
-		
-		_MouseStartScreenFloatX = float(_MouseStartScreenPixX)/ float(PC_SCREEN_RESOLUTION_X);
-		_MouseStartScreenFloatY = float(_MouseStartScreenPixY)/ float(PC_SCREEN_RESOLUTION_Y);
+//		_MouseStartX = x;
+//		_MouseStartY = y;
+//		
+//		_MouseStartScreenPixX = x % PC_SCREEN_RESOLUTION_X;
+//		_MouseStartScreenPixY = y % PC_SCREEN_RESOLUTION_Y;
+//		
+//		_MouseStartScreenFloatX = float(_MouseStartScreenPixX)/ float(PC_SCREEN_RESOLUTION_X);
+//		_MouseStartScreenFloatY = float(_MouseStartScreenPixY)/ float(PC_SCREEN_RESOLUTION_Y);
 		
 		mouseDown(x,y);
 	}
@@ -220,4 +238,18 @@ void PCApp::mouseDown(int x, int y)
 //--------------------------------------------------------------
 void PCApp::windowResized(int w, int h){
 	_screens->resize(w, h);
+}
+
+
+string PCApp::getDateString()
+{
+	char datestring[10];
+	
+	time_t now = time(0);
+	tm hereandnow=*localtime(&now);
+	
+	const char format[]="%Y%m%d";
+	strftime(datestring, 50, format, &hereandnow);
+	
+	return string(datestring);
 }
