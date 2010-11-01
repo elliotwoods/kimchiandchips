@@ -41,8 +41,7 @@ public:
 	void					mouseDown(int x, int y);
 	void					mouseReleased(int x, int y);
 	
-	void					interfaceOn() { g_enableUserInterface(); }
-	void					interfaceOff() { g_disableUserInterface(); }
+	void					showInterface(bool value) { if (value) g_enableUserInterface(); else g_disableUserInterface(); }
 	void					interfaceNudge() {g_userAction(); }
 
 	void					resize(int x, int y);

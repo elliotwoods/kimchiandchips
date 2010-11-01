@@ -10,6 +10,7 @@
  */
 
 #include "GUIAssets.h"
+#include "GUIGlobal.h"
 
 #include "ofMain.h"
 #include "ofEvents.h"
@@ -20,7 +21,7 @@
 
 #include "btnBase.h"
 
-class scrBase : public scrBaseMarkers, public GUIAssets
+class scrBase : public scrBaseMarkers, public GUIAssets, public GUIGlobal
 {
 public:
 	scrBase(enumShowCursor showCursor, bool showMarkers, string _caption);
