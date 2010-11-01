@@ -66,7 +66,6 @@ void PCManager::update()
 	//////////////////////////
 	//if we're scanning,
 	//then loop until a fresh frame
-	//**TODO** code this with parallel timing for each cam!
 	bool hasNewImageSum=false;
 	bool *hasNewImage = new bool[nCameras];
 	FOREACH_CAMERA
@@ -89,12 +88,14 @@ void PCManager::update()
 
 		ofSleepMillis(10);
 	}
-	delete[] hasNewImage;		
+	delete[] hasNewImage;
 	//////////////////////////
 	
 	//////////////////////////
 	// SCANNING STEPS
 	//////////////////////////
+	//if it's the first frame
+	//then we need to write before reading
 	if (state>0 && !_firstFrame)
 	{
 		readFrame();
@@ -170,17 +171,18 @@ void PCManager::save(string filenameBase)
 
 void PCManager::readFrame()
 {
-//	ofLog(OF_LOG_VERBOSE, "PCManager: Read frame " + ofToString(iFrame, 0));
 	if (state==STATE_CALIBRATING)
 		FOREACH_CAMERA
-		_decoder[iCam]->addCalibrationFrame();
+			_decoder[iCam]->addCalibrationFrame();
 	
 	else if(state==STATE_SCANNING)
 	{
 		FOREACH_CAMERA
-		_decoder[iCam]->addScanFrame(_payload->iScanInterleaveFrame(iFrame),
+			_decoder[iCam]->addScanFrame(_payload->iScanInterleaveFrame(iFrame),
 									 _payload->iInterleave(iFrame));
 		
+		ofLog(OF_LOG_VERBOSE, "PCManager: Read interleave frame " + ofToString(_payload->iScanInterleaveFrame(iFrame), 0));
+
 		//check whether we're changing interleaves
 		if (_payload->iInterleave(iFrame) !=
 			_payload->iInterleave(iFrame+1))
@@ -226,8 +228,6 @@ void PCManager::advanceFrame()
 
 void PCManager::writeFrame()
 {
-	ofLog(OF_LOG_VERBOSE, "PCManager: Write frame " + ofToString(iFrame, 0));
-	
 	if (state==STATE_CALIBRATING)
 		_encoder->updateCalibrationFrame(iFrame);
 	
@@ -239,6 +239,8 @@ void PCManager::writeFrame()
 		
 		_encoder->updateScanFrame(_payload->iScanInterleaveFrame(iFrame),
 								  _payload->iInterleave(iFrame));
+
+		ofLog(OF_LOG_VERBOSE, "PCManager: Write interleave frame " + ofToString(_payload->iScanInterleaveFrame(iFrame), 0));
 	}	
 	
 	if (state>0)

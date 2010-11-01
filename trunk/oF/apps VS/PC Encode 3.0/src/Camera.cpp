@@ -157,7 +157,7 @@ bool Camera::capture(unsigned char *&pixels)
 	
 	pixels = _charGrabFrame;
 	
-	//hasWaited &= _grabber.isFrameNew();
+	hasWaited &= _grabber.isFrameNew();
 
 #endif
 
@@ -165,6 +165,8 @@ bool Camera::capture(unsigned char *&pixels)
 
 	_grabber.update();
 	pixels = _grabber.getPixels();
+
+	hasWaited &= _grabber.isFrameNew();
 
 #endif
 

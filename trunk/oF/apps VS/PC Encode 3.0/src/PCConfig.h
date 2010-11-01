@@ -39,6 +39,7 @@ class PCConfig
 		static int		captureDelay;
 		static float	thresholdPercentile;
 		
+		static bool		sdev;
 		static bool		isLogging;
 	
 	private:

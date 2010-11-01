@@ -112,29 +112,41 @@ void PCLogger::savePixelsText(string filename)
 	//				meanX	meanY	sigmaX	sigmaY sigmaR	iLastFind	nFinds
 	
 	ofstream iofOutput(filename.c_str(), ios::out);
+	stringstream dataRow;
 	
 	iofOutput.precision(20);
 	
 	PCPixelSlim *pixelFinds;
 	
+	bool hasFinds;
+
 	for (int iPP=0; iPP<projWidth*projHeight; iPP++)
 	{
-		iofOutput << iPP << "\t" <<
+		dataRow.clear();
+
+		dataRow << iPP << "\t" <<
 			(iPP % projWidth) << "\t" <<
 			int(iPP / projWidth);
+
+		hasFinds = true;
 
 		for (int iDec=0; iDec<_decoders->size(); iDec++)
 		{
 			pixelFinds = _decoders->at(iDec)->projPixels[iPP];
 	
-			iofOutput << "\t"<< pixelFinds->_meanXdash.x << "\t" << pixelFinds->_meanXdash.y << "\t" <<
+			dataRow << "\t"<< pixelFinds->_meanXdash.x << "\t" << pixelFinds->_meanXdash.y << "\t" <<
 								pixelFinds->_sigmaXdash.x << "\t" <<  pixelFinds->_sigmaXdash.y << "\t" <<
 								pixelFinds->_sigmaRdash << "\t" << 
 								pixelFinds->_iLastFoundPixel << "\t" << 
 								pixelFinds->_nFinds;
+
+			hasFinds &= (pixelFinds->_iLastFoundPixel != -1);
 		}
 			
-		iofOutput << endl;
+		dataRow << endl;
+
+		if (hasFinds)
+			iofOutput << dataRow;
 	}
 
     iofOutput.close();

@@ -40,8 +40,11 @@ void PCPixel::addFind(int iPixelDash, float xXdash, float xYdash)
 	
 	_iLastFoundPixel = iPixelDash;
 	
-	_findsIdash.push_back(iPixelDash);
-	_findsXdash.push_back(ofPoint(xXdash,xYdash));
+	if (sdev)
+	{
+		_findsIdash.push_back(iPixelDash);
+		_findsXdash.push_back(ofPoint(xXdash,xYdash));
+	}
 }
 
 void PCPixel::calcDeviation()

@@ -198,10 +198,6 @@
 				RelativePath=".\src\PCincludes.h"
 				>
 			</File>
-			<File
-				RelativePath=".\bin\data\settings.xml"
-				>
-			</File>
 			<Filter
 				Name="App"
 				>
@@ -375,6 +371,34 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\addons\ofxCVgui\src\scrGroupBase.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\addons\ofxCVgui\src\scrGroupBase.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\addons\ofxCVgui\src\scrGroupGrid.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\addons\ofxCVgui\src\scrGroupGrid.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\addons\ofxCVgui\src\scrGroupSwap.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\addons\ofxCVgui\src\scrGroupTabbed.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\addons\ofxCVgui\src\scrGroupTabbed.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\addons\ofxCVgui\src\scrHistograms.cpp"
 				>
 			</File>
@@ -443,6 +467,10 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\bin\data\settings.xml"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

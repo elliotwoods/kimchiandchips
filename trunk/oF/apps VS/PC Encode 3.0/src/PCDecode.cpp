@@ -345,6 +345,9 @@ void PCDecode::calcInterleave(int iInterleave)
 	
 	updateProjectorSpacePreview();
 	updateCameraSpacePreview();
+
+	if (iInterleave<_payload->interleaves-1)
+		clearInterleave();
 }
 
 void PCDecode::checkParity()

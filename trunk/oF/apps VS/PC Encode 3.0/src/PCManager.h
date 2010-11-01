@@ -17,6 +17,7 @@
 #include "PCDecode.h"
 
 #include "PayloadGraycode.h"
+#include "PayloadBinary.h"
 
 #define STATE_STANDBY				0
 #define STATE_CALIBRATING			1

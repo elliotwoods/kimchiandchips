@@ -11,6 +11,17 @@
 
 void PayloadBinary::setup()
 {
+	PayloadBase::calcCommon();
+
+	////////////////////////////////////////
+	// CALCULATE VALUES
+	////////////////////////////////////////
+	dataFramesPerInterleave = ceil(Log2(nPixelsPerInterleave));
+	totalFramesPerInterleave = dataFramesPerInterleave + errorBits;
+	totalFrames = totalFramesPerInterleave * interleaves;
+	maxIndex = nPixelsPerInterleave;
+	////////////////////////////////////////
+
 	PayloadBase::setup();
 
 	////////////////////////////////////////
@@ -27,14 +38,6 @@ void PayloadBinary::setup()
 		errorCheck[i] = rand() + (rand()*(long long int)(1)<<32);
 	}
 	////////////////////////////////////////
-
-	////////////////////////////////////////
-	// CALCULATE VALUES
-	////////////////////////////////////////
-	dataFramesPerInterleave = ceil(Log2(nPixelsPerInterleave));
-	totalFramesPerInterleave = dataFramesPerInterleave + errorBits;
-	totalFrames = totalFramesPerInterleave * calibrateFrames;
-	////////////////////////////////////////
 }
 
 bool PayloadBinary::decode(int reading, int &iX, int &iY)
@@ -42,7 +45,7 @@ bool PayloadBinary::decode(int reading, int &iX, int &iY)
 	bool valid = (reading > 0) && (reading < maxIndex);
 				
 	iX = reading % nPixelsPerInterleaveX;
-	iY = reading / nPixelsPerInterleaveY;
+	iY = reading / nPixelsPerInterleaveX;
 	
 	return valid;
 }
