@@ -63,7 +63,7 @@ void scrBase::draw()
 {
 	drawContent();
 	
-	if (_hasInterface)
+	if (_hasInterface && g_isInterfaceEnabled)
 		drawInterface();
 }
 

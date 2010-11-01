@@ -29,12 +29,14 @@ bool GUIGlobal::g_updateIsUserActive()
 
 void GUIGlobal::g_enableUserInterface()
 {
+	if (!g_isInterfaceEnabled)
+		ofShowCursor();
 	g_isInterfaceEnabled=true;
-	ofShowCursor();
 }
 
 void GUIGlobal::g_disableUserInterface()
 {
+	if (g_isInterfaceEnabled)
+		ofHideCursor();
 	g_isInterfaceEnabled=false;
-	ofHideCursor();
 }
