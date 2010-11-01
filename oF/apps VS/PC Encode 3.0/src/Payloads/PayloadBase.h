@@ -39,6 +39,7 @@ public:
 	// FUCNTIONS
 	////////////////////////////////////////
 	PayloadBase()		{isInitialised=false;};
+	void				calcCommon();
 	virtual void		setup();
 	virtual bool		decode(int reading, int &iX, int &iY) = 0;
 	

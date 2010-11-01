@@ -42,9 +42,9 @@ void PCApp::setup(){
 		scrGroupTabbed *scrCamDataGroup = new scrGroupTabbed();
 		scrCamDataGroup->push(_scanner._decoder[iCam]->_scrFrameData);
 		scrCamDataGroup->push(_scanner._decoder[iCam]->_scrCameraSpace);
+		scrCamDataGroup->push(_scanner._decoder[iCam]->_scrBinary);
 		grid->push(scrCamDataGroup);
 		
-		grid->screens.push_back(_scanner._decoder[iCam]->_scrBinary);
 		grid->screens.push_back(_scanner._decoder[iCam]->_scrThreshold);
 		grid->screens.push_back(_scanner._decoder[iCam]->_scrHistograms);
 		grid->screens.push_back(_scanner._decoder[iCam]->_scrCamera);
@@ -57,6 +57,7 @@ void PCApp::setup(){
 
 void PCApp::update(){
 	_scanner.update();
+	_screens->showInterface(_scanner.state==0);
 }
 
 //--------------------------------------------------------------
@@ -72,6 +73,9 @@ void PCApp::draw(){
 //	sprintf(_strDebug, "");
 	
 //	drawStatus();
+
+	if (_scanner.state>0)
+		ofLog(OF_LOG_VERBOSE, "PCApp: drawing interleave frame " + ofToString(_scanner._payload->iScanInterleaveFrame(_scanner.iFrame)));
 
 	_screens->draw();
 	

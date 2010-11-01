@@ -9,7 +9,7 @@
 
 #include "PayloadBase.h"
 
-void PayloadBase::setup()
+void PayloadBase::calcCommon()
 {
 	////////////////////////////////////////
 	// CALCULATE COMMON VALUES
@@ -22,11 +22,11 @@ void PayloadBase::setup()
 	nPixelsPerInterleave = nPixelsPerInterleaveX * nPixelsPerInterleaveY;
 
 	calibrateFrames = 1 + interleaves;
-
-	//rounds up to next power of 2
-	maxIndex = pow(2,ceil(Log2(nPixelsPerInterleave)));
 	////////////////////////////////////////
+}
 
+void PayloadBase::setup()
+{
 	////////////////////////////////////////
 	// CLEAR / SETUP ARRAYS
 	////////////////////////////////////////

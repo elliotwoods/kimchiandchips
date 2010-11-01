@@ -60,7 +60,7 @@ void PCEncode::updateScanFrame(int iScanInterleaveFrame, int iInterleave)
 				+ (iIY*interleaveHeight + iInterleaveY) * projWidth;
 			
 			// should be ceil(double(_projWidth)/double(_interleaveWidth))
-			// but that would be slow
+			// but that may be slow
 			iInterleavePixel = iIX +
 								iIY* (projWidth/interleaveWidth);
 

@@ -11,6 +11,21 @@
 
 void PayloadGraycode::setup()
 {
+	PayloadBase::calcCommon();
+
+	////////////////////////////////////////
+	// CALCULATE VALUES
+	////////////////////////////////////////
+	int nPixelsPerInterleaveX = (projWidth/interleaveWidth);
+	int nBitsX = ceil(Log2(projWidth/interleaveWidth));
+	int nBitsY = ceil(Log2(projHeight/interleaveHeight));
+
+	dataFramesPerInterleave = nBitsX + nBitsY;
+	totalFramesPerInterleave = dataFramesPerInterleave + errorBits;
+	totalFrames = totalFramesPerInterleave * interleaves;
+	maxIndex = pow(2,ceil(Log2(nPixelsPerInterleave)));
+	////////////////////////////////////////
+
 	PayloadBase::setup();
 
 	////////////////////////////////////////
@@ -18,11 +33,7 @@ void PayloadGraycode::setup()
 	////////////////////////////////////////
 	int grayCode, grayCodeX, grayCodeY;
 	int iX, iY;
-	int nPixelsPerInterleaveX = (projWidth/interleaveWidth);
-
-	int nBitsX = ceil(Log2(projWidth/interleaveWidth));
-	int nBitsY = ceil(Log2(projHeight/interleaveHeight));
-
+	
 	for (int i=0; i<nPixelsPerInterleave; i++)
 	{
 		iX = i % nPixelsPerInterleaveX;
@@ -39,14 +50,6 @@ void PayloadGraycode::setup()
 		errorCheck[i] = rand() + (rand()*(long long int)(1)<<32);
 	}
 	////////////////////////////////////////
-
-	////////////////////////////////////////
-	// CALCULATE VALUES
-	////////////////////////////////////////
-	dataFramesPerInterleave = nBitsX + nBitsY;
-	totalFramesPerInterleave = dataFramesPerInterleave + errorBits;
-	totalFrames = totalFramesPerInterleave * interleaves;
-	////////////////////////////////////////
 }
 
 bool PayloadGraycode::decode(int reading, int &iX, int &iY)
@@ -62,7 +65,7 @@ bool PayloadGraycode::decode(int reading, int &iX, int &iY)
 	iY = pixIndex / nPixelsPerInterleaveX;
 
 	valid &= (iX>=0) && (iX<nPixelsPerInterleaveX);
-	valid &= (iY>=0) && (iX<nPixelsPerInterleaveY);
+	valid &= (iY>=0) && (iY<nPixelsPerInterleaveY);
 	
 	return valid;
 }

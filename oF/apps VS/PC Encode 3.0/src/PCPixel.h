@@ -23,7 +23,7 @@ public:
 	int _nFinds;	
 };
 
-class PCPixel : public PCPixelSlim
+class PCPixel : public PCPixelSlim, public PCConfig
 {
 	public:
 		PCPixel();

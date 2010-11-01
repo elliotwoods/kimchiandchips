@@ -9,6 +9,7 @@
 
 #include "PCConfig.h"
 
+bool PCConfig::sdev = false;
 bool PCConfig::isLogging=true;
 
 float PCConfig::thresholdPercentile=0.5;
@@ -108,6 +109,7 @@ bool PCConfig::configLoad(string filename)
 				}
 				
 				thresholdPercentile = _configFileXML.getAttribute("threshold", "percentile", 0.5, 0);
+				sdev = _configFileXML.getAttribute("data", "sdev", 0, 0);
 				
 				_configFileXML.popTag();
 			}

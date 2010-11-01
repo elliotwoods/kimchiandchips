@@ -16,6 +16,7 @@
 #include <ctime>
 #include <iostream>
 #include <fstream>
+#include <stringstream>
 
 class PCLogger : public PCConfig
 {
