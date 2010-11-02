@@ -1,0 +1,38 @@
+/*
+ *  wdgSlider.h
+ *  PC Encode
+ *
+ *  Created by Elliot Woods on 02/11/2010.
+ *  Copyright 2010 Kimchi and Chips. All rights reserved.
+ *
+ */
+
+#include "wdgBase.h"
+
+class wdgSlider : public wdgBase
+{
+public:
+	wdgSlider(string caption,
+			  float &myValue,
+			  float min, float max,
+			  float stepSize,
+			  string units="",
+			  bool readOnly=false);
+
+	void		draw();
+	void		mouseDown(int x, int y);
+	
+	bool		isValueNew();
+	
+protected:
+	float		&_value;
+	bool		_hasNewValue;
+	
+	bool		_readOnly;
+	
+	float		_min, _max;
+	float		_stepSize;
+	
+	string		_units;
+	
+};
