@@ -33,6 +33,7 @@ PCDecode::PCDecode(PayloadBase *payload, Camera *camera)
 	_charThresholdRange = new unsigned char[nCamPixels];
 	_boolThresholdMask = new bool[nCamPixels];
 	_charThresholdMasked = new unsigned char[nCamPixels];
+	_charThresholdMask = new unsigned char[nCamPixels];
 	
 	_charCameraSpacePreview = new unsigned char[nProjPixels*3];
 	_charProjectorSpacePreview = new unsigned char[nCamPixels*3];
@@ -40,11 +41,14 @@ PCDecode::PCDecode(PayloadBase *payload, Camera *camera)
 	_texCamera = new ofTexture();
 	_texThreshold = new ofTexture();
 	_texThresholdMasked = new ofTexture();
+	_texThresholdMask = new ofTexture();
+	
 	_texBinary = new ofTexture();
 	_texFrameDataPreview = new ofTexture();
 	
 	_texThreshold->allocate(camWidth,camHeight,GL_LUMINANCE);
 	_texThresholdMasked->allocate(camWidth, camHeight, GL_LUMINANCE);
+	_texThresholdMask->allocate(camWidth, camHeight, GL_LUMINANCE);
 	_texBinary->allocate(camWidth,camHeight,GL_LUMINANCE);
 	_texFrameDataPreview->allocate(camWidth,camHeight,GL_LUMINANCE);
 	_texCamera->allocate(camWidth, camHeight, GL_LUMINANCE);
@@ -76,7 +80,9 @@ PCDecode::PCDecode(PayloadBase *payload, Camera *camera)
 	
 	_scrBinary = new scrTexture(cursor_none, false, *_texBinary, "Binary image");
 	
-	_scrThreshold = new scrTexture(cursor_none, false,*_texThresholdMasked, "Threshold (masked)");
+	_scrThreshold = new scrTexture(cursor_none, false,*_texThresholdMasked, "Threshold");
+	
+	_scrThresholdMask = new scrTexture(cursor_none, false,*_texThresholdMask, "Threshold mask");
 	
 	_scrHistograms = new scrHistograms(cursor_none, false, "Histograms");
 	_scrHistograms->addHistogram(*_histThresholdRange);
@@ -101,7 +107,8 @@ PCDecode::~PCDecode()
 	delete _charThreshold;
 	delete _charThresholdRange;
 	delete _boolThresholdMask;
-	delete _charThresholdMasked;		
+	delete _charThresholdMasked;
+	delete _charThresholdMask;
 	
 	delete _charCameraSpacePreview;
 	delete _charProjectorSpacePreview;
@@ -415,10 +422,15 @@ void PCDecode::renderThresholdMask()
 	for (int i=0; i<nCamPixels; i++)
 	{	
 		_boolThresholdMask[i] = _charThresholdRange[i] > _intThresholdSelection;
+		
+		_charThresholdMask[i] = _boolThresholdMask[i] * 255;
+		
 		_charThresholdMasked[i] = _charThreshold[i] * _boolThresholdMask[i];
 	}
 	
 	_texThresholdMasked->loadData(_charThresholdMasked, camWidth, camHeight, GL_LUMINANCE);
+	
+	_texThresholdMask->loadData(_charThresholdMask, camWidth,camHeight, GL_LUMINANCE);
 }
 
 int PCDecode::getFrameData(int iCameraPixel)

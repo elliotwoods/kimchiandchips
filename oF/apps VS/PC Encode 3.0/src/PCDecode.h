@@ -62,7 +62,8 @@ class PCDecode : public PCConfig
 		unsigned char *			_charCameraSpacePreview;
 		unsigned char *			_charProjectorSpacePreview;
 	
-		scrBase					*_scrFrameData, *_scrThreshold, *_scrBinary, *_scrCamera;
+		scrBase					*_scrFrameData, *_scrBinary, *_scrCamera;
+		scrBase					*_scrThreshold, *_scrThresholdMask;
 		scrBase					*_scrProjectorSpace, *_scrCameraSpace;
 		scrHistograms			*_scrHistograms;
 	
@@ -80,7 +81,8 @@ class PCDecode : public PCConfig
 		PayloadBase				*_payload;
 		Camera					*_camera;
 		
-		ofTexture				*_texThreshold, *_texThresholdMasked, *_texBinary, *_texFrameDataPreview;
+		ofTexture				*_texBinary, *_texFrameDataPreview;
+		ofTexture				*_texThreshold, *_texThresholdMasked, *_texThresholdMask;
 		ofTexture				*_texCamera;
 		ofTexture				_texCameraSpacePreview, _texProjectorSpacePreview;
 		//ofxShader				_shadLookup;
@@ -102,6 +104,7 @@ class PCDecode : public PCConfig
 		unsigned char *			_charThresholdRange;
 		bool *					_boolThresholdMask;
 		unsigned char *			_charThresholdMasked;
+		unsigned char *			_charThresholdMask;
 	
 		unsigned long *			_intFrameData;
 		unsigned long *			_intFrameParity;

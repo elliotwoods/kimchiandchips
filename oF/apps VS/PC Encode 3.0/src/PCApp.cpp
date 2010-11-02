@@ -5,6 +5,7 @@
 PCApp::PCApp()
 {
 	_screens = new ofxKCScreensGUI(0,0,ofGetWidth(),ofGetHeight());
+	_screenDistance = 0.5;
 
 }
 
@@ -45,12 +46,43 @@ void PCApp::setup(){
 		scrCamDataGroup->push(_scanner._decoder[iCam]->_scrBinary);
 		grid->push(scrCamDataGroup);
 		
-		grid->screens.push_back(_scanner._decoder[iCam]->_scrThreshold);
+		scrGroupTabbed *scrCamSourceGroup = new scrGroupTabbed();
+		scrCamSourceGroup->push(_scanner._decoder[iCam]->_scrCamera);
+		scrCamSourceGroup->push(_scanner._decoder[iCam]->_scrBinary);
+		grid->push(scrCamSourceGroup);
+		
+		scrGroupTabbed *scrThresoldGroup = new scrGroupTabbed();
+		scrThresoldGroup->push(_scanner._decoder[iCam]->_scrThreshold);
+		scrThresoldGroup->push(_scanner._decoder[iCam]->_scrThresholdMask);
+		grid->push(scrThresoldGroup);
+		
 		grid->screens.push_back(_scanner._decoder[iCam]->_scrHistograms);
-		grid->screens.push_back(_scanner._decoder[iCam]->_scrCamera);
 	}
 	
+	
+	/////////////////////////////////////////////
+	// ADD USER CONTROLS
+	/////////////////////////////////////////////
+	scrWidgets *scrControl = new scrWidgets("User controls");
+	wdgBase *sliderDistance = new wdgSlider("Screen distance",
+										  _screenDistance,
+										  0, 1,
+										  0.01,
+										  "meters"); 
+	
+//	wdgBase *sliderFrame = new wdgSliderInt("iFrame",
+//										 _scanner.iFrame,
+//										0, _scanner._payload->totalFrames,
+//										1,
+//										"", true);
+	
+	scrControl->push(sliderDistance);
+	grid->screens.push_back(scrControl);
+	/////////////////////////////////////////////
+	
 	grid->setBounds(0, 0, ofGetWidth(), ofGetHeight());
+	
+	ofBackground(10, 10, 10);
 }
 
 //--------------------------------------------------------------
@@ -159,7 +191,8 @@ void PCApp::keyPressed(int key){
 			break;
 
 		case 's': // s = save current activity
-			_scanner.save(getDateString());
+			//_scanner.save(getDateString());
+			_scanner.save(ofToString(_screenDistance, 2));
 			break;
 		
 
