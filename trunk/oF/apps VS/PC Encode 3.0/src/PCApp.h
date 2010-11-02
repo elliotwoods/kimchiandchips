@@ -55,6 +55,12 @@ class PCApp : public ofBaseApp {
 		char				_strDebug[200];
 		string				_strHistograms;
 	
+
+protected:
+	
+	//calibration variables
+	float					_screenDistance;
+	float					_screenWidth, _screenHeight;
 };
 
 #endif

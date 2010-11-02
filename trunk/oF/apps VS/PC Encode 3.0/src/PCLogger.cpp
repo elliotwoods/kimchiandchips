@@ -94,12 +94,22 @@ void PCLogger::savePixelsBinary(string filename)
 {
 	ofstream iofOutput(filename.c_str(), ios::out | ios::binary);
     
+	bool hasAllFinds;
+	
 	for (int iPP=0; iPP<projWidth*projHeight; iPP++)
+	{
+		hasAllFinds = true;
+		
 		for (int iDec=0; iDec<_decoders->size(); iDec++)
-			
-			iofOutput.write((char*) (PCPixelSlim*)
-							_decoders->at(iDec)->projPixels[iPP],
-							sizeof(PCPixelSlim));
+			hasAllFinds &= _decoders->at(iDec)->projPixels[iPP]->_iLastFoundPixel != -1;
+		
+		
+		if (hasAllFinds)
+			for (int iDec=0; iDec<_decoders->size(); iDec++)
+				iofOutput.write((char*) (PCPixelSlim*)
+								_decoders->at(iDec)->projPixels[iPP],
+								sizeof(PCPixelSlim));
+	}
 	
     iofOutput.close();
 }
@@ -114,21 +124,21 @@ void PCLogger::savePixelsText(string filename)
 	ofstream iofOutput(filename.c_str(), ios::out);
 	stringstream dataRow;
 	
-	iofOutput.precision(20);
+	dataRow.precision(10);
 	
 	PCPixelSlim *pixelFinds;
 	
-	bool hasFinds;
+	bool hasAllFinds;
 
 	for (int iPP=0; iPP<projWidth*projHeight; iPP++)
 	{
-		dataRow.clear();
+		dataRow.str("");
 
 		dataRow << iPP << "\t" <<
 			(iPP % projWidth) << "\t" <<
 			int(iPP / projWidth);
 
-		hasFinds = true;
+		hasAllFinds = true;
 
 		for (int iDec=0; iDec<_decoders->size(); iDec++)
 		{
@@ -140,13 +150,13 @@ void PCLogger::savePixelsText(string filename)
 								pixelFinds->_iLastFoundPixel << "\t" << 
 								pixelFinds->_nFinds;
 
-			hasFinds &= (pixelFinds->_iLastFoundPixel != -1);
+			hasAllFinds &= (pixelFinds->_iLastFoundPixel != -1);
 		}
 			
 		dataRow << endl;
 
-		if (hasFinds)
-			iofOutput << dataRow;
+		if (hasAllFinds)
+			iofOutput << dataRow.str();
 	}
 
     iofOutput.close();
