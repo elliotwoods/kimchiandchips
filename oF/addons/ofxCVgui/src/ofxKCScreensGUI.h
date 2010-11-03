@@ -24,7 +24,7 @@
 
 #include "wdgSlider.h"
 #include "wdgCounter.h"
-
+#include "wdgButton.h"
 
 #include "ofMain.h"
 
