@@ -8,6 +8,7 @@
  */
 
 #include "wdgBase.h"
+#include <math.h>
 
 class wdgSlider : public wdgBase
 {
@@ -34,5 +35,7 @@ protected:
 	float		_stepSize;
 	
 	string		_units;
-	
+
+	//stupid vc++ doesn't have this..phhff
+	int			round(float x) { return floor(x+0.5); }
 };

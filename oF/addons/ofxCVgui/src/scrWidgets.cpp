@@ -25,7 +25,7 @@ void scrWidgets::mouseDown(int x, int y)
 	if (y<0)
 		return;
 	
-	int yOffset=y-currenty;
+	int yOffset=y-currenty-WIDGET_PADDING;
 	
 	FOREACH_WIDGET
 	{
@@ -35,7 +35,7 @@ void scrWidgets::mouseDown(int x, int y)
 			break;
 		}
 		
-		yOffset -= _widgets[iWidget]->height;
+		yOffset -= _widgets[iWidget]->height + WIDGET_PADDING*2;
 	}
 		
 }

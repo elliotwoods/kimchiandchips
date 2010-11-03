@@ -29,7 +29,7 @@ _value(myValue)
 void wdgSlider::draw()
 {
 	float valRounded = round(_value/_stepSize) * _stepSize;
-	int nDecimals = max(0,int(-log(_stepSize)/log(10)));
+	int nDecimals = max(0,int(-log((float)_stepSize)/log((float)10)));
 	string measurement = ofToString(valRounded, nDecimals);
 	measurement += " " + _units;
 	
