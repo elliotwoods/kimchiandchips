@@ -6,7 +6,6 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "Stdafx.h"
 #include "matrix.h"
 
 
@@ -51,7 +50,8 @@ void Matrix::LUdecomp() {
   for(i=0;i<N;i++) {
     maxVal=0.0;
     for(j=0;j<N;j++) {
-      if ((tmp=fabs(val(i,j))) > maxVal) maxVal=tmp;
+		tmp=fabs(val(i,j));
+		if (tmp > maxVal) maxVal=tmp;
     }
     if(maxVal == 0.0) 
       throw("LU-decomposition found singular matrix. You must have chosen a vary bad set of points.");
@@ -136,6 +136,7 @@ bool Matrix::repackFrom(int is, int js) {
     }
     --i;
   }
+  return true;
 }
 
 

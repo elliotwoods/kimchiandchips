@@ -18,7 +18,7 @@ public:
 	FitBase(int bases, int indim, int outdim);
 	~FitBase();
 	
-	void				init(std::vector<std::vector<double> > points, std::vector<std::vector<double> > data, int M);
+	void				init(std::vector<std::vector<double> > &points, std::vector<std::vector<double> > &data, int M);
 	void				solve(int, double *, int &nCoefficients);
 	int					nBases() { return _bases; };
 protected:

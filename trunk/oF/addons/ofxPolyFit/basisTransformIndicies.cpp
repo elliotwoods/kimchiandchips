@@ -7,7 +7,6 @@
  *
  */
 
-#include "Stdafx.h"
 #include "basisTransformIndicies.h"
 
 int basisTransformIndicies::updateBasisIndicies(int nDimensions, int nPowerOrder)

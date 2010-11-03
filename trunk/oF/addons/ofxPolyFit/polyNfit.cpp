@@ -7,7 +7,6 @@
  *
  */
 
-#include "Stdafx.h"
 #include "polyNfit.h"
 
 // ---------- Define the basis we're working in
