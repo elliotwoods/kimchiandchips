@@ -21,6 +21,7 @@ scrGroupTabbed::scrGroupTabbed(int _tabRegionHeight)
 void scrGroupTabbed::drawContent()
 {
 	bool selected;
+	int textOffset = (tabRegionHeight>24 ? BORDER_OFFSET*2 : 0);
 	
 	for (int i=0; i<screens.size(); i++)
 	{
@@ -39,6 +40,14 @@ void scrGroupTabbed::drawContent()
 		ofRect(_x+i*tabWidth, _y,
 			   tabWidth, tabRegionHeight);
 		
+		if (selected && tabRegionHeight>24)
+		{
+			ofSetColor(0, 0, 0);
+			ofSetLineWidth(1);
+			ofNoFill();
+			ofRect(_x+i*tabWidth+BORDER_OFFSET, _y+BORDER_OFFSET,
+				   tabWidth-BORDER_OFFSET*2, tabRegionHeight-BORDER_OFFSET*2);		
+		}
 		
 		//draw text
 		int texty = tabRegionHeight/2 + TEXT_HEIGHT/2;
@@ -48,8 +57,9 @@ void scrGroupTabbed::drawContent()
 			ofSetColor(0, 0, 0);
 		else
 			ofSetColor(255, 255, 255);
-		ofDrawBitmapString(screens[i]->caption,
-						   _x+i*tabWidth+1, texty);
+		ofDrawBitmapString(abridgeString(screens[i]->caption,tabWidth),
+						   _x+i*tabWidth+1 + textOffset,
+						   texty);
 		
 		ofPopStyle();
 	}
@@ -93,4 +103,14 @@ void scrGroupTabbed::doResize()
 	for (int i=0; i<screens.size(); i++)
 		screens[i]->setBounds(_x,_y+tabRegionHeight,
 							  _width, _height-tabRegionHeight);
+}
+
+string scrGroupTabbed::abridgeString(string input, int width)
+{
+	width-=8;
+	
+	if (input.length()*8 < width)
+		return input;
+	else
+		return input.substr(0,width/8-3) + "...";
 }

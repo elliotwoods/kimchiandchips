@@ -13,8 +13,8 @@
 
 //////////////////////////////////////////////////////
 
-scrGroupBase::scrGroupBase() :
-scrBase(cursor_none, true, "")
+scrGroupBase::scrGroupBase(string caption) :
+scrBase(cursor_none, true, caption)
 {
 	iScreenMaximised = -1;
 	_hasInterface = false;

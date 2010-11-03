@@ -17,9 +17,13 @@
 
 #include "scrTexture.h"
 #include "scrHistograms.h"
+#include "scrWidgets.h"
 
 #include "scrGroupGrid.h"
 #include "scrGroupTabbed.h"
+
+#include "wdgSlider.h"
+#include "wdgCounter.h"
 
 
 #include "ofMain.h"

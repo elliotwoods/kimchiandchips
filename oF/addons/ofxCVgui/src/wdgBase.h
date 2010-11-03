@@ -17,7 +17,7 @@ public:
 
 	virtual void	draw() = 0;
 	
-	virtual void	mouseDown(int x, int y) = 0;
+	virtual void	mouseDown(int x, int y) { };
 	bool			isHit(int x, int y);
 	
 	void			setBounds(int x, int y, int width);
