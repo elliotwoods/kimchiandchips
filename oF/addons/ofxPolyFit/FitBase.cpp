@@ -15,7 +15,6 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "Stdafx.h"
 #include "FitBase.h"
 
 FitBase::FitBase(int bases, int indim, int outdim) : 
@@ -75,7 +74,7 @@ void FitBase::solve(int I, double *x, int &nCoefficients) {
 // 'M' gives the number of datapoints in 'points' and 'data'
 //
 ///////////////////////////////////////////////////////////////////////////////
-void FitBase::init(std::vector<std::vector<double> > points, std::vector<std::vector<double> > data, int M)
+void FitBase::init(std::vector<std::vector<double> > &points, std::vector<std::vector<double> > &data, int M)
 {
 	const int N = A.jsize();
 	double *bas = new double[N];
