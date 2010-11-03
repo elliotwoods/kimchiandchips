@@ -21,8 +21,6 @@ public:
 		{
 		};
 
-	
-protected:
 	virtual double		basis(int n, std::vector<double> &x);
 	int					_order;
 };

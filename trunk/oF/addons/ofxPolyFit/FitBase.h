@@ -21,14 +21,15 @@ public:
 	void				init(std::vector<std::vector<double> > &points, std::vector<std::vector<double> > &data, int M);
 	void				solve(int, double *, int &nCoefficients);
 	int					nBases() { return _bases; };
+	virtual double		basis(int n, std::vector<double> &x) = 0;
+	
+	int					_indim, _outdim;
+
 protected:
+	int					_bases;
 	
 	// Solves Ax = y for x
 	Matrix								A;	
 	std::vector<std::vector<double> >	y;	// store OUTDIM values of y
 	
-	virtual double						basis(int n, std::vector<double> &x) = 0;
-	
-	int									_bases;
-	int									_indim, _outdim;
 };
