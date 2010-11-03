@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\addons\ofxThread\src;.\src;.\src\Payloads;..\..\..\addons\ofxCLeye;&quot;C:\Program Files\Code Laboratories\CL-Eye Platform SDK\Include&quot;;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src;..\..\..\addons\ofxCVgui\src;..\..\..\libs\openFrameworks;..\..\..\libs\openFrameworks\graphics;..\..\..\libs\openFrameworks\app;..\..\..\libs\openFrameworks\sound;..\..\..\libs\openFrameworks\utils;..\..\..\libs\openFrameworks\communication;..\..\..\libs\openFrameworks\video;..\..\..\libs\openFrameworks\events;..\..\..\libs\glut\include;..\..\..\libs\rtAudio\include;..\..\..\libs\quicktime\include;..\..\..\libs\freetype\include;..\..\..\libs\freetype\include\freetype2;..\..\..\libs\freeImage\include;..\..\..\libs\fmodex\include;..\..\..\libs\videoInput\include;..\..\..\libs\glee\include;..\..\..\libs\glu\include;..\..\..\libs\poco\include;..\..\..\addons"
+				AdditionalIncludeDirectories="..\..\..\addons\ofxThread\src;.\src;.\src\Scanner\Payloads;..\..\..\addons\ofxCLeye;&quot;C:\Program Files\Code Laboratories\CL-Eye Platform SDK\Include&quot;;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src;..\..\..\addons\ofxCVgui\src;..\..\..\libs\openFrameworks;..\..\..\libs\openFrameworks\graphics;..\..\..\libs\openFrameworks\app;..\..\..\libs\openFrameworks\sound;..\..\..\libs\openFrameworks\utils;..\..\..\libs\openFrameworks\communication;..\..\..\libs\openFrameworks\video;..\..\..\libs\openFrameworks\events;..\..\..\libs\glut\include;..\..\..\libs\rtAudio\include;..\..\..\libs\quicktime\include;..\..\..\libs\freetype\include;..\..\..\libs\freetype\include\freetype2;..\..\..\libs\freeImage\include;..\..\..\libs\fmodex\include;..\..\..\libs\videoInput\include;..\..\..\libs\glee\include;..\..\..\libs\glu\include;..\..\..\libs\poco\include;..\..\..\addons;.\src\Scanner;.\src\Correlate"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;POCO_STATIC"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -190,17 +190,13 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
-			<File
-				RelativePath=".\src\main.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\PCincludes.h"
-				>
-			</File>
 			<Filter
 				Name="App"
 				>
+				<File
+					RelativePath=".\src\main.cpp"
+					>
+				</File>
 				<File
 					RelativePath=".\src\PCApp.cpp"
 					>
@@ -209,94 +205,114 @@
 					RelativePath=".\src\PCApp.h"
 					>
 				</File>
+			</Filter>
+			<Filter
+				Name="Correlate"
+				>
 				<File
-					RelativePath=".\src\PCDecode.cpp"
+					RelativePath=".\src\Correlate\CorrelateMain.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\src\PCDecode.h"
-					>
-				</File>
-				<File
-					RelativePath=".\src\PCEncode.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\PCEncode.h"
-					>
-				</File>
-				<File
-					RelativePath=".\src\PCLogger.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\PCLogger.h"
-					>
-				</File>
-				<File
-					RelativePath=".\src\PCManager.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\PCManager.h"
+					RelativePath=".\src\Correlate\CorrelateMain.h"
 					>
 				</File>
 			</Filter>
 			<Filter
-				Name="classes"
+				Name="Scanner"
 				>
 				<File
-					RelativePath=".\src\Camera.cpp"
+					RelativePath=".\src\Scanner\Camera.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\src\Camera.h"
+					RelativePath=".\src\Scanner\Camera.h"
 					>
 				</File>
 				<File
-					RelativePath=".\src\PCConfig.cpp"
+					RelativePath=".\src\Scanner\PCConfig.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\src\PCConfig.h"
+					RelativePath=".\src\Scanner\PCConfig.h"
 					>
 				</File>
 				<File
-					RelativePath=".\src\PCPixel.cpp"
+					RelativePath=".\src\Scanner\PCconstants.h"
 					>
 				</File>
 				<File
-					RelativePath=".\src\PCPixel.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Payload"
-				>
-				<File
-					RelativePath=".\src\Payloads\PayloadBase.cpp"
+					RelativePath=".\src\Scanner\PCDecode.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\src\Payloads\PayloadBase.h"
+					RelativePath=".\src\Scanner\PCDecode.h"
 					>
 				</File>
 				<File
-					RelativePath=".\src\Payloads\PayloadBinary.cpp"
+					RelativePath=".\src\Scanner\PCEncode.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\src\Payloads\PayloadBinary.h"
+					RelativePath=".\src\Scanner\PCEncode.h"
 					>
 				</File>
 				<File
-					RelativePath=".\src\Payloads\PayloadGraycode.cpp"
+					RelativePath=".\src\Scanner\PCincludes.h"
 					>
 				</File>
 				<File
-					RelativePath=".\src\Payloads\PayloadGraycode.h"
+					RelativePath=".\src\Scanner\PCLogger.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\src\Scanner\PCLogger.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Scanner\PCManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Scanner\PCManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Scanner\PCPixel.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Scanner\PCPixel.h"
+					>
+				</File>
+				<Filter
+					Name="Payloads"
+					>
+					<File
+						RelativePath=".\src\Scanner\Payloads\PayloadBase.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\Scanner\Payloads\PayloadBase.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\Scanner\Payloads\PayloadBinary.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\Scanner\Payloads\PayloadBinary.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\Scanner\Payloads\PayloadGraycode.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\Scanner\Payloads\PayloadGraycode.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
@@ -346,74 +362,122 @@
 				RelativePath="..\..\..\addons\ofxCVgui\src\ofxKCScreensGUI.h"
 				>
 			</File>
-			<File
-				RelativePath="..\..\..\addons\ofxCVgui\src\scrBase.cpp"
+			<Filter
+				Name="widgets"
 				>
-			</File>
-			<File
-				RelativePath="..\..\..\addons\ofxCVgui\src\scrBase.h"
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\wdgBase.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\wdgBase.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\wdgButton.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\wdgButton.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\wdgCounter.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\wdgCounter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\wdgSlider.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\wdgSlider.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="screens"
 				>
-			</File>
-			<File
-				RelativePath="..\..\..\addons\ofxCVgui\src\scrBaseMarkers.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\addons\ofxCVgui\src\scrBaseMarkers.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\addons\ofxCVgui\src\scrGroup.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\addons\ofxCVgui\src\scrGroup.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\addons\ofxCVgui\src\scrGroupBase.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\addons\ofxCVgui\src\scrGroupBase.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\addons\ofxCVgui\src\scrGroupGrid.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\addons\ofxCVgui\src\scrGroupGrid.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\addons\ofxCVgui\src\scrGroupSwap.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\addons\ofxCVgui\src\scrGroupTabbed.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\addons\ofxCVgui\src\scrGroupTabbed.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\addons\ofxCVgui\src\scrHistograms.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\addons\ofxCVgui\src\scrHistograms.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\addons\ofxCVgui\src\scrTexture.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\addons\ofxCVgui\src\scrTexture.h"
-				>
-			</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\scrBase.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\scrBase.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\scrBaseMarkers.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\scrBaseMarkers.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\scrGroup.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\scrGroup.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\scrGroupBase.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\scrGroupBase.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\scrGroupGrid.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\scrGroupGrid.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\scrGroupSwap.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\scrGroupTabbed.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\scrGroupTabbed.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\scrHistograms.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\scrHistograms.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\scrTexture.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\scrTexture.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\scrWidgets.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\scrWidgets.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="ofxXmlSettings"
