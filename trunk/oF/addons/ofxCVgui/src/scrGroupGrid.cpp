@@ -9,7 +9,8 @@
 
 #include "scrGroupGrid.h"
 
-scrGroupGrid::scrGroupGrid()
+scrGroupGrid::scrGroupGrid(string caption) :
+scrGroupBase(caption)
 {
 	gridWidth = -1;
 }
@@ -28,6 +29,9 @@ void scrGroupGrid::drawContent()
 
 int scrGroupGrid::findScreen(int x, int y)
 {
+	if (screens.size()==0)
+		return -1;
+	
 	int iScreen; // return value
 	
 	int w = _width / gridWidth;
@@ -57,6 +61,9 @@ int scrGroupGrid::findScreen(int x, int y)
 void scrGroupGrid::doResize()
 {
 	double nScreens = screens.size();
+	
+	if (nScreens==0)
+		return;
 	
 	if (gridWidth==-1)
 		gridWidth = ceil(sqrt(double(nScreens)));

@@ -12,7 +12,7 @@
 class scrGroupGrid : public scrGroupBase
 {
 public:
-	scrGroupGrid();
+	scrGroupGrid(string caption="");
 	void		drawContent();
 	
 	int			findScreen(int x, int y);

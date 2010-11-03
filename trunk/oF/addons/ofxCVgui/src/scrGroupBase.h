@@ -13,7 +13,7 @@
 class scrGroupBase : public scrBase
 {
 public:
-	scrGroupBase();
+	scrGroupBase(string caption = "");
 	
 	void				push(scrBase *addScreen);
 	

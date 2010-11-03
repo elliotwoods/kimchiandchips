@@ -10,7 +10,7 @@
 #include "scrGroupSwap.h"
 
 #define TEXT_HEIGHT 12
-
+#define BORDER_OFFSET 2
 class scrGroupTabbed : public scrGroupSwap
 {
 public:
@@ -25,4 +25,6 @@ protected:
 	int			tabRegionHeight;
 	int			tabWidth;
 	void		doResize();
+
+	string		abridgeString(string input, int width);
 };
