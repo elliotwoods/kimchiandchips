@@ -368,11 +368,19 @@
 			Name="Node"
 			>
 			<File
-				RelativePath=".\Pade.cpp"
+				RelativePath=".\PadeTransform.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Pade.h"
+				RelativePath=".\PadeTransform.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PadeValue.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PadeValue.h"
 				>
 			</File>
 			<File
