@@ -13,7 +13,7 @@ wdgBase::wdgBase(string _caption) :
 height(_height)
 {
 	caption = _caption;
-	_height = 50;
+	_height = 30;
 }
 
 void wdgBase::setBounds(int x, int y, int width)
