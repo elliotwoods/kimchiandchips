@@ -36,6 +36,7 @@
 		8BC0FB2E1280252500FD3F66 /* wdgBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BC0FB2D1280252500FD3F66 /* wdgBase.cpp */; };
 		8BC0FB35128026E600FD3F66 /* scrWidgets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BC0FB34128026E600FD3F66 /* scrWidgets.cpp */; };
 		8BC0FC341280327300FD3F66 /* wdgSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BC0FC331280327300FD3F66 /* wdgSlider.cpp */; };
+		8BC0FE1A1280734F00FD3F66 /* CorrelateMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BC0FE191280734F00FD3F66 /* CorrelateMain.cpp */; };
 		8BE1355C127B0543008C822D /* scrGroupGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BE1355B127B0543008C822D /* scrGroupGrid.cpp */; };
 		8BE136F7127D4464008C822D /* scrGroupTabbed.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BE136F6127D4464008C822D /* scrGroupTabbed.cpp */; };
 		E45BE0AA0E8CC67C009D7055 /* GLee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE0A90E8CC67C009D7055 /* GLee.a */; };
@@ -172,6 +173,8 @@
 		8BC0FB33128026E600FD3F66 /* scrWidgets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrWidgets.h; sourceTree = "<group>"; };
 		8BC0FB34128026E600FD3F66 /* scrWidgets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scrWidgets.cpp; sourceTree = "<group>"; };
 		8BC0FC331280327300FD3F66 /* wdgSlider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wdgSlider.cpp; sourceTree = "<group>"; };
+		8BC0FE181280734F00FD3F66 /* CorrelateMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorrelateMain.h; sourceTree = "<group>"; };
+		8BC0FE191280734F00FD3F66 /* CorrelateMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CorrelateMain.cpp; sourceTree = "<group>"; };
 		8BD206BC1271B73C00A9AB03 /* todo.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = todo.rtf; sourceTree = "<group>"; };
 		8BD2072612730D0E00A9AB03 /* settings.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = settings.xml; path = bin/data/settings.xml; sourceTree = "<group>"; };
 		8BE13557127B0527008C822D /* scrGroupSwap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrGroupSwap.h; sourceTree = "<group>"; };
@@ -401,6 +404,15 @@
 			name = widgets;
 			sourceTree = "<group>";
 		};
+		8BC0FE171280731D00FD3F66 /* Correlate */ = {
+			isa = PBXGroup;
+			children = (
+				8BC0FE181280734F00FD3F66 /* CorrelateMain.h */,
+				8BC0FE191280734F00FD3F66 /* CorrelateMain.cpp */,
+			);
+			name = Correlate;
+			sourceTree = "<group>";
+		};
 		8BE13660127C72FA008C822D /* Calibrate App */ = {
 			isa = PBXGroup;
 			children = (
@@ -592,6 +604,7 @@
 			isa = PBXGroup;
 			children = (
 				8BE13660127C72FA008C822D /* Calibrate App */,
+				8BC0FE171280731D00FD3F66 /* Correlate */,
 				E4B69B5B0A3A1756003C02F2 /* ScannerDebug.app */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				8BD2072612730D0E00A9AB03 /* settings.xml */,
@@ -821,6 +834,7 @@
 				8BC0FB2E1280252500FD3F66 /* wdgBase.cpp in Sources */,
 				8BC0FB35128026E600FD3F66 /* scrWidgets.cpp in Sources */,
 				8BC0FC341280327300FD3F66 /* wdgSlider.cpp in Sources */,
+				8BC0FE1A1280734F00FD3F66 /* CorrelateMain.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

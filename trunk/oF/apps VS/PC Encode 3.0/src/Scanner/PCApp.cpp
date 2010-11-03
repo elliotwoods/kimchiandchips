@@ -23,14 +23,14 @@ void PCApp::setup(){
 	//setup scanner
 	_scanner.setup();
 	
-	//add screens
-	scrGroupGrid *grid = new scrGroupGrid();
+	/////////////////////////////////////////////////////////
+	// SCAN GROUP
+	/////////////////////////////////////////////////////////
+	scrGroupGrid *gridScan = new scrGroupGrid("Scan");
 	scrGroupTabbed *scrSendGroup = new scrGroupTabbed();
 	
-	_screens->mainScreen = grid;
-	
 	//add the projection space group first to the grid
-	grid->push(scrSendGroup);
+	gridScan->push(scrSendGroup);
 	
 	//add the send message to the send group (first screen)
 	scrSendGroup->push(&_scanner._encoder->scrSend);
@@ -43,21 +43,39 @@ void PCApp::setup(){
 		scrGroupTabbed *scrCamDataGroup = new scrGroupTabbed();
 		scrCamDataGroup->push(_scanner._decoder[iCam]->_scrFrameData);
 		scrCamDataGroup->push(_scanner._decoder[iCam]->_scrCameraSpace);
-		scrCamDataGroup->push(_scanner._decoder[iCam]->_scrBinary);
-		grid->push(scrCamDataGroup);
+		gridScan->push(scrCamDataGroup);
 		
 		scrGroupTabbed *scrCamSourceGroup = new scrGroupTabbed();
 		scrCamSourceGroup->push(_scanner._decoder[iCam]->_scrCamera);
 		scrCamSourceGroup->push(_scanner._decoder[iCam]->_scrBinary);
-		grid->push(scrCamSourceGroup);
+		gridScan->push(scrCamSourceGroup);
 		
 		scrGroupTabbed *scrThresoldGroup = new scrGroupTabbed();
 		scrThresoldGroup->push(_scanner._decoder[iCam]->_scrThreshold);
 		scrThresoldGroup->push(_scanner._decoder[iCam]->_scrThresholdMask);
-		grid->push(scrThresoldGroup);
+		gridScan->push(scrThresoldGroup);
 		
-		grid->screens.push_back(_scanner._decoder[iCam]->_scrHistograms);
+		gridScan->screens.push_back(_scanner._decoder[iCam]->_scrHistograms);
 	}
+	/////////////////////////////////////////////////////////
+
+	/////////////////////////////////////////////////////////
+	// CORRELATE GROUP
+	/////////////////////////////////////////////////////////
+	scrGroupGrid *gridCorrelate = new scrGroupGrid("Correlate");
+	
+	/////////////////////////////////////////////////////////
+	
+	/////////////////////////////////////////////////////////
+	// MAIN TAB GROUP
+	/////////////////////////////////////////////////////////
+	scrGroupTabbed *tabMain = new scrGroupTabbed(32);
+	
+	tabMain->push(gridScan);
+	tabMain->push(gridCorrelate);
+	
+	_screens->mainScreen = tabMain;
+	/////////////////////////////////////////////////////////
 	
 	
 	/////////////////////////////////////////////
@@ -77,10 +95,10 @@ void PCApp::setup(){
 //										"", true);
 	
 	scrControl->push(sliderDistance);
-	grid->screens.push_back(scrControl);
+	gridScan->screens.push_back(scrControl);
 	/////////////////////////////////////////////
 	
-	grid->setBounds(0, 0, ofGetWidth(), ofGetHeight());
+//	tabMain->setBounds(0, 0, ofGetWidth(), ofGetHeight());
 	
 	ofBackground(10, 10, 10);
 }

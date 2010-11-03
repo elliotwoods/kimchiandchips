@@ -18,7 +18,7 @@ int PCConfig::captureDelay=200;
 int PCConfig::gain=CONFIG_DEFAULT_GAIN;
 int PCConfig::exposure=CONFIG_DEFAULT_EXPOSURE;
 
-int PCConfig::nCameras=0;
+char PCConfig::nCameras=0;
 vector<int> PCConfig::camIDs = vector<int>();
 
 int PCConfig::camWidth=0;
