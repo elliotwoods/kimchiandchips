@@ -16,7 +16,7 @@
 			gain="40" exposure="128" delay="200">
 			
 			<camera id="0" />
-			<!--camera id="1" /-->
+			<camera id="1" />
 		</cameras>
 
     <data sdev="0" />
