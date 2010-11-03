@@ -14,5 +14,11 @@
 class CorrelateMain
 {
 public:
+	CorrelateMain();
+	scrWidgets		scrControl;
+	
 protected:
+	int				nCameras;
+	wdgButton		*testBang, *testToggle;
+	bool			testBool;
 };

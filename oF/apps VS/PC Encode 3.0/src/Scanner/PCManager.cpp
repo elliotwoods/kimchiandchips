@@ -17,6 +17,7 @@ PCManager::PCManager()
 	isInitialised=false;
 	hasData=false;	
 	state=0;
+	iFrame=0;
 	_firstFrame=false;
 }
 

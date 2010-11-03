@@ -63,7 +63,7 @@ void PCApp::setup(){
 	// CORRELATE GROUP
 	/////////////////////////////////////////////////////////
 	scrGroupGrid *gridCorrelate = new scrGroupGrid("Correlate");
-	
+	gridCorrelate->push(&_Correlator.scrControl);
 	/////////////////////////////////////////////////////////
 	
 	/////////////////////////////////////////////////////////
@@ -88,19 +88,18 @@ void PCApp::setup(){
 										  0.01,
 										  "meters"); 
 	
-//	wdgBase *sliderFrame = new wdgSliderInt("iFrame",
-//										 _scanner.iFrame,
-//										0, _scanner._payload->totalFrames,
-//										1,
-//										"", true);
+	_wdgFrameCounter= new wdgCounter("iFrame",
+								  _scanner.iFrame,
+								  0);
 	
 	scrControl->push(sliderDistance);
+	scrControl->push(_wdgFrameCounter);
 	gridScan->screens.push_back(scrControl);
 	/////////////////////////////////////////////
 	
 //	tabMain->setBounds(0, 0, ofGetWidth(), ofGetHeight());
 	
-	ofBackground(10, 10, 10);
+	ofBackground(20, 20, 20);
 }
 
 //--------------------------------------------------------------
@@ -202,10 +201,14 @@ void PCApp::keyPressed(int key){
 				_scanner.start();
 			else
 				_scanner.stop();
+			
+			_wdgFrameCounter->setMax(_scanner._payload->totalFrames);
+			
 			break;
 			
 		case 'c': // c = calibrate threshold
 			_scanner.calibrate();
+			_wdgFrameCounter->setMax(_scanner._payload->interleaves+1);			
 			break;
 
 		case 's': // s = save current activity
