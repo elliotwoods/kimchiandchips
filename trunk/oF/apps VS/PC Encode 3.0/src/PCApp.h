@@ -9,6 +9,8 @@
 #include "PCconstants.h"
 #include "PCManager.h"
 
+#include "CorrelateMain.h"
+
 //#include "PCConfig.h"
 //#include "PCEncode.h"
 //#include "PCDecode.h"
@@ -51,6 +53,12 @@ class PCApp : public ofBaseApp {
 	
 
 protected:
+	
+	//correlator
+	CorrelateMain			_Correlator;
+	
+	//user interface
+	wdgCounter				*_wdgFrameCounter;
 	
 	//calibration variables
 	float					_screenDistance;

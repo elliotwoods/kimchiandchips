@@ -30,6 +30,8 @@
 		8B620B7812813E4400DDD683 /* PayloadGraycode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B620B7412813E4400DDD683 /* PayloadGraycode.cpp */; };
 		8B620B9712813E8800DDD683 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B620B9412813E8800DDD683 /* main.cpp */; };
 		8B620B9812813E8800DDD683 /* PCApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B620B9512813E8800DDD683 /* PCApp.cpp */; };
+		8B620BC012813F7900DDD683 /* wdgCounter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B620BBF12813F7900DDD683 /* wdgCounter.cpp */; };
+		8B620C711281483E00DDD683 /* wdgButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B620C701281483E00DDD683 /* wdgButton.cpp */; };
 		8B6B965812717C2F0090C147 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B6B965112717C2F0090C147 /* tinyxml.cpp */; };
 		8B6B965912717C2F0090C147 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B6B965312717C2F0090C147 /* tinyxmlerror.cpp */; };
 		8B6B965A12717C2F0090C147 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B6B965412717C2F0090C147 /* tinyxmlparser.cpp */; };
@@ -161,6 +163,10 @@
 		8B620B9412813E8800DDD683 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = "<group>"; };
 		8B620B9512813E8800DDD683 /* PCApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PCApp.cpp; path = src/PCApp.cpp; sourceTree = "<group>"; };
 		8B620B9612813E8800DDD683 /* PCApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCApp.h; path = src/PCApp.h; sourceTree = "<group>"; };
+		8B620BBE12813F7900DDD683 /* wdgCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wdgCounter.h; sourceTree = "<group>"; };
+		8B620BBF12813F7900DDD683 /* wdgCounter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wdgCounter.cpp; sourceTree = "<group>"; };
+		8B620C6F1281483E00DDD683 /* wdgButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wdgButton.h; sourceTree = "<group>"; };
+		8B620C701281483E00DDD683 /* wdgButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wdgButton.cpp; sourceTree = "<group>"; };
 		8B6B964F12717C2F0090C147 /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
 		8B6B965112717C2F0090C147 /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml.cpp; sourceTree = "<group>"; };
 		8B6B965212717C2F0090C147 /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml.h; sourceTree = "<group>"; };
@@ -399,6 +405,10 @@
 				8BC0FB2D1280252500FD3F66 /* wdgBase.cpp */,
 				8BC0FB301280265700FD3F66 /* wdgSlider.h */,
 				8BC0FC331280327300FD3F66 /* wdgSlider.cpp */,
+				8B620BBE12813F7900DDD683 /* wdgCounter.h */,
+				8B620BBF12813F7900DDD683 /* wdgCounter.cpp */,
+				8B620C6F1281483E00DDD683 /* wdgButton.h */,
+				8B620C701281483E00DDD683 /* wdgButton.cpp */,
 			);
 			name = widgets;
 			sourceTree = "<group>";
@@ -834,6 +844,8 @@
 				8B620B7812813E4400DDD683 /* PayloadGraycode.cpp in Sources */,
 				8B620B9712813E8800DDD683 /* main.cpp in Sources */,
 				8B620B9812813E8800DDD683 /* PCApp.cpp in Sources */,
+				8B620BC012813F7900DDD683 /* wdgCounter.cpp in Sources */,
+				8B620C711281483E00DDD683 /* wdgButton.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
