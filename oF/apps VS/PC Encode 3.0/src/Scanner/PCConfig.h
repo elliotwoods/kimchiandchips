@@ -26,7 +26,7 @@ class PCConfig
 		bool	configSave();
 		bool	configSave(string filename);	
 
-		static int		nCameras;
+		static char		nCameras;
 	
 	protected:
 		static vector<int> camIDs;

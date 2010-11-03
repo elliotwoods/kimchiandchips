@@ -95,21 +95,57 @@ void PCLogger::savePixelsBinary(string filename)
 	ofstream iofOutput(filename.c_str(), ios::out | ios::binary);
     
 	bool hasAllFinds;
+	PCPixelSlim *currentPixel;
+	
+	int iPX, iPY;
+	float fPX, fPY;
+	
+	//write config
+	iofOutput.write((char*) &nCameras, 1);
+	//could write rest here if it's useful..
 	
 	for (int iPP=0; iPP<projWidth*projHeight; iPP++)
 	{
+		//////////////////////////////
+		//check exists in all cameras
+		//////////////////////////////
 		hasAllFinds = true;
-		
 		for (int iDec=0; iDec<_decoders->size(); iDec++)
-			hasAllFinds &= _decoders->at(iDec)->projPixels[iPP]->_iLastFoundPixel != -1;
+		{
+			currentPixel = _decoders->at(iDec)->projPixels[iPP];
+			hasAllFinds &= currentPixel->_iLastFoundPixel != -1;
+		}
+		if (!hasAllFinds)
+			continue;
+		//////////////////////////////
 		
 		
-		if (hasAllFinds)
-			for (int iDec=0; iDec<_decoders->size(); iDec++)
-				iofOutput.write((char*) (PCPixelSlim*)
-								_decoders->at(iDec)->projPixels[iPP],
-								sizeof(PCPixelSlim));
-	}
+		//////////////////////////////
+		//write projector data
+		//////////////////////////////
+		iPX = iPP % projWidth;
+		iPY = iPP / projHeight;
+		
+		fPX = float(iPX) / float (projWidth);
+		fPY = float(iPY) / float (projHeight);
+		
+		iofOutput.write((char*) &fPX, 4);
+		iofOutput.write((char*) &fPY, 4);
+		//////////////////////////////
+								
+		
+		//////////////////////////////
+		//write camera data
+		//////////////////////////////
+		for (int iDec=0; iDec<_decoders->size(); iDec++)
+		{
+			currentPixel = _decoders->at(iDec)->projPixels[iPP];
+			iofOutput.write((char*) &(currentPixel->_meanXdash.x), 4);
+			iofOutput.write((char*) &(currentPixel->_meanXdash.y), 4);
+		}
+		//////////////////////////////
+
+}
 	
     iofOutput.close();
 }

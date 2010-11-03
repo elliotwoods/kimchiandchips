@@ -39,13 +39,7 @@ class PCApp : public ofBaseApp {
 	
 	private:
 		string				getDateString();
-//		//GUI stuff. maybe move this to screens?
-//		//maybe it's already moved?
-//		int					_MouseStartX, _MouseStartY;
-//		float				_MouseStartScreenFloatX, _MouseStartScreenFloatY;
-//		int					_MouseStartScreenPixX, _MouseStartScreenPixY;
-	
-	
+		
 		PCManager			_scanner;
 
 	
