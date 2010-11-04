@@ -31,9 +31,10 @@ public:
 	
 	bool					isHit(int x, int y);
 	
-	virtual void			mouseDown(int x, int y) { };
+	virtual void			mouseDown(int x, int y) {hasCursorAttached=true;};
 	virtual void			mouseMoved(int x, int y) { };
-	virtual void			mouseReleased(int x, int y) { };
+	virtual void			mouseReleased(int x, int y) {hasCursorAttached=false; };
+	virtual void			mouseDragged(int x, int y, int dx, int dy, int button) { };
 	
 	virtual bool			hitMaximise(int x, int y);
 	virtual bool			hitMaximise(int x, int y, bool input);

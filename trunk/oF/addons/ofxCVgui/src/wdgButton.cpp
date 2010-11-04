@@ -16,6 +16,8 @@ wdgBase(caption)
 	//toggle constructor
 	_isBang = false;
 	_valueToggle = &myValue;
+	
+	_wasBang = 0;
 }
 
 wdgButton::wdgButton(string caption) :
@@ -24,6 +26,8 @@ wdgBase(caption)
 	//bang constructor
 	_isBang = true;
 	_valueBang = false;
+
+	_wasBang = 0;
 }
 
 void wdgButton::draw()
@@ -31,6 +35,7 @@ void wdgButton::draw()
 	bool currentValue;
 	
 	currentValue = (_isBang ? _valueBang : *_valueToggle);
+	currentValue |= _wasBang > 0;
 	
 	ofPushStyle();
 	ofSetLineWidth(1);
@@ -41,6 +46,17 @@ void wdgButton::draw()
 		ofSetColor(0, 0, 0);
 	ofRect(_x, _y, _width, _height);
 	
+	//draw outline if not current value
+	if (!currentValue)
+	{
+		ofPushStyle();
+		ofSetLineWidth(1);
+		ofNoFill();
+		ofSetColor(255, 255, 255);
+		ofRect(_x, _y, _width, _height);
+		ofPopStyle();
+	}
+	
 	if (currentValue)
 		ofSetColor(0, 0, 0);
 	else
@@ -49,6 +65,11 @@ void wdgButton::draw()
 	ofDrawBitmapString(caption, _x+_width/2-4*caption.length(),
 					   _y+_height/2+5);
 	ofPopStyle();
+	
+	
+	
+	if (_wasBang>0)
+		_wasBang--;
 
 }
 void wdgButton::mouseDown(int x, int y)
@@ -63,9 +84,14 @@ bool wdgButton::getBang()
 {
 	if (_isBang)
 	{
-		bool tempval = _valueBang;
-		_valueBang=false;
-		return tempval;
+		if (_valueBang)
+		{
+			_valueBang=false;
+			_wasBang=2;
+			return true;
+		} else
+			return false;
+
 	} else {
 		return false;
 	}

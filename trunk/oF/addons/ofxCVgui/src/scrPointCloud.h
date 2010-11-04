@@ -1,0 +1,37 @@
+/*
+ *  scrPointCloud.h
+ *  PC Encode
+ *
+ *  Created by Elliot Woods on 04/11/2010.
+ *  Copyright 2010 Kimchi and Chips. All rights reserved.
+ *
+ */
+
+//might change this into scrFBO...
+
+#include "ofMain.h"
+#include "ofxFBOTexture.h"
+
+#include "scrTexture.h"
+
+class scrPointCloud : public scrBase {
+	
+public:
+	scrPointCloud(string caption);
+	
+	void			mouseDragged(int x, int y, int dx, int dy, int button);
+	int				pointSize;
+
+	void			setWith(float *positions, float *colours, int nPoints);
+	
+	ofPoint			spin;
+	float			distance;
+protected:
+	void			drawContent();
+	
+	void			* _onMouseOver(float x, float y);
+
+	float			*_positions, *_colours;
+	int				_nPoints;
+	GLuint			vbo[2];		
+};

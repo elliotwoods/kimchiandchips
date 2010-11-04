@@ -22,6 +22,7 @@ public:
 	void				mouseMoved(int x, int y);
 	virtual void		mouseDown(int x, int y);
 	void				mouseReleased(int x, int y);
+	void				mouseDragged(int x, int y, int dx, int dy, int button);
 	
 	bool				hitMaximise(int x, int y);
 	bool				hitMaximise(int x, int y, bool input);

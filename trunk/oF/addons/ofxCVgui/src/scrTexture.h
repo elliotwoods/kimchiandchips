@@ -14,7 +14,7 @@
 class scrTexture : public scrBase {
 
 public:
-	scrTexture(enumShowCursor showCursor, bool hasCursorEvents, ofTexture &texture, string _caption);
+	scrTexture(enumShowCursor showCursor, bool hasCursorEvents, ofTexture *texture, string _caption);
 	
 protected:
 	void			drawContent();

@@ -23,6 +23,7 @@ public:
 	void			setBounds(int x, int y, int width);
 	
 	const int		&height;
+	const int		&y;
 	string			caption;
 	
 protected:

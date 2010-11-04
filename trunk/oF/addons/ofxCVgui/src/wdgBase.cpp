@@ -10,7 +10,7 @@
 #include "wdgBase.h"
 
 wdgBase::wdgBase(string _caption) :
-height(_height)
+height(_height), y(_y)
 {
 	caption = _caption;
 	_height = 30;

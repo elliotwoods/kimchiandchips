@@ -38,7 +38,7 @@ int scrGroupGrid::findScreen(int x, int y)
 	int h = _height / gridHeight;
 	
 	
-	if (iScreenMaximised != -1)
+	if (_isFullscreen)
 		iScreen=iScreenMaximised;
 	
 	else
