@@ -12,6 +12,7 @@
 scrPointCloud::scrPointCloud(string caption) :
 scrBase(cursor_none, false, caption)
 {
+	_nPoints = 0;
 	pointSize = 2;
 	distance = 1;
 	glGenBuffersARB(1, &vbo[0]);
