@@ -10,6 +10,7 @@
 #include "ofMain.h"
 
 #include "ofxKCScreensGUI.h"
+#include "ofxPolyfit.h"
 
 #include <fstream>
 #include <iostream>
@@ -24,20 +25,21 @@ public:
 	
 	//
 	
-	scrGroupGrid	scrGrid;
+	scrGroupGrid	scrGridMain, scrGridData;
 	scrWidgets		scrControl;
 	scrFileSelect	scrFileSelection;
-	scrPointCloud	scrInputPoints;
+	scrPointCloud	scrInputPoints, scrTestCorrelate;
 	
 protected:
 	void			loadData();	
 	float			getDepthFromFilename(string filename);
-	void			copyToPointCloud();
+	void			copyToInputScreen();
 	
 	void			runPolyfit();
+	void			runTestSet();
 	//
 	
-	wdgButton		*bangLoad, *bangCorrelate;
+	wdgButton		*bangLoad, *bangCorrelate, *bangTestData;
 	bool			testBool;
 
 	int				nCameras;
@@ -48,10 +50,16 @@ protected:
 	// input point cloud
 	float			input_pos[MAXPOINTS][3];
 	float			input_col[MAXPOINTS][3];
+
+	// output point cloud
+	float			test_pos[MAXPOINTS][3];
+	//use same colour as input
 	
 	// fit data
-	vector<vector<double> >	input;
-	vector<vector<double> >	output;
+	ofxPolyFit		fit;
+	float			polyOrder; //it's a float because of slider
+	vector<vector<double> >	polyInput;
+	vector<vector<double> >	polyOutput;
 
 	
 };

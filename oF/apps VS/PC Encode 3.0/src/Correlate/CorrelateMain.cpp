@@ -12,8 +12,12 @@
 CorrelateMain::CorrelateMain() :
 scrControl("Calibrate control"),
 scrFileSelection("Select data", "./Logs/", "bin"),
+
 scrInputPoints("Input data"),
-scrGrid("Correlate")
+scrTestCorrelate("Test correlation"),
+
+scrGridMain("Correlate"),
+scrGridData("Data pointclouds")
 {
 	////////////////////////////
 	// INITIALISE VARIABLES
@@ -40,43 +44,33 @@ scrGrid("Correlate")
 											  0, 4,
 											  0.001,
 											  "meters");
+	wdgSlider *wdgPolyOrder = new wdgSlider("Polynomial order",
+											polyOrder,
+											1, 10,
+											1);
 	bangLoad = new wdgButton("Load data");
 	bangCorrelate = new wdgButton("Run polyfit");
+	bangTestData = new wdgButton("Test dataset");
 	
 	scrControl.push(wdgCameraCount);
+	scrControl.push(wdgDatasetCount);
 	scrControl.push(bangLoad);
 	scrControl.push(bangCorrelate);
 	scrControl.push(wdgScreenWidth);
 	scrControl.push(wdgScreenHeight);
+	scrControl.push(wdgPolyOrder);
+	scrControl.push(bangTestData);
 	
-	scrGrid.push(&scrControl);
-	scrGrid.push(&scrFileSelection);
-	scrGrid.push(&scrInputPoints);
-	////////////////////////////
+	scrGridData.push(&scrInputPoints);
+	scrGridData.push(&scrTestCorrelate);
+	scrGridData.setGridWidth(1);
 	
+	scrGridMain.push(&scrControl);
+	scrGridMain.push(&scrFileSelection);
+	scrGridMain.push(&scrGridData);
+	scrGridMain.setGridWidth(3);
 	////////////////////////////
-	// Clear points
-	////////////////////////////
-//	nPoints=0;
-//	for (float x=-1; x<1; x+=0.1)
-//		for (float y=-1; y<1; y+=0.1)
-//			for (float z=-1; z<1; z+=0.1)
-//			{
-//				input_pos[nPoints][0] = x;
-//				input_pos[nPoints][1] = y;
-//				input_pos[nPoints][2] = z;
-//				
-//				input_col[nPoints][0] = x/2+0.5f;
-//				input_col[nPoints][1] = y/2+0.5f;
-//				input_col[nPoints][2] = z/2+0.5f;
-//				nPoints++;
-//			}
-//	//
-//	float *inpos = input_pos[0];
-//	float *incol = input_col[0];
-//	//
-	scrInputPoints.setWith(*input_pos, *input_col, 0);	
-	////////////////////////////
+
 	
 	////////////////////////////
 	// Initialise some values
@@ -84,6 +78,8 @@ scrGrid("Correlate")
 	// from the samsung monitor in the studio
 	screenWidth = 0.598;
 	screenHeight = 0.336;
+	//
+	polyOrder = 2;
 	////////////////////////////
 	
 }
@@ -96,12 +92,14 @@ void CorrelateMain::update()
 	if (bangCorrelate->getBang())
 		runPolyfit();
 
+	if (bangTestData->getBang())
+		runTestSet();
 }
 
 void CorrelateMain::loadData()
 {
-	input.clear();
-	output.clear();
+	polyInput.clear();
+	polyOutput.clear();
 
 	nDatasets = 0;
 	nPoints = 0;
@@ -190,8 +188,8 @@ void CorrelateMain::loadData()
 				
 				nPoints++;
 				
-				input.push_back(inputRow);
-				output.push_back(outputRow);
+				polyInput.push_back(inputRow);
+				polyOutput.push_back(outputRow);
 			}
 			///////////////////////////////
 			
@@ -204,7 +202,7 @@ void CorrelateMain::loadData()
 			///////////////////////////////			
 		}
 	
-	copyToPointCloud();
+	copyToInputScreen();
 }
 
 float CorrelateMain::getDepthFromFilename(string filename)
@@ -212,19 +210,19 @@ float CorrelateMain::getDepthFromFilename(string filename)
 	return ofToFloat(filename.substr(0,filename.length()-4));
 }
 
-void CorrelateMain::copyToPointCloud()
+void CorrelateMain::copyToInputScreen()
 {
 	if (nPoints>MAXPOINTS)
 		ofLog(OF_LOG_WARNING, "CorrelateMain: nPoints > MAXPOINTS. only drawing first MAXPOINTS");
 	
 	for (int iPoint = 0; iPoint<min(nPoints,MAXPOINTS); iPoint++)
 	{
-		input_pos[iPoint][0] = output[iPoint][0];
-		input_pos[iPoint][1] = output[iPoint][1];
-		input_pos[iPoint][2] = output[iPoint][2];
+		input_pos[iPoint][0] = polyOutput[iPoint][0];
+		input_pos[iPoint][1] = polyOutput[iPoint][1];
+		input_pos[iPoint][2] = polyOutput[iPoint][2];
 		
-		input_col[iPoint][0] = output[iPoint][0] / screenWidth + 0.5;
-		input_col[iPoint][1] = output[iPoint][1] / screenHeight + 0.5;
+		input_col[iPoint][0] = polyOutput[iPoint][0] / screenWidth + 0.5;
+		input_col[iPoint][1] = polyOutput[iPoint][1] / screenHeight + 0.5;
 		input_col[iPoint][2] = 0;//float(iPoint) / float(nDatasets-1);
 	}
 	
@@ -234,4 +232,25 @@ void CorrelateMain::copyToPointCloud()
 
 void CorrelateMain::runPolyfit()
 {
+	fit.init(polyOrder, 2*nCameras, 3, BASIS_SHAPE_SQUARE);
+	fit.correlate(polyInput, polyOutput);
+}
+
+void CorrelateMain::runTestSet()
+{
+	vector<double> *input;
+	vector<double> output(3);
+	
+	for (int iPoint = 0; iPoint<min(nPoints,MAXPOINTS); iPoint++)
+	{
+		input = &polyInput[iPoint];
+		
+		output = fit.evaluate(*input);
+		
+		test_pos[iPoint][0] = output[0];
+		test_pos[iPoint][1] = output[1];
+		test_pos[iPoint][2] = output[2];
+	}
+	
+	scrTestCorrelate.setWith(*test_pos, *input_col, nPoints);
 }

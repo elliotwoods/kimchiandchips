@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B0EFAF41282BD450095D621 /* basisTransformIndicies.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B0EFAE41282BD450095D621 /* basisTransformIndicies.cpp */; };
+		8B0EFAF51282BD460095D621 /* FitBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B0EFAE61282BD450095D621 /* FitBase.cpp */; };
+		8B0EFAF61282BD460095D621 /* matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B0EFAE81282BD450095D621 /* matrix.cpp */; };
+		8B0EFAF71282BD460095D621 /* ofxPolyFit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B0EFAEA1282BD450095D621 /* ofxPolyFit.cpp */; };
+		8B0EFAF91282BD460095D621 /* polyNfit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B0EFAEE1282BD450095D621 /* polyNfit.cpp */; };
+		8B0EFAFB1282BD460095D621 /* powerBases.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B0EFAF21282BD450095D621 /* powerBases.cpp */; };
+		8B0EFB9B1282CCE90095D621 /* ScanTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B0EFB9A1282CCE90095D621 /* ScanTime.cpp */; };
 		8B3A2E26127805AC006144DE /* scrGroupBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B3A2E25127805AC006144DE /* scrGroupBase.cpp */; };
 		8B5C88631271898400AA9B44 /* btnBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B5C884F1271898400AA9B44 /* btnBase.cpp */; };
 		8B5C88641271898400AA9B44 /* ofxKCScreensGUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B5C88521271898400AA9B44 /* ofxKCScreensGUI.cpp */; };
@@ -114,6 +121,20 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8B0EFAE41282BD450095D621 /* basisTransformIndicies.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = basisTransformIndicies.cpp; sourceTree = "<group>"; };
+		8B0EFAE51282BD450095D621 /* basisTransformIndicies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = basisTransformIndicies.h; sourceTree = "<group>"; };
+		8B0EFAE61282BD450095D621 /* FitBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitBase.cpp; sourceTree = "<group>"; };
+		8B0EFAE71282BD450095D621 /* FitBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitBase.h; sourceTree = "<group>"; };
+		8B0EFAE81282BD450095D621 /* matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix.cpp; sourceTree = "<group>"; };
+		8B0EFAE91282BD450095D621 /* matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix.h; sourceTree = "<group>"; };
+		8B0EFAEA1282BD450095D621 /* ofxPolyFit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxPolyFit.cpp; sourceTree = "<group>"; };
+		8B0EFAEB1282BD450095D621 /* ofxPolyFit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxPolyFit.h; sourceTree = "<group>"; };
+		8B0EFAEE1282BD450095D621 /* polyNfit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = polyNfit.cpp; sourceTree = "<group>"; };
+		8B0EFAEF1282BD450095D621 /* polyNfit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = polyNfit.h; sourceTree = "<group>"; };
+		8B0EFAF21282BD450095D621 /* powerBases.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = powerBases.cpp; sourceTree = "<group>"; };
+		8B0EFAF31282BD450095D621 /* powerBases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = powerBases.h; sourceTree = "<group>"; };
+		8B0EFB991282CCE90095D621 /* ScanTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanTime.h; sourceTree = "<group>"; };
+		8B0EFB9A1282CCE90095D621 /* ScanTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScanTime.cpp; sourceTree = "<group>"; };
 		8B3A2E24127805AC006144DE /* scrGroupBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrGroupBase.h; sourceTree = "<group>"; };
 		8B3A2E25127805AC006144DE /* scrGroupBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scrGroupBase.cpp; sourceTree = "<group>"; };
 		8B5C88491271898400AA9B44 /* button-plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-plus.png"; sourceTree = "<group>"; };
@@ -287,6 +308,26 @@
 			);
 			name = Groups;
 			sourceTree = "<group>";
+		};
+		8B0EFAE31282BD450095D621 /* ofxPolyFit */ = {
+			isa = PBXGroup;
+			children = (
+				8B0EFAE41282BD450095D621 /* basisTransformIndicies.cpp */,
+				8B0EFAE51282BD450095D621 /* basisTransformIndicies.h */,
+				8B0EFAE61282BD450095D621 /* FitBase.cpp */,
+				8B0EFAE71282BD450095D621 /* FitBase.h */,
+				8B0EFAE81282BD450095D621 /* matrix.cpp */,
+				8B0EFAE91282BD450095D621 /* matrix.h */,
+				8B0EFAEA1282BD450095D621 /* ofxPolyFit.cpp */,
+				8B0EFAEB1282BD450095D621 /* ofxPolyFit.h */,
+				8B0EFAEE1282BD450095D621 /* polyNfit.cpp */,
+				8B0EFAEF1282BD450095D621 /* polyNfit.h */,
+				8B0EFAF21282BD450095D621 /* powerBases.cpp */,
+				8B0EFAF31282BD450095D621 /* powerBases.h */,
+			);
+			name = ofxPolyFit;
+			path = ../../../addons/ofxPolyFit;
+			sourceTree = SOURCE_ROOT;
 		};
 		8B5C88461271898400AA9B44 /* ofxKCScreensGUI */ = {
 			isa = PBXGroup;
@@ -469,13 +510,15 @@
 			name = widgets;
 			sourceTree = "<group>";
 		};
-		8BC0FE171280731D00FD3F66 /* Correlate */ = {
+		8BC0FE171280731D00FD3F66 /* Stages */ = {
 			isa = PBXGroup;
 			children = (
 				8B620B5512813DFA00DDD683 /* CorrelateMain.cpp */,
 				8B620B5612813DFA00DDD683 /* CorrelateMain.h */,
+				8B0EFB991282CCE90095D621 /* ScanTime.h */,
+				8B0EFB9A1282CCE90095D621 /* ScanTime.cpp */,
 			);
-			name = Correlate;
+			name = Stages;
 			sourceTree = "<group>";
 		};
 		8BE13660127C72FA008C822D /* Calibrate App */ = {
@@ -673,10 +716,11 @@
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				8BD2072612730D0E00A9AB03 /* settings.xml */,
 				E4B69E1C0A3A1BDC003C02F2 /* PC scanner */,
-				8BC0FE171280731D00FD3F66 /* Correlate */,
+				8BC0FE171280731D00FD3F66 /* Stages */,
+				8B5C88461271898400AA9B44 /* ofxKCScreensGUI */,
+				8B0EFAE31282BD450095D621 /* ofxPolyFit */,
 				8B64D56C128257FA00DB4369 /* ofxFBOTexture */,
 				8B64D48E1281C4A900DB4369 /* ofxDirList */,
-				8B5C88461271898400AA9B44 /* ofxKCScreensGUI */,
 				8B6B964E12717C2F0090C147 /* ofxXmlSettings */,
 				E4C2422310CC54B6004149E2 /* openFrameworks */,
 				E45BE0360E8CC5DE009D7055 /* libs */,
@@ -908,6 +952,13 @@
 				8B64D4951281C4A900DB4369 /* ofxDirList.cpp in Sources */,
 				8B64D56B12824CF200DB4369 /* scrPointCloud.cpp in Sources */,
 				8B64D56F128257FA00DB4369 /* ofxFBOTexture.cpp in Sources */,
+				8B0EFAF41282BD450095D621 /* basisTransformIndicies.cpp in Sources */,
+				8B0EFAF51282BD460095D621 /* FitBase.cpp in Sources */,
+				8B0EFAF61282BD460095D621 /* matrix.cpp in Sources */,
+				8B0EFAF71282BD460095D621 /* ofxPolyFit.cpp in Sources */,
+				8B0EFAF91282BD460095D621 /* polyNfit.cpp in Sources */,
+				8B0EFAFB1282BD460095D621 /* powerBases.cpp in Sources */,
+				8B0EFB9B1282CCE90095D621 /* ScanTime.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
