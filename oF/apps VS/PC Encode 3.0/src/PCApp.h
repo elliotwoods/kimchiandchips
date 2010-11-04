@@ -46,6 +46,7 @@ class PCApp : public ofBaseApp {
 
 	
 		ofxKCScreensGUI		*_screens;
+		scrGroupTabbed		*_scrTabMain;
 
 		string				_strStatus;
 		char				_strDebug[200];

@@ -102,7 +102,7 @@ void PCLogger::savePixelsBinary(string filename)
 	
 	//write config
 	iofOutput.write((char*) &nCameras, 1);
-	//could write rest here if it's useful..
+	//could write rest of config here if it's useful..
 	
 	for (int iPP=0; iPP<projWidth*projHeight; iPP++)
 	{
