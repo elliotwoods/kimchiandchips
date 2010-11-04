@@ -71,7 +71,7 @@ void PCApp::setup(){
 	_scrTabMain = new scrGroupTabbed(32);
 	
 	_scrTabMain->push(gridScan);
-	_scrTabMain->push(&_Correlator.scrGrid);
+	_scrTabMain->push(&_Correlator.scrGridMain);
 	
 	_screens->mainScreen = _scrTabMain;
 	/////////////////////////////////////////////////////////
@@ -127,16 +127,6 @@ void PCApp::update(){
 //--------------------------------------------------------------
 
 void PCApp::draw(){
-	
-//	if (_scanner.state>0)
-//		ofLog(OF_LOG_VERBOSE, "PCApp: Draw iFrame " + 
-//			  ofToString(_scanner.iFrame, 0));
-//	
-	//reset frame variables
-	//move these to a seperate function if gets too large
-//	sprintf(_strDebug, "");
-	
-//	drawStatus();
 
 	if (_scanner.state>0)
 		ofLog(OF_LOG_VERBOSE, "PCApp: drawing interleave frame " + ofToString(_scanner._payload->iScanInterleaveFrame(_scanner.iFrame)));
@@ -145,62 +135,6 @@ void PCApp::draw(){
 	
 	
 }
-
-//void PCApp::drawStatus()
-//{
-//	string strStatus, strState;
-//	string strNewLine = "\n";
-//	
-//	char strIFrame[100], strInterleaves[100], strICalibrationFrame[100];
-//	char strNParityBits[100];
-//	char strIInterleaveFrame[100];
-//	char strFPS[100], strContinousCapture[100], strCaptureDelay[100];
-//	
-//	strState = "state=";
-//	switch (_PC_State) {
-//		case PC_STATE_STANDBY:
-//			strState += "standby";
-//			break;
-//		case PC_STATE_CALIBRATING:
-//			strState += "calibrating";
-//			break;
-//		case PC_STATE_SCANNING:
-//			strState += "scanning";
-//		default:
-//			break;
-//	}
-//	
-//	if (iScanInterleaveFrame(_iScanFrame) < _payload->dataFramesPerInterleave)
-//		sprintf(strIInterleaveFrame, " iInterleaveFrame=%d/%d", iScanInterleaveFrame(_iScanFrame), _payload->totalFramesPerInterleave);
-//	else 
-//		sprintf(strIInterleaveFrame, " iInterleaveFrame=%d/%d iParityFrame=%d/%d",
-//				iScanInterleaveFrame(_iScanFrame), _payload->totalFramesPerInterleave,
-//				(iScanInterleaveFrame(_iScanFrame) - _payload->dataFramesPerInterleave),
-//				errorBits);
-//
-//	
-//	
-//	sprintf(strIFrame, " iScanFrame=%d/%d", _iScanFrame, _payload->totalFrames);
-//	sprintf(strInterleaves, " iInterleave=%d/%d", iInterleave(_iScanFrame), _payload->interleaves);
-//	sprintf(strNParityBits, " errorBits=%d", errorBits);
-//	sprintf(strICalibrationFrame, " iCalibrationFrame=%d/%d", _iCalibrationFrame, _payload->calibrateFrames);
-//	sprintf(strContinousCapture, " continuousShoot=%s", (_camera->continuous ? "true" : "false"));
-//	sprintf(strFPS, " fps=%3d", int(ofGetFrameRate()));
-//	sprintf(strCaptureDelay, " captureDelay=%dms", captureDelay);
-//	
-//	strStatus = strState + strIFrame + strInterleaves + strNParityBits +
-//				strIInterleaveFrame + strICalibrationFrame +
-//				strContinousCapture + strFPS + strCaptureDelay;
-//	
-//	strStatus += strNewLine + _strDebug;
-//	
-//	ofPushStyle();
-//	ofSetColor(255, 255, 255);
-//	_screens->status = strStatus;
-//	
-//	ofPopStyle();
-//}
-//--------------------------------------------------------------
 void PCApp::keyPressed(int key){
 	
 	_screens->interfaceNudge();
