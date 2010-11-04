@@ -32,6 +32,10 @@
 		8B620B9812813E8800DDD683 /* PCApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B620B9512813E8800DDD683 /* PCApp.cpp */; };
 		8B620BC012813F7900DDD683 /* wdgCounter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B620BBF12813F7900DDD683 /* wdgCounter.cpp */; };
 		8B620C711281483E00DDD683 /* wdgButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B620C701281483E00DDD683 /* wdgButton.cpp */; };
+		8B64D48D1281C46200DB4369 /* scrFileSelect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B64D48C1281C46200DB4369 /* scrFileSelect.cpp */; };
+		8B64D4951281C4A900DB4369 /* ofxDirList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B64D4931281C4A900DB4369 /* ofxDirList.cpp */; };
+		8B64D56B12824CF200DB4369 /* scrPointCloud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B64D56A12824CF200DB4369 /* scrPointCloud.cpp */; };
+		8B64D56F128257FA00DB4369 /* ofxFBOTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B64D56D128257FA00DB4369 /* ofxFBOTexture.cpp */; };
 		8B6B965812717C2F0090C147 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B6B965112717C2F0090C147 /* tinyxml.cpp */; };
 		8B6B965912717C2F0090C147 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B6B965312717C2F0090C147 /* tinyxmlerror.cpp */; };
 		8B6B965A12717C2F0090C147 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B6B965412717C2F0090C147 /* tinyxmlparser.cpp */; };
@@ -167,6 +171,16 @@
 		8B620BBF12813F7900DDD683 /* wdgCounter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wdgCounter.cpp; sourceTree = "<group>"; };
 		8B620C6F1281483E00DDD683 /* wdgButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wdgButton.h; sourceTree = "<group>"; };
 		8B620C701281483E00DDD683 /* wdgButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wdgButton.cpp; sourceTree = "<group>"; };
+		8B64D48B1281C46200DB4369 /* scrFileSelect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrFileSelect.h; sourceTree = "<group>"; };
+		8B64D48C1281C46200DB4369 /* scrFileSelect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scrFileSelect.cpp; sourceTree = "<group>"; };
+		8B64D4901281C4A900DB4369 /* Instructions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Instructions.txt; sourceTree = "<group>"; };
+		8B64D4911281C4A900DB4369 /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
+		8B64D4931281C4A900DB4369 /* ofxDirList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxDirList.cpp; sourceTree = "<group>"; };
+		8B64D4941281C4A900DB4369 /* ofxDirList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxDirList.h; sourceTree = "<group>"; };
+		8B64D56912824CF200DB4369 /* scrPointCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrPointCloud.h; sourceTree = "<group>"; };
+		8B64D56A12824CF200DB4369 /* scrPointCloud.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scrPointCloud.cpp; sourceTree = "<group>"; };
+		8B64D56D128257FA00DB4369 /* ofxFBOTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxFBOTexture.cpp; sourceTree = "<group>"; };
+		8B64D56E128257FA00DB4369 /* ofxFBOTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxFBOTexture.h; sourceTree = "<group>"; };
 		8B6B964F12717C2F0090C147 /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
 		8B6B965112717C2F0090C147 /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml.cpp; sourceTree = "<group>"; };
 		8B6B965212717C2F0090C147 /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml.h; sourceTree = "<group>"; };
@@ -338,6 +352,44 @@
 			path = Scanner/Payloads;
 			sourceTree = "<group>";
 		};
+		8B64D48E1281C4A900DB4369 /* ofxDirList */ = {
+			isa = PBXGroup;
+			children = (
+				8B64D48F1281C4A900DB4369 /* doc */,
+				8B64D4911281C4A900DB4369 /* install.xml */,
+				8B64D4921281C4A900DB4369 /* src */,
+			);
+			name = ofxDirList;
+			path = ../../../addons/ofxDirList;
+			sourceTree = SOURCE_ROOT;
+		};
+		8B64D48F1281C4A900DB4369 /* doc */ = {
+			isa = PBXGroup;
+			children = (
+				8B64D4901281C4A900DB4369 /* Instructions.txt */,
+			);
+			path = doc;
+			sourceTree = "<group>";
+		};
+		8B64D4921281C4A900DB4369 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				8B64D4931281C4A900DB4369 /* ofxDirList.cpp */,
+				8B64D4941281C4A900DB4369 /* ofxDirList.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		8B64D56C128257FA00DB4369 /* ofxFBOTexture */ = {
+			isa = PBXGroup;
+			children = (
+				8B64D56D128257FA00DB4369 /* ofxFBOTexture.cpp */,
+				8B64D56E128257FA00DB4369 /* ofxFBOTexture.h */,
+			);
+			name = ofxFBOTexture;
+			path = ../../../addons/ofxFBOTexture;
+			sourceTree = SOURCE_ROOT;
+		};
 		8B6B964E12717C2F0090C147 /* ofxXmlSettings */ = {
 			isa = PBXGroup;
 			children = (
@@ -383,6 +435,10 @@
 				8B5C88621271898400AA9B44 /* scrTexture.h */,
 				8BC0FB33128026E600FD3F66 /* scrWidgets.h */,
 				8BC0FB34128026E600FD3F66 /* scrWidgets.cpp */,
+				8B64D48B1281C46200DB4369 /* scrFileSelect.h */,
+				8B64D48C1281C46200DB4369 /* scrFileSelect.cpp */,
+				8B64D56912824CF200DB4369 /* scrPointCloud.h */,
+				8B64D56A12824CF200DB4369 /* scrPointCloud.cpp */,
 			);
 			name = screens;
 			sourceTree = "<group>";
@@ -613,11 +669,13 @@
 			isa = PBXGroup;
 			children = (
 				8BE13660127C72FA008C822D /* Calibrate App */,
-				8BC0FE171280731D00FD3F66 /* Correlate */,
 				E4B69B5B0A3A1756003C02F2 /* ScannerDebug.app */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				8BD2072612730D0E00A9AB03 /* settings.xml */,
 				E4B69E1C0A3A1BDC003C02F2 /* PC scanner */,
+				8BC0FE171280731D00FD3F66 /* Correlate */,
+				8B64D56C128257FA00DB4369 /* ofxFBOTexture */,
+				8B64D48E1281C4A900DB4369 /* ofxDirList */,
 				8B5C88461271898400AA9B44 /* ofxKCScreensGUI */,
 				8B6B964E12717C2F0090C147 /* ofxXmlSettings */,
 				E4C2422310CC54B6004149E2 /* openFrameworks */,
@@ -846,6 +904,10 @@
 				8B620B9812813E8800DDD683 /* PCApp.cpp in Sources */,
 				8B620BC012813F7900DDD683 /* wdgCounter.cpp in Sources */,
 				8B620C711281483E00DDD683 /* wdgButton.cpp in Sources */,
+				8B64D48D1281C46200DB4369 /* scrFileSelect.cpp in Sources */,
+				8B64D4951281C4A900DB4369 /* ofxDirList.cpp in Sources */,
+				8B64D56B12824CF200DB4369 /* scrPointCloud.cpp in Sources */,
+				8B64D56F128257FA00DB4369 /* ofxFBOTexture.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

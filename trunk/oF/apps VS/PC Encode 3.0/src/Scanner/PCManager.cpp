@@ -47,7 +47,8 @@ void PCManager::setup()
 			_decoder.push_back(new PCDecode(_payload, _camera[iCam]));
 			
 			_camera[iCam]->ID = camIDs[iCam];
-			_camera[iCam]->init();
+			if (!_camera[iCam]->init())
+				std::exit(0);
 		}
 		
 		//instantiate logger

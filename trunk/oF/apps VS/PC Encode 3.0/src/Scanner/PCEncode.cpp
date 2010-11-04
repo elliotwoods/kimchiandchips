@@ -10,7 +10,7 @@
 #include "PCincludes.h"
 
 PCEncode::PCEncode(PayloadBase *payload) : 
-scrSend(cursor_none, false, _texOutput, "Message")
+scrSend(cursor_none, false, &_texOutput, "Message")
 {
 	_payload = payload;
 	

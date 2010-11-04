@@ -71,24 +71,24 @@ PCDecode::PCDecode(PayloadBase *payload, Camera *camera)
 	ofAddListener(_histThresholdRange->updateSelection,this,&PCDecode::updateThresholdSelection);
 
 
-	_scrProjectorSpace = new scrTexture(cursor_xy, false, _texCameraSpacePreview, "Projector space preview");
+	_scrProjectorSpace = new scrTexture(cursor_xy, false, &_texCameraSpacePreview, "Projector space preview");
 	ofAddListener(_scrProjectorSpace->evtCursorMove, this, &PCDecode::moveSendCursor);
 	
-	_scrFrameData = new scrTexture(cursor_none, true, *_texFrameDataPreview, "Frame data");
+	_scrFrameData = new scrTexture(cursor_none, true, _texFrameDataPreview, "Frame data");
 	
-	_scrCameraSpace = new scrTexture(cursor_none, true, _texProjectorSpacePreview, "Camera space preview");
+	_scrCameraSpace = new scrTexture(cursor_none, true, &_texProjectorSpacePreview, "Camera space preview");
 	
-	_scrBinary = new scrTexture(cursor_none, false, *_texBinary, "Binary image");
+	_scrBinary = new scrTexture(cursor_none, false, _texBinary, "Binary image");
 	
-	_scrThreshold = new scrTexture(cursor_none, false,*_texThresholdMasked, "Threshold");
+	_scrThreshold = new scrTexture(cursor_none, false,_texThresholdMasked, "Threshold");
 	
-	_scrThresholdMask = new scrTexture(cursor_none, false,*_texThresholdMask, "Threshold mask");
+	_scrThresholdMask = new scrTexture(cursor_none, false,_texThresholdMask, "Threshold mask");
 	
 	_scrHistograms = new scrHistograms(cursor_none, false, "Histograms");
 	_scrHistograms->addHistogram(*_histThresholdRange);
 	_scrHistograms->addHistogram(*_histNFinds);
 	
-	_scrCamera = new scrTexture(cursor_none, false,  *_texCamera, "Camera");
+	_scrCamera = new scrTexture(cursor_none, false,  _texCamera, "Camera");
 	
 }
 

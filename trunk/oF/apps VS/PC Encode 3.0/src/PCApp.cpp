@@ -62,19 +62,18 @@ void PCApp::setup(){
 	/////////////////////////////////////////////////////////
 	// CORRELATE GROUP
 	/////////////////////////////////////////////////////////
-	scrGroupGrid *gridCorrelate = new scrGroupGrid("Correlate");
-	gridCorrelate->push(&_Correlator.scrControl);
+
 	/////////////////////////////////////////////////////////
 	
 	/////////////////////////////////////////////////////////
 	// MAIN TAB GROUP
 	/////////////////////////////////////////////////////////
-	scrGroupTabbed *tabMain = new scrGroupTabbed(32);
+	_scrTabMain = new scrGroupTabbed(32);
 	
-	tabMain->push(gridScan);
-	tabMain->push(gridCorrelate);
+	_scrTabMain->push(gridScan);
+	_scrTabMain->push(&_Correlator.scrGrid);
 	
-	_screens->mainScreen = tabMain;
+	_screens->mainScreen = _scrTabMain;
 	/////////////////////////////////////////////////////////
 	
 	
@@ -105,8 +104,24 @@ void PCApp::setup(){
 //--------------------------------------------------------------
 
 void PCApp::update(){
+	
+	switch (_scrTabMain->iSelection) {
+		case 0:
+			//we're looking at scan
+			_scanner.update();
+			break;
+			
+		case 1:
+			//we're looking at correlate
+			_Correlator.update();
+			break;
+			
+		default:
+			break;
+	}
 	_scanner.update();
-	_screens->showInterface(_scanner.state==0);
+	
+	_screens->showInterface(_scanner.state==0 || _scrTabMain->iSelection>0);
 }
 
 //--------------------------------------------------------------
@@ -249,14 +264,7 @@ void PCApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void PCApp::mouseDragged(int x, int y, int button){
-	
-	if (button==0)
-	{
-		_screens->mouseDown(x, y);
-	}
-	
-	_screens->mouseMoved(x, y);
-	
+	_screens->mouseDragged(x, y, button);
 }
 
 //--------------------------------------------------------------
