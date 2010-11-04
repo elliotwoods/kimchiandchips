@@ -58,6 +58,12 @@ int scrGroupGrid::findScreen(int x, int y)
 	
 }
 
+void scrGroupGrid::setGridWidth(int _gridWidth)
+{
+	gridWidth = _gridWidth;
+	doResize();
+}
+
 void scrGroupGrid::doResize()
 {
 	double nScreens = screens.size();
