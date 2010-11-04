@@ -18,6 +18,8 @@
 #include "scrTexture.h"
 #include "scrHistograms.h"
 #include "scrWidgets.h"
+#include "scrFileSelect.h"
+#include "scrPointCloud.h"
 
 #include "scrGroupGrid.h"
 #include "scrGroupTabbed.h"
@@ -44,6 +46,8 @@ public:
 	void					mouseMoved(int x, int y);
 	void					mouseDown(int x, int y);
 	void					mouseReleased(int x, int y);
+	void					mouseDragged(int x, int y, int button);
+	void					updateMouse(int x, int y);
 	
 	void					showInterface(bool value) { if (value) g_enableUserInterface(); else g_disableUserInterface(); }
 	void					interfaceNudge() {g_userAction(); }

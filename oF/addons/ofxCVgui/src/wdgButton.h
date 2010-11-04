@@ -1,3 +1,4 @@
+#pragma once
 /*
  *  wdgButton.h
  *  PC Encode
@@ -8,6 +9,8 @@
  */
 
 #include "wdgBase.h"
+
+#define BANG_FRAMES 2
 
 class wdgButton : public wdgBase
 {
@@ -28,4 +31,6 @@ protected:
 	bool		_isBang;
 	bool		*_valueToggle;
 	bool		_valueBang;
+	
+	int			_wasBang;
 };

@@ -53,13 +53,16 @@ void ofxKCScreensGUI::mouseMoved(int x, int y)
 	_mousey = y;
 
 	interfaceNudge();
+	updateMouse(x, y);
 }
 
 void ofxKCScreensGUI::mouseDown(int x, int y)
 {
 	if (mainScreen->isHit(x, y))
 		mainScreen->mouseDown(x, y);
+	
 	interfaceNudge();
+	updateMouse(x, y);
 }
 
 void ofxKCScreensGUI::mouseReleased(int x, int y)
@@ -68,8 +71,31 @@ void ofxKCScreensGUI::mouseReleased(int x, int y)
 		mainScreen->mouseReleased(x, y);
 	
 	interfaceNudge();
+	updateMouse(x, y);
 }
 
+void ofxKCScreensGUI::mouseDragged(int x, int y, int button)
+{
+	int dx = _mousex - x;
+	int dy = _mousey - y;
+	
+	if (button==0)
+	{
+		if (mainScreen->hasCursorAttached)
+			mainScreen->mouseDragged(x, y, dx, dy, 0);
+	} else {
+		mainScreen->mouseDragged(x, y, dx, dy, 1);
+	}
+	
+	interfaceNudge();
+	updateMouse(x, y);
+}
+
+void ofxKCScreensGUI::updateMouse(int x, int y)
+{
+	_mousex = x;
+	_mousey = y;
+}
 //------------------------------------------------------------------------------------------------
 
 void ofxKCScreensGUI::resize(int x, int y)

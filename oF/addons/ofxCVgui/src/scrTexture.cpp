@@ -9,10 +9,10 @@
 
 #include "scrTexture.h"
 
-scrTexture::scrTexture(enumShowCursor showCursor, bool hasCursorEvents, ofTexture &texture, string _caption)
+scrTexture::scrTexture(enumShowCursor showCursor, bool hasCursorEvents, ofTexture *texture, string _caption)
 : scrBase(showCursor, hasCursorEvents, _caption)
 {
-	_texture = &texture;
+	_texture = texture;
 }
 
 void scrTexture::drawContent()

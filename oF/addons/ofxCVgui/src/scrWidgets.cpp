@@ -14,7 +14,7 @@
 scrWidgets::scrWidgets(string _caption)
 : scrBase(cursor_none, true, _caption)
 {
-	_sumHeights=WIDGET_PADDING;
+	_sumHeights=0;
 }
 
 void scrWidgets::mouseDown(int x, int y)
@@ -22,10 +22,10 @@ void scrWidgets::mouseDown(int x, int y)
 	int currentx, currenty, currentw, currenth;
 	getLiveBounds(currentx, currenty, currentw, currenth);
 	
-	if (y<0)
+	if (y<0 || _widgets.size()==0)
 		return;
 	
-	int yOffset=y-currenty-WIDGET_PADDING;
+	int yOffset=y-_widgets[0]->y;
 	
 	FOREACH_WIDGET
 	{
@@ -35,9 +35,9 @@ void scrWidgets::mouseDown(int x, int y)
 			break;
 		}
 		
-		yOffset -= _widgets[iWidget]->height + WIDGET_PADDING*2;
+		yOffset -= _widgets[iWidget]->height + WIDGET_PADDING;
 	}
-		
+	
 }
 
 void scrWidgets::push(wdgBase *widget)
@@ -45,12 +45,12 @@ void scrWidgets::push(wdgBase *widget)
 	int x, y, w, h;
 	getLiveBounds(x, y, w, h);
 	
-	widget->setBounds(x+WIDGET_PADDING, y+_sumHeights+WIDGET_PADDING,
+	widget->setBounds(x+WIDGET_PADDING, y+_sumHeights,
 					  w - 2*WIDGET_PADDING);
 	
 	_widgets.push_back(widget);
 	
-	_sumHeights += widget->height + 2*WIDGET_PADDING;
+	_sumHeights += widget->height + WIDGET_PADDING;
 }
 
 void scrWidgets::doResize()
@@ -63,13 +63,13 @@ void scrWidgets::doResize()
 	FOREACH_WIDGET
 	{
 		_widgets[iWidget]->setBounds(x+WIDGET_PADDING, y+_sumHeights+WIDGET_PADDING,
-										   w - 2*WIDGET_PADDING);
-		_sumHeights += _widgets[iWidget]->height + 2*WIDGET_PADDING;
+									 w - 2*WIDGET_PADDING);
+		_sumHeights += _widgets[iWidget]->height + WIDGET_PADDING;
 	}
 }
 
 void scrWidgets::drawContent()
 {
 	FOREACH_WIDGET
-		_widgets[iWidget]->draw();
+	_widgets[iWidget]->draw();
 }
