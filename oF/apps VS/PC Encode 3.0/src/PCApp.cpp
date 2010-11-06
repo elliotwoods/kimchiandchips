@@ -119,7 +119,6 @@ void PCApp::update(){
 		default:
 			break;
 	}
-	_scanner.update();
 	
 	_screens->showInterface(_scanner.state==0 || _scrTabMain->iSelection>0);
 }
@@ -128,9 +127,12 @@ void PCApp::update(){
 
 void PCApp::draw(){
 
-	if (_scanner.state>0)
+	if (_scanner.state==PC_STATE_SCANNING)
 		ofLog(OF_LOG_VERBOSE, "PCApp: drawing interleave frame " + ofToString(_scanner._payload->iScanInterleaveFrame(_scanner.iFrame)));
 
+	if (_scanner.state==PC_STATE_CALIBRATING)
+		ofLog(OF_LOG_VERBOSE, "PCApp: drawing calibration frame " + ofToString(_scanner.iFrame, 0));
+	
 	_screens->draw();
 	
 	
