@@ -86,6 +86,7 @@ scrGridData("Data pointclouds")
 	screenHeight = 0.336;
 	//
 	polyOrder = 4;
+	nDatasets = 0;
 	////////////////////////////
 	
 }
@@ -223,7 +224,6 @@ void CorrelateMain::loadData()
 	scrTestCorrelate.setWith(*test_pos, *input_col, 0);
 	
 	bangCorrelate->enabled=true;
-	bangTestData->enabled=false;
 	bangWrite->enabled=false;
 }
 
