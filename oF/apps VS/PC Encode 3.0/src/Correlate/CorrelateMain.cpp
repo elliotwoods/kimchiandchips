@@ -66,6 +66,7 @@ scrGridData("Data pointclouds")
 	scrControl.push(wdgPolyOrder);
 	scrControl.push(bangTestData);
 	scrControl.push(bangWrite);
+	scrControl.push(new wdgButton("Invert XY", invertXY));
 	
 	scrGridData.push(&scrInputPoints);
 	scrGridData.push(&scrTestCorrelate);
@@ -87,6 +88,8 @@ scrGridData("Data pointclouds")
 	//
 	polyOrder = 4;
 	nDatasets = 0;
+	//
+	invertXY = false;
 	////////////////////////////
 	
 }
@@ -234,13 +237,15 @@ float CorrelateMain::getDepthFromFilename(string filename)
 
 void CorrelateMain::copyToInputScreen()
 {
+	double inv = (invertXY ? -1 : 1);
+	
 	if (nPoints>MAXPOINTS)
 		ofLog(OF_LOG_WARNING, "CorrelateMain: nPoints > MAXPOINTS. only drawing first MAXPOINTS");
 	
 	for (int iPoint = 0; iPoint<min(nPoints,MAXPOINTS); iPoint++)
 	{
-		input_pos[iPoint][0] = polyOutput[iPoint][0];
-		input_pos[iPoint][1] = polyOutput[iPoint][1];
+		input_pos[iPoint][0] = inv * polyOutput[iPoint][0];
+		input_pos[iPoint][1] = inv * polyOutput[iPoint][1];
 		input_pos[iPoint][2] = polyOutput[iPoint][2];
 		
 		input_col[iPoint][0] = polyOutput[iPoint][0] / screenWidth + 0.5;
@@ -266,14 +271,16 @@ void CorrelateMain::runTestSet()
 	vector<double> *input;
 	vector<double> output(3);
 	
+	double inv = (invertXY ? -1 : 1);
+	
 	for (int iPoint = 0; iPoint<min(nPoints,MAXPOINTS); iPoint++)
 	{
 		input = &polyInput[iPoint];
 		
 		output = fit.evaluate(*input);
 		
-		test_pos[iPoint][0] = output[0];
-		test_pos[iPoint][1] = output[1];
+		test_pos[iPoint][0] = inv * output[0];
+		test_pos[iPoint][1] = inv * output[1];
 		test_pos[iPoint][2] = output[2];
 	}
 	

@@ -40,7 +40,7 @@ protected:
 	//
 	
 	wdgButton		*bangLoad, *bangCorrelate, *bangTestData, *bangWrite;
-	bool			testBool;
+	bool			invertXY;
 
 	int				nCameras;
 	int				nDatasets;
