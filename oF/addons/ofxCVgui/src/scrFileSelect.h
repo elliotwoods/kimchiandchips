@@ -16,7 +16,11 @@ class scrFileSelect : public scrWidgets, public ofxDirList
 public:
 	scrFileSelect(string caption, string path, string extension);
 	
+	void				drawContent();
+	
 	void				refresh();
+	void				selectAll();
+	void				selectNone();	
 
 	bool				*selected;
 	const int			&nFiles;
@@ -24,4 +28,6 @@ public:
 protected:		
 	string				_path;
 	int					_nFiles;
+	
+	wdgButton			*bangSelectAll, *bangSelectNone, *bangRefresh;
 };

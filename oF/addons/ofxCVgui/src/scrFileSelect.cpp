@@ -17,15 +17,47 @@ nFiles(_nFiles)
 	allowExt(extension);
 	selected = new bool[1];
 	
+	////////////////////////////
+	// CONTROLS
+	////////////////////////////
+	bangSelectAll = new wdgButton("Select all");
+	bangSelectNone = new wdgButton("Select none");
+	bangRefresh = new wdgButton("Refresh");
+	
+	push(bangSelectAll);
+	push(bangSelectNone);
+	push(bangRefresh);
+	////////////////////////////
+	
 	refresh();
+	
+}
+
+void scrFileSelect::drawContent()
+{
+	scrWidgets::drawContent();
+	
+	if (bangSelectAll->getBang())
+		selectAll();
+	
+	if (bangSelectNone->getBang())
+		selectNone();
+	
+	if (bangRefresh->getBang())
+		refresh();
 }
 
 void scrFileSelect::refresh()
 {
 	_nFiles = listDir(_path);
 	
-	for (int i=0; i<_widgets.size(); i++)
+	for (int i=3; i<_widgets.size(); i++)
 		delete _widgets[i];
+	
+	while (_widgets.size()>3)
+		_widgets.pop_back();
+	
+	doResize();
 	
 	delete[] selected;
 	selected = new bool[_nFiles];
@@ -34,7 +66,22 @@ void scrFileSelect::refresh()
 	{
 		selected[i]=false;
 		push(new wdgButton(getName(i),
-						   selected[i]));
+						   selected[i],
+							15));
 	}
 	
+	doResize();
+	
+}
+
+void scrFileSelect::selectAll()
+{
+	for (int i=0; i<_nFiles; i++)
+		selected[i]=true;
+}
+
+void scrFileSelect::selectNone()
+{
+	for (int i=0; i<_nFiles; i++)
+		selected[i]=false;
 }

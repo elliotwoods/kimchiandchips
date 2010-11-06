@@ -21,6 +21,7 @@ public:
 	bool			isHit(int x, int y);
 	
 	void			setBounds(int x, int y, int width);
+	void			setHeight(int newHeight);
 	
 	const int		&height;
 	const int		&y;

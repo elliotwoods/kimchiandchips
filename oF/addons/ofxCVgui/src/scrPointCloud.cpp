@@ -93,7 +93,7 @@ void scrPointCloud::mouseDragged(int x, int y, int dx, int dy, int button)
 		spin.x += float(dy) / float(boundsheight) * 360.0f;
 		spin.y -= float(dx) / float(boundswidth) * 360.0f;
 		
-		spin.x = ofClamp(spin.x, -90, 90);
+		spin.x = ofClamp(spin.x, -180, 180);
 	} else {
 		distance +=float(dy) / float(boundsheight) * 4.0f;
 		distance = ofClamp(distance, 0.1, 10);

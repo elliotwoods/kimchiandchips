@@ -29,3 +29,8 @@ bool wdgBase::isHit(int x, int y)
 	return (x>=_x && y>=_y &&
 			x<=_x+_width && y<=_y+_height);
 }
+
+void wdgBase::setHeight(int newHeight)
+{
+	_height = newHeight;
+}

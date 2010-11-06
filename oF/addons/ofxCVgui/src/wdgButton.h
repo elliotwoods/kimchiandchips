@@ -17,10 +17,12 @@ class wdgButton : public wdgBase
 public:	
 	//toggle constructor
 	wdgButton(string caption,
-			  bool &myValue);
+			  bool &myValue,
+			  int inHeight = 30);
 	
 	//bang constructor
-	wdgButton(string caption);
+	wdgButton(string caption,
+			  int inHeight = 30);
 	
 	void		draw();
 	void		mouseDown(int x, int y);

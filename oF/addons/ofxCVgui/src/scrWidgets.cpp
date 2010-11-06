@@ -71,5 +71,5 @@ void scrWidgets::doResize()
 void scrWidgets::drawContent()
 {
 	FOREACH_WIDGET
-	_widgets[iWidget]->draw();
+		_widgets[iWidget]->draw();
 }

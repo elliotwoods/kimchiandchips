@@ -10,9 +10,12 @@
 #include "wdgButton.h"
 
 wdgButton::wdgButton(string caption,
-					 bool &myValue) :
+					 bool &myValue,
+					 int inHeight) :
 wdgBase(caption)
 {
+	_height = inHeight;
+	
 	//toggle constructor
 	_isBang = false;
 	_valueToggle = &myValue;
@@ -23,9 +26,12 @@ wdgBase(caption)
 	_hasDrawn = true;
 }
 
-wdgButton::wdgButton(string caption) :
+wdgButton::wdgButton(string caption,
+					 int inHeight) :
 wdgBase(caption)
 {
+	_height = inHeight;
+	
 	//bang constructor
 	_isBang = true;
 	_valueBang = false;
