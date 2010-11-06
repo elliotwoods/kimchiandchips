@@ -19,11 +19,11 @@ public:
 	~FitBase();
 	
 	void				init(std::vector<std::vector<double> > &points, std::vector<std::vector<double> > &data, int M);
-	void				solve(int, double *, int &nCoefficients);
+	void				solve(int, double *, unsigned int &nCoefficients);
 	int					nBases() { return _bases; };
 	virtual double		basis(int n, std::vector<double> &x) = 0;
 	
-	int					_indim, _outdim;
+	unsigned short		_indim, _outdim;
 
 protected:
 	int					_bases;

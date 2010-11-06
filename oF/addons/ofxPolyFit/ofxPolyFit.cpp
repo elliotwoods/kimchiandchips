@@ -126,3 +126,71 @@ vector<double> ofxPolyFit::evaluate(vector<double> input)
 	}
 	return output;
 }
+
+void ofxPolyFit::save(string filename)
+{
+#ifdef TARGET_WIN32
+	filename = ".\\data\\" + filename;
+#else
+	filename = "../../../data/" + filename;
+#endif
+	ofstream fileout(filename.c_str(), ios::out | ios::binary);
+	
+	//write:
+	//order, dimensionsIn, dimensionsOut, basisType, nBases
+	//bases[iBasis,iDimensionIn]
+	//coefficients[iDimensionOut,
+	
+	if (!fileout.is_open())
+	{
+		ofLog(OF_LOG_ERROR, "ofxPolyFit: cannot open output file " + filename);
+		return;
+	}
+	
+	fileout.write((char*) &_fit->_order, 2);
+	fileout.write((char*) &_fit->_indim, 2);
+	fileout.write((char*) &_fit->_outdim, 2);
+	fileout.write((char*) &_fit->_basesShape, 1);
+	fileout.write((char*) &nBases, 4);
+	
+	
+	for (int iBasis=0; iBasis<nBases; iBasis++)
+		fileout.write((char*) basisIndicies->at(iBasis),
+					  _fit->_indim * 4);
+	
+	for (int iDimOut=0; iDimOut<_fit->_outdim; iDimOut++)
+		fileout.write((char*) coefficients[iDimOut],
+					  sizeof(double) * nBases);
+	
+}
+
+void ofxPolyFit::load(string filename)
+{
+#ifdef TARGET_WIN32
+	filename = ".\\data\\" + filename;
+#else
+	filename = "../../../data/" + filename;
+#endif
+	ifstream filein(filename.c_str(), ios::binary | ios::in);
+	
+	if (!filein.is_open())
+	{
+		ofLog(OF_LOG_ERROR, "ofxPolyFit: failed to load file " + filename);
+		return;
+	}
+	
+	filein.read((char*) &_fit->_order, 2);
+	filein.read((char*) &_fit->_indim, 2);
+	filein.read((char*) &_fit->_outdim, 2);
+	filein.read((char*) &_fit->_basesShape, 1);
+	filein.read((char*) &nBases, 4);
+	
+	for (int iBasis=0; iBasis<nBases; iBasis++)
+		filein.read((char*) basisIndicies->at(iBasis),
+					  _fit->_indim * 4);
+	
+	for (int iDimOut=0; iDimOut<_fit->_outdim; iDimOut++)
+		filein.read((char*) coefficients[iDimOut],
+					  sizeof(double) * nBases);
+}
+

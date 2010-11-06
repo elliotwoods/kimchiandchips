@@ -22,5 +22,5 @@ public:
 		};
 
 	virtual double		basis(int n, std::vector<double> &x);
-	int					_order;
+	unsigned short		_order;
 };
