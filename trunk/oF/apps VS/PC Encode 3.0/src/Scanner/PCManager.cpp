@@ -235,10 +235,6 @@ void PCManager::writeFrame()
 	
 	else if(state==STATE_SCANNING)
 	{
-//		if (_payload->iScanInterleaveFrame(iFrame)==0)
-//			FOREACH_CAMERA
-//				_decoder[iCam]->clearInterleave();
-		
 		_encoder->updateScanFrame(_payload->iScanInterleaveFrame(iFrame),
 								  _payload->iInterleave(iFrame));
 

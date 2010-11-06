@@ -167,6 +167,10 @@ void PCApp::keyPressed(int key){
 			_scanner.save(ofToString(_screenDistance, 2));
 			break;
 		
+		case 'd': // d = save as 'data'
+			_scanner.save("data");
+			break;
+		
 
 // currently out of order
 // causes a GDB crash, might not crash without GDB

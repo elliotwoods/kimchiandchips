@@ -287,8 +287,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>9</integer>
-									<integer>8</integer>
+									<integer>3</integer>
+									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -346,7 +346,7 @@
 														<key>_historyCapacity</key>
 														<integer>0</integer>
 														<key>bookmark</key>
-														<string>8BC42C11128540F600249607</string>
+														<string>8BC42C2712854B9B00249607</string>
 														<key>history</key>
 														<array>
 															<string>8BA97A881271933600D2312F</string>
@@ -404,7 +404,7 @@
 												<key>PBXProjectModuleGUID</key>
 												<string>1CE0B20306471E060097A5F4</string>
 												<key>PBXProjectModuleLabel</key>
-												<string>PCManager.cpp</string>
+												<string>PCApp.cpp</string>
 												<key>PBXSplitModuleInNavigatorKey</key>
 												<dict>
 													<key>Split0</key>
@@ -412,11 +412,11 @@
 														<key>PBXProjectModuleGUID</key>
 														<string>1CE0B20406471E060097A5F4</string>
 														<key>PBXProjectModuleLabel</key>
-														<string>PCManager.cpp</string>
+														<string>PCApp.cpp</string>
 														<key>_historyCapacity</key>
 														<integer>0</integer>
 														<key>bookmark</key>
-														<string>8BC42C12128540F600249607</string>
+														<string>8BC42C2B12854B9B00249607</string>
 														<key>history</key>
 														<array>
 															<string>8BA97A881271933600D2312F</string>
@@ -454,7 +454,6 @@
 															<string>8B64D4CA1281CA0600DB4369</string>
 															<string>8B64D4CE1281CA0600DB4369</string>
 															<string>8B64D4CF1281CA0600DB4369</string>
-															<string>8B64D4EA1281CA5E00DB4369</string>
 															<string>8B64D54E1281CDBD00DB4369</string>
 															<string>8B64D74112828CB800DB4369</string>
 															<string>8B64D76312828DE000DB4369</string>
@@ -485,8 +484,9 @@
 															<string>8B0EFD091285381B0095D621</string>
 															<string>8BC42BE012853F2100249607</string>
 															<string>8BC42C011285401900249607</string>
-															<string>8BC42C021285401900249607</string>
-															<string>8BC42C031285401900249607</string>
+															<string>8BC42C2812854B9B00249607</string>
+															<string>8BC42C2912854B9B00249607</string>
+															<string>8BC42C2A12854B9B00249607</string>
 														</array>
 													</dict>
 													<key>SplitCount</key>
@@ -532,7 +532,7 @@
 														<key>_historyCapacity</key>
 														<integer>0</integer>
 														<key>bookmark</key>
-														<string>8BC42C13128540F600249607</string>
+														<string>8BC42C2C12854B9B00249607</string>
 														<key>history</key>
 														<array>
 															<string>8B5C88231271877200AA9B44</string>
@@ -607,7 +607,7 @@
 														<key>_historyCapacity</key>
 														<integer>0</integer>
 														<key>bookmark</key>
-														<string>8BC42C14128540F600249607</string>
+														<string>8BC42C2D12854B9B00249607</string>
 														<key>history</key>
 														<array>
 															<string>8B5C88231271877200AA9B44</string>
