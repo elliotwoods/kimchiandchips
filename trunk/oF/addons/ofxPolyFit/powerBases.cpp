@@ -22,7 +22,7 @@ int powerBases::updateBasisIndicies(int nDimensions, int nPowerOrder)
 	if (_nDimensions != _renderedNDimensions
 		|| _nPowerOrder != _renderedNPowerOrder)
 	{
-		calc();
+		calcBases();
 		_renderedNDimensions = _nDimensions;
 		_renderedNPowerOrder = _nPowerOrder;
 	}
@@ -30,7 +30,7 @@ int powerBases::updateBasisIndicies(int nDimensions, int nPowerOrder)
 	return _nBases;
 }
 
-void powerBases::calc()
+void powerBases::calcBases()
 {
 
 	if (_basesShape < BASIS_SHAPE_PADE_FIRST)
@@ -42,7 +42,7 @@ void powerBases::calc()
 		//
 		// clean out bases
 		//
-		clear();
+		clearBases();
 		
 		//
 		// iterate through all possible items for square/cubic/etc
@@ -153,7 +153,7 @@ void powerBases::calc()
 	}
 }
 
-void powerBases::clear()
+void powerBases::clearBases()
 {
 	for (int iBasis=0; iBasis < vecBasisIndicies.size(); iBasis++)
 		delete[] vecBasisIndicies[iBasis];

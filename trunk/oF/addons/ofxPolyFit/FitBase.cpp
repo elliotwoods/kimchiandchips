@@ -41,7 +41,7 @@ FitBase::~FitBase() {
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void FitBase::solve(int I, double *x, int &nCoefficients) {
+void FitBase::solve(int I, double *x, unsigned int &nCoefficients) {
 	
 	
 	int n,i,j;

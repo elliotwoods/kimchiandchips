@@ -25,12 +25,12 @@ public:
 	int							updateBasisIndicies(int nDimensions, int nPowerOrder);
 
 	std::vector<unsigned int*>	vecBasisIndicies;
-	int							_basesShape; //0=triangle, 1=square
-	int							_nBases;
+	unsigned char				_basesShape; //0=triangle, 1=square
+	unsigned int				_nBases;
 	
 private:
-	void						calc();
-	void						clear();
+	void						calcBases();
+	void						clearBases();
 	
 	int							_nDimensions, _nPowerOrder;
 	int							_renderedNDimensions, _renderedNPowerOrder;

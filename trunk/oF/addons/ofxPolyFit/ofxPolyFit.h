@@ -9,6 +9,7 @@
 
 #include "polyNfit.h"
 #include "ofMain.h"
+#include <fstream>
 
 class ofxPolyFit
 {
@@ -21,10 +22,13 @@ public:
 	void								correlate(vector<vector<double> > &input, std::vector<std::vector<double> > &output);
 	vector<double>						evaluate(vector<double> input);
 	
+	void								save(string filename);
+	void								load(string filename);
+	
 	vector<unsigned int*>				*basisIndicies;
 	vector<double*>						coefficients;
 	
-	int									nBases;
+	unsigned int						nBases;
 protected:
 
 	polyNfit		*_fit;
