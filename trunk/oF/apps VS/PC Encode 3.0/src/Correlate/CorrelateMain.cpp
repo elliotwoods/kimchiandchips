@@ -51,6 +51,11 @@ scrGridData("Data pointclouds")
 	bangLoad = new wdgButton("Load data");
 	bangCorrelate = new wdgButton("Run polyfit");
 	bangTestData = new wdgButton("Test dataset");
+	bangWrite = new wdgButton("Save fit");
+	
+	bangCorrelate->enabled=false;
+	bangTestData->enabled=false;
+	bangWrite->enabled=false;
 	
 	scrControl.push(wdgCameraCount);
 	scrControl.push(wdgDatasetCount);
@@ -60,6 +65,7 @@ scrGridData("Data pointclouds")
 	scrControl.push(wdgScreenHeight);
 	scrControl.push(wdgPolyOrder);
 	scrControl.push(bangTestData);
+	scrControl.push(bangWrite);
 	
 	scrGridData.push(&scrInputPoints);
 	scrGridData.push(&scrTestCorrelate);
@@ -79,7 +85,7 @@ scrGridData("Data pointclouds")
 	screenWidth = 0.598;
 	screenHeight = 0.336;
 	//
-	polyOrder = 2;
+	polyOrder = 4;
 	////////////////////////////
 	
 }
@@ -94,6 +100,14 @@ void CorrelateMain::update()
 
 	if (bangTestData->getBang())
 		runTestSet();
+	
+	if (bangWrite->getBang())
+	{
+		string fname =	"order=" + ofToString(polyOrder, 0) +
+						",nSets=" + ofToString(nDatasets, 0);
+		
+		fit.save(fname);
+	}
 }
 
 void CorrelateMain::loadData()
@@ -202,7 +216,15 @@ void CorrelateMain::loadData()
 			///////////////////////////////			
 		}
 	
+	//load input window
 	copyToInputScreen();
+	
+	//clear test set window
+	scrTestCorrelate.setWith(*test_pos, *input_col, 0);
+	
+	bangCorrelate->enabled=true;
+	bangTestData->enabled=false;
+	bangWrite->enabled=false;
 }
 
 float CorrelateMain::getDepthFromFilename(string filename)
@@ -232,8 +254,11 @@ void CorrelateMain::copyToInputScreen()
 
 void CorrelateMain::runPolyfit()
 {
-	fit.init(polyOrder, 2*nCameras, 3, BASIS_SHAPE_SQUARE);
+	fit.init(polyOrder, 2*nCameras, 3, BASIS_SHAPE_TRIANGLE);
 	fit.correlate(polyInput, polyOutput);
+	
+	bangTestData->enabled=true;
+	bangWrite->enabled=true;
 }
 
 void CorrelateMain::runTestSet()

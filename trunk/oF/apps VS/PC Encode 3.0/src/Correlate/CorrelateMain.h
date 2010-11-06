@@ -39,7 +39,7 @@ protected:
 	void			runTestSet();
 	//
 	
-	wdgButton		*bangLoad, *bangCorrelate, *bangTestData;
+	wdgButton		*bangLoad, *bangCorrelate, *bangTestData, *bangWrite;
 	bool			testBool;
 
 	int				nCameras;
