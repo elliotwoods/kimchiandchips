@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\addons\ofxThread\src;.\src;.\src\Scanner\Payloads;..\..\..\addons\ofxCLeye;&quot;C:\Program Files\Code Laboratories\CL-Eye Platform SDK\Include&quot;;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src;..\..\..\addons\ofxCVgui\src;..\..\..\libs\openFrameworks;..\..\..\libs\openFrameworks\graphics;..\..\..\libs\openFrameworks\app;..\..\..\libs\openFrameworks\sound;..\..\..\libs\openFrameworks\utils;..\..\..\libs\openFrameworks\communication;..\..\..\libs\openFrameworks\video;..\..\..\libs\openFrameworks\events;..\..\..\libs\glut\include;..\..\..\libs\rtAudio\include;..\..\..\libs\quicktime\include;..\..\..\libs\freetype\include;..\..\..\libs\freetype\include\freetype2;..\..\..\libs\freeImage\include;..\..\..\libs\fmodex\include;..\..\..\libs\videoInput\include;..\..\..\libs\glee\include;..\..\..\libs\glu\include;..\..\..\libs\poco\include;..\..\..\addons;.\src\Scanner;.\src\Correlate"
+				AdditionalIncludeDirectories="..\..\..\addons\ofxDirList\src;..\..\..\addons\ofxPolyFit;..\..\..\addons\ofxThread\src;.\src;.\src\Scanner\Payloads;..\..\..\addons\ofxCLeye;&quot;C:\Program Files\Code Laboratories\CL-Eye Platform SDK\Include&quot;;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src;..\..\..\addons\ofxCVgui\src;..\..\..\libs\openFrameworks;..\..\..\libs\openFrameworks\graphics;..\..\..\libs\openFrameworks\app;..\..\..\libs\openFrameworks\sound;..\..\..\libs\openFrameworks\utils;..\..\..\libs\openFrameworks\communication;..\..\..\libs\openFrameworks\video;..\..\..\libs\openFrameworks\events;..\..\..\libs\glut\include;..\..\..\libs\rtAudio\include;..\..\..\libs\quicktime\include;..\..\..\libs\freetype\include;..\..\..\libs\freetype\include\freetype2;..\..\..\libs\freeImage\include;..\..\..\libs\fmodex\include;..\..\..\libs\videoInput\include;..\..\..\libs\glee\include;..\..\..\libs\glu\include;..\..\..\libs\poco\include;..\..\..\addons;.\src\Scanner;.\src\Correlate"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;POCO_STATIC"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -418,6 +418,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\scrFileSelect.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\scrFileSelect.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\addons\ofxCVgui\src\scrGroup.cpp"
 					>
 				</File>
@@ -459,6 +467,14 @@
 				</File>
 				<File
 					RelativePath="..\..\..\addons\ofxCVgui\src\scrHistograms.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\scrPointCloud.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\addons\ofxCVgui\src\scrPointCloud.h"
 					>
 				</File>
 				<File
@@ -528,6 +544,70 @@
 			</File>
 			<File
 				RelativePath="..\..\..\addons\ofxThread\src\ofxThread.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="ofxPolyFit"
+			>
+			<File
+				RelativePath="..\..\..\addons\ofxPolyFit\basisTransformIndicies.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\addons\ofxPolyFit\basisTransformIndicies.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\addons\ofxPolyFit\FitBase.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\addons\ofxPolyFit\FitBase.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\addons\ofxPolyFit\matrix.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\addons\ofxPolyFit\matrix.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\addons\ofxPolyFit\ofxPolyFit.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\addons\ofxPolyFit\ofxPolyFit.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\addons\ofxPolyFit\polyNfit.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\addons\ofxPolyFit\polyNfit.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\addons\ofxPolyFit\powerBases.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\addons\ofxPolyFit\powerBases.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="ofxDirList"
+			>
+			<File
+				RelativePath="..\..\..\addons\ofxDirList\src\ofxDirList.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\addons\ofxDirList\src\ofxDirList.h"
 				>
 			</File>
 		</Filter>
