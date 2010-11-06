@@ -26,11 +26,14 @@ public:
 	void		mouseDown(int x, int y);
 	
 	bool		getBang();
-	
+
+	bool		enabled;
 protected:
 	bool		_isBang;
 	bool		*_valueToggle;
 	bool		_valueBang;
 	
 	int			_wasBang;
+	bool		_hasDrawn;	//this is so we draw the mousedown state
+							//before the result of the bang
 };
