@@ -79,10 +79,11 @@ bool Camera::init()
 	_grabber.setDeviceID(ID);
 	bool success = _grabber.initGrabber(camWidth,camHeight);
 
-	_grabber.setAutoExposure(false);
-	_grabber.setAutoGain(false);
 	_grabber.setGain(gain);
 	_grabber.setExposure(exposure);
+	_grabber.setAutoExposure(false);
+	_grabber.setAutoGain(false);
+
 	return success;
 
 #endif

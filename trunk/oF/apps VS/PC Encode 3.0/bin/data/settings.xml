@@ -7,7 +7,7 @@
 				<projector width="32" height="16" />
 			-->
 			<projector width="128" height="128" />
-			<interleave width="1" height="1" />
+			<interleave width="4" height="4" />
 			<errorcheck nFrames="3" />
 	</encoding>
 	
