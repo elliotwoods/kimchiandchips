@@ -37,6 +37,7 @@ PCDecode::PCDecode(PayloadBase *payload, Camera *camera)
 	
 	_charCameraSpacePreview = new unsigned char[nProjPixels*3];
 	_charProjectorSpacePreview = new unsigned char[nCamPixels*3];
+	_charNFinds = new unsigned char[nCamPixels];
 
 	_texCamera = new ofTexture();
 	_texThreshold = new ofTexture();
@@ -55,8 +56,8 @@ PCDecode::PCDecode(PayloadBase *payload, Camera *camera)
 	
 	_texCameraSpacePreview.allocate(projWidth, projHeight, GL_RGB);
 	_texCameraSpacePreview.setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
-
 	_texProjectorSpacePreview.allocate(camWidth, camHeight, GL_RGB);
+	_texCameraSpaceNFinds.allocate(camWidth, camHeight, GL_LUMINANCE);
 	
 	for (int iPixel=0; iPixel<nProjPixels; iPixel++)
 		projPixels.push_back(new PCPixel());
@@ -77,7 +78,7 @@ PCDecode::PCDecode(PayloadBase *payload, Camera *camera)
 	_scrFrameData = new scrTexture(cursor_none, true, _texFrameDataPreview, "Frame data");
 	
 	_scrCameraSpace = new scrTexture(cursor_none, true, &_texProjectorSpacePreview, "Camera space preview");
-	
+	_scrCameraNFinds = new scrTexture(cursor_none, false, &_texCameraSpaceNFinds, "NFinds");
 	_scrBinary = new scrTexture(cursor_none, false, _texBinary, "Binary image");
 	
 	_scrThreshold = new scrTexture(cursor_none, false,_texThresholdMasked, "Threshold");
@@ -164,31 +165,29 @@ void PCDecode::updateSpacePreview(int width, int height, unsigned char data[], o
 void PCDecode::updateCameraSpacePreview()
 {
 	updateSpacePreview(projWidth,projHeight,_charCameraSpacePreview,_texCameraSpacePreview, projPixels);
-}
-
-void PCDecode::drawCameraSpacePreview(int screenx, int screeny)
-{
-	_texCameraSpacePreview.draw(PC_SCREEN_RESOLUTION_X*screenx,PC_SCREEN_RESOLUTION_Y*screeny,PC_SCREEN_RESOLUTION_X,PC_SCREEN_RESOLUTION_Y);
-}
-
-void PCDecode::drawCameraSpacePreview()
-{
-	int resX, resY;
-	resX = ofGetScreenWidth();
-	resY = ofGetScreenHeight();
 	
-	_texCameraSpacePreview.draw(0,0,resX,resY);
+	int maxNFinds=0;
 	
+	//find maximum
+	for (int iPixel=0; iPixel<camWidth*camHeight; iPixel++)
+		if (camPixels[iPixel]->_nFinds > maxNFinds)
+			maxNFinds = camPixels[iPixel]->_nFinds;
+	
+	//convert to float for division
+	float fMaxNFinds = maxNFinds;
+	
+	//fill the char
+	for (int iPixel=0; iPixel<camWidth*camHeight; iPixel++)
+		_charNFinds[iPixel] = 255.0f *
+				float(camPixels[iPixel]->_nFinds) / fMaxNFinds;
+	
+	_texCameraSpaceNFinds.loadData(_charNFinds, camWidth, camHeight, GL_LUMINANCE);
+			
 }
 
 void PCDecode::updateProjectorSpacePreview()
 {
 	updateSpacePreview(camWidth,camHeight,_charProjectorSpacePreview,_texProjectorSpacePreview, camPixels);
-}
-
-void PCDecode::drawProjectorSpacePreview(int screenx, int screeny)
-{
-	_texProjectorSpacePreview.draw(PC_SCREEN_RESOLUTION_X*screenx,PC_SCREEN_RESOLUTION_Y*screeny,PC_SCREEN_RESOLUTION_X,PC_SCREEN_RESOLUTION_Y);
 }
 
 void PCDecode::moveSendCursor(ofPoint &ptCursorPosition)
@@ -229,6 +228,9 @@ void PCDecode::resetCalibration()
 
 void PCDecode::addScanFrame(int iScanInterleaveFrame, int iInterleave)
 {
+	
+	if (iScanInterleaveFrame==0)
+		clearInterleave();
 	
 	int nScanFramesPerInterleave = _payload->totalFramesPerInterleave;
 	int nScanDataFramesPerInterleave = _payload->dataFramesPerInterleave;
@@ -333,7 +335,7 @@ void PCDecode::calcInterleave(int iInterleave)
 				//use payload to decode reading into position indicies
 				isValid = _payload->decode(_intFrameData[iCamPixel],iProjectorInterleavePixelX, iProjectorInterleavePixelY);
 
-				// assign last found value indexwise				
+				// assign found value indexwise				
 				iProjectorPixelX = iProjectorInterleavePixelX * interleaveWidth + iInterleaveX;
 				iProjectorPixelY = iProjectorInterleavePixelY * interleaveHeight + iInterleaveY;
 				iProjectorPixel = iProjectorPixelY * projWidth + iProjectorPixelX;
@@ -352,9 +354,6 @@ void PCDecode::calcInterleave(int iInterleave)
 	
 	updateProjectorSpacePreview();
 	updateCameraSpacePreview();
-
-	if (iInterleave<_payload->interleaves-1)
-		clearInterleave();
 }
 
 void PCDecode::checkParity()

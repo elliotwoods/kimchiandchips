@@ -44,6 +44,8 @@ class Camera : public PCConfig
 		void	videoSettings();
 	
 		int		ID;
+	
+		float	deltat;
 
 #ifdef PCENCODE_CAM_DEFAULT
 		ofVideoGrabber			_grabber;
@@ -70,7 +72,7 @@ class Camera : public PCConfig
 		dc1394camera_list_t * list;
 		dc1394video_frame_t *frame;	
 		unsigned char *			_charGrabFrame;
-
+	
 #endif
 	
 protected:

@@ -36,6 +36,11 @@ void PayloadBinary::setup()
 
 		//make a 64bit random int for the error check
 		errorCheck[i] = rand() + (rand()*(long long int)(1)<<32);
+		
+		
+		//make first 2 frames of error check low/high
+		errorCheck[i] = errorCheck[i] | 1; //high
+		errorCheck[i] = (errorCheck[i] | 2) - 2; //low
 	}
 	////////////////////////////////////////
 }

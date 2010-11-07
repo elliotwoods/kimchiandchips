@@ -43,6 +43,7 @@ void PCApp::setup(){
 		scrGroupTabbed *scrCamDataGroup = new scrGroupTabbed();
 		scrCamDataGroup->push(_scanner._decoder[iCam]->_scrFrameData);
 		scrCamDataGroup->push(_scanner._decoder[iCam]->_scrCameraSpace);
+		scrCamDataGroup->push(_scanner._decoder[iCam]->_scrCameraNFinds);
 		gridScan->push(scrCamDataGroup);
 		
 		scrGroupTabbed *scrCamSourceGroup = new scrGroupTabbed();
@@ -172,11 +173,9 @@ void PCApp::keyPressed(int key){
 			break;
 		
 
-// currently out of order
-// causes a GDB crash, might not crash without GDB
-//		case 'v': // v = video settings
-//			_scanner.videoSettings();
-//			break;
+		case 'v': // v = video settings
+			_scanner.videoSettings();
+			break;
 
 // currently out of order
 //		case 'l': // l = load
