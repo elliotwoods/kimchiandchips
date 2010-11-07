@@ -6,7 +6,7 @@
 				<projector width="1440" height="900" />
 				<projector width="32" height="16" />
 			-->
-			<projector width="512" height="512" />
+			<projector width="128" height="128" />
 			<interleave width="1" height="1" />
 			<errorcheck nFrames="3" />
 	</encoding>
@@ -16,7 +16,7 @@
 			gain="40" exposure="128" delay="250">
 			
 			<camera id="0" />
-			<!--camera id="1" /-->
+			<camera id="1" />
 		</cameras>
 
     <data sdev="0" />
