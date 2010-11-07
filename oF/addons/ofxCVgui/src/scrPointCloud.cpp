@@ -17,6 +17,12 @@ scrBase(cursor_none, false, caption)
 	distance = 1;
 	glGenBuffersARB(1, &vbo[0]);
 	glGenBuffersARB(1, &vbo[1]);
+//	ofAddListener(ofEvents.keyPressed, this, &scrPointCloud::keyPressed);
+}
+
+scrPointCloud::~scrPointCloud()
+{
+//	ofRemoveListener(ofEvents.keyPressed, this, &scrPointCloud::keyPressed);
 }
 
 void scrPointCloud::drawContent()
@@ -46,6 +52,7 @@ void scrPointCloud::drawContent()
 	glLoadIdentity();
 	glRotatef(spin.x, 1, 0, 0);
 	glRotatef(spin.y, 0, 1, 0);
+	glTranslatef(translate.x, translate.y, translate.z);
 	
 	glEnable(GL_DEPTH_TEST);
 	glPointSize(pointSize);
@@ -97,6 +104,8 @@ void scrPointCloud::mouseDragged(int x, int y, int dx, int dy, int button)
 	} else {
 		distance +=float(dy) / float(boundsheight) * 4.0f;
 		distance = ofClamp(distance, 0.1, 10);
+		
+		translate.z +=float(dx) / float(boundswidth) * 2.0f;
 	}
 
 }
@@ -106,4 +115,9 @@ void scrPointCloud::setWith(float *positions, float *colours, int nPoints)
 	_positions = positions;
 	_colours = colours;
 	_nPoints = nPoints;
+}
+
+void scrPointCloud::keyPressed(int key)
+{
+	cout << "" << key << endl;
 }

@@ -18,13 +18,16 @@ class scrPointCloud : public scrBase {
 	
 public:
 	scrPointCloud(string caption);
+	~scrPointCloud();
 	
 	void			mouseDragged(int x, int y, int dx, int dy, int button);
 	int				pointSize;
 
 	void			setWith(float *positions, float *colours, int nPoints);
+	void			keyPressed(int key);
 	
 	ofPoint			spin;
+	ofPoint			translate;
 	float			distance;
 protected:
 	void			drawContent();
