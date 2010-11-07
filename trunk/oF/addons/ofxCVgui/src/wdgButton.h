@@ -9,6 +9,7 @@
  */
 
 #include "wdgBase.h"
+#include "ofEvents.h"
 
 #define BANG_FRAMES 2
 
@@ -38,4 +39,5 @@ protected:
 	int			_wasBang;
 	bool		_hasDrawn;	//this is so we draw the mousedown state
 							//before the result of the bang
+	
 };
