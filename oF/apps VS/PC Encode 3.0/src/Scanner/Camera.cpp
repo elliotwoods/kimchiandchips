@@ -11,6 +11,7 @@
 
 Camera::Camera()
 {
+	deltat = 0;
 }
 
 Camera::~Camera()
@@ -140,6 +141,7 @@ void Camera::clear()
 
 bool Camera::capture(unsigned char *&pixels)
 {
+
 	bool hasWaited = ofGetElapsedTimef()-_timeLastCapture > float(captureDelay)/1000;
 	
 #ifdef PCENCODE_CAM_DEFAULT
@@ -183,7 +185,12 @@ bool Camera::capture(unsigned char *&pixels)
 #endif
 
 	if (hasWaited)
+	{
+		deltat = ofGetElapsedTimef()-_timeLastCapture;
+		ofLog(OF_LOG_VERBOSE, "Camera: deltat = " + ofToString(deltat, 3));
+
 		_timeLastCapture = ofGetElapsedTimef();
+	}
 
 	return hasWaited;
 	
