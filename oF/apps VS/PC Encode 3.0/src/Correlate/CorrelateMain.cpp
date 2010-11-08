@@ -67,6 +67,8 @@ scrGridData("Data pointclouds")
 	scrControl.push(bangTestData);
 	scrControl.push(bangWrite);
 	scrControl.push(new wdgButton("Invert XY", invertXY));
+	scrControl.push(new wdgButton("File format v0.2", newFormat));
+	
 	
 	scrGridData.push(&scrInputPoints);
 	scrGridData.push(&scrTestCorrelate);
@@ -89,7 +91,8 @@ scrGridData("Data pointclouds")
 	polyOrder = 4;
 	nDatasets = 0;
 	//
-	invertXY = false;
+	invertXY = true;
+	newFormat = false;
 	////////////////////////////
 	
 }
@@ -188,6 +191,14 @@ void CorrelateMain::loadData()
 			//
 			for (int iPoint=0; iPoint<thisNPoints; iPoint++)
 			{
+				if (newFormat)
+				{
+					//read indicies
+					inFile.read((char*) dataset_iPX+iPoint, 2);
+					inFile.read((char*) dataset_iPY+iPoint, 2);
+				}
+
+				//read positions
 				inFile.read((char*) &thisvalx, 4);
 				inFile.read((char*) &thisvaly, 4);
 				
@@ -196,7 +207,8 @@ void CorrelateMain::loadData()
 				outputRow[2] = getDepthFromFilename(scrFileSelection.getName(iFile));
 				
 				for (int iCam=0; iCam<nCameras; iCam++)
-				{
+				{					
+					//read positions
 					inFile.read((char*) &thisvalx, 4);
 					inFile.read((char*) &thisvaly, 4);
 					

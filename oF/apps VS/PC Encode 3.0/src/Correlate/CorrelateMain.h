@@ -41,6 +41,7 @@ protected:
 	
 	wdgButton		*bangLoad, *bangCorrelate, *bangTestData, *bangWrite;
 	bool			invertXY;
+	bool			newFormat;
 
 	int				nCameras;
 	int				nDatasets;
@@ -54,6 +55,10 @@ protected:
 	// output point cloud
 	float			test_pos[MAXPOINTS][3];
 	//use same colour as input
+	
+	// projector indicies
+	unsigned int	dataset_iPX[MAXPOINTS];
+	unsigned int	dataset_iPY[MAXPOINTS];
 	
 	// fit data
 	ofxPolyFit		fit;
