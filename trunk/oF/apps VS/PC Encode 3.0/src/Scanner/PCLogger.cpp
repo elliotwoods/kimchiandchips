@@ -97,7 +97,7 @@ void PCLogger::savePixelsBinary(string filename)
 	bool hasAllFinds;
 	PCPixelSlim *currentPixel;
 	
-	int iPX, iPY;
+	unsigned short iPX, iPY;
 	float fPX, fPY;
 	
 	//write config
@@ -130,6 +130,9 @@ void PCLogger::savePixelsBinary(string filename)
 		fPY = float(iPY) / float (projHeight);
 		
 		//write the projector pixels' ID
+		iofOutput.write((char*) &iPX, 2);
+		iofOutput.write((char*) &iPY, 2);
+		//write the projector pixels' normalised position
 		iofOutput.write((char*) &fPX, 4);
 		iofOutput.write((char*) &fPY, 4);
 		//////////////////////////////
