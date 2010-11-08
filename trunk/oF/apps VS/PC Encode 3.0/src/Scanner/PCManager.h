@@ -19,6 +19,8 @@
 #include "PayloadGraycode.h"
 #include "PayloadBinary.h"
 
+#include "ofxKCScreensGUI.h"
+
 #define STATE_STANDBY				0
 #define STATE_CALIBRATING			1
 #define STATE_SCANNING				2
@@ -39,7 +41,7 @@ public:
 	void	start();
 	void	stop(); //force early stop
 
-	void	clear();
+	void	clear(bool clearMask=false);
 	void	save(string filenameBase);
 	
 	bool	isInitialised;
@@ -54,6 +56,13 @@ public:
 	PCLogger			*_logger;
 	
 	vector<Camera*>		_camera;
+		
+	//interface
+	scrTexture				_scrProjectorMask;
+	scrWidgets				_scrControls;
+	
+	//cal vars
+	float				screenDistance;
 
 protected:
 	void	readFrame();
@@ -61,5 +70,18 @@ protected:
 	void	advanceFrame();
 
 	bool	_firstFrame;
+	
+	//interface
+	wdgButton			_wdgStartScan;
+	wdgButton			_wdgClear;
+	wdgSlider			_wdgDistance;
+	wdgCounter			_wdgIFrame;
+		
+	//mask
+	void					updateProjectorMask();
+	void					clearProjectorMask();
+	ofTexture				_texProjectorMask;
+	bool *					_boolProjectorMask;
+	unsigned char *			_charProjectorMask;
 	
 };

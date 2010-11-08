@@ -5,7 +5,6 @@
 PCApp::PCApp()
 {
 	_screens = new ofxKCScreensGUI(0,0,ofGetWidth(),ofGetHeight());
-	_screenDistance = 0.5;
 
 }
 
@@ -27,19 +26,22 @@ void PCApp::setup(){
 	// SCAN GROUP
 	/////////////////////////////////////////////////////////
 	scrGroupGrid *gridScan = new scrGroupGrid("Scan");
-	scrGroupTabbed *scrSendGroup = new scrGroupTabbed();
 	
-	//add the projection space group first to the grid
-	gridScan->push(scrSendGroup);
+	//add the send message group
+	scrGroupTabbed *scrMessageGroup = new scrGroupTabbed();
+	scrMessageGroup->push(&_scanner._encoder->scrSend);
+	scrMessageGroup->push(&_scanner._scrProjectorMask);
+	gridScan->push(scrMessageGroup);
 	
-	//add the send message to the send group (first screen)
-	scrSendGroup->push(&_scanner._encoder->scrSend);
+	gridScan->push(&_scanner._scrControls);
 	
 	for (int iCam=0; iCam<PCConfig().nCameras; iCam++)
 	{
 		//add projection space preview to the send group
-		scrSendGroup->push(_scanner._decoder[iCam]->_scrProjectorSpace);
-		scrSendGroup->push(_scanner._decoder[iCam]->_scrProjectorNFinds);
+		scrGroupTabbed *scrProjDataGroup = new scrGroupTabbed();
+		scrProjDataGroup->push(_scanner._decoder[iCam]->_scrProjectorSpace);
+		scrProjDataGroup->push(_scanner._decoder[iCam]->_scrProjectorNFinds);
+		gridScan->push(scrProjDataGroup);
 		
 		scrGroupTabbed *scrCamDataGroup = new scrGroupTabbed();
 		scrCamDataGroup->push(_scanner._decoder[iCam]->_scrFrameData);
@@ -62,12 +64,6 @@ void PCApp::setup(){
 	/////////////////////////////////////////////////////////
 
 	/////////////////////////////////////////////////////////
-	// CORRELATE GROUP
-	/////////////////////////////////////////////////////////
-
-	/////////////////////////////////////////////////////////
-	
-	/////////////////////////////////////////////////////////
 	// MAIN TAB GROUP
 	/////////////////////////////////////////////////////////
 	_scrTabMain = new scrGroupTabbed(32);
@@ -77,26 +73,6 @@ void PCApp::setup(){
 	
 	_screens->mainScreen = _scrTabMain;
 	/////////////////////////////////////////////////////////
-	
-	
-	/////////////////////////////////////////////
-	// ADD USER CONTROLS
-	/////////////////////////////////////////////
-	scrWidgets *scrControl = new scrWidgets("User controls");
-	wdgBase *sliderDistance = new wdgSlider("Screen distance",
-										  _screenDistance,
-										  0, 1,
-										  0.01,
-										  "meters"); 
-	
-	_wdgFrameCounter= new wdgCounter("iFrame",
-								  _scanner.iFrame,
-								  0);
-	
-	scrControl->push(sliderDistance);
-	scrControl->push(_wdgFrameCounter);
-	gridScan->screens.push_back(scrControl);
-	/////////////////////////////////////////////
 	
 //	tabMain->setBounds(0, 0, ofGetWidth(), ofGetHeight());
 	
@@ -154,19 +130,15 @@ void PCApp::keyPressed(int key){
 				_scanner.start();
 			else
 				_scanner.stop();
-			
-			_wdgFrameCounter->setMax(_scanner._payload->totalFrames);
-			
-			break;
+		break;
 			
 		case 'c': // c = calibrate threshold
 			_scanner.calibrate();
-			_wdgFrameCounter->setMax(_scanner._payload->interleaves+1);			
 			break;
 
 		case 's': // s = save current activity
 			//_scanner.save(getDateString());
-			_scanner.save(ofToString(_screenDistance, 2));
+			_scanner.save(ofToString(_scanner.screenDistance, 2));
 			break;
 		
 		case 'd': // d = save as 'data'

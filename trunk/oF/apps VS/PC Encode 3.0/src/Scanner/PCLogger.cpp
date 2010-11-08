@@ -129,6 +129,7 @@ void PCLogger::savePixelsBinary(string filename)
 		fPX = float(iPX) / float (projWidth);
 		fPY = float(iPY) / float (projHeight);
 		
+		//write the projector pixels' ID
 		iofOutput.write((char*) &fPX, 4);
 		iofOutput.write((char*) &fPY, 4);
 		//////////////////////////////

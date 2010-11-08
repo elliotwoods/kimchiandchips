@@ -58,11 +58,7 @@ protected:
 	//correlator
 	CorrelateMain			_Correlator;
 	
-	//user interface
-	wdgCounter				*_wdgFrameCounter;
-	
 	//calibration variables
-	float					_screenDistance;
 	float					_screenWidth, _screenHeight;
 };
 
