@@ -293,7 +293,7 @@
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 7}, {223, 760}}</string>
+							<string>{{0, 0}, {223, 760}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -346,7 +346,7 @@
 														<key>_historyCapacity</key>
 														<integer>0</integer>
 														<key>bookmark</key>
-														<string>8BC4308512880D7B00249607</string>
+														<string>8BC4309112880EE500249607</string>
 														<key>history</key>
 														<array>
 															<string>8BA97A881271933600D2312F</string>
@@ -416,7 +416,7 @@
 														<key>_historyCapacity</key>
 														<integer>0</integer>
 														<key>bookmark</key>
-														<string>8BC4308612880D7B00249607</string>
+														<string>8BC4309512880EE500249607</string>
 														<key>history</key>
 														<array>
 															<string>8BA97A881271933600D2312F</string>
@@ -492,8 +492,9 @@
 															<string>8BC42FE71287FCEE00249607</string>
 															<string>8BC430191288025600249607</string>
 															<string>8BC4301A1288025600249607</string>
-															<string>8BC430381288032E00249607</string>
-															<string>8BC4304E128807BE00249607</string>
+															<string>8BC4309212880EE500249607</string>
+															<string>8BC4309312880EE500249607</string>
+															<string>8BC4309412880EE500249607</string>
 														</array>
 													</dict>
 													<key>SplitCount</key>
@@ -539,7 +540,7 @@
 														<key>_historyCapacity</key>
 														<integer>0</integer>
 														<key>bookmark</key>
-														<string>8BC4308712880D7B00249607</string>
+														<string>8BC4309612880EE500249607</string>
 														<key>history</key>
 														<array>
 															<string>8B5C88231271877200AA9B44</string>
@@ -604,7 +605,7 @@
 												<key>PBXProjectModuleGUID</key>
 												<string>1CE0B20306471E060097A5F4</string>
 												<key>PBXProjectModuleLabel</key>
-												<string>CorrelateMain.h</string>
+												<string>PCConfig.cpp</string>
 												<key>PBXSplitModuleInNavigatorKey</key>
 												<dict>
 													<key>Split0</key>
@@ -612,11 +613,11 @@
 														<key>PBXProjectModuleGUID</key>
 														<string>1CE0B20406471E060097A5F4</string>
 														<key>PBXProjectModuleLabel</key>
-														<string>CorrelateMain.h</string>
+														<string>PCConfig.cpp</string>
 														<key>_historyCapacity</key>
 														<integer>0</integer>
 														<key>bookmark</key>
-														<string>8BC4308812880D7B00249607</string>
+														<string>8BC4309B12880EE500249607</string>
 														<key>history</key>
 														<array>
 															<string>8B5C88231271877200AA9B44</string>
@@ -652,7 +653,6 @@
 															<string>8B0EFB701282C2FF0095D621</string>
 															<string>8B0EFB711282C2FF0095D621</string>
 															<string>8B0EFBA41282CDA70095D621</string>
-															<string>8B0EFBA51282CDA70095D621</string>
 															<string>8B0EFBEC128507500095D621</string>
 															<string>8B0EFC0E12850BEE0095D621</string>
 															<string>8B0EFC0F12850BEE0095D621</string>
@@ -668,7 +668,6 @@
 															<string>8BC42D961287227600249607</string>
 															<string>8BC42DEA1287C50C00249607</string>
 															<string>8BC42E151287C74700249607</string>
-															<string>8BC42EA71287EDEB00249607</string>
 															<string>8BC42EBF1287EF9400249607</string>
 															<string>8BC42F4C1287F71000249607</string>
 															<string>8BC42F5C1287F81B00249607</string>
@@ -680,7 +679,10 @@
 															<string>8BC42FCD1287FC4D00249607</string>
 															<string>8BC4301E1288025600249607</string>
 															<string>8BC4301F1288025600249607</string>
-															<string>8BC430201288025600249607</string>
+															<string>8BC4309712880EE500249607</string>
+															<string>8BC4309812880EE500249607</string>
+															<string>8BC4309912880EE500249607</string>
+															<string>8BC4309A12880EE500249607</string>
 														</array>
 													</dict>
 													<key>SplitCount</key>
@@ -914,13 +916,13 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>8BC4308912880D7B00249607</string>
+		<string>8BC4309C12880EE500249607</string>
 		<string>8BC430231288025600249607</string>
 		<string>8BC430241288025600249607</string>
 		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>/Users/elliot/openFrameworks 0.6/apps/elliots/PC Encode 3.0/PC Encode.xcodeproj</string>
 		<string>8B5C882B1271877200AA9B44</string>
+		<string>/Users/elliot/openFrameworks 0.6/apps/elliots/PC Encode 3.0/PC Encode.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>0 59 1440 819 0 0 1440 878 </string>
@@ -1015,7 +1017,7 @@
 			<key>WindowToolGUID</key>
 			<string>8B5C882B1271877200AA9B44</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

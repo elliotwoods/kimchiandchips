@@ -21,16 +21,16 @@ int PCConfig::exposure=CONFIG_DEFAULT_EXPOSURE;
 char PCConfig::nCameras=0;
 vector<int> PCConfig::camIDs = vector<int>();
 
-int PCConfig::camWidth=0;
-int PCConfig::camHeight=0;
+unsigned short PCConfig::camWidth=0;
+unsigned short PCConfig::camHeight=0;
 
-int PCConfig::projWidth=0;
-int PCConfig::projHeight=0;
+unsigned short PCConfig::projWidth=0;
+unsigned short PCConfig::projHeight=0;
 
-int PCConfig::interleaveWidth=0;
-int PCConfig::interleaveHeight=0;
+unsigned short PCConfig::interleaveWidth=0;
+unsigned short PCConfig::interleaveHeight=0;
 
-int PCConfig::errorBits=0;
+unsigned short PCConfig::errorBits=0;
 
 string PCConfig::_configFilename="";
 bool PCConfig::_loaded=false;

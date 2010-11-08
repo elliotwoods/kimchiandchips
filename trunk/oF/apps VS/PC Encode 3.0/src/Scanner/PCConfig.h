@@ -30,10 +30,10 @@ class PCConfig
 	
 	protected:
 		static vector<int> camIDs;
-		static int		camWidth, camHeight;
-		static int		projWidth, projHeight;
-		static int		interleaveWidth, interleaveHeight;
-		static int		errorBits;
+		static unsigned short		camWidth, camHeight;
+		static unsigned short		projWidth, projHeight;
+		static unsigned short		interleaveWidth, interleaveHeight;
+		static unsigned short		errorBits;
 		
 		static int		exposure, gain;
 		static int		captureDelay;
