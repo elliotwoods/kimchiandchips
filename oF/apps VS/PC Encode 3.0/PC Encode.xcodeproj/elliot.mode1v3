@@ -346,7 +346,7 @@
 														<key>_historyCapacity</key>
 														<integer>0</integer>
 														<key>bookmark</key>
-														<string>8BC430491288047F00249607</string>
+														<string>8BC4308512880D7B00249607</string>
 														<key>history</key>
 														<array>
 															<string>8BA97A881271933600D2312F</string>
@@ -416,7 +416,7 @@
 														<key>_historyCapacity</key>
 														<integer>0</integer>
 														<key>bookmark</key>
-														<string>8BC4304A1288047F00249607</string>
+														<string>8BC4308612880D7B00249607</string>
 														<key>history</key>
 														<array>
 															<string>8BA97A881271933600D2312F</string>
@@ -493,7 +493,7 @@
 															<string>8BC430191288025600249607</string>
 															<string>8BC4301A1288025600249607</string>
 															<string>8BC430381288032E00249607</string>
-															<string>8BC430391288032E00249607</string>
+															<string>8BC4304E128807BE00249607</string>
 														</array>
 													</dict>
 													<key>SplitCount</key>
@@ -539,7 +539,7 @@
 														<key>_historyCapacity</key>
 														<integer>0</integer>
 														<key>bookmark</key>
-														<string>8BC4304B1288047F00249607</string>
+														<string>8BC4308712880D7B00249607</string>
 														<key>history</key>
 														<array>
 															<string>8B5C88231271877200AA9B44</string>
@@ -616,7 +616,7 @@
 														<key>_historyCapacity</key>
 														<integer>0</integer>
 														<key>bookmark</key>
-														<string>8BC4304C1288047F00249607</string>
+														<string>8BC4308812880D7B00249607</string>
 														<key>history</key>
 														<array>
 															<string>8B5C88231271877200AA9B44</string>
@@ -914,12 +914,13 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>8BC4308912880D7B00249607</string>
 		<string>8BC430231288025600249607</string>
 		<string>8BC430241288025600249607</string>
 		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>8B5C882B1271877200AA9B44</string>
 		<string>/Users/elliot/openFrameworks 0.6/apps/elliots/PC Encode 3.0/PC Encode.xcodeproj</string>
+		<string>8B5C882B1271877200AA9B44</string>
 	</array>
 	<key>WindowString</key>
 	<string>0 59 1440 819 0 0 1440 878 </string>
@@ -945,7 +946,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>PCLogger.cpp</string>
+								<string>CorrelateMain.cpp</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -1014,7 +1015,7 @@
 			<key>WindowToolGUID</key>
 			<string>8B5C882B1271877200AA9B44</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

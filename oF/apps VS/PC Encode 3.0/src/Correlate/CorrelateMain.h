@@ -37,9 +37,13 @@ protected:
 	
 	void			runPolyfit();
 	void			runTestSet();
+	
+	void			saveProjector();
+	
 	//
 	
 	wdgButton		*bangLoad, *bangCorrelate, *bangTestData, *bangWrite;
+	wdgButton		*bangSaveProjectionXYZ;
 	bool			invertXY;
 	bool			newFormat;
 
@@ -56,7 +60,8 @@ protected:
 	float			test_pos[MAXPOINTS][3];
 	//use same colour as input
 	
-	// projector indicies
+	// projector index data
+	unsigned short	projWidth, projHeight;
 	unsigned int	dataset_iPX[MAXPOINTS];
 	unsigned int	dataset_iPY[MAXPOINTS];
 	
