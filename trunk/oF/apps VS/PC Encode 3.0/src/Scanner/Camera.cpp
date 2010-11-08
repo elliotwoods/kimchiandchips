@@ -139,7 +139,7 @@ void Camera::clear()
 	_timeLastCapture = ofGetElapsedTimef();
 }
 
-bool Camera::capture(unsigned char *&pixels)
+bool Camera::capture(unsigned char *&pixels, bool logDeltaT)
 {
 
 	bool hasWaited = ofGetElapsedTimef()-_timeLastCapture > float(captureDelay)/1000;
@@ -186,10 +186,16 @@ bool Camera::capture(unsigned char *&pixels)
 
 	if (hasWaited)
 	{
-		deltat = ofGetElapsedTimef()-_timeLastCapture;
-		ofLog(OF_LOG_VERBOSE, "Camera: deltat = " + ofToString(deltat, 3));
+		if (logDeltaT)
+		{
+			deltat = ofGetElapsedTimef()-_timeLastCapture;
+			ofLog(OF_LOG_VERBOSE, "Camera: deltat = " + ofToString(deltat, 3));
+		}
 
-		_timeLastCapture = ofGetElapsedTimef();
+		//we dont do this here, because we should be using clear()
+		//since we want to make _timeLastCapture, the time of the 
+		//message being sent.
+		//_timeLastCapture = ofGetElapsedTimef();
 	}
 
 	return hasWaited;

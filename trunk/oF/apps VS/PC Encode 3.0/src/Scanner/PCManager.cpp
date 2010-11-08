@@ -79,7 +79,8 @@ void PCManager::update()
 		FOREACH_CAMERA
 			if (!hasNewImage[iCam])
 			{
-				hasNewImage[iCam] = _decoder[iCam]->capture();
+				//set logdeltat=true if we're state>0
+				hasNewImage[iCam] = _decoder[iCam]->capture(state>0);
 				hasNewImageSum &= hasNewImage[iCam];
 			}
 
@@ -242,5 +243,6 @@ void PCManager::writeFrame()
 	}	
 	
 	if (state>0)
-		_camera.clear();
+		FOREACH_CAMERA
+			_camera[iCam]->clear();
 }

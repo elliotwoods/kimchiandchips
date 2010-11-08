@@ -31,7 +31,7 @@ class PCDecode : public PCConfig
 		PCDecode(PayloadBase *payload, Camera *camera);
 		~PCDecode();
 	
-		bool capture();
+		bool capture(bool logDeltaT=false);
 	
 		void updateCameraSpacePreview();
 	
