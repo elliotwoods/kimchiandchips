@@ -46,6 +46,7 @@ public:
 	
 	bool	isInitialised;
 	bool	hasData;
+	bool	scanForever;
 	int		state;
 	int		iFrame;
 
@@ -76,6 +77,7 @@ protected:
 	wdgButton			_wdgClear;
 	wdgSlider			_wdgDistance;
 	wdgCounter			_wdgIFrame;
+	wdgButton			_wdgScanForever;
 		
 	//mask
 	void					updateProjectorMask();
