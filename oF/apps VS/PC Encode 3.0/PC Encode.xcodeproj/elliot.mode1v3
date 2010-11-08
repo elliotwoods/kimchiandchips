@@ -343,7 +343,7 @@
 														<key>_historyCapacity</key>
 														<integer>0</integer>
 														<key>bookmark</key>
-														<string>8BC42DC11287322A00249607</string>
+														<string>8BC42E241287C7AD00249607</string>
 														<key>history</key>
 														<array>
 															<string>8BA97A881271933600D2312F</string>
@@ -413,7 +413,7 @@
 														<key>_historyCapacity</key>
 														<integer>0</integer>
 														<key>bookmark</key>
-														<string>8BC42DC21287322A00249607</string>
+														<string>8BC42E271287C7AD00249607</string>
 														<key>history</key>
 														<array>
 															<string>8BA97A881271933600D2312F</string>
@@ -479,14 +479,14 @@
 															<string>8BC42CD31285595100249607</string>
 															<string>8BC42CD41285595100249607</string>
 															<string>8BC42D0D1287082100249607</string>
-															<string>8BC42D231287137800249607</string>
 															<string>8BC42D7B1287209A00249607</string>
 															<string>8BC42D7C1287209A00249607</string>
-															<string>8BC42DAC1287300800249607</string>
-															<string>8BC42DAD1287300800249607</string>
-															<string>8BC42DB81287318200249607</string>
-															<string>8BC42DB91287318200249607</string>
-															<string>8BC42DBA1287318200249607</string>
+															<string>8BC42DE41287C50C00249607</string>
+															<string>8BC42DF51287C5E500249607</string>
+															<string>8BC42E111287C74700249607</string>
+															<string>8BC42E1B1287C75800249607</string>
+															<string>8BC42E251287C7AD00249607</string>
+															<string>8BC42E261287C7AD00249607</string>
 														</array>
 													</dict>
 													<key>SplitCount</key>
@@ -532,7 +532,7 @@
 														<key>_historyCapacity</key>
 														<integer>0</integer>
 														<key>bookmark</key>
-														<string>8BC42DC31287322A00249607</string>
+														<string>8BC42E281287C7AD00249607</string>
 														<key>history</key>
 														<array>
 															<string>8B5C88231271877200AA9B44</string>
@@ -597,7 +597,7 @@
 												<key>PBXProjectModuleGUID</key>
 												<string>1CE0B20306471E060097A5F4</string>
 												<key>PBXProjectModuleLabel</key>
-												<string>PCDecode.cpp</string>
+												<string>PCManager.h</string>
 												<key>PBXSplitModuleInNavigatorKey</key>
 												<dict>
 													<key>Split0</key>
@@ -605,11 +605,11 @@
 														<key>PBXProjectModuleGUID</key>
 														<string>1CE0B20406471E060097A5F4</string>
 														<key>PBXProjectModuleLabel</key>
-														<string>PCDecode.cpp</string>
+														<string>PCManager.h</string>
 														<key>_historyCapacity</key>
 														<integer>0</integer>
 														<key>bookmark</key>
-														<string>8BC42DC41287322A00249607</string>
+														<string>8BC42E291287C7AD00249607</string>
 														<key>history</key>
 														<array>
 															<string>8B5C88231271877200AA9B44</string>
@@ -661,14 +661,17 @@
 															<string>8BC42C7B128554DD00249607</string>
 															<string>8BC42C7C128554DD00249607</string>
 															<string>8BC42C91128555E200249607</string>
-															<string>8BC42CD81285595100249607</string>
 															<string>8BC42D281287137800249607</string>
 															<string>8BC42D291287137800249607</string>
-															<string>8BC42D841287209A00249607</string>
 															<string>8BC42D951287227600249607</string>
 															<string>8BC42D961287227600249607</string>
-															<string>8BC42DB11287300800249607</string>
-															<string>8BC42DB21287300800249607</string>
+															<string>8BC42DD41287C3DD00249607</string>
+															<string>8BC42DD61287C3DD00249607</string>
+															<string>8BC42DD71287C3DD00249607</string>
+															<string>8BC42DEA1287C50C00249607</string>
+															<string>8BC42E151287C74700249607</string>
+															<string>8BC42E161287C74700249607</string>
+															<string>8BC42E171287C74700249607</string>
 														</array>
 													</dict>
 													<key>SplitCount</key>
@@ -905,9 +908,9 @@
 		<string>8BC42BEE12853F2100249607</string>
 		<string>8BC42BEF12853F2100249607</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>8B5C882B1271877200AA9B44</string>
 		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/elliot/openFrameworks 0.6/apps/elliots/PC Encode 3.0/PC Encode.xcodeproj</string>
+		<string>8B5C882B1271877200AA9B44</string>
 	</array>
 	<key>WindowString</key>
 	<string>0 59 1440 819 0 0 1440 878 </string>
@@ -933,7 +936,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>PCDecode.cpp</string>
+								<string>Camera.cpp</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -1002,7 +1005,7 @@
 			<key>WindowToolGUID</key>
 			<string>8B5C882B1271877200AA9B44</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

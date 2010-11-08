@@ -124,10 +124,10 @@ PCDecode::~PCDecode()
 	
 }
 
-bool PCDecode::capture()
+bool PCDecode::capture(bool logDeltaT)
 {
 	
-	bool isFrameNew = _camera->capture(_charCamera);
+	bool isFrameNew = _camera->capture(_charCamera, logDeltaT);
 	
 	_texCamera->loadData(_charCamera, 640, 480, GL_LUMINANCE);
 
@@ -354,6 +354,8 @@ void PCDecode::calcInterleave(int iInterleave)
 	
 	updateProjectorSpacePreview();
 	updateCameraSpacePreview();
+	
+	_camera->clear();
 }
 
 void PCDecode::checkParity()

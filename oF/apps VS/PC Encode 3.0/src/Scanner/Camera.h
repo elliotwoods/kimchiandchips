@@ -39,7 +39,7 @@ class Camera : public PCConfig
 		void close();
 	
 		void clear();
-		bool capture(unsigned char *&pixels);
+		bool capture(unsigned char *&pixels, bool logDeltaT=false);
 	
 		void	videoSettings();
 	
