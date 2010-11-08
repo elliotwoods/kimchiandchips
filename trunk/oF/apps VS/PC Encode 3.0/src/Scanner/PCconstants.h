@@ -8,11 +8,6 @@
  *
  */
 
-#define PC_SCREENS_X 3
-#define PC_SCREENS_Y 2
-#define PC_SCREEN_RESOLUTION_X 480
-#define PC_SCREEN_RESOLUTION_Y 360
-
 #define PC_STATE_STANDBY				0
 #define PC_STATE_CALIBRATING			1
 #define PC_STATE_SCANNING				2

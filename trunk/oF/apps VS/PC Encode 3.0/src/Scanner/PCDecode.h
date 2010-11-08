@@ -65,7 +65,7 @@ class PCDecode : public PCConfig
 		scrBase					*_scrFrameData, *_scrBinary, *_scrCamera;
 		scrBase					*_scrThreshold, *_scrThresholdMask;
 		scrBase					*_scrProjectorSpace, *_scrCameraSpace;
-		scrBase					*_scrCameraNFinds;
+		scrBase					*_scrCameraNFinds, *_scrProjectorNFinds;
 		scrHistograms			*_scrHistograms;
 	
 		std::vector<PCPixel*>	projPixels;
@@ -86,7 +86,7 @@ class PCDecode : public PCConfig
 		ofTexture				*_texThreshold, *_texThresholdMasked, *_texThresholdMask;
 		ofTexture				*_texCamera;
 		ofTexture				_texCameraSpacePreview, _texProjectorSpacePreview;
-		ofTexture				_texCameraSpaceNFinds;
+		ofTexture				_texCameraSpaceNFinds, _texProjectorSpaceNFinds;
 	
 		//ofxShader				_shadLookup;
 		
@@ -98,7 +98,7 @@ class PCDecode : public PCConfig
 	
 		unsigned char *			_charBinary;
 		unsigned char *			_charFrameDataPreview;
-		unsigned char *			_charNFinds;
+		unsigned char *			_charCameraSpaceNFinds, *_charProjectorSpaceNFinds;
 		bool *					_boolBinary;
 		
 		int						_intThresholdSelection;

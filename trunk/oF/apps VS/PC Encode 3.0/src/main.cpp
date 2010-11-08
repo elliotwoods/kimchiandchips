@@ -11,8 +11,8 @@ int main( ){
 
     ofAppGlutWindow window;
 	ofSetupOpenGL(&window,
-				  PC_SCREENS_X * PC_SCREEN_RESOLUTION_X,
-				  PC_SCREENS_Y * PC_SCREEN_RESOLUTION_Y + (10 * PC_STATUS_ROWS),
+				  1024,
+				  768,
 				  OF_WINDOW);			// <-------- setup the GL context
 	
 	bool test=true;

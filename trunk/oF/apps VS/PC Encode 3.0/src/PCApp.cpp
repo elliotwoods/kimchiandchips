@@ -39,6 +39,7 @@ void PCApp::setup(){
 	{
 		//add projection space preview to the send group
 		scrSendGroup->push(_scanner._decoder[iCam]->_scrProjectorSpace);
+		scrSendGroup->push(_scanner._decoder[iCam]->_scrProjectorNFinds);
 		
 		scrGroupTabbed *scrCamDataGroup = new scrGroupTabbed();
 		scrCamDataGroup->push(_scanner._decoder[iCam]->_scrFrameData);
