@@ -77,8 +77,8 @@ bool PCConfig::configLoad(string filename)
 			
 			if (_configFileXML.pushTag("encoding", 0))
 			{
-				projWidth = _configFileXML.getAttribute("projector", "width", PC_SCREEN_RESOLUTION_X, 0);
-				projHeight = _configFileXML.getAttribute("projector", "height", PC_SCREEN_RESOLUTION_Y, 0);
+				projWidth = _configFileXML.getAttribute("projector", "width", 256, 0);
+				projHeight = _configFileXML.getAttribute("projector", "height", 256, 0);
 
 				interleaveWidth = _configFileXML.getAttribute("interleave", "width", 1, 0);
 				interleaveHeight = _configFileXML.getAttribute("interleave", "height", 1, 0);

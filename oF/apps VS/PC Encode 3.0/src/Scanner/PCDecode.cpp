@@ -37,7 +37,9 @@ PCDecode::PCDecode(PayloadBase *payload, Camera *camera)
 	
 	_charCameraSpacePreview = new unsigned char[nProjPixels*3];
 	_charProjectorSpacePreview = new unsigned char[nCamPixels*3];
-	_charNFinds = new unsigned char[nCamPixels];
+
+	_charCameraSpaceNFinds = new unsigned char[nCamPixels];
+	_charProjectorSpaceNFinds = new unsigned char[nProjPixels];
 
 	_texCamera = new ofTexture();
 	_texThreshold = new ofTexture();
@@ -55,9 +57,10 @@ PCDecode::PCDecode(PayloadBase *payload, Camera *camera)
 	_texCamera->allocate(camWidth, camHeight, GL_LUMINANCE);
 	
 	_texCameraSpacePreview.allocate(projWidth, projHeight, GL_RGB);
-	_texCameraSpacePreview.setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
 	_texProjectorSpacePreview.allocate(camWidth, camHeight, GL_RGB);
 	_texCameraSpaceNFinds.allocate(camWidth, camHeight, GL_LUMINANCE);
+	_texProjectorSpaceNFinds.allocate(projWidth, projHeight, GL_LUMINANCE);
+	_texProjectorSpaceNFinds.setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
 	
 	for (int iPixel=0; iPixel<nProjPixels; iPixel++)
 		projPixels.push_back(new PCPixel());
@@ -79,6 +82,7 @@ PCDecode::PCDecode(PayloadBase *payload, Camera *camera)
 	
 	_scrCameraSpace = new scrTexture(cursor_none, true, &_texProjectorSpacePreview, "Camera space preview");
 	_scrCameraNFinds = new scrTexture(cursor_none, false, &_texCameraSpaceNFinds, "NFinds");
+	_scrProjectorNFinds = new scrTexture(cursor_none, false, &_texProjectorSpaceNFinds, "NFinds");
 	_scrBinary = new scrTexture(cursor_none, false, _texBinary, "Binary image");
 	
 	_scrThreshold = new scrTexture(cursor_none, false,_texThresholdMasked, "Threshold");
@@ -166,28 +170,47 @@ void PCDecode::updateCameraSpacePreview()
 {
 	updateSpacePreview(projWidth,projHeight,_charCameraSpacePreview,_texCameraSpacePreview, projPixels);
 	
+	///////////////////////////
+	// NFINDS
+	///////////////////////////
 	int maxNFinds=0;
-	
 	//find maximum
 	for (int iPixel=0; iPixel<camWidth*camHeight; iPixel++)
 		if (camPixels[iPixel]->_nFinds > maxNFinds)
 			maxNFinds = camPixels[iPixel]->_nFinds;
-	
 	//convert to float for division
 	float fMaxNFinds = maxNFinds;
-	
 	//fill the char
 	for (int iPixel=0; iPixel<camWidth*camHeight; iPixel++)
-		_charNFinds[iPixel] = 255.0f *
+		_charCameraSpaceNFinds[iPixel] = 255.0f *
 				float(camPixels[iPixel]->_nFinds) / fMaxNFinds;
 	
-	_texCameraSpaceNFinds.loadData(_charNFinds, camWidth, camHeight, GL_LUMINANCE);
+	_texCameraSpaceNFinds.loadData(_charCameraSpaceNFinds, camWidth, camHeight, GL_LUMINANCE);
+	///////////////////////////
 			
 }
 
 void PCDecode::updateProjectorSpacePreview()
 {
 	updateSpacePreview(camWidth,camHeight,_charProjectorSpacePreview,_texProjectorSpacePreview, camPixels);
+	
+	///////////////////////////
+	// NFINDS
+	///////////////////////////
+	int maxNFinds=0;
+	//find maximum
+	for (int iPixel=0; iPixel<projWidth*projHeight; iPixel++)
+		if (projPixels[iPixel]->_nFinds > maxNFinds)
+			maxNFinds = projPixels[iPixel]->_nFinds;
+	//convert to float for division
+	float fMaxNFinds = maxNFinds;
+	//fill the char
+	for (int iPixel=0; iPixel<projWidth*projHeight; iPixel++)
+		_charProjectorSpaceNFinds[iPixel] = 255.0f *
+		float(projPixels[iPixel]->_nFinds) / fMaxNFinds;
+	
+	_texProjectorSpaceNFinds.loadData(_charProjectorSpaceNFinds, projWidth, projHeight, GL_LUMINANCE);
+	///////////////////////////
 }
 
 void PCDecode::moveSendCursor(ofPoint &ptCursorPosition)
