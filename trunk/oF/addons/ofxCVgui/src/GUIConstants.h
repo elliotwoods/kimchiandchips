@@ -11,7 +11,6 @@
 #define GUI_INTERFACE_DISPLAY_TIME 2
 
 #define GUI_FONT_SIZE 10
-//#define GUI_STATUS_LINES 2
 
 enum enumGUIButtonState { button_wait, button_over, button_down };
 enum enumGUIButtonType {button_bang, button_toggle};
