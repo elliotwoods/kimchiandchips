@@ -52,10 +52,12 @@ scrGridData("Data pointclouds")
 	bangCorrelate = new wdgButton("Run polyfit");
 	bangTestData = new wdgButton("Test dataset");
 	bangWrite = new wdgButton("Save fit");
+	bangSaveProjectionXYZ = new wdgButton("Save projection space XYZ");
 	
 	bangCorrelate->enabled=false;
 	bangTestData->enabled=false;
 	bangWrite->enabled=false;
+	bangSaveProjectionXYZ->enabled=false;
 	
 	scrControl.push(wdgCameraCount);
 	scrControl.push(wdgDatasetCount);
@@ -68,6 +70,7 @@ scrGridData("Data pointclouds")
 	scrControl.push(bangWrite);
 	scrControl.push(new wdgButton("Invert XY", invertXY));
 	scrControl.push(new wdgButton("File format v0.2", newFormat));
+	scrControl.push(bangSaveProjectionXYZ);
 	
 	
 	scrGridData.push(&scrInputPoints);
@@ -115,6 +118,9 @@ void CorrelateMain::update()
 		
 		fit.save(fname);
 	}
+	
+	if (bangSaveProjectionXYZ->getBang())
+		saveProjector();
 }
 
 void CorrelateMain::loadData()
@@ -171,13 +177,17 @@ void CorrelateMain::loadData()
 			// Read in number of cameras
 			///////////////////////////////
 			inFile.read(&thisNCameras, 1);
+			if (newFormat)
+			{
+				inFile.read((char*) &projWidth, 2);
+				inFile.read((char*) &projHeight, 2);
+			}
 			if (nDatasets==0)
 			{
 				//first file, so initalise rows
 				nCameras = thisNCameras;
 				inputRow.resize(2*nCameras);
 				outputRow.resize(3);
-				//
 			} else
 				if (nCameras != thisNCameras)
 					ofLog(OF_LOG_ERROR, "CorrelateMain: mismatched number of cameras between files");
@@ -187,15 +197,15 @@ void CorrelateMain::loadData()
 			///////////////////////////////
 			// Read data
 			///////////////////////////////
-			thisNPoints = (thisFileSize-1) / (8+8*nCameras);
+			thisNPoints = (thisFileSize-1) / ((newFormat ? 4 : 0)+8+8*nCameras);
 			//
 			for (int iPoint=0; iPoint<thisNPoints; iPoint++)
 			{
 				if (newFormat)
 				{
 					//read indicies
-					inFile.read((char*) dataset_iPX+iPoint, 2);
-					inFile.read((char*) dataset_iPY+iPoint, 2);
+					inFile.read((char*) &dataset_iPX[iPoint], 2);
+					inFile.read((char*) &dataset_iPY[iPoint], 2);
 				}
 
 				//read positions
@@ -297,4 +307,38 @@ void CorrelateMain::runTestSet()
 	}
 	
 	scrTestCorrelate.setWith(*test_pos, *input_col, nPoints);
+	
+	//we'll enable the save xyz, if we're in new format
+	bangSaveProjectionXYZ->enabled = newFormat;
 }
+
+void CorrelateMain::saveProjector()
+{
+	ofImage imgSave;
+	imgSave.setImageType(OF_IMAGE_COLOR);
+	imgSave.allocate(projWidth, projHeight, OF_IMAGE_COLOR);
+	
+	ofPoint lbr = ofPoint(-1,-1,0);
+	ofPoint rtb = ofPoint(1,1,2);
+	
+	//clear all values out to black
+	memset(imgSave.getPixels(), 0, projWidth*projHeight*3);
+	
+	int iPP;
+	unsigned char col[3];
+	
+	for (int iPoint=0; iPoint<nPoints; iPoint++)
+	{
+		//convert position to colour values
+		col[0] = ofMap(test_pos[iPoint][0],lbr.x,rtb.x,0,255,true);
+		col[1] = ofMap(test_pos[iPoint][1],lbr.y,rtb.y,0,255,true);
+		col[2] = ofMap(test_pos[iPoint][2],lbr.z,rtb.z,0,255,true);
+		
+		iPP = dataset_iPX[iPoint] + projWidth * dataset_iPY[iPoint];
+		if (iPP<projWidth*projHeight && iPP>=0)
+			memcpy(imgSave.getPixels()+3*iPP, col, 3);
+	}
+	
+	imgSave.saveImage("projector.bmp");
+}
+
