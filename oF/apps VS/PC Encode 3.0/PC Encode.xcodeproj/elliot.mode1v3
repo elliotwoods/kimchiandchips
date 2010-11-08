@@ -312,7 +312,7 @@
 							<real>223</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>0 59 1440 819 0 0 1440 878 </string>
+						<string>2 37 1440 819 0 0 1440 878 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -346,7 +346,7 @@
 														<key>_historyCapacity</key>
 														<integer>0</integer>
 														<key>bookmark</key>
-														<string>8BC4309112880EE500249607</string>
+														<string>8BC4309F128835D200249607</string>
 														<key>history</key>
 														<array>
 															<string>8BA97A881271933600D2312F</string>
@@ -389,7 +389,7 @@
 												<key>Frame</key>
 												<string>{{0, 0}, {553, 0}}</string>
 												<key>RubberWindowFrame</key>
-												<string>0 59 1440 819 0 0 1440 878 </string>
+												<string>2 37 1440 819 0 0 1440 878 </string>
 											</dict>
 											<key>Module</key>
 											<string>PBXNavigatorGroup</string>
@@ -397,8 +397,6 @@
 											<string>0pt</string>
 										</dict>
 										<dict>
-											<key>BecomeActive</key>
-											<true/>
 											<key>ContentConfiguration</key>
 											<dict>
 												<key>PBXProjectModuleGUID</key>
@@ -416,7 +414,7 @@
 														<key>_historyCapacity</key>
 														<integer>0</integer>
 														<key>bookmark</key>
-														<string>8BC4309512880EE500249607</string>
+														<string>8BC430A0128835D200249607</string>
 														<key>history</key>
 														<array>
 															<string>8BA97A881271933600D2312F</string>
@@ -508,7 +506,7 @@
 												<key>Frame</key>
 												<string>{{0, 5}, {553, 768}}</string>
 												<key>RubberWindowFrame</key>
-												<string>0 59 1440 819 0 0 1440 878 </string>
+												<string>2 37 1440 819 0 0 1440 878 </string>
 											</dict>
 											<key>Module</key>
 											<string>PBXNavigatorGroup</string>
@@ -540,7 +538,7 @@
 														<key>_historyCapacity</key>
 														<integer>0</integer>
 														<key>bookmark</key>
-														<string>8BC4309612880EE500249607</string>
+														<string>8BC430A1128835D200249607</string>
 														<key>history</key>
 														<array>
 															<string>8B5C88231271877200AA9B44</string>
@@ -592,7 +590,7 @@
 												<key>Frame</key>
 												<string>{{0, 0}, {637, 248}}</string>
 												<key>RubberWindowFrame</key>
-												<string>0 59 1440 819 0 0 1440 878 </string>
+												<string>2 37 1440 819 0 0 1440 878 </string>
 											</dict>
 											<key>Module</key>
 											<string>PBXNavigatorGroup</string>
@@ -600,6 +598,8 @@
 											<string>248pt</string>
 										</dict>
 										<dict>
+											<key>BecomeActive</key>
+											<true/>
 											<key>ContentConfiguration</key>
 											<dict>
 												<key>PBXProjectModuleGUID</key>
@@ -617,7 +617,7 @@
 														<key>_historyCapacity</key>
 														<integer>0</integer>
 														<key>bookmark</key>
-														<string>8BC4309B12880EE500249607</string>
+														<string>8BC430A2128835D200249607</string>
 														<key>history</key>
 														<array>
 															<string>8B5C88231271877200AA9B44</string>
@@ -696,7 +696,7 @@
 												<key>Frame</key>
 												<string>{{0, 253}, {637, 520}}</string>
 												<key>RubberWindowFrame</key>
-												<string>0 59 1440 819 0 0 1440 878 </string>
+												<string>2 37 1440 819 0 0 1440 878 </string>
 											</dict>
 											<key>Module</key>
 											<string>PBXNavigatorGroup</string>
@@ -724,7 +724,7 @@
 								<key>Frame</key>
 								<string>{{0, 778}, {1195, 0}}</string>
 								<key>RubberWindowFrame</key>
-								<string>0 59 1440 819 0 0 1440 878 </string>
+								<string>2 37 1440 819 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -916,7 +916,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>8BC4309C12880EE500249607</string>
+		<string>8BC430A3128835D200249607</string>
 		<string>8BC430231288025600249607</string>
 		<string>8BC430241288025600249607</string>
 		<string>1C78EAAD065D492600B07095</string>
@@ -925,7 +925,7 @@
 		<string>/Users/elliot/openFrameworks 0.6/apps/elliots/PC Encode 3.0/PC Encode.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>0 59 1440 819 0 0 1440 878 </string>
+	<string>2 37 1440 819 0 0 1440 878 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
