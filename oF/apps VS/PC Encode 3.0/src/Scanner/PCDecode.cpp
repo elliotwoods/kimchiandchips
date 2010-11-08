@@ -10,14 +10,19 @@
 
 #include "PCincludes.h"
 
-PCDecode::PCDecode(PayloadBase *payload, Camera *camera)
+PCDecode::PCDecode(PayloadBase *payload, Camera *camera, bool *boolProjectorMask)
 {		
 	_payload = payload;
 	_camera = camera;
 
 	int nProjPixels = projWidth*projHeight;
 	int nCamPixels = camWidth*camHeight;
-
+	
+	_boolProjectorMask = boolProjectorMask;
+	
+	///////////////////////////////////////
+	// FRAME DATA
+	///////////////////////////////////////
 	_charCamera = new unsigned char[nCamPixels*3];
 	_boolBinary = new bool[nCamPixels];
 	_charBinary	= new unsigned char[nCamPixels];
@@ -26,7 +31,12 @@ PCDecode::PCDecode(PayloadBase *payload, Camera *camera)
 	_intFrameData = new unsigned long[nCamPixels];
 	_intFrameParity = new unsigned long[nCamPixels];
 	_boolFrameValid = new bool[nCamPixels];
+	///////////////////////////////////////
+
 	
+	///////////////////////////////////////
+	// TEXTURE CHAR DATA
+	///////////////////////////////////////
 	_charThreshold = new unsigned char[nCamPixels];
 	_charCalibrateMin = new unsigned char[nCamPixels];
 	_charCalibrateMax = new unsigned char[nCamPixels];
@@ -40,7 +50,12 @@ PCDecode::PCDecode(PayloadBase *payload, Camera *camera)
 
 	_charCameraSpaceNFinds = new unsigned char[nCamPixels];
 	_charProjectorSpaceNFinds = new unsigned char[nProjPixels];
-
+	///////////////////////////////////////
+	
+	
+	///////////////////////////////////////
+	// TEXTURES
+	///////////////////////////////////////
 	_texCamera = new ofTexture();
 	_texThreshold = new ofTexture();
 	_texThresholdMasked = new ofTexture();
@@ -61,20 +76,34 @@ PCDecode::PCDecode(PayloadBase *payload, Camera *camera)
 	_texCameraSpaceNFinds.allocate(camWidth, camHeight, GL_LUMINANCE);
 	_texProjectorSpaceNFinds.allocate(projWidth, projHeight, GL_LUMINANCE);
 	_texProjectorSpaceNFinds.setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
+	///////////////////////////////////////
+
 	
+	///////////////////////////////////////
+	// PIXEL FINDS
+	///////////////////////////////////////
 	for (int iPixel=0; iPixel<nProjPixels; iPixel++)
 		projPixels.push_back(new PCPixel());
 	
 	for (int iPixel=0; iPixel<nCamPixels; iPixel++)
 		camPixels.push_back(new PCPixel());
+	///////////////////////////////////////
 	
+	
+	///////////////////////////////////////
+	// HISTOGRAMS
+	///////////////////////////////////////
 	_histThresholdRange = new Histogram("Difference between MIN and MAX to calc threshold.", 256);
 	_histNFinds = new Histogram("Camera pixels found per projector pixel.", nProjPixels);
 	_histDeviation = new Histogram("Deviation of projector pixels in camera space.", 256);
 	
 	ofAddListener(_histThresholdRange->updateSelection,this,&PCDecode::updateThresholdSelection);
+	///////////////////////////////////////
 
-
+	
+	///////////////////////////////////////
+	// SCREENS
+	///////////////////////////////////////
 	_scrProjectorSpace = new scrTexture(cursor_xy, false, &_texCameraSpacePreview, "Projector space preview");
 	ofAddListener(_scrProjectorSpace->evtCursorMove, this, &PCDecode::moveSendCursor);
 	
@@ -94,6 +123,7 @@ PCDecode::PCDecode(PayloadBase *payload, Camera *camera)
 	_scrHistograms->addHistogram(*_histNFinds);
 	
 	_scrCamera = new scrTexture(cursor_none, false,  _texCamera, "Camera");
+	///////////////////////////////////////
 	
 }
 
@@ -199,15 +229,17 @@ void PCDecode::updateProjectorSpacePreview()
 	///////////////////////////
 	int maxNFinds=0;
 	//find maximum
-	for (int iPixel=0; iPixel<projWidth*projHeight; iPixel++)
+	//start from 1 because 0 is where a lot of crap ends up
+	for (int iPixel=1; iPixel<projWidth*projHeight; iPixel++)
 		if (projPixels[iPixel]->_nFinds > maxNFinds)
 			maxNFinds = projPixels[iPixel]->_nFinds;
+	ofLog(OF_LOG_VERBOSE, "PCDecode: max nFinds per projector pix is " + ofToString(maxNFinds,0));
 	//convert to float for division
 	float fMaxNFinds = maxNFinds;
 	//fill the char
 	for (int iPixel=0; iPixel<projWidth*projHeight; iPixel++)
 		_charProjectorSpaceNFinds[iPixel] = 255.0f *
-		float(projPixels[iPixel]->_nFinds) / fMaxNFinds;
+		log(float(projPixels[iPixel]->_nFinds)) / log(fMaxNFinds);
 	
 	_texProjectorSpaceNFinds.loadData(_charProjectorSpaceNFinds, projWidth, projHeight, GL_LUMINANCE);
 	///////////////////////////
@@ -366,7 +398,8 @@ void PCDecode::calcInterleave(int iInterleave)
 				xProjectorX = float(iProjectorPixelX)/float(projWidth);
 				xProjectorY = float(iProjectorPixelY)/float(projHeight);
 				
-				if (isValid)
+				//check whether valid number, and is within current projector mask
+				if (isValid && _boolProjectorMask[iProjectorPixel])
 				{
 					projPixels.at(iProjectorPixel)->addFind(iCamPixel, xCamX, xCamY);
 				
@@ -420,16 +453,19 @@ void PCDecode::clearInterleave()
 	}
 }
 
-void PCDecode::clear()
+void PCDecode::clear(bool clearFinds)
 {
-	int nCamPixels = camWidth*camHeight;
+	if (clearFinds)
+	{
+		int nCamPixels = camWidth*camHeight;
 
-	for (int iProjectorPixel = 0; iProjectorPixel<projWidth*projHeight; iProjectorPixel++)
-		projPixels.at(iProjectorPixel)->clear();
-	
-	for (int iCameraPixel = 0; iCameraPixel < nCamPixels; iCameraPixel++)
-		camPixels.at(iCameraPixel)->clear();
-	
+		for (int iProjectorPixel = 0; iProjectorPixel<projWidth*projHeight; iProjectorPixel++)
+			projPixels.at(iProjectorPixel)->clear();
+		
+		for (int iCameraPixel = 0; iCameraPixel < nCamPixels; iCameraPixel++)
+			camPixels.at(iCameraPixel)->clear();
+	}
+		
 	clearInterleave();
 
 }
@@ -439,6 +475,7 @@ void PCDecode::updateThresholdSelection(int &iSelectionClass)
 	_intThresholdSelection=iSelectionClass;
 	renderThresholdMask();
 }
+
 
 void PCDecode::renderThresholdMask()
 {

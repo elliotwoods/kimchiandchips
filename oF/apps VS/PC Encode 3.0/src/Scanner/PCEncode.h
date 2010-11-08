@@ -22,7 +22,7 @@
 class PCEncode : public PCConfig 
 {
 public:
-	PCEncode(PayloadBase *payload);
+	PCEncode(PayloadBase *payload, bool* boolProjectorMask);
 	~PCEncode();
 	
 	int						getnProjectorPixels();
@@ -42,6 +42,8 @@ private:
 	unsigned char *			_texCharOutput;
 	
 	PayloadBase				*_payload;
+	
+	bool *					_boolProjectorMask;
 	
 };
 

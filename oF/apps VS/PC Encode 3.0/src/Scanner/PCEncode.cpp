@@ -9,7 +9,7 @@
 
 #include "PCincludes.h"
 
-PCEncode::PCEncode(PayloadBase *payload) : 
+PCEncode::PCEncode(PayloadBase *payload, bool* boolProjectorMask) : 
 scrSend(cursor_none, false, &_texOutput, "Message")
 {
 	_payload = payload;
@@ -17,6 +17,8 @@ scrSend(cursor_none, false, &_texOutput, "Message")
 	_texCharOutput = new unsigned char[projWidth*projHeight];
 	_texOutput.allocate(projWidth,projHeight,GL_LUMINANCE);
 	_texOutput.setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
+	
+	_boolProjectorMask = boolProjectorMask;
 
 }
 
@@ -60,15 +62,9 @@ void PCEncode::updateScanFrame(int iScanInterleaveFrame, int iInterleave)
 				+ (iIY*interleaveHeight + iInterleaveY) * projWidth;
 			
 			// should be ceil(double(_projWidth)/double(_interleaveWidth))
-			// but that may be slow
+			// but that may be slow??(probably not)
 			iInterleavePixel = iIX +
 								iIY* (projWidth/interleaveWidth);
-
-			//!!!!!!!!!!
-			//DEBUG
-			//sends only one value for debug purposes
-			//iInterleavePixel=PC_DEBUG_INTERLEAVEFRAME;
-			//!!!!!!!!!!
 			
 			if (iScanInterleaveFrame < _payload->dataFramesPerInterleave)
 				//send index data
@@ -77,7 +73,7 @@ void PCEncode::updateScanFrame(int iScanInterleaveFrame, int iInterleave)
 				//send error check
 				isOn=(_payload->errorCheck[iInterleavePixel] & binaryParityFrame)>>iScanParityFrame;
 			
-			_texCharOutput[iPixel]= 255 * isOn;
+			_texCharOutput[iPixel]= 255 * isOn * _boolProjectorMask[iPixel];
 		}
 
 	
@@ -108,7 +104,7 @@ void PCEncode::updateCalibrationFrame(int iCalibrationFrame)
 				
 				if ((iX % interleaveWidth == iInterleaveX) &&
 					(iY % interleaveHeight == iInterleaveY))
-					_texCharOutput[iPixel]=255;
+					_texCharOutput[iPixel]=255  * _boolProjectorMask[iPixel];
 				else
 					_texCharOutput[iPixel]=0;
 

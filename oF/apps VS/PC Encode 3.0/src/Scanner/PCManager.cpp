@@ -12,13 +12,35 @@
 
 #define FOREACH_CAMERA for (int iCam=0; iCam<nCameras; iCam++)
 
-PCManager::PCManager()
+PCManager::PCManager() :
+_scrProjectorMask(cursor_none, false, &_texProjectorMask, "Projector mask"),
+_wdgStartScan("Start scan"),
+_wdgClear("Clear all (including mask)"),
+_scrControls("Controls"),
+_wdgDistance("Screen distance", screenDistance, 0, 1, 0.01,"meters"),
+_wdgIFrame("iFrame",iFrame,0)
+
 {
 	isInitialised=false;
 	hasData=false;	
 	state=0;
 	iFrame=0;
 	_firstFrame=false;
+	
+	//projector mask
+	_charProjectorMask = new unsigned char[projWidth*projHeight];
+	_boolProjectorMask = new bool[projWidth*projHeight];
+	_texProjectorMask.allocate(projWidth, projHeight, GL_LUMINANCE);
+	_texProjectorMask.setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
+	
+	//interface
+	_scrControls.push(&_wdgStartScan);
+	_scrControls.push(&_wdgClear);
+	_scrControls.push(&_wdgDistance);
+	_scrControls.push(&_wdgIFrame);
+	
+	screenDistance = 0.5;
+	
 }
 
 PCManager::~PCManager()
@@ -38,13 +60,13 @@ void PCManager::setup()
 		_payload->setup();
 		
 		//instantiate the encoder
-		_encoder = new PCEncode(_payload);
+		_encoder = new PCEncode(_payload, _boolProjectorMask);
 		
 		//instantiate cameras, decoders
 		FOREACH_CAMERA
 		{
 			_camera.push_back(new Camera());
-			_decoder.push_back(new PCDecode(_payload, _camera[iCam]));
+			_decoder.push_back(new PCDecode(_payload, _camera[iCam], _boolProjectorMask));
 			
 			_camera[iCam]->ID = camIDs[iCam];
 			if (!_camera[iCam]->init())
@@ -54,14 +76,24 @@ void PCManager::setup()
 		//instantiate logger
 		_logger = new PCLogger(_encoder, &_decoder);
 		
+		//clear all data
+		clearProjectorMask();
+		
 		isInitialised=true;
 	} else
 		ofLog(OF_LOG_ERROR, "PCManager: Can't run setup() more than once");
-
 }
 
 void PCManager::update()
 {
+	//////////////////////////
+	// CHECK INPUTS
+	//////////////////////////
+	if (_wdgClear.getBang())
+		clear(true);
+	if (_wdgStartScan.getBang())
+		start();
+	//////////////////////////	
 	
 	//////////////////////////
 	// CAPTURE
@@ -143,15 +175,19 @@ void PCManager::calibrate()
 	state = STATE_CALIBRATING;
 	iFrame=0;
 	_firstFrame=true;	
+	
+	_wdgIFrame.setMax(_payload->interleaves + 1);
 }
 
 void PCManager::start()
 {
-	clear();
+	clear(false);
 	
 	state = STATE_SCANNING;
 	iFrame=0;
 	_firstFrame=true;
+	
+	_wdgIFrame.setMax(_payload->totalFrames);
 }
 
 void PCManager::stop()
@@ -160,10 +196,13 @@ void PCManager::stop()
 	iFrame = 0;
 }
 
-void PCManager::clear()
+void PCManager::clear(bool clearMask)
 {
 	FOREACH_CAMERA
-		_decoder[iCam]->clear();
+		_decoder[iCam]->clear(clearMask);
+	
+	if (clearMask)
+		clearProjectorMask();
 }
 
 void PCManager::save(string filenameBase)
@@ -222,6 +261,7 @@ void PCManager::advanceFrame()
 			if (iFrame >= _payload->totalFrames)
 			{
 				stop();
+				updateProjectorMask();
 				ofLog(OF_LOG_VERBOSE, "PCManager: end scan");
 			}
 			break;
@@ -245,4 +285,35 @@ void PCManager::writeFrame()
 	if (state>0)
 		FOREACH_CAMERA
 			_camera[iCam]->clear();
+}
+
+void PCManager::clearProjectorMask()
+{
+	for (int iPP=0; iPP<projWidth*projHeight; iPP++)
+	{
+		_boolProjectorMask[iPP]=true;
+		_charProjectorMask[iPP]=255;
+	}
+	_texProjectorMask.loadData(_charProjectorMask,projWidth,projHeight,GL_LUMINANCE);
+	
+	FOREACH_CAMERA
+		_decoder[iCam]->clear(true);
+	
+}
+
+void PCManager::updateProjectorMask()
+{
+	bool current;
+	
+	for (int iPP=0; iPP<projWidth*projHeight; iPP++)
+	{
+		current = true;
+		FOREACH_CAMERA
+			current &= _decoder[iCam]->projPixels[iPP]->_nFinds>0;
+		
+		_boolProjectorMask[iPP] = !current;
+		_charProjectorMask[iPP] = (current ? 0 : 255);
+	}
+	
+	_texProjectorMask.loadData(_charProjectorMask, projWidth, projHeight, GL_LUMINANCE);
 }

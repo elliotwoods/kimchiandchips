@@ -28,19 +28,13 @@
 class PCDecode : public PCConfig 
 {
 	public:
-		PCDecode(PayloadBase *payload, Camera *camera);
+		PCDecode(PayloadBase *payload, Camera *camera, bool *boolProjectorMask);
 		~PCDecode();
 	
 		bool capture(bool logDeltaT=false);
 	
 		void updateCameraSpacePreview();
-	
-	
-		void drawCameraSpacePreview(int screenx, int screeny);
-		void drawCameraSpacePreview();
-		
 		void updateProjectorSpacePreview();
-		void drawProjectorSpacePreview(int screenx, int screeny);
 	
 		void resetCalibration();
 		void resetData();
@@ -51,7 +45,7 @@ class PCDecode : public PCConfig
 		void calcThreshold();
 		void calcInterleave(int iInterleave);
 		
-		void clear();
+		void clear(bool clearFinds);
 		void clearInterleave();
 	
 		int	getFrameData(int iCameraPixel);
@@ -113,6 +107,8 @@ class PCDecode : public PCConfig
 		unsigned long *			_intFrameData;
 		unsigned long *			_intFrameParity;
 		bool *					_boolFrameValid;
+	
+		bool *					_boolProjectorMask;
 	
 };
 
