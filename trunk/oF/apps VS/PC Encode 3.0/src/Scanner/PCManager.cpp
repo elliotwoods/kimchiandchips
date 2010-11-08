@@ -18,7 +18,8 @@ _wdgStartScan("Start scan"),
 _wdgClear("Clear all (including mask)"),
 _scrControls("Controls"),
 _wdgDistance("Screen distance", screenDistance, 0, 1, 0.01,"meters"),
-_wdgIFrame("iFrame",iFrame,0)
+_wdgIFrame("iFrame",iFrame,0),
+_wdgScanForever("Scan forever", scanForever)
 
 {
 	isInitialised=false;
@@ -38,8 +39,11 @@ _wdgIFrame("iFrame",iFrame,0)
 	_scrControls.push(&_wdgClear);
 	_scrControls.push(&_wdgDistance);
 	_scrControls.push(&_wdgIFrame);
+	_scrControls.push(&_wdgScanForever);
 	
 	screenDistance = 0.5;
+
+	scanForever = false;
 	
 }
 
@@ -193,7 +197,6 @@ void PCManager::start()
 void PCManager::stop()
 {
 	state = STATE_STANDBY;
-	iFrame = 0;
 }
 
 void PCManager::clear(bool clearMask)
@@ -254,6 +257,8 @@ void PCManager::advanceFrame()
 					_decoder[iCam]->calcThreshold();
 				stop();
 				ofLog(OF_LOG_VERBOSE, "PCManager: end calibrate");
+				if (scanForever)
+					start();
 			}
 			break;
 			
@@ -263,6 +268,8 @@ void PCManager::advanceFrame()
 				stop();
 				updateProjectorMask();
 				ofLog(OF_LOG_VERBOSE, "PCManager: end scan");
+				if (scanForever)
+					calibrate();
 			}
 			break;
 	}
