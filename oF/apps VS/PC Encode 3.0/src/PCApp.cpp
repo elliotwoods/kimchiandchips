@@ -142,7 +142,8 @@ void PCApp::keyPressed(int key){
 			break;
 		
 		case 'd': // d = save as 'data'
-			_scanner.save("data");
+			_scanner.save(ofToString(PCConfig.projWidth) + "," + ofToString(_scanner.interleaveWidth) + "x" +
+				ofToString(PCConfig.projHeight) + "," + ofToString(_scanner.interleaveHeight));
 			break;
 		
 
