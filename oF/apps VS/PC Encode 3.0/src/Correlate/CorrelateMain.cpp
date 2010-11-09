@@ -70,6 +70,7 @@ scrGridData("Data pointclouds")
 	scrControl.push(bangWrite);
 	scrControl.push(new wdgButton("Invert XY", invertXY));
 	scrControl.push(new wdgButton("File format v0.2", newFormat));
+	scrControl.push(new wdgButton("Swap cameras", swapCameras));
 	scrControl.push(bangSaveProjectionXYZ);
 	
 	
@@ -222,8 +223,15 @@ void CorrelateMain::loadData()
 					inFile.read((char*) &thisvalx, 4);
 					inFile.read((char*) &thisvaly, 4);
 					
-					inputRow[0 + iCam*2] = thisvalx;
-					inputRow[1 + iCam*2] = thisvaly;
+					if (!swapCameras)
+					{
+						inputRow[0 + iCam*2] = thisvalx;
+						inputRow[1 + iCam*2] = thisvaly;
+					} else {
+						inputRow[0 + (nCameras-iCam-1)*2] = thisvalx;
+						inputRow[1 + (nCameras-iCam-1)*2] = thisvaly;
+					}
+
 				}
 				
 				nPoints++;

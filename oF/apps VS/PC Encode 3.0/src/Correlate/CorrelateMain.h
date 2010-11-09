@@ -51,6 +51,7 @@ protected:
 	int				nDatasets;
 	int				nPoints;
 	float			screenWidth, screenHeight;
+	bool			swapCameras;
 	
 	// input point cloud
 	float			input_pos[MAXPOINTS][3];
