@@ -164,10 +164,9 @@ bool scrBase::hitMaximise(int x, int y)
 	return _isFullscreen;
 }
 
-bool scrBase::hitMaximise(int x, int y, bool input)
+void scrBase::hitMaximise(int x, int y, bool input)
 {
 	_isFullscreen = input;
-	return _isFullscreen;
 }
 
 void scrBase::setBounds(int x, int y, int w, int h)
