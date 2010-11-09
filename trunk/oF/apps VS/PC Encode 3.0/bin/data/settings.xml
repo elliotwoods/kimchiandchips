@@ -6,9 +6,9 @@
 				<projector width="1440" height="900" />
 				<projector width="32" height="16" />
 			-->
-			<projector width="256" height="256" />
+			<projector width="1024" height="768" />
 			<interleave width="1" height="1" />
-			<errorcheck nFrames="3" />
+			<errorcheck nFrames="0" />
 	</encoding>
 	
 	<decoding>
@@ -16,10 +16,10 @@
 			gain="40" exposure="128" delay="200">
 			
 			<camera id="0" />
-			<!--camera id="1" /-->
+			<camera id="1" />
 		</cameras>
 
-    <data sdev="1" />
+    <data sdev="0" />
 		<threshold percentile="0.7" />
 	</decoding>
 	
