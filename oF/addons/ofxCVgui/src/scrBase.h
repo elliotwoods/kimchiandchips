@@ -37,7 +37,7 @@ public:
 	virtual void			mouseDragged(int x, int y, int dx, int dy, int button) { };
 	
 	virtual bool			hitMaximise(int x, int y);
-	virtual bool			hitMaximise(int x, int y, bool input);
+	virtual void			hitMaximise(int x, int y, bool input);
 	const bool				&isFullscreen;
 	
 	void					setBounds(int x, int y, int w, int h);

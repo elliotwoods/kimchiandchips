@@ -25,7 +25,7 @@ public:
 	void				mouseDragged(int x, int y, int dx, int dy, int button);
 	
 	bool				hitMaximise(int x, int y);
-	bool				hitMaximise(int x, int y, bool input);
+	void				hitMaximise(int x, int y, bool isMaximised);
 	vector<scrBase*>	screens;
 	
 	

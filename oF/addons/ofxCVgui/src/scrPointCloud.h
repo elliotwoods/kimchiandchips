@@ -7,10 +7,7 @@
  *
  */
 
-//might change this into scrFBO...
-
 #include "ofMain.h"
-#include "ofxFBOTexture.h"
 
 #include "scrTexture.h"
 

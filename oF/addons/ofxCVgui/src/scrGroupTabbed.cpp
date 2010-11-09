@@ -89,7 +89,9 @@ void scrGroupTabbed::mouseDown(int x, int y)
 
 int scrGroupTabbed::findScreen(int x, int y)
 {
-	if (x>_x && x<_x+_width &&
+	if (_isFullscreen)
+		return iScreenMaximised;
+	else if (x>_x && x<_x+_width &&
 		y>_y+tabRegionHeight && y<_y+_height)
 		return iSelection;
 	else

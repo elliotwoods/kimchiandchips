@@ -75,54 +75,43 @@ void scrGroupBase::mouseDragged(int x, int y, int dx, int dy, int button)
 
 bool scrGroupBase::hitMaximise(int x, int y)
 {
-	if (!_isFullscreen)
+	//this function:
+	//will maximise / unmaximise one of its children if anything is hit
+	//returns whether one of it's members is maximised
+
+	if (_isFullscreen)
 	{
+		//one of the children are already maximised
+		//should be iScreenMaximised
+
+		screens[iScreenMaximised]->hitMaximise(x, y, false);
+		iScreenMaximised=-1;
+		_isFullscreen=false;
+		return false;
+	} else {
+		//no children are maximised
+
+		//find screen to maximise
 		int iScreen = findScreen(x, y);
 
-		if (iScreen != -1)
-
-			if (screens[iScreen]->hitMaximise(x,y))
-			{
-				iScreenMaximised = iScreen;
-				_isFullscreen = true;
-				return true;
-			} else {
-				iScreenMaximised = -1;
-				_isFullscreen = false;
-				return false;
-			}
-
-		else
+		//if we cant find a screen, let's leave it
+		if (iScreen==-1)
 			return false;
+
+		screens[iScreen]->hitMaximise(x, y, true);
+		iScreenMaximised=iScreen;
+		_isFullscreen=true;
+		return true;
 	}
-	
-	screens[iScreenMaximised]->hitMaximise(x,y,false);
-	iScreenMaximised = -1;
-	_isFullscreen=false;
-	return false;
 }
 
-bool scrGroupBase::hitMaximise(int x, int y, bool input)
+void scrGroupBase::hitMaximise(int x, int y, bool isMaximised)
 {
-	int iScreen;
-	
-	if (_isFullscreen)
-		iScreen = iScreenMaximised;
-	else
-		iScreen = findScreen(x, y);
-	
-	//if we're not referencing a screen,
-	//i.e. our cursor is outside of screen
-	//selection area, then let's not do anything
-	if (iScreen == -1)
-		return _isFullscreen;
-	
-	screens[iScreen]->hitMaximise(x, y, input);
-	
-	_isFullscreen = input;
-	if (input)
-		iScreenMaximised = iScreen;
-	
-	return input;
-
+	if (_isFullscreen==isMaximised)
+	{
+		ofLog(OF_LOG_WARNING, "scrGroupBase: already in that maximised state which is " + string(_isFullscreen ? "true" : "false"));
+		return;
+	} else {
+		hitMaximise(x,y);
+	}
 }
