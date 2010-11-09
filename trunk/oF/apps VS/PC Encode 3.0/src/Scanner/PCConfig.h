@@ -28,7 +28,6 @@ class PCConfig
 
 		static char		nCameras;
 	
-	protected:
 		static vector<int> camIDs;
 		static unsigned short		camWidth, camHeight;
 		static unsigned short		projWidth, projHeight;
