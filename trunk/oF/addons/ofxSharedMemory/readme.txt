@@ -29,3 +29,10 @@ already).
 	
 	I also added the path to Utils project in my
 	'Additional reference search paths'
+
+
+Then also you need to setup CLR
+I generally set all the flags in Project>Properties to be as similar as possible to a cpp VVVV plugin. 
+
+The main step is to go to 'Configuration Properties' (top level of the properties tree)
+and choose 'Common Language Runtime Support (/clr)' under the option box called the same thing.
