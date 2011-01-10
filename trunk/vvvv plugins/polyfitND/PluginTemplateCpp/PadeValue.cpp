@@ -42,11 +42,11 @@ namespace PolyFitND
 		FHost->CreateValueInput("World",3,arr,TSliceMode::Dynamic,TPinVisibility::True,this->vPinInWorld);
 		FHost->CreateValueInput("Projection",2,arr,TSliceMode::Dynamic,TPinVisibility::True,this->vPinInProjection);
 		
-		//FHost->CreateValueInput("Order", 1, arr, TSliceMode::Single, TPinVisibility::True, this->vPinInOrder);
-		//vPinInOrder->SetSubType(1, 2, 1, 1, false, false, true);
+		FHost->CreateValueInput("Order", 1, arr, TSliceMode::Single, TPinVisibility::True, this->vPinInOrder);
+		vPinInOrder->SetSubType(1, 2, 1, 1, false, false, true);
 
 
-		FHost->CreateValueOutput("Output",4,arr,TSliceMode::Dynamic,TPinVisibility::True,this->vPinOutOutput);
+		FHost->CreateValueOutput("Output",1,arr,TSliceMode::Dynamic,TPinVisibility::True,this->vPinOutOutput);
 		FHost->CreateValueOutput("Sucess",1,arr,TSliceMode::Single,TPinVisibility::True,this->vPinOutSuccess);
 		vPinOutSuccess->SetSubType(0,1,1,0,false,false,true);
 	}
@@ -70,6 +70,9 @@ namespace PolyFitND
 
 			_fitX = new polyNfit(1, 4, 1, 2 + _order);
 			_fitY = new polyNfit(1, 4, 1, 2 + _order);
+
+			_hasSuccess=false;
+			evalPoly();
 		}
 
 		if (vPinInWorld->PinIsChanged || vPinInProjection->PinIsChanged)
@@ -84,13 +87,20 @@ namespace PolyFitND
 	void PadeValue::evalPoly()
 	{
 		_debugMessage = "";
-		_hasSuccess=true;
+		_hasSuccess=false;
 
 		// --------------
 		// FILL VECTORS
 		// --------------
 
 		_nDataPoints = min(vPinInWorld->SliceCount, vPinInProjection->SliceCount);
+
+		if (_nDataPoints==0)
+		{
+			_debugMessage = gcnew String("No data points");
+			_hasSuccess = false;
+			return;
+		}
 
 		vector<vector<double> > vecDataInX, vecDataOutX;
 		vector<vector<double> > vecDataInY, vecDataOutY;
@@ -168,6 +178,7 @@ namespace PolyFitND
 			{
 				_fitX->init(vecDataInX, vecDataOutX,  _nDataPoints);
 				_fitY->init(vecDataInY, vecDataOutY, _nDataPoints);
+				_hasSuccess = true;
 			} else
 				throw("No data points");
 
@@ -193,7 +204,7 @@ namespace PolyFitND
 			vPinOutOutput->SliceCount=0;
 			return;
 		} else
-			vPinOutOutput->SliceCount=4;
+			vPinOutOutput->SliceCount=(nCoefficients+1)*2;
 
 		double *coefficientsX = new double[nCoefficients];
 		double *coefficientsY = new double[nCoefficients];
@@ -267,6 +278,8 @@ namespace PolyFitND
 			for (int iCoeff=0; iCoeff<26; iCoeff++)
 				vPinOutOutput->SetValue(iCoeff, Output[iCoeff]);
 		}
+
+		_hasSuccess = true;
 
 	}
 
