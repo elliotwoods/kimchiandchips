@@ -25,7 +25,6 @@ namespace PolyFitND
 
 	void PolyValND::SetPluginHost(IPluginHost ^ Host) 
 	{
-		Host->Log(TLogType::Debug,"Here");
 		this->FHost = Host;
 
 		array<String ^> ^ arr = gcnew array<String ^>(1);		

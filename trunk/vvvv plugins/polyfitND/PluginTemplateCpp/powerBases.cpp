@@ -108,10 +108,10 @@ void powerBases::calc()
 		
 		_renderedNDimensions = _nDimensions;
 		_renderedNPowerOrder = _nPowerOrder;
-	} else {
+	} else if (_basesShape == BASIS_SHAPE_PADE_FIRST ) {
 
 		//
-		// PADE BASES
+		// PADE BASES 1st order
 		//
 
 		_nDimensions=4;
@@ -123,26 +123,90 @@ void powerBases::calc()
 				vecBasisIndicies[iBasis][iDimension]=0;
 		}
 
-		//x x'
+		//E x x'
 		vecBasisIndicies[0][0]=1;
 		vecBasisIndicies[0][3]=1;
 
-		//y x'
+		//F y x'
 		vecBasisIndicies[1][1]=1;
 		vecBasisIndicies[1][3]=1;
 
-		//z x'
+		//G z x'
 		vecBasisIndicies[2][2]=1;
 		vecBasisIndicies[2][3]=1;
 
-		//x
+		//A x
 		vecBasisIndicies[3][0]=1;
 
-		//y
+		//B y
 		vecBasisIndicies[4][1]=1;
 
-		//z
+		//C z
 		vecBasisIndicies[5][2]=1;
+
+		//D
+
+		//constant
+		//
+
+		_nBases = vecBasisIndicies.size();
+		
+		_renderedNDimensions = _nDimensions;
+		_renderedNPowerOrder = _nPowerOrder;
+	} else if (_basesShape == BASIS_SHAPE_PADE_SECOND ) {
+
+		//
+		// PADE BASES 2nd order
+		//
+
+		_nDimensions=4;
+		vecBasisIndicies.clear();
+		for (int iBasis=0; iBasis<11; iBasis++)
+		{
+			vecBasisIndicies.push_back(new unsigned int[_nDimensions]);
+			for (int iDimension=0; iDimension<_nDimensions; iDimension++)
+				vecBasisIndicies[iBasis][iDimension]=0;
+		}
+
+		//I x x'
+		vecBasisIndicies[0][0]=1;
+		vecBasisIndicies[0][3]=1;
+
+		//J y x'
+		vecBasisIndicies[1][1]=1;
+		vecBasisIndicies[1][3]=1;
+
+		//K z x'
+		vecBasisIndicies[2][2]=1;
+		vecBasisIndicies[2][3]=1;
+
+		//A x
+		vecBasisIndicies[3][0]=1;
+
+		//B y
+		vecBasisIndicies[4][1]=1;
+
+		//C z
+		vecBasisIndicies[5][2]=1;
+
+		//D xy
+		vecBasisIndicies[6][0]=1;
+		vecBasisIndicies[6][1]=1;
+
+		//E yz
+		vecBasisIndicies[7][1]=1;
+		vecBasisIndicies[7][2]=1;
+
+		//F zx
+		vecBasisIndicies[8][0]=1;
+		vecBasisIndicies[8][2]=1;
+
+		//G xyz
+		vecBasisIndicies[9][0]=1;
+		vecBasisIndicies[9][1]=1;
+		vecBasisIndicies[9][2]=1;
+
+		//H
 
 		//constant
 		//
