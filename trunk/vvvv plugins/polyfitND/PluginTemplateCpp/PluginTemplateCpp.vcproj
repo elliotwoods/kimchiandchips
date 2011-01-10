@@ -6,7 +6,7 @@
 	ProjectGUID="{07BCED12-8232-481F-9EF1-B8E9FD570F3A}"
 	RootNamespace="PluginTemplateCpp"
 	Keyword="ManagedCProj"
-	TargetFrameworkVersion="131072"
+	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
 		<Platform
@@ -18,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\..\..\..\..\..\vvvv\vvvv_40beta23\plugins"
+			OutputDirectory="..\..\..\..\..\..\vvvv\vvvv_45beta25\plugins"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
@@ -252,13 +252,10 @@
 			AssemblyName="System.Xml, Version=2.0.0.0, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
 			MinFrameworkVersion="131072"
 		/>
-		<ProjectReference
-			ReferencedProjectIdentifier="{837C740A-485C-424C-8C38-086ED3DC73CB}"
-			RelativePathToProject="..\_PluginInterfaces\trunk\PluginInterfaces.csproj"
-		/>
-		<ProjectReference
-			ReferencedProjectIdentifier="{C3773330-81FA-4253-823E-1BDE1529AA99}"
-			RelativePathToProject="..\_Utils\trunk\Utils.csproj"
+		<AssemblyReference
+			RelativePath="..\..\..\..\..\..\vvvv\vvvv_45beta25\bin\managed\VVVV.PluginInterfaces.dll"
+			AssemblyName="VVVV.PluginInterfaces, Version=1.0.0.0, processorArchitecture=MSIL"
+			MinFrameworkVersion="196613"
 		/>
 	</References>
 	<Files>

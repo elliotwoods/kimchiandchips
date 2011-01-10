@@ -9,7 +9,7 @@
 			Name="Debug|Win32"
 			>
 			<DebugSettings
-				Command="C:\vvvv\vvvv_40beta23\vvvv.exe"
+				Command="C:\vvvv\vvvv_45beta25\vvvv.exe"
 				WorkingDirectory=""
 				CommandArguments=""
 				Attach="false"
