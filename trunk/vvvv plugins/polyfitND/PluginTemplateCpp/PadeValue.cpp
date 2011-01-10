@@ -41,7 +41,9 @@ namespace PolyFitND
 
 		FHost->CreateValueInput("World",3,arr,TSliceMode::Dynamic,TPinVisibility::True,this->vPinInWorld);
 		FHost->CreateValueInput("Projection",2,arr,TSliceMode::Dynamic,TPinVisibility::True,this->vPinInProjection);
-
+		
+		//FHost->CreateValueInput("Order", 1, arr, TSliceMode::Single, TPinVisibility::True, this->vPinInOrder);
+		//vPinInOrder->SetSubType(1, 2, 1, 1, false, false, true);
 
 
 		FHost->CreateValueOutput("Output",4,arr,TSliceMode::Dynamic,TPinVisibility::True,this->vPinOutOutput);
@@ -54,6 +56,22 @@ namespace PolyFitND
 
 	void PadeValue::Evaluate(int SpreadMax) 
 	{
+		if (vPinInOrder->PinIsChanged)
+		{
+			double currentOrder;
+			vPinInOrder->GetValue(0, currentOrder);
+			currentOrder = (currentOrder > 2 ? 2 :
+				(currentOrder < 1 ? 1 : currentOrder));
+
+			_order = currentOrder;
+
+			delete _fitX;
+			delete _fitY;
+
+			_fitX = new polyNfit(1, 4, 1, 2 + _order);
+			_fitY = new polyNfit(1, 4, 1, 2 + _order);
+		}
+
 		if (vPinInWorld->PinIsChanged || vPinInProjection->PinIsChanged)
 		{
 			_hasSuccess=false;
@@ -85,19 +103,23 @@ namespace PolyFitND
 		vecDataInY.clear();
 		vecDataOutY.clear();
 
+		/////////////////////////////
+		// Build up the blank vectors
+		/////////////////////////////
 		vecDummy.resize(4);
 		for (int iDataPoint = 0; iDataPoint<_nDataPoints; iDataPoint++)
 		{
 			vecDataInX.push_back(vecDummy);
 			vecDataInY.push_back(vecDummy);
 		}
-
+		//
 		vecDummy.resize(1);
 		for (int iDataPoint = 0; iDataPoint<_nDataPoints; iDataPoint++)
 		{
 			vecDataOutX.push_back(vecDummy);
 			vecDataOutY.push_back(vecDummy);
 		}
+		/////////////////////////////
 
 		for (int iDataPoint = 0; iDataPoint<_nDataPoints; iDataPoint++)
 		{
@@ -118,7 +140,7 @@ namespace PolyFitND
 										vecDataInX[iDataPoint][3]);
 			vPinInProjection->GetValue(iDataPoint*2+1,
 										vecDataInY[iDataPoint][3]);
-
+			//
 			////////////////////////////
 
 			
@@ -140,6 +162,7 @@ namespace PolyFitND
 		// RUN FIT
 		// ----------------------------
 		
+		int nCoefficients = (_order==1 ? 7 : 11);
 		try {
 			if (_nDataPoints>0)
 			{
@@ -147,6 +170,9 @@ namespace PolyFitND
 				_fitY->init(vecDataInY, vecDataOutY, _nDataPoints);
 			} else
 				throw("No data points");
+
+			if (_nDataPoints< nCoefficients)
+				throw("Insufficient data points for full fit");
 		}
 
 		catch(char * message)
@@ -169,8 +195,8 @@ namespace PolyFitND
 		} else
 			vPinOutOutput->SliceCount=4;
 
-		double *coefficientsX = new double[7];
-		double *coefficientsY = new double[7];
+		double *coefficientsX = new double[nCoefficients];
+		double *coefficientsY = new double[nCoefficients];
 
 		int nBases; // dummy value
 
@@ -180,32 +206,67 @@ namespace PolyFitND
 		// ----------------------------
 		// OUTPUT
 		// ----------------------------
-		double Output[18];
+		if (_order==1)
+		{
+			double Output[18];
 
-		Output[0] = -coefficientsX[3];
-		Output[1] = -coefficientsX[4];
-		Output[2] = -coefficientsX[5];
-		Output[3] = -coefficientsX[6];
+			Output[0] = -coefficientsX[3];
+			Output[1] = -coefficientsX[4];
+			Output[2] = -coefficientsX[5];
+			Output[3] = -coefficientsX[6];
 
-		Output[4] = coefficientsX[0];
-		Output[5] = coefficientsX[1];
-		Output[6] = coefficientsX[2];
-		Output[7] = 1;
+			Output[4] = coefficientsX[0];
+			Output[5] = coefficientsX[1];
+			Output[6] = coefficientsX[2];
+			Output[7] = 1;
 
-		Output[8] = -coefficientsY[3];
-		Output[9] = -coefficientsY[4];
-		Output[10] = -coefficientsY[5];
-		Output[11] = -coefficientsY[6];
+			Output[8] = -coefficientsY[3];
+			Output[9] = -coefficientsY[4];
+			Output[10] = -coefficientsY[5];
+			Output[11] = -coefficientsY[6];
 
-		Output[12] = coefficientsY[0];
-		Output[13] = coefficientsY[1];
-		Output[14] = coefficientsY[2];
-		Output[15] = 1;
+			Output[12] = coefficientsY[0];
+			Output[13] = coefficientsY[1];
+			Output[14] = coefficientsY[2];
+			Output[15] = 1;
 
 
 
-		for (int iCoeff=0; iCoeff<16; iCoeff++)
-			vPinOutOutput->SetValue(iCoeff, Output[iCoeff]);
+			for (int iCoeff=0; iCoeff<16; iCoeff++)
+				vPinOutOutput->SetValue(iCoeff, Output[iCoeff]);
+		} else if (_order==2) {
+			double Output[26];
+
+			double *out = Output;
+			double *coefficients;
+			for (int iDim=0; iDim<2 ; iDim++)
+			{
+				coefficients = (iDim==0 ? coefficientsX : coefficientsY);
+
+				//1st order
+				*out++ = -coefficients[3];
+				*out++ = -coefficients[4];
+				*out++ = -coefficients[5];
+
+				//2nd order
+				*out++ = -coefficients[6];
+				*out++ = -coefficients[7];
+				*out++ = -coefficients[8];
+				*out++ = -coefficients[9];
+
+				//0th order
+				*out++ = -coefficientsX[10];
+				
+				//denominator
+				*out++ = coefficientsX[0];
+				*out++ = coefficientsX[1];
+				*out++ = coefficientsX[2];
+				*out++ = 1;
+			}
+
+			for (int iCoeff=0; iCoeff<26; iCoeff++)
+				vPinOutOutput->SetValue(iCoeff, Output[iCoeff]);
+		}
 
 	}
 
