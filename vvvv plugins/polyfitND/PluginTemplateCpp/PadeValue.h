@@ -17,7 +17,7 @@ using namespace VVVV::Utils::VMath;
 #include <math.h>
 #include "polyNfit.h"
 
-namespace PolyFitND {
+__gc namespace PolyFitND {
 
 
 	public ref class PadeValue :IPlugin
