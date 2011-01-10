@@ -1,7 +1,7 @@
 
 //
 //
-//		P A D E (T r a n s f o r m)
+//		P A D E ( V a l u e )
 //
 //
 
@@ -17,7 +17,7 @@ using namespace VVVV::Utils::VMath;
 #include <math.h>
 #include "polyNfit.h"
 
-__gc namespace PolyFitND {
+namespace PolyFitND {
 
 
 	public ref class PadeValue :IPlugin
@@ -32,6 +32,8 @@ __gc namespace PolyFitND {
 			IValueIn^			vPinInWorld;
 			IValueIn^			vPinInProjection;
 
+			IValueIn^			vPinInOrder;
+
 			IValueOut^			vPinOutOutput;
 			IValueOut^			vPinOutSuccess;
 			
@@ -43,6 +45,7 @@ __gc namespace PolyFitND {
 			bool			_hasSuccess;
 
 			int				_nDataPoints;
+			int				_order;
 
 			String^			_debugMessage;
 			/////////////////////////////////////
@@ -73,7 +76,7 @@ __gc namespace PolyFitND {
 					Info->Version = "";
 					Info->Help = "Pade approximate projection matrix generator";
 					Info->Bugs = "";
-					Info->Credits = "Elliot Woods, Dan Tang";
+					Info->Credits = "Elliot Woods, Daniel Tang";
 					Info->Warnings = "";
 
 					//leave below as is
