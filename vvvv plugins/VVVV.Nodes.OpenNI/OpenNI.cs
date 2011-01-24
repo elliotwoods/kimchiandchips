@@ -66,7 +66,7 @@ namespace VVVV.Nodes.OpenNI
         #region Fields
         private IPluginHost FHost;
         private List<DebugMessage> DebugMessages = new List<DebugMessage>();
-    
+
         //inputs
         private IStringIn FPinInConfig;
         private IValueIn FPinInPipetXY;
@@ -91,27 +91,43 @@ namespace VVVV.Nodes.OpenNI
         private bool FOutputEnabledXYZ = false;
         private bool FOutputEnabledRGB = false;
 
+        //image data
         private IntPtr FDataDepth = new IntPtr();
         private IntPtr FDataXYZ = new IntPtr();
         private IntPtr FDataRGB = new IntPtr();
 
+        private IntPtr FDataDepthOut = new IntPtr();
+        private IntPtr FDataXYZOut = new IntPtr();
+        private IntPtr FDataRGBOut = new IntPtr();
+
+        private Dictionary<int, bool> FDataDepthIsFresh = new Dictionary<int,bool>();
+        private Dictionary<int, bool> FDataXYZIsFresh = new Dictionary<int,bool>();
+        private Dictionary<int, bool> FDataRGBIsFresh = new Dictionary<int,bool>();
+
+
+        //thread locking
+        private object FLockDataDepthOut = new object();
+        private object FLockDataRGBOut = new object();
+        private object FLockDataXYZOut = new object();
+        private object FLockPipets = new object();
+
         //pipet
         private List<int> FPipetRequests = new List<int>();
-        private bool FPipetRequestsReady = false; 
-        
+        private bool FPipetRequestsReady = false;
+
         private List<double[]> FPipetResults = new List<double[]>();
         private bool FPipetResultsReady = false;
 
         //Background
-        private IntPtr  FBackgroundDepth = new IntPtr();
-        private bool    FBackgroundCaptured = false;
-        private UInt16  FBackgroundThreshold = 0;
-        private bool    FBackgroundDoCopy = false;
+        private IntPtr FBackgroundDepth = new IntPtr();
+        private bool FBackgroundCaptured = false;
+        private UInt16 FBackgroundThreshold = 0;
+        private bool FBackgroundDoCopy = false;
 
         //OpenNI
         private int FWidth = 640;
         private int FHeight = 480;
-               
+
         private string FConfigString = "";
 
         private bool FRunning = false;
@@ -173,7 +189,7 @@ namespace VVVV.Nodes.OpenNI
         #region Constructor
         public OpenNInode()
         {
-            
+
         }
         ~OpenNInode()
         {
@@ -184,7 +200,7 @@ namespace VVVV.Nodes.OpenNI
         #region Configurate
         public void Configurate(IPluginConfig Input)
         {
-                        
+
         }
         #endregion
 
@@ -203,7 +219,7 @@ namespace VVVV.Nodes.OpenNI
             {
                 FPinInConfig.GetString(0, out FConfigString);
                 if (FConfigString != null)
-                    if (FConfigString.Length>0)
+                    if (FConfigString.Length > 0)
                         start();
             }
 
@@ -215,11 +231,11 @@ namespace VVVV.Nodes.OpenNI
             //check running
             double Running = (FRunning ? 1 : 0);
             FPinOutRunning.SetValue(0, Running);
-            
+
             //get pipet results
             if (FPipetResultsReady)
             {
-                lock (this)
+                lock (FLockPipets)
                 {
                     int nPipets = FPipetResults.Count;
                     FPinOutPipetResultXYZ.SliceCount = nPipets;
@@ -236,7 +252,7 @@ namespace VVVV.Nodes.OpenNI
             {
                 int idx, idy, id;
                 double px, py;
-                lock (this)
+                lock (FLockPipets)
                 {
                     FPipetRequests.Clear();
                     for (int i = 0; i < FPinInPipetXY.SliceCount; i++)
@@ -268,10 +284,10 @@ namespace VVVV.Nodes.OpenNI
                 {
                     if (!FBackgroundCaptured)
                         FBackgroundDepth = Marshal.AllocCoTaskMem(FWidth * FHeight * 2);
- 
+
                     FBackgroundDoCopy = true;
                 }
-                
+
             }
 
             if (FPinInBackgroundThreshold.PinIsChanged)
@@ -287,7 +303,7 @@ namespace VVVV.Nodes.OpenNI
             int iHandOut = 0;
             foreach (KeyValuePair<uint, Point3D> HandMM in FHandsVector)
             {
-                FPinOutHands.SetValue3D(iHandOut++, (double)HandMM.Value.X/1000.0f, (double)HandMM.Value.Y/1000.0f, (double)HandMM.Value.Z/1000.0f);
+                FPinOutHands.SetValue3D(iHandOut++, (double)HandMM.Value.X / 1000.0f, (double)HandMM.Value.Y / 1000.0f, (double)HandMM.Value.Z / 1000.0f);
             }
         }
         #endregion
@@ -353,53 +369,64 @@ namespace VVVV.Nodes.OpenNI
             {
                 Texture txt = new Texture(dev, FWidth, FHeight, 1, Usage.None, Format.L16, Pool.Managed);
                 this.FTexturesD16.Add(OnDevice, txt);
+                this.FDataDepthIsFresh.Add(OnDevice, false);
             }
 
             if (!this.FTexturesXYZ.ContainsKey(OnDevice))
             {
                 Texture txt = new Texture(dev, FWidth, FHeight, 1, Usage.None, Format.A32B32G32R32F, Pool.Managed);
                 this.FTexturesXYZ.Add(OnDevice, txt);
+                this.FDataXYZIsFresh.Add(OnDevice, false);
             }
 
             if (!this.FTexturesRGB.ContainsKey(OnDevice))
             {
                 Texture txt = new Texture(dev, FWidth, FHeight, 1, Usage.None, Format.X8R8G8B8, Pool.Managed);
                 this.FTexturesRGB.Add(OnDevice, txt);
+                this.FDataRGBIsFresh.Add(OnDevice, false);
             }
 
             Texture tx = this.FTexturesD16[OnDevice];
-            if (FOutputEnabledD16 && this.FDataDepth != null)
+            if (FOutputEnabledD16 && this.FDataDepth != null && ForPin==FPinOutTextureDepth16 && FDataDepthIsFresh[OnDevice])
             {
                 Surface srf = tx.GetSurfaceLevel(0);
                 DataRectangle rect = srf.LockRectangle(LockFlags.Discard);
-                rect.Data.WriteRange(this.FDataDepth, FWidth * FHeight * 2);
+                lock (FLockDataDepthOut)
+                    rect.Data.WriteRange(this.FDataDepthOut, FWidth * FHeight * 2);
                 srf.UnlockRectangle();
+
+                FDataDepthIsFresh[OnDevice] = false;
             }
 
             tx = this.FTexturesXYZ[OnDevice];
-            if (FOutputEnabledXYZ && this.FDataXYZ != null)
+            if (FOutputEnabledXYZ && this.FDataXYZ != null && ForPin == FPinOutTextureXYZ && FDataXYZIsFresh[OnDevice])
             {
                 Surface srf = tx.GetSurfaceLevel(0);
                 DataRectangle rect = srf.LockRectangle(LockFlags.Discard);
-                rect.Data.WriteRange(this.FDataXYZ, FWidth * FHeight * 4 * 4);
+                lock (FLockDataXYZOut)
+                    rect.Data.WriteRange(this.FDataXYZOut, FWidth * FHeight * 4 * 4);
                 srf.UnlockRectangle();
-            }
 
+                FDataXYZIsFresh[OnDevice] = false;
+            }
+            
             tx = this.FTexturesRGB[OnDevice];
-            if (FOutputEnabledRGB && this.FDataRGB != null)
+            if (FOutputEnabledRGB && this.FDataRGB != null && ForPin == FPinOutTextureRGB && FDataRGBIsFresh[OnDevice])
             {
                 Surface srf = tx.GetSurfaceLevel(0);
                 DataRectangle rect = srf.LockRectangle(LockFlags.Discard);
-                rect.Data.WriteRange(this.FDataRGB, FWidth * FHeight * 4);
+                lock (FLockDataRGBOut)
+                    rect.Data.WriteRange (this.FDataRGBOut, FWidth * FHeight * 4);
                 srf.UnlockRectangle();
-            }
 
+                FDataRGBIsFresh[OnDevice] = false;
+            }
         }
-        
+
         private void start()
         {
             if (this.FRunning)
-                stop() ;
+                stop();
 
             try
             {
@@ -411,14 +438,19 @@ namespace VVVV.Nodes.OpenNI
                 //allocate to begin with. this memory is wasted until app resets
                 //better idea is to not render texture until data is ready
                 this.FDataDepth = Marshal.AllocCoTaskMem(FWidth * FHeight * 2);
+                this.FDataDepthOut = Marshal.AllocCoTaskMem(FWidth * FHeight * 2);
+
                 this.FDataRGB = Marshal.AllocCoTaskMem(FWidth * FHeight * 4);
+                this.FDataRGBOut = Marshal.AllocCoTaskMem(FWidth * FHeight * 4);
+
                 this.FDataXYZ = Marshal.AllocCoTaskMem(FWidth * FHeight * 4 * 4);
+                this.FDataXYZOut = Marshal.AllocCoTaskMem(FWidth * FHeight * 4 * 4);
 
                 //set alpha values to 1
-                byte* RGB32 = (byte*) FDataRGB.ToPointer();
+                byte* RGB32 = (byte*)FDataRGB.ToPointer();
                 for (int i = 0; i < FWidth * FHeight; i++, RGB32 += 4)
                     RGB32[0] = 255;
-                
+
             }
             catch (XnStatusException e)
             {
@@ -429,7 +461,7 @@ namespace VVVV.Nodes.OpenNI
             if (FRunning)
             {
                 this.shouldRun = true;
-            
+
                 this.readerThread = new Thread(ReaderThread);
                 this.readerThread.Start();
 
@@ -442,8 +474,13 @@ namespace VVVV.Nodes.OpenNI
             if (this.FRunning)
             {
                 Marshal.FreeCoTaskMem(FDataDepth);
+                Marshal.FreeCoTaskMem(FDataDepthOut);
+
                 Marshal.FreeCoTaskMem(FDataRGB);
+                Marshal.FreeCoTaskMem(FDataRGBOut);
+
                 Marshal.FreeCoTaskMem(FDataXYZ);
+                Marshal.FreeCoTaskMem(FDataXYZOut);
 
                 this.FGeneratorGestures.StopGenerating();
             }
@@ -461,15 +498,15 @@ namespace VVVV.Nodes.OpenNI
             this.FGeneratorImage = FContext.FindExistingNode(NodeType.Image) as ImageGenerator;
             this.FGeneratorHands = FContext.FindExistingNode(NodeType.Hands) as HandsGenerator;
             this.FGeneratorGestures = FContext.FindExistingNode(NodeType.Gesture) as GestureGenerator;
-            
+
             this.FGeneratorGestures.AddGesture("Click");
             this.FGeneratorGestures.AddGesture("Wave");
-            this.FGeneratorGestures.AddGesture("RaiseHand");
+            //this.FGeneratorGestures.AddGesture("RaiseHand");
 
             this.FGeneratorGestures.GestureRecognized += new GestureGenerator.GestureRecognizedHandler(FGeneratorGestures_GestureRecognized);
-            this.FGeneratorHands.HandCreate +=new HandsGenerator.HandCreateHandler(FGeneratorHands_HandCreate);
-            this.FGeneratorHands.HandUpdate +=new HandsGenerator.HandUpdateHandler(FGeneratorHands_HandUpdate);
-            this.FGeneratorHands.HandDestroy +=new HandsGenerator.HandDestroyHandler(FGeneratorHands_HandDestroy);
+            this.FGeneratorHands.HandCreate += new HandsGenerator.HandCreateHandler(FGeneratorHands_HandCreate);
+            this.FGeneratorHands.HandUpdate += new HandsGenerator.HandUpdateHandler(FGeneratorHands_HandUpdate);
+            this.FGeneratorHands.HandDestroy += new HandsGenerator.HandDestroyHandler(FGeneratorHands_HandDestroy);
 
             this.FGeneratorImage.SetPixelFormat(xn.PixelFormat.RGB24);
 
@@ -487,78 +524,114 @@ namespace VVVV.Nodes.OpenNI
                     DebugMessages.Add(new DebugMessage(TLogType.Error, "OpenNI: " + e.Message));
                 }
 
-                lock (this)
+                if (FOutputEnabledD16 || FOutputEnabledXYZ)
                 {
-                    if (FOutputEnabledD16 || FOutputEnabledXYZ)
+
+                    CopyMemory(FDataDepth, this.FGeneratorDepth.GetDepthMapPtr(), FWidth * FHeight * 2);
+                    if (FBackgroundDoCopy)
                     {
-                        CopyMemory(FDataDepth, this.FGeneratorDepth.GetDepthMapPtr(), FWidth * FHeight * 2);
-                        if (FBackgroundDoCopy)
-                        {
-                            CopyMemory(FBackgroundDepth, FDataDepth, FWidth * FHeight * 2);
-                            FBackgroundDoCopy = false;
-                            FBackgroundCaptured = true;
-                        }
-                        
-                        if (FBackgroundCaptured && FBackgroundDepth != IntPtr.Zero)
-                        {
-                            //presume here that 2's complement is MSB, and MSB=0
-                            //need to have + and - for the abs difference line
-                            short* DataArray = (short*)FDataDepth.ToPointer();
-                            short* BackgroundArray = (short*)FBackgroundDepth.ToPointer();
-
-                            short ShortZero = 0;
-                            for (int i = 0; i < FWidth * FHeight; i++, DataArray++, BackgroundArray++)
-                            {
-                                if (Math.Abs(*DataArray - *BackgroundArray) < FBackgroundThreshold)
-                                    DataArray[0] = ShortZero;
-                            }
-                        }
-
-                        //FUsers.Update();
+                        CopyMemory(FBackgroundDepth, FDataDepth, FWidth * FHeight * 2);
+                        FBackgroundDoCopy = false;
+                        FBackgroundCaptured = true;
                     }
 
-                    if (FOutputEnabledXYZ)
-                        RenderXYZ();
-                    if (FOutputEnabledRGB)
+                    if (FBackgroundCaptured && FBackgroundDepth != IntPtr.Zero)
                     {
-                        byte* RGB24 = (byte*) this.FGeneratorImage.GetImageMapPtr().ToPointer();
-                        byte* RGB32 = (byte*) FDataRGB.ToPointer();
+                        //presume here that 2's complement is MSB, and MSB=0
+                        //need to have + and - for the abs difference line
+                        short* DataArray = (short*)FDataDepth.ToPointer();
+                        short* BackgroundArray = (short*)FBackgroundDepth.ToPointer();
 
-                        for (int i = 0; i < FWidth * FHeight; i++, RGB24 += 3, RGB32 += 4)
+                        short ShortZero = 0;
+                        for (int i = 0; i < FWidth * FHeight; i++, DataArray++, BackgroundArray++)
                         {
-                            RGB32[0] = RGB24[2];
-                            RGB32[1] = RGB24[1];
-                            RGB32[2] = RGB24[0];
+                            if (Math.Abs(*DataArray - *BackgroundArray) < FBackgroundThreshold)
+                                DataArray[0] = ShortZero;
                         }
+                    }
+
+                    lock (FLockDataDepthOut)
+                    {
+                        CopyMemory(FDataDepthOut, FDataDepth, FWidth * FHeight * 2);
+                        foreach (var key in FDataDepthIsFresh.Keys.ToList())
+                            FDataDepthIsFresh[key] = true;
                     }
                 }
+
+                if (FOutputEnabledXYZ)
+                {
+                    RenderXYZ();
+
+                    lock (FLockDataXYZOut)
+                    {
+                        CopyMemory(FDataXYZOut, FDataXYZ, FWidth * FHeight * 4 * 4);
+                        /*
+                        float* XYZ32F = (float*)this.FDataXYZ.ToPointer();
+                        Half* XYZ16F = (Half*)this.FDataXYZOut.ToPointer();
+
+                        for (int i = 0; i < FWidth * FHeight * 4; i++, XYZ16F++, XYZ32F++)
+                            *XYZ16F = (Half) (*XYZ32F);
+                         */
+
+                        foreach (var key in FDataXYZIsFresh.Keys.ToList())
+                            FDataXYZIsFresh[key] = true;
+                    }
+                }
+
+                if (FOutputEnabledRGB)
+                {
+                    byte* RGB24 = (byte*)this.FGeneratorImage.GetImageMapPtr().ToPointer();
+                    byte* RGB32 = (byte*)FDataRGB.ToPointer();
+
+                    for (int i = 0; i < FWidth * FHeight; i++, RGB24 += 3, RGB32 += 4)
+                    {
+                        RGB32[0] = RGB24[2];
+                        RGB32[1] = RGB24[1];
+                        RGB32[2] = RGB24[0];
+                    }
+                    lock (FLockDataRGBOut)
+                    {
+                        CopyMemory(FDataRGBOut, FDataRGB, FWidth * FHeight * 4);
+                        foreach (var key in FDataRGBIsFresh.Keys.ToList())
+                            FDataRGBIsFresh[key] = true; 
+                    }
+                }
+
+
             }
         }
 
-        void  FGeneratorHands_HandDestroy(ProductionNode node, uint id, float fTime)
+        void FGeneratorHands_HandDestroy(ProductionNode node, uint id, float fTime)
         {
             FHandsVector.Remove(id);
         }
 
-        void  FGeneratorHands_HandUpdate(ProductionNode node, uint id, ref Point3D position, float fTime)
+        void FGeneratorHands_HandUpdate(ProductionNode node, uint id, ref Point3D position, float fTime)
         {
             FHandsVector[id] = position;
         }
 
-        void  FGeneratorHands_HandCreate(ProductionNode node, uint id, ref Point3D position, float fTime)
+        void FGeneratorHands_HandCreate(ProductionNode node, uint id, ref Point3D position, float fTime)
         {
- 	        FHandsVector.Add(id, position);
+            FHandsVector.Add(id, position);
         }
 
         void FGeneratorGestures_GestureRecognized(ProductionNode node, string strGesture, ref Point3D idPosition, ref Point3D endPosition)
         {
             DebugMessages.Add(new DebugMessage(TLogType.Message, "Gesture " + strGesture + " found at " + endPosition.ToString() + " id" + idPosition.ToString()));
-            FGeneratorHands.StartTracking(ref endPosition);
+
+            if (strGesture=="Wave")
+            {
+                if (FHandsVector.Count == 0)
+                    FGeneratorHands.StartTracking(ref endPosition);
+                else
+                    FGeneratorHands.StopTrackingAll();
+            }
         }
 
         private unsafe void RenderXYZ()
         {
-            float* DataXYZ = (float*) FDataXYZ.ToPointer();
+            float* DataXYZ = (float*)FDataXYZ.ToPointer();
             ushort* DataDepth = (ushort*)FDataDepth.ToPointer();
 
             //calculate world positions
@@ -566,7 +639,7 @@ namespace VVVV.Nodes.OpenNI
                 for (int iX = 0; iX < FWidth; iX++, DataXYZ += 4, DataDepth++)
                     DepthToWorld(iX, iY, DataDepth[0], DataXYZ);
 
-            
+
 
             //check pipet requests
             if (FPipetRequestsReady)
@@ -578,9 +651,9 @@ namespace VVVV.Nodes.OpenNI
                 for (int iPipet = 0; iPipet < FPipetRequests.Count; iPipet++)
                 {
                     FPipetResults.Add(new double[3]);
-                    FPipetResults[iPipet][0] = System.Convert.ToDouble(DataXYZ[FPipetRequests[iPipet]*4]);
-                    FPipetResults[iPipet][1] = System.Convert.ToDouble(DataXYZ[FPipetRequests[iPipet]*4+1]);
-                    FPipetResults[iPipet][2] = System.Convert.ToDouble(DataXYZ[FPipetRequests[iPipet]*4+2]);
+                    FPipetResults[iPipet][0] = System.Convert.ToDouble(DataXYZ[FPipetRequests[iPipet] * 4]);
+                    FPipetResults[iPipet][1] = System.Convert.ToDouble(DataXYZ[FPipetRequests[iPipet] * 4 + 1]);
+                    FPipetResults[iPipet][2] = System.Convert.ToDouble(DataXYZ[FPipetRequests[iPipet] * 4 + 2]);
                 }
 
                 FPipetRequestsReady = false;
@@ -593,10 +666,10 @@ namespace VVVV.Nodes.OpenNI
         const float cx_d = 3.3930780975300314e+02f;
         const float cy_d = 2.4273913761751615e+02f;
 
-        private unsafe void DepthToWorld(int x, int y, int depthValue, float *data)
+        private unsafe void DepthToWorld(int x, int y, int depthValue, float* data)
         {
             //adapted from http://graphics.stanford.edu/~mdfisher/Kinect.html
-            
+
             //presume we're in mm units
             data[2] = System.Convert.ToSingle(depthValue) / 1000.0f;
             data[0] = (System.Convert.ToSingle(x) - cx_d) * fx_d * data[2];
@@ -614,10 +687,10 @@ namespace VVVV.Nodes.OpenNI
             data[0] = (System.Convert.ToSingle(x) - cx_d) * fx_d * data[2];
             data[1] = -(System.Convert.ToSingle(y) - cy_d) * fy_d * data[2];
 
-            data[3] = ( (data[2] > 0.0f) &&
+            data[3] = ((data[2] > 0.0f) &&
                         (Math.Abs(background - depthValue) > this.FBackgroundThreshold)
                         ? 1.0f : 0.0f);
         }
-        }
     }
+}
 
