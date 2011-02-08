@@ -7,6 +7,7 @@
 //
 
 #include "TS_ErrorHandler_Default.h"
+#include "vmath.h"
 
 using namespace std;
 
@@ -16,6 +17,7 @@ public:
     static void setErrorHandler(TS_ErrorHandler *handler);
     static void passError(int errorCode);
     
+    static Vector2f debugXY;
 protected:
     static TS_ErrorHandler      *errorHandler;
 };

@@ -121,10 +121,3 @@ void TS_Quad::deSerialise(TalkyMessage const &msg)
 	
 	return;
 }
-
-bool TS_Quad::isHit(Vector2f XY)
-{
-    Vector2f pointInQuad = getHomography() * XY;
-    
-    return (pointInQuad.x <= 1 && pointInQuad.x >= -1 && pointInQuad.y <= 1 && pointInQuad.y >= -1);
-}

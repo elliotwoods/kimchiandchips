@@ -54,6 +54,9 @@ string TS_ErrorHandler::getErrorString(int errorCode)
         case TS_ERROR__SHAPE_VERTEX_INDEX_OUT_RANGE:
             return "Shape's vertex index out of range";
             
+        case TS_ERROR__SHAPE_UPDATE_TYPE_MISMATCH:
+            return "Cannot update shape with this one. They're of different types";
+            
         default:
             break;
     }

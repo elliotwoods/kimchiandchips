@@ -20,6 +20,4 @@ public:
 	
 	void	serialise(TalkyMessage &msg);
 	void	deSerialise(TalkyMessage const &msg);
-
-    bool    isHit(Vector2f XY);
 };

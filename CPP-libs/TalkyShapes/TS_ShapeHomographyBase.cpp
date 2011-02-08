@@ -8,7 +8,12 @@
 
 #include "TS_ShapeHomographyBase.h"
 
-Vector2f TS_ShapeHomographyBase::VerticesTarget[4] = { Vector2f(-1, -1), Vector2f(+1, -1), Vector2f(+1, +1), Vector2f(-1, +1)};
+Vector2f TS_ShapeHomographyBase::VerticesSource[4] = {
+    Vector2f(-1, -1),
+    Vector2f(+1, -1),
+    Vector2f(+1, +1),
+    Vector2f(-1, +1)
+};
 
 
 TS_ShapeHomographyBase::TS_ShapeHomographyBase()
@@ -21,10 +26,29 @@ TS_ShapeHomographyBase::TS_ShapeHomographyBase()
 
 Matrix4f TS_ShapeHomographyBase::getHomography()
 {
-    Vector2f source[4];
+    Vector2f target[4];
     
     for (int i=0; i<4; i++)
-        source[i] = vertices[homographyPoints[i]];
+        target[i] = vertices[homographyPoints[i]];
     
-    return HomographyHelper::homography(source, VerticesTarget);
+    return HomographyHelper::homography(VerticesSource, target);
+}
+
+Matrix4f TS_ShapeHomographyBase::getInverseHomography()
+{
+    Vector2f target[4];
+    
+    for (int i=0; i<4; i++)
+        target[i] = vertices[homographyPoints[i]];
+    
+    return HomographyHelper::homography(target, VerticesSource);
+}
+
+bool TS_ShapeHomographyBase::isHit(Vector2f XY)
+{
+    Vector2f pointInShape = getInverseHomography().applyTo(XY);
+    
+    TS_Error::debugXY = pointInShape;
+    
+    return (pointInShape.x <= 1 && pointInShape.x >= -1 && pointInShape.y <= 1 && pointInShape.y >= -1);
 }

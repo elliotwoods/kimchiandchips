@@ -50,6 +50,25 @@ void TS_NodeBase::updateShape(TS_ShapeBase *shape)
     updateShape(shape, shape->ID);
 }
 
+void TS_NodeBase::updateShape(TS_ShapeBase *shape, int ID)
+{
+    TS_ShapeBase *oldShape;
+    
+    if (oldShape->Type != shape->Type)
+    {
+        TS_Error::passError(TS_ERROR__SHAPE_UPDATE_TYPE_MISMATCH);
+        return;
+    }
+    
+    //perhaps need to check number of vertices as well
+    
+    //delete old shape
+    delete Shapes[ID];
+    
+    //and replace with new one
+    Shapes[ID] = shape;
+}
+
 void TS_NodeBase::deleteShape(int ID)
 {
     Shapes.erase(ID);
