@@ -1,7 +1,7 @@
 // modified by Elliot Woods
 // added:
 //
-//
+// Matrix4<T>::applyTo(Vector2<T>)
 
 /* -*- C++ -*- */
 /*
@@ -2416,6 +2416,22 @@ namespace VMATH_NAMESPACE
 	    Matrix4<T> ret = (*this) + (rhs - (*this)) * fact;
 	    return ret;		
 	 }
+       
+       Vector2<T> applyTo(Vector2<T> XYin)
+       {
+           Vector4<T> XYZWin;
+           XYZWin.x = XYin.x;
+           XYZWin.y = XYin.y;
+           XYZWin.w = 1;
+           
+           Vector4<T> XYZWout = (*this) * XYZWin;
+           
+           XYZWout.x /= XYZWout.w;
+           XYZWout.y /= XYZWout.w;
+
+           return Vector2<T>(XYZWout.x, XYZWout.y);
+           
+       }
 
     
 	 //-------------[ conversion ]-----------------------------

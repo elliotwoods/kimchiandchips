@@ -14,9 +14,12 @@ class TS_ShapeHomographyBase : public TS_ShapeBase
         TS_ShapeHomographyBase();
     
         Matrix4f    getHomography();
+        Matrix4f    getInverseHomography();
+    
+        bool        isHit(Vector2f XY);
     
         int         homographyPoints[4];
     
     protected:
-        static Vector2f     VerticesTarget[4];
+        static Vector2f     VerticesSource[4];
 };

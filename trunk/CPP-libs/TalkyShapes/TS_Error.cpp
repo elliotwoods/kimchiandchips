@@ -8,6 +8,9 @@
 
 #include "TS_Error.h"
 
+Vector2f TS_Error::debugXY = Vector2f(0, 0);
+
+
 //////////////////////////////////////
 //intialise with default error handler
 //

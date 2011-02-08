@@ -33,6 +33,7 @@ public:
     
     int             getClosestVertex(Vector2f const pipet, float radius=99999);
     Vector2f        getVertexXY(int iVertex);
+    
     void            moveVertex(int iVertex, Vector2f const &dXY);
     void            moveShape(Vector2f const &dXY);
 	
