@@ -13,13 +13,15 @@ void TS_Server::setup(TalkyBase *talkyServer)
     //setup the server
     this->TalkyNode = talkyServer;
     TalkyNode->setup(TS_NETWORK_PORT);
+    
+    nodeInitialised = true;
 }
 
 bool TS_Server::getIsServerBound()
 {
     if (!isSetup())
     {
-        throwError(TS_ERROR__TALKY_NOT_INITIALISED);
+        TS_Error::passError(TS_ERROR__TALKY_NOT_INITIALISED);
         return false;
     }
     
@@ -30,7 +32,7 @@ int TS_Server::getNumClients()
 {
     if (!isSetup())
     {
-        throwError(TS_ERROR__TALKY_NOT_INITIALISED);
+        TS_Error::passError(TS_ERROR__TALKY_NOT_INITIALISED);
         return 0;
     }
     

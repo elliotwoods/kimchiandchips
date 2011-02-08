@@ -8,8 +8,7 @@
  *
  */
 
-#include "TS_Types.h"
-#include "TS_constants.h"
+#include "TS_Includes.h"
 
 #include <vector>
 #include "TalkyMessage.h"
@@ -22,17 +21,28 @@ public:
 	TS_ShapeBase();
 	~TS_ShapeBase();
 	
+    virtual void    init(float x, float y, float scale) = 0;
+    void            init(Vector2f XY, float scale);
+    
 	int		getNVertices();
 	int		getNVerticesX();
 	int		getNVerticesY();
 	
-	TSVec2f*	getVerticesPointer(int &nVertices);
+    Vector2f*       getVerticesPointer();
+	Vector2f*       getVerticesPointer(int &nVertices);
+    
+    int             getClosestVertex(Vector2f const pipet, float radius=99999);
+    Vector2f        getVertexXY(int iVertex);
+    void            moveVertex(int iVertex, Vector2f const &dXY);
+    void            moveShape(Vector2f const &dXY);
 	
-	virtual void	serialise(TalkyMessage &msg);
-	virtual void	deSerialise(TalkyMessage const &msg);
+	virtual void	serialise(TalkyMessage &msg) = 0;
+	virtual void	deSerialise(TalkyMessage const &msg) = 0;
+    
+    virtual bool    isHit(Vector2f XY) = 0;
     
 	unsigned long			ID;
-	unsigned short			Type;
+	TS_ShapeType			Type;
 	vector<unsigned short>	Tags;
 	
 	
@@ -47,6 +57,6 @@ protected:
 	unsigned char	nVerticesY;
 	bool			nVerticesFixed;
 	
-	TSVec2f			*vertices;
+	Vector2f        *vertices;
 	int				verticesInitialised;
 };

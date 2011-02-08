@@ -4,11 +4,24 @@
 \viewkind0
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 
-\f0\fs20 \cf0 ofxTalky inherits Talky\
-catch's exceptions and sends to ofLog\
-Run's Talky's update in a thread\
+\f0\fs20 \cf0 /////////////////////\
+// NOW\
+\
+\
+/////////////////////\
+// LATER\
 \
 Tags\
 \
 Tag rules\
-}
+\
+Move error handling in Talky to similar model to TalkyShapes\
+\
+zOrder\
+	TS_NodeBase::draw()\
+\
+Locking (when send request, lock until request has been responded, e.g. requestUpdateAll)\
+\
+Make vertices more flexible\
+\
+Consider moving vertices to vector}

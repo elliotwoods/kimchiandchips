@@ -18,28 +18,42 @@
 #define TS_MSG_RANGE_OBJECT_BUNDLE_MIN 20
 #define TS_MSG_RANGE_OBJECT_BUNDLE_MAX 25
 
-#define TS_SHAPE_TYPE_QUAD 3
-
 #define TS_PAYLOAD_TERMINATOR 127
 
 
-#define TS_ERROR__TALKY_NOT_INITIALISED 1001
+#define TS_ERROR__TALKY_NOT_INITIALISED 1000
+#define TS_ERROR__SHAPE_DRAW_NOT_IMPLEMENTED 2000
 
-using namespace std;
+#define TS_ERROR__DESERIALISE_MISMATCH_PLURALITY_SINGLE 3000
+#define TS_ERROR__DESERIALISE_MISMATCH_MESSAGE_LENGTH 3010
+#define TS_ERROR__DESERIALISE_MISMATCH_TERMINATOR 3020
+#define TS_ERROR__DESERIALISE_MISMATCH_SHAPE_TYPE 3030
+#define TS_ERROR__DESERIALISE_MISMATCH_NVERTICIES 3040
 
-namespace TalkyShapes {
+#define TS_ERROR__SHAPE_ID_NON_EXISTENT 4000
+#define TS_ERROR__SHAPE_ID_REDUNDANCY 4001
+
+#define TS_ERROR__SHAPE_VERTICES_NOT_INITIALISED 5000
+#define TS_ERROR__SHAPE_VERTEX_INDEX_OUT_RANGE 5001
+
+
+enum TS_ShapeType {
+    TS_Type_Point,
+    TS_Type_Line,
+    TS_Type_Quad,
+};
+
+enum TS_Message_Type {
+    TS_MSG_TEST = 0,
     
-    string getErrorString(int errorCode)
-    {
-        switch (errorCode) {
-                
-            case TS_ERROR__TALKY_NOT_INITIALISED:
-                return "TalkyNode pointer not intitialised, have you run setup on this TalkyShapes node yet?";
-                
-            default:
-                break;
-        }
-        
-        return "";
-    }
-}
+    TS_MSG_VERSION_REQUEST = 10,
+    TS_MSG_VERSION_RESPONSE = 11,
+    
+    TS_MSG_SHAPES_REQUEST = 20,
+    TS_MSG_SHAPES_RESPONSE = 25,
+    
+    TS_MSG_SHAPE_INSERT = 30,
+    TS_MSG_SHAPE_UPDATE = 35,    
+    TS_MSG_SHAPE_DELETE = 40
+};
+
