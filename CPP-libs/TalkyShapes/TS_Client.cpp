@@ -8,3 +8,23 @@
 
 #include "TS_Client.h"
 
+void TS_Client::setup(TalkyBase *talkyClient, string remoteHost)
+{
+    //setup the client
+    this->TalkyNode = talkyClient;
+    TalkyNode->setup(remoteHost, TS_NETWORK_PORT);
+    
+    nodeInitialised = true;
+    
+    //update from server
+    requestUpdates();
+}
+
+void TS_Client::requestUpdates()
+{
+    TalkyMessage msg;
+    
+    msg.Type = TS_MSG_SHAPES_REQUEST;
+    
+    TalkyNode->send(msg);
+}

@@ -20,16 +20,138 @@ TS_NodeBase::~TS_NodeBase()
         delete TalkyNode;
 }
 
+void TS_NodeBase::draw(TS_DrawBase *drawClass)
+{
+    map<unsigned long, TS_ShapeBase*>::iterator it;
+    
+    for (it = Shapes.begin(); it != Shapes.end(); it++)
+        drawClass->drawShape( (*it).second );
+    
+}
+//
+////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////
+// SHAPE MANIPULATION
+////////////////////////////////////////////////////////////////
+//
+
+int TS_NodeBase::addShape(TS_ShapeBase *shape)
+{
+    int ID = getNextID();
+    
+    Shapes[getNextID()] = shape;    
+    
+    return ID;
+}
+
 void TS_NodeBase::updateShape(TS_ShapeBase *shape)
 {
     updateShape(shape, shape->ID);
 }
 
+void TS_NodeBase::deleteShape(int ID)
+{
+    Shapes.erase(ID);
+}
+//
+////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////
+// SHAPE DATA
+////////////////////////////////////////////////////////////////
+//
+
+int TS_NodeBase::getClosestVertex(int ShapeID, Vector2f const &pipet, float radius)
+{
+    ////////////////////////////
+    // MOVE TO SEPERATE FUNCTION
+    //
+    int countIDs = Shapes.count(ShapeID);
+    
+    if (countIDs > 1)
+    {
+        TS_Error::passError(TS_ERROR__SHAPE_ID_REDUNDANCY);
+        return -1;
+    }
+    
+    if (countIDs == 0)
+    {
+        TS_Error::passError(TS_ERROR__SHAPE_ID_NON_EXISTENT);
+        return -1;
+    }
+    ////////////////////////////
+    
+    return Shapes[ShapeID]->getClosestVertex(pipet, radius);
+}
+
+Vector2f TS_NodeBase::getVertexXY(int ShapeID, int iVertex)
+{
+    return Shapes[ShapeID]->getVertexXY(iVertex);
+}
+
+void TS_NodeBase::moveVertex(int ID, int iVertex, Vector2f const &dXY)
+{
+    ////////////////////////////
+    // MOVE TO SEPERATE FUNCTION
+    //
+    int countIDs = Shapes.count(ID);
+    
+    if (countIDs > 1)
+    {
+        TS_Error::passError(TS_ERROR__SHAPE_ID_REDUNDANCY);
+        return;
+    }
+    
+    if (countIDs == 0)
+    {
+        TS_Error::passError(TS_ERROR__SHAPE_ID_NON_EXISTENT);
+        return;
+    }
+    ////////////////////////////
+    
+    Shapes[ID]->moveVertex(iVertex, dXY);
+    
+}
+
+void TS_NodeBase::moveShape(int ID, Vector2f const &dXY)
+{    
+    ////////////////////////////
+    // MOVE TO SEPERATE FUNCTION
+    //
+    int countIDs = Shapes.count(ID);
+    
+    
+    if (countIDs > 1)
+    {
+        TS_Error::passError(TS_ERROR__SHAPE_ID_REDUNDANCY);
+        return;
+    }
+    
+    if (countIDs == 0)
+    {
+        TS_Error::passError(TS_ERROR__SHAPE_ID_NON_EXISTENT);
+        return;
+    }
+    ////////////////////////////
+    
+    Shapes[ID]->moveShape(dXY);
+    
+}
+//
+////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////
+// CONNECTION INFO
+////////////////////////////////////////////////////////////////
+//
+
 bool TS_NodeBase::getIsConnected()
 {
     if (!isSetup())
     {
-        throwError(TS_ERROR__TALKY_NOT_INITIALISED);
+        TS_Error::passError(TS_ERROR__TALKY_NOT_INITIALISED);
         return false;
     }
     
@@ -40,19 +162,29 @@ float TS_NodeBase::getTimeUntilNextConnectNorm()
 {
     if (!isSetup())
     {
-        throwError(TS_ERROR__TALKY_NOT_INITIALISED);
+        TS_Error::passError(TS_ERROR__TALKY_NOT_INITIALISED);
         return false;
     }
     
     return TalkyNode->getTimeUntilNextConnectNorm();
 }
+//
+////////////////////////////////////////////////////////////////
+
 
 bool TS_NodeBase::isSetup()
 {
     return nodeInitialised;
 }
 
-void TS_NodeBase::throwError(int errorCode)
+int TS_NodeBase::getNextID()
 {
-    throw("TalkyShapes node: " + TalkyShapes::getErrorString(errorCode));
+    int ID = Shapes.size();
+    
+    while (Shapes.count(ID) > 0)
+        ID++;
+    
+    return ID;
 }
+
+

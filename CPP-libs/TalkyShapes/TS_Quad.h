@@ -1,3 +1,4 @@
+#pragma once
 /*
  *  TS_Quad.h
  *  TalkyShapes
@@ -7,13 +8,18 @@
  *
  */
 
-#include "TS_ShapeBase.h"
+#include "TS_ShapeHomographyBase.h"
+#include "Homography.h"
 
-class TS_Quad : public TS_ShapeBase
+class TS_Quad : public TS_ShapeHomographyBase
 {
 public:
 	TS_Quad();
+    
+    void    init(float x, float y, float scale);
 	
 	void	serialise(TalkyMessage &msg);
 	void	deSerialise(TalkyMessage const &msg);
+
+    bool    isHit(Vector2f XY);
 };

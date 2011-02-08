@@ -10,12 +10,14 @@
 #include <string>
 
 #include "TS_Constants.h"
+
 using namespace std;
 
 class TS_ErrorHandler
 {
     public:
         virtual void throwError(int errorCode);
+    
     protected:
         string getErrorString(int errorCode);
 };

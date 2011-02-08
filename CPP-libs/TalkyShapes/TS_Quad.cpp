@@ -15,8 +15,31 @@ TS_Quad::TS_Quad()
 	nVerticesY = 2;
 	nVerticesFixed = true;
 	
-	Type = TS_SHAPE_TYPE_QUAD;
+	Type = TS_Type_Quad;
+    
+    initialiseVertices();
 }
+
+void TS_Quad::init(float x, float y, float scale)
+{
+    scale *= 0.5f;
+    //TL
+    vertices[0].x = x - scale;
+    vertices[0].y = y - scale;
+    
+    //TR
+    vertices[1].x = x + scale;
+    vertices[1].y = y - scale;
+    
+    //BR
+    vertices[2].x = x + scale;
+    vertices[2].y = y + scale;
+    
+    //BL
+    vertices[3].x = x - scale;
+    vertices[3].y = y + scale;    
+}
+
 
 void TS_Quad::serialise(TalkyMessage &msg)
 {
@@ -45,7 +68,7 @@ void TS_Quad::serialise(TalkyMessage &msg)
 void TS_Quad::deSerialise(TalkyMessage const &msg)
 {
 	if (msg.Type < TS_MSG_RANGE_OBJECT_SINGLE_MIN || msg.Type > TS_MSG_RANGE_OBJECT_SINGLE_MAX)
-		throw("TS_ShapeBase: Incoming data message doesn't refer to single object");
+			TS_Error::passError(TS_ERROR__DESERIALISE_MISMATCH_PLURALITY_SINGLE);
 	
 	int PayloadLength;
 	char* Payload = msg.getPayload(PayloadLength);
@@ -55,10 +78,10 @@ void TS_Quad::deSerialise(TalkyMessage const &msg)
 	if (nVerticesFixed)
 	{
 		if (PayloadLength != getNBytesTotal())
-			throw("TS_ShapeBase::deSerialise : Can't deserialise this object message to this (fixed vertices) object type. Message length doesn't match");
+			TS_Error::passError(TS_ERROR__DESERIALISE_MISMATCH_MESSAGE_LENGTH);
 		
 		if (Payload[getNBytesTotal()-1] != TS_PAYLOAD_TERMINATOR)
-			throw("TS_ShapeBase::deSerialise : Terminator doesn't match, perhaps data is corrupt?");
+            TS_Error::passError(TS_ERROR__DESERIALISE_MISMATCH_TERMINATOR);
 			
 	}
 	
@@ -67,11 +90,11 @@ void TS_Quad::deSerialise(TalkyMessage const &msg)
 	unsigned char msgVerticesY = *(unsigned short*) (Payload+7);
 	
 	if (msgType != Type)
-		throw("TS_ShapeBase::deSerialise : Can't deserialise this object message. Message type doesn't match");
+		TS_Error::passError(TS_ERROR__DESERIALISE_MISMATCH_SHAPE_TYPE);
 	
 	if (nVerticesFixed)
 		if (msgVerticesX != nVerticesX || msgVerticesY != nVerticesY)
-			throw("TS_ShapeBase::deSerialise : Can't deserialise this object message. nVerticesX/Y deosn't match");
+			TS_Error::passError(TS_ERROR__DESERIALISE_MISMATCH_NVERTICIES);
 	
 	ID = *(unsigned long*) Payload;
 	
@@ -84,10 +107,10 @@ void TS_Quad::deSerialise(TalkyMessage const &msg)
 		//we can perform the checks from (*) here
 		
 		if (PayloadLength != getNBytesTotal())
-			throw("TS_ShapeBase::deSerialise : Can't deserialise this object message to this (non fixed vertices) object type. Message length doesn't match");
+			TS_Error::passError(TS_ERROR__DESERIALISE_MISMATCH_MESSAGE_LENGTH);
 		
 		if (Payload[getNBytesTotal()-1] != TS_PAYLOAD_TERMINATOR)
-			throw("TS_ShapeBase::deSerialise : Terminator doesn't match, perhaps data is corrupt?");
+            TS_Error::passError(TS_ERROR__DESERIALISE_MISMATCH_TERMINATOR);
 	}
 	
 	//setup our array
@@ -97,4 +120,11 @@ void TS_Quad::deSerialise(TalkyMessage const &msg)
 	memcpy(vertices, Payload + 8, getNBytesVertices());
 	
 	return;
+}
+
+bool TS_Quad::isHit(Vector2f XY)
+{
+    Vector2f pointInQuad = getHomography() * XY;
+    
+    return (pointInQuad.x <= 1 && pointInQuad.x >= -1 && pointInQuad.y <= 1 && pointInQuad.y >= -1);
 }
