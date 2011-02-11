@@ -15,7 +15,4 @@ class TS_Server : public TS_NodeBase
     
         bool	getIsServerBound();
         int		getNumClients();
-    
-        void    pushUpdates();
-
 };

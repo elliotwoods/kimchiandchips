@@ -67,7 +67,7 @@ void TS_Quad::serialise(TalkyMessage &msg)
 
 void TS_Quad::deSerialise(TalkyMessage const &msg)
 {
-	if (msg.Type < TS_MSG_RANGE_OBJECT_SINGLE_MIN || msg.Type > TS_MSG_RANGE_OBJECT_SINGLE_MAX)
+	if (msg.ContentsType < TS_MSG_RANGE_OBJECT_SINGLE_MIN || msg.ContentsType > TS_MSG_RANGE_OBJECT_SINGLE_MAX)
 			TS_Error::passError(TS_ERROR__DESERIALISE_MISMATCH_PLURALITY_SINGLE);
 	
 	int PayloadLength;

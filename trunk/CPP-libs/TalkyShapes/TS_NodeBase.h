@@ -8,14 +8,22 @@
  *
  */
 
+#include "TS_Includes.h"
 #include "TS_Quad.h"
 #include "TS_ShapeBase.h"
 #include "TS_DrawBase.h"
 
 #include "TalkyBase.h"
-#include "TS_Includes.h"
+#include "TalkyBundleMessage.h"
+
 
 #include <map>
+#include <sstream>
+
+using namespace std;
+
+typedef map<unsigned long, TS_ShapeBase*>::iterator ShapesIterator;
+typedef map<unsigned long, TS_ShapeBase*>::reverse_iterator ShapesReverseIterator;
 
 class TS_NodeBase
 {
@@ -24,17 +32,37 @@ class TS_NodeBase
     
         map<unsigned long, TS_ShapeBase*>  Shapes;
     
-        void    draw(TS_DrawBase *drawClass);
+        void    draw(TS_DrawBase &drawClass);
+        string  toString();
         
         ///////////////////////
         // SHAPE MANIPULATION    
         //
-        int     addShape(TS_ShapeBase *shape); // assigns ID
+    
+        //clear
+        void    clearShapes();
+    
+        //add
+        void    addShape(TalkyMessage &msg, bool forceUpdate=false); //rx
+        int     addShape(TS_ShapeBase *shape, bool updateOther=true); // assigns ID
+    
+    
+        //update
+        void    updateShape(TalkyMessage &msg);
+        void    updateShape(TS_ShapeBase *shape, bool updateOther=true); //looks up ID
+        void    updateShape(TS_ShapeBase *shape, int ID, bool updateOther=true); //uses ID
+        void    updateShape(int ID); // push updates to counterpart
+    
+        //push all
+        void    pushAll();
+        void    pullAll(TalkyMessage &msg);
 
-        void    updateShape(TS_ShapeBase *shape); //looks up ID
-        void    updateShape(TS_ShapeBase *shape, int ID); //uses ID
         
-        void    deleteShape(int ID);
+        //delete
+        void    deleteShape(TalkyMessage &msg);
+        void    deleteShape(unsigned long ID, bool updateOther=true);
+    
+        //push all
         ///////////////////////
     
         ///////////////////////
@@ -47,16 +75,20 @@ class TS_NodeBase
         ///////////////////////
     
         ///////////////////////
-        // CONNECTION INFO
+        // CONNECTION
         //
         bool	getIsConnected();
         float	getTimeUntilNextConnectNorm();
+    
+        void    msgRxAvailable(const void* pSender, int &receiveQueueCount);
         ///////////////////////
 
     protected:
-        bool    isSetup();
+        bool            isSetup();
         
-        int     getNextID();
+        unsigned long   getNextID();
+    
+        void            processReceiveQueue();
 
         TalkyBase      *TalkyNode;
         bool            nodeInitialised;

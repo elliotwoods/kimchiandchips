@@ -11,6 +11,9 @@
 #include "TS_Includes.h"
 
 #include <vector>
+#include <string>
+#include <sstream>
+
 #include "TalkyMessage.h"
 
 using namespace std;
@@ -41,6 +44,8 @@ public:
 	virtual void	deSerialise(TalkyMessage const &msg) = 0;
     
     virtual bool    isHit(Vector2f XY) = 0;
+    
+    string          toString();
     
 	unsigned long			ID;
 	TS_ShapeType			Type;

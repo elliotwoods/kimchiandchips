@@ -1,7 +1,7 @@
 #pragma once
 //
 //  TS_DrawBase.h
-//  iPadExample
+//  TalkyShapes
 //
 //  Created by Elliot Woods on 06/02/2011.
 //  Copyright 2011 Kimchi and Chips. All rights reserved.

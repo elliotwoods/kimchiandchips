@@ -165,3 +165,18 @@ void TS_ShapeBase::initialiseVertices(int count)
 		verticesInitialised = count;
 	}
 }
+
+string TS_ShapeBase::toString()
+{
+    stringstream out;
+    
+    out << "ID=" << ID << ",Type=" << Type << ",vertices=";
+    
+    int nVertices = getNVertices();
+    
+    if (verticesInitialised)
+        for (int i=0; i<nVertices; i++)
+            out << "(" << vertices[i].x << ", " << vertices[i].y << ") ";
+
+    return out.str();
+}

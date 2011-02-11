@@ -1,6 +1,6 @@
 //
 //  TS_ShapeHomographyBase.h
-//  iPadExample
+//  TalkyShapes
 //
 //  Created by Elliot Woods on 07/02/2011.
 //  Copyright 2011 Kimchi and Chips. All rights reserved.

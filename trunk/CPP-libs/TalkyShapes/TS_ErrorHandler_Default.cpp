@@ -1,6 +1,6 @@
 //
 //  TS_ErrorHandler_Default.cpp
-//  iPadExample
+//  TalkyShapes
 //
 //  Created by Elliot Woods on 06/02/2011.
 //  Copyright 2011 Kimchi and Chips. All rights reserved.
@@ -10,7 +10,8 @@
 
 void TS_ErrorHandler::throwError(int errorCode)
 {
-    throw(getErrorString(errorCode));
+    string errString = getErrorString(errorCode);
+    throw(errString);
     
     //maybe you might want to do, for example
     //in openFrameworks
@@ -42,6 +43,9 @@ string TS_ErrorHandler::getErrorString(int errorCode)
         case TS_ERROR__DESERIALISE_MISMATCH_NVERTICIES:
             return "Cannot deserialise this shape message to this shape. Number of vertices do not match";
         
+        case TS_ERROR__MSG_DESERIALISE_TOO_SHORT:
+            return "Cannot deserialise message to shape, too short";
+        
         case TS_ERROR__SHAPE_ID_NON_EXISTENT:
             return "Cannot select shape as shape ID does not exist in dataset";
             
@@ -56,6 +60,9 @@ string TS_ErrorHandler::getErrorString(int errorCode)
             
         case TS_ERROR__SHAPE_UPDATE_TYPE_MISMATCH:
             return "Cannot update shape with this one. They're of different types";
+            
+        case TS_ERROR__SHAPE_ADD_ID_ALREADY_EXISTS:
+            return "Can't add this shape, we already have this ID stored locally. You probably want to use addShape(msg, forceUpdate=true)";
             
         default:
             break;

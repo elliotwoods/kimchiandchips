@@ -24,7 +24,7 @@ void TS_Client::requestUpdates()
 {
     TalkyMessage msg;
     
-    msg.Type = TS_MSG_SHAPES_REQUEST;
+    msg.ContentsType = TS_MSG_SHAPES_PUSH_REQUEST;
     
     TalkyNode->send(msg);
 }
