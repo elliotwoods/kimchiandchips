@@ -13,44 +13,170 @@ TS_NodeBase::~TS_NodeBase()
 {
     //can we cleanly delete on a base type?
     //i.e. with a smaller byte size
-    //perhaps consider move to server,client
-    //destructors
+    //
+    //can it delete itself?
     //
     if (isSetup())
         delete TalkyNode;
 }
 
-void TS_NodeBase::draw(TS_DrawBase *drawClass)
+void TS_NodeBase::draw(TS_DrawBase &drawClass)
 {
-    map<unsigned long, TS_ShapeBase*>::iterator it;
+    ShapesIterator it;
     
     for (it = Shapes.begin(); it != Shapes.end(); it++)
-        drawClass->drawShape( (*it).second );
+        drawClass.drawShape( (*it).second );
     
+}
+
+string TS_NodeBase::toString()
+{
+    stringstream out;
+    
+    ShapesIterator it;
+    
+    for ( it=Shapes.begin(); it != Shapes.end(); it++ )
+        out << "Shapes[" << (*it).first << "] = { " << (*it).second->toString() << " }\n";
+    
+    return out.str();
 }
 //
 ////////////////////////////////////////////////////////////////
+
+
 
 ////////////////////////////////////////////////////////////////
 // SHAPE MANIPULATION
 ////////////////////////////////////////////////////////////////
 //
 
-int TS_NodeBase::addShape(TS_ShapeBase *shape)
+void TS_NodeBase::clearShapes()
 {
-    int ID = getNextID();
+    while (Shapes.size() > 0)
+    {
+        delete Shapes.end()->second;
+        
+        Shapes.erase(Shapes.end());
+    }
+}
+
+void TS_NodeBase::addShape(TalkyMessage &msg, bool forceUpdate)
+{
+    ////////////////////////
+    // GET DATA IN
+    ////////////////////////
+    //
+    int PayloadLength;
+    char * Payload = msg.getPayload(PayloadLength);
     
-    Shapes[getNextID()] = shape;    
+    if (PayloadLength < 6)
+    {
+        TS_Error::passError(TS_ERROR__MSG_DESERIALISE_TOO_SHORT);
+        return;
+    }
     
+    //ID
+    unsigned long ID =  * (unsigned long *) Payload;
+    //
+    if (!forceUpdate)
+        if (Shapes.count(ID) > 0)
+        {
+            TS_Error::passError(TS_ERROR__SHAPE_ID_REDUNDANCY);
+            return;
+        }
+    //
+    
+    int Type = * (unsigned short *) (Payload + 4);
+    ////////////////////////
+    
+    
+    ////////////////////////
+    // LOAD DATA IN SHAPE
+    ////////////////////////
+    //
+    switch (Type) {
+        case TS_Type_Quad:
+        {
+            ////////////////////////
+            // CREATE A QUAD
+            //
+            TS_Quad *newQuad = new TS_Quad();
+            
+            newQuad->deSerialise(msg);
+            
+            //check if we should be overwriting
+            //an existing shape
+            if (forceUpdate && Shapes.count(newQuad->ID) > 0)
+            {
+                delete Shapes[ID];
+                Shapes[ID] = newQuad;
+            }
+            else
+                Shapes.insert (pair<unsigned long, TS_ShapeBase*> (ID, newQuad));
+
+                
+            
+            cout << "add shape ID:" << newQuad->ID << "\n";
+            
+            break;
+            //
+            ////////////////////////
+        }
+            
+        default:
+            break;
+    }
+    ////////////////////////
+}
+
+int TS_NodeBase::addShape(TS_ShapeBase *shape, bool updateOther)
+{    
+    //////////////////
+    // ADD TO MAP
+    //////////////////
+    //
+    unsigned long ID = getNextID();
+    shape->ID = ID;
+    
+    Shapes.insert (pair<unsigned long, TS_ShapeBase*> (ID, shape));
+    //////////////////
+
+    if (updateOther)
+    {
+        //////////////////
+        // SEND TO OTHER
+        //////////////////
+        //
+        TalkyMessage msg;
+        
+        Shapes[ID]->serialise(msg);
+        msg.ContentsType = TS_MSG_SHAPE_INSERT;
+        
+        TalkyNode->send(msg);
+        //////////////////
+    }
+
     return ID;
 }
 
-void TS_NodeBase::updateShape(TS_ShapeBase *shape)
+void TS_NodeBase::updateShape(TalkyMessage &msg)
 {
-    updateShape(shape, shape->ID);
+    int ID = * (int*) msg.getPayload();
+    if (Shapes.count(ID) == 0)
+    {
+        TS_Error::passError(4000);
+        return;
+    }
+    
+    Shapes[ID]->deSerialise(msg);
 }
 
-void TS_NodeBase::updateShape(TS_ShapeBase *shape, int ID)
+void TS_NodeBase::updateShape(TS_ShapeBase *shape, bool updateOther)
+{
+    updateShape(shape, shape->ID, updateOther);
+}
+
+void TS_NodeBase::updateShape(TS_ShapeBase *shape, int ID, bool updateOther)
 {
     TS_ShapeBase *oldShape;
     
@@ -67,14 +193,85 @@ void TS_NodeBase::updateShape(TS_ShapeBase *shape, int ID)
     
     //and replace with new one
     Shapes[ID] = shape;
+    
+    if (updateOther)
+        updateShape(ID);
 }
 
-void TS_NodeBase::deleteShape(int ID)
+void TS_NodeBase::updateShape(int ID)
 {
-    Shapes.erase(ID);
+    TalkyMessage msg;
+    
+    Shapes[ID]->serialise(msg);
+    msg.ContentsType = TS_MSG_SHAPE_UPDATE;
+    
+    TalkyNode->send(msg);
+    
 }
+
+
+void TS_NodeBase::deleteShape(TalkyMessage &msg)
+{
+    unsigned long ID = * (unsigned long*) msg.getPayload();
+    
+    deleteShape(ID, false);
+}
+
+void TS_NodeBase::deleteShape(unsigned long ID, bool updateOther)
+{
+    cout << "delete shape ID:" << ID << "\n";
+    Shapes.erase(ID);
+    
+    if (updateOther)
+    {
+        TalkyMessage msg;
+        
+        msg.ContentsType = TS_MSG_SHAPE_DELETE;
+        
+        msg.setPayload((char*) &ID, 4);
+        
+        TalkyNode->send(msg);
+    }
+    
+}
+
+void TS_NodeBase::pushAll()
+{   
+    TalkyBundleMessage bundleMsg;
+    TalkyMessage packedMsg;
+    
+    TalkyMessage individualMsg;
+    
+    ShapesIterator shape;
+    for (shape = Shapes.begin(); shape != Shapes.end(); shape++)
+    {
+        shape->second->serialise(individualMsg);
+        bundleMsg.push(individualMsg);
+    }
+    
+    packedMsg = bundleMsg.pack();
+    
+    packedMsg.ContentsType = TS_MSG_SHAPES_PUSH_ALL;
+    
+    TalkyNode->send(packedMsg);
+}
+
+void TS_NodeBase::pullAll(TalkyMessage &msg)
+{
+    TalkyBundleMessage bundleMsg;
+    bundleMsg.unpack(msg, TS_MSG_SHAPE_INSERT);
+    
+    clearShapes();
+    
+    for (int i=0; i<bundleMsg.bundle.size(); i++)
+        addShape(bundleMsg.bundle[i], true);
+    
+}
+
 //
 ////////////////////////////////////////////////////////////////
+
+
 
 ////////////////////////////////////////////////////////////////
 // SHAPE DATA
@@ -131,6 +328,8 @@ void TS_NodeBase::moveVertex(int ID, int iVertex, Vector2f const &dXY)
     
     Shapes[ID]->moveVertex(iVertex, dXY);
     
+    updateShape(ID);
+    
 }
 
 void TS_NodeBase::moveShape(int ID, Vector2f const &dXY)
@@ -156,13 +355,16 @@ void TS_NodeBase::moveShape(int ID, Vector2f const &dXY)
     
     Shapes[ID]->moveShape(dXY);
     
+    updateShape(ID);
+    
 }
 //
 ////////////////////////////////////////////////////////////////
 
 
+
 ////////////////////////////////////////////////////////////////
-// CONNECTION INFO
+// CONNECTION
 ////////////////////////////////////////////////////////////////
 //
 
@@ -187,6 +389,11 @@ float TS_NodeBase::getTimeUntilNextConnectNorm()
     
     return TalkyNode->getTimeUntilNextConnectNorm();
 }
+
+void TS_NodeBase::msgRxAvailable(const void* pSender, int &receiveQueueCount)
+{
+    processReceiveQueue();
+}
 //
 ////////////////////////////////////////////////////////////////
 
@@ -196,9 +403,9 @@ bool TS_NodeBase::isSetup()
     return nodeInitialised;
 }
 
-int TS_NodeBase::getNextID()
+unsigned long TS_NodeBase::getNextID()
 {
-    int ID = Shapes.size();
+    unsigned long ID = Shapes.size();
     
     while (Shapes.count(ID) > 0)
         ID++;
@@ -206,4 +413,40 @@ int TS_NodeBase::getNextID()
     return ID;
 }
 
-
+void TS_NodeBase::processReceiveQueue()
+{
+    vector<TalkyMessage> *msgs = &(TalkyNode->receiveQueue);
+    
+    while (!msgs->empty()) {
+        TalkyMessage msg = msgs->back();
+        msgs->pop_back();
+        
+        cout << msg.toString();
+        
+        switch (msg.ContentsType) {
+            
+            case TS_MSG_SHAPES_PUSH_REQUEST:
+                pushAll();
+                break;
+            
+            case TS_MSG_SHAPES_PUSH_ALL:
+                pullAll(msg);
+                break;
+                
+            case TS_MSG_SHAPE_INSERT:
+                addShape(msg);
+                break;
+            
+            case TS_MSG_SHAPE_UPDATE:
+                updateShape(msg);
+                break;
+                
+            case TS_MSG_SHAPE_DELETE:
+                deleteShape(msg);
+                break;
+                
+            default:
+                break;
+        }
+    }
+}
