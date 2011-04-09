@@ -325,7 +325,7 @@ void PCManager::updateProjectorMask()
 			current &= _decoder[iCam]->projPixels[iPP]->nFinds>0;
 		
 		_boolProjectorMask[iPP] = !current;
-		_charProjectorMask[iPP] = (current ? 0 : 255);
+		_charProjectorMask[iPP] = (current ? 255 : 0);
 	}
 	
 	_texProjectorMask.loadData(_charProjectorMask, projWidth, projHeight, GL_LUMINANCE);
