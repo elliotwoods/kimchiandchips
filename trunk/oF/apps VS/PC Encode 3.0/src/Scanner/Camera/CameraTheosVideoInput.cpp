@@ -6,6 +6,9 @@
  *  Copyright 2011 Kimchi and Chips. All rights reserved.
  *
  */
+
+#ifdef TARGET_WIN32
+
 #include "CameraTheosVideoInput.h"
 
 bool CameraTheosVideoInput::setup(int ID)
@@ -45,3 +48,5 @@ void CameraTheosVideoInput::close()
 {
 	_grabber.stopDevice(ID);
 }
+
+#endif
