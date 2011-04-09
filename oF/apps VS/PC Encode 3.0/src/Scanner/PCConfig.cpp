@@ -63,58 +63,58 @@ bool PCConfig::configLoad()
 bool PCConfig::configLoad(string filename)
 {
 	bool success;
+	ofxXmlSettings configFileXML;
+	configFileXML.clear();
 	
-	_configFileXML.clear();
-	
-	success = _configFileXML.loadFile(filename);
+	success = configFileXML.loadFile(filename);
 		
 	if (success)
 	{
 		try
 		{
-			if (!_configFileXML.pushTag("settings", 0))
+			if (!configFileXML.pushTag("settings", 0))
 				throw;
 			
-			if (_configFileXML.pushTag("encoding", 0))
+			if (configFileXML.pushTag("encoding", 0))
 			{
-				projWidth = _configFileXML.getAttribute("projector", "width", 256, 0);
-				projHeight = _configFileXML.getAttribute("projector", "height", 256, 0);
+				projWidth = configFileXML.getAttribute("projector", "width", 256, 0);
+				projHeight = configFileXML.getAttribute("projector", "height", 256, 0);
 
-				interleaveWidth = _configFileXML.getAttribute("interleave", "width", 1, 0);
-				interleaveHeight = _configFileXML.getAttribute("interleave", "height", 1, 0);
+				interleaveWidth = configFileXML.getAttribute("interleave", "width", 1, 0);
+				interleaveHeight = configFileXML.getAttribute("interleave", "height", 1, 0);
 				
-				errorBits = _configFileXML.getAttribute("errorcheck", "nFrames", 4, 0);
+				errorBits = configFileXML.getAttribute("errorcheck", "nFrames", 4, 0);
 				
-				_configFileXML.popTag();
+				configFileXML.popTag();
 			}
 			
-			if (_configFileXML.pushTag("decoding", 0))
+			if (configFileXML.pushTag("decoding", 0))
 			{
-				camWidth = _configFileXML.getAttribute("cameras", "width", 640, 0);
-				camHeight = _configFileXML.getAttribute("cameras", "height", 480, 0);
-				captureDelay = _configFileXML.getAttribute("cameras", "delay", 100, 0);
-				exposure = _configFileXML.getAttribute("cameras", "exposure", CONFIG_DEFAULT_EXPOSURE, 0);
-				gain = _configFileXML.getAttribute("cameras", "gain", CONFIG_DEFAULT_GAIN, 0);
+				camWidth = configFileXML.getAttribute("cameras", "width", 640, 0);
+				camHeight = configFileXML.getAttribute("cameras", "height", 480, 0);
+				captureDelay = configFileXML.getAttribute("cameras", "delay", 100, 0);
+				exposure = configFileXML.getAttribute("cameras", "exposure", CONFIG_DEFAULT_EXPOSURE, 0);
+				gain = configFileXML.getAttribute("cameras", "gain", CONFIG_DEFAULT_GAIN, 0);
 				
-				if (_configFileXML.pushTag("cameras", 0))
+				if (configFileXML.pushTag("cameras", 0))
 				{
-					nCameras = _configFileXML.getNumTags("camera");
+					nCameras = configFileXML.getNumTags("camera");
 					
 					//read camera IDs into vector
 					camIDs.clear();
 					for (int iCam=0; iCam<nCameras; iCam++)
-						camIDs.push_back(_configFileXML.getAttribute("camera", "id", 0, iCam));
+						camIDs.push_back(configFileXML.getAttribute("camera", "id", 0, iCam));
 					
-					_configFileXML.popTag();
+					configFileXML.popTag();
 				}
 				
-				thresholdPercentile = _configFileXML.getAttribute("threshold", "percentile", 0.5, 0);
-				sdev = _configFileXML.getAttribute("data", "sdev", 0, 0);
+				thresholdPercentile = configFileXML.getAttribute("threshold", "percentile", 0.5, 0);
+				sdev = configFileXML.getAttribute("data", "sdev", 0, 0);
 				
-				_configFileXML.popTag();
+				configFileXML.popTag();
 			}
 			
-			isLogging = _configFileXML.getAttribute("logging", "on", 0, 0) > 0;
+			isLogging = configFileXML.getAttribute("logging", "on", 0, 0) > 0;
 			
 		}
 		catch(...)

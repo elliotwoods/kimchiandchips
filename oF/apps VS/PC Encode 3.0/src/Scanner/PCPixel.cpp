@@ -16,81 +16,76 @@ PCPixel::PCPixel()
 
 void PCPixel::clear()
 {
-	_nFinds=0;
+	nFinds=0;
 	
-	_meanXdash.x=0;
-	_meanXdash.y=0;
+	xdash.x=0;
+	xdash.y=0;
 		
-	_iLastFoundPixel=-1;
-	
-	//we add the ifs in for speed in windows
-	if (_findsIdash.size() > 0)
-		_findsIdash.clear();
+	iLastFoundPixel=-1;
+}
 
-	if (_findsXdash.size() > 0)
-		_findsXdash.clear();
+void PCPixelSDev::clear()
+{
+	PCPixel::clear();
 
+	_findsIdash.clear();
+	_findsXdash.clear();
 }
 
 void PCPixel::addFind(int iPixelDash, float xXdash, float xYdash)
 {
-	_nFinds++;
-	_meanXdash.x = (_meanXdash.x*(_nFinds-1) + xXdash) / _nFinds;
-	_meanXdash.y = (_meanXdash.y*(_nFinds-1) + xYdash) / _nFinds;
+	nFinds++;
+	xdash.x = xXdash;
+	xdash.y = xYdash;
 	
-	_iLastFoundPixel = iPixelDash;
+	iLastFoundPixel = iPixelDash;
+}
+
+void PCPixelMeans::addFind(int iPixelDash, float xXdash, float xYdash)
+{
+	nFinds++;
+	xdash.x = (xdash.x*(nFinds-1) + xXdash) / nFinds;
+	xdash.y = (xdash.y*(nFinds-1) + xYdash) / nFinds;
 	
-	if (sdev)
+	iLastFoundPixel = iPixelDash;
+}
+
+void PCPixelSDev::addFind(int iPixelDash, float xXdash, float xYdash)
+{
+	PCPixelMeans::addFind(iPixelDash, xXdash, xYdash);
+
+	_findsIdash.push_back(iPixelDash);
+	_findsXdash.push_back(ofPoint(xXdash,xYdash));
+}
+
+void PCPixelSDev::calcDeviation()
+{
+	float f_nFinds = nFinds;
+	
+	sigmaXdash.x=0;
+	sigmaXdash.y=0;
+	
+	for (int iFind = 0; iFind < nFinds; iFind++)
 	{
-		_findsIdash.push_back(iPixelDash);
-		_findsXdash.push_back(ofPoint(xXdash,xYdash));
-	}
-}
-
-void PCPixel::calcDeviation()
-{
-	float f_nFinds = _nFinds;
-	
-	_sigmaXdash.x=0;
-	_sigmaXdash.y=0;
-	
-	for (int iFind = 0; iFind < _nFinds; iFind++)
-	{
-		_sigmaXdash.x += (_findsXdash.at(iFind).x - _meanXdash.x) * (_findsXdash.at(iFind).x - _meanXdash.x);
-		_sigmaXdash.y += (_findsXdash.at(iFind).x - _meanXdash.y) * (_findsXdash.at(iFind).y - _meanXdash.y);
+		sigmaXdash.x += (_findsXdash.at(iFind).x - xdash.x) * (_findsXdash.at(iFind).x - xdash.x);
+		sigmaXdash.y += (_findsXdash.at(iFind).x - xdash.y) * (_findsXdash.at(iFind).y - xdash.y);
 	}
 	
-	_sigmaXdash.x = sqrt(_sigmaXdash.x/f_nFinds);
-	_sigmaXdash.y = sqrt(_sigmaXdash.y/f_nFinds);
+	sigmaXdash.x = sqrt(sigmaXdash.x/f_nFinds);
+	sigmaXdash.y = sqrt(sigmaXdash.y/f_nFinds);
 	
-	_sigmaRdash = sqrt((_sigmaXdash.x*_sigmaXdash.x) + (_sigmaXdash.y*_sigmaXdash.y));
-	
-}
-
-void PCPixel::getData(float &MeanXdash, float &MeanYdash)
-{
-	MeanXdash = _meanXdash.x;
-	MeanYdash = _meanXdash.y;	
-}
-
-void PCPixel::getData(float &MeanXdash, float &MeanYdash, float &SigmaXXdash, float &SigmaXYdash, int &iLastFoundIdash)
-{
-	MeanXdash = _meanXdash.x;
-	MeanYdash = _meanXdash.y;
-	SigmaXXdash = _sigmaXdash.x;
-	SigmaXYdash = _sigmaXdash.y;
-	iLastFoundIdash = _iLastFoundPixel;
+	sigmaRdash = sqrt((sigmaXdash.x*sigmaXdash.x) + (sigmaXdash.y*sigmaXdash.y));
 	
 }
 
-void PCPixel::getData(std::vector<ofPoint> **ptrFindsXdash)
+void PCPixelSDev::getFinds(std::vector<ofPoint> **ptrFindsXdash)
 {
 	*ptrFindsXdash = &_findsXdash;
 }
 
-void PCPixel::getFirstData(float &firstXdash, float &firstYdash)
+void PCPixelSDev::getFirstData(float &firstXdash, float &firstYdash) const
 {
-	if (_nFinds>0)
+	if (nFinds>0)
 	{
 		firstXdash = _findsXdash.at(0).x;
 		firstYdash = _findsXdash.at(0).y;
@@ -98,10 +93,4 @@ void PCPixel::getFirstData(float &firstXdash, float &firstYdash)
 		firstXdash = 0;
 		firstYdash = 0;
 	}
-
-}
-
-int	PCPixel::getNFinds()
-{
-	return _nFinds;
 }

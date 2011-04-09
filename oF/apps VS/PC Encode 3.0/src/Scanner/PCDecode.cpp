@@ -10,7 +10,7 @@
 
 #include "PCincludes.h"
 
-PCDecode::PCDecode(PayloadBase *payload, Camera *camera, bool *boolProjectorMask)
+PCDecode::PCDecode(PayloadBase *payload, CameraBase *camera, bool *boolProjectorMask)
 {		
 	_payload = payload;
 	_camera = camera;
@@ -23,7 +23,6 @@ PCDecode::PCDecode(PayloadBase *payload, Camera *camera, bool *boolProjectorMask
 	///////////////////////////////////////
 	// FRAME DATA
 	///////////////////////////////////////
-	_charCamera = new unsigned char[nCamPixels*3];
 	_boolBinary = new bool[nCamPixels];
 	_charBinary	= new unsigned char[nCamPixels];
 	_charFrameDataPreview = new unsigned char[nCamPixels];
@@ -82,11 +81,18 @@ PCDecode::PCDecode(PayloadBase *payload, Camera *camera, bool *boolProjectorMask
 	///////////////////////////////////////
 	// PIXEL FINDS
 	///////////////////////////////////////
-	for (int iPixel=0; iPixel<nProjPixels; iPixel++)
-		projPixels.push_back(new PCPixel());
 	
+	ofLog(OF_LOG_VERBOSE, "PCDecode: Initialising " + ofToString(nProjPixels) +
+		" projector pixels, each at " + ofToString((int)sizeof(PCPixelMeans)) + 
+		" bytes , total = " + ofToString((float)sizeof(PCPixelMeans)*nProjPixels/(1024.0f*1024.0f),2) + "MB");
+	for (int iPixel=0; iPixel<nProjPixels; iPixel++)
+		projPixels.push_back(new PCPixelMeans());
+	
+	ofLog(OF_LOG_VERBOSE, "PCDecode: Initialising " + ofToString(nCamPixels) + 
+		" camera pixels, each at " + ofToString((int)sizeof(PCPixelMeans)) + 
+		" bytes , total = " + ofToString((float)sizeof(PCPixelMeans)*nCamPixels/(1024.0f*1024.0f),2) + "MB");
 	for (int iPixel=0; iPixel<nCamPixels; iPixel++)
-		camPixels.push_back(new PCPixel());
+		camPixels.push_back(new PCPixelMeans());
 	///////////////////////////////////////
 	
 	
@@ -122,7 +128,7 @@ PCDecode::PCDecode(PayloadBase *payload, Camera *camera, bool *boolProjectorMask
 	_scrHistograms->addHistogram(*_histThresholdRange);
 	_scrHistograms->addHistogram(*_histNFinds);
 	
-	_scrCamera = new scrTexture(cursor_none, false,  _texCamera, "Camera");
+	_scrCamera = new scrTexture(cursor_none, false, _texCamera, "Camera");
 	///////////////////////////////////////
 	
 }
@@ -158,12 +164,12 @@ PCDecode::~PCDecode()
 	
 }
 
-bool PCDecode::capture(bool logDeltaT)
+bool PCDecode::capture(bool needFreshFrame)
 {
 	
-	bool isFrameNew = _camera->capture(_charCamera, logDeltaT);
+	bool isFrameNew = _camera->capture(_charCamera, needFreshFrame);
 	
-	_texCamera->loadData(_charCamera, 640, 480, GL_LUMINANCE);
+	_texCamera->loadData(_charCamera, camWidth, camHeight, GL_LUMINANCE);
 
 
 	int nCamPixels = camWidth*camHeight;
@@ -176,6 +182,8 @@ bool PCDecode::capture(bool logDeltaT)
 	
 	_texBinary->loadData(_charBinary, camWidth, camHeight, GL_LUMINANCE);
 	
+	if (!isFrameNew && needFreshFrame)
+		ofLog(OF_LOG_VERBOSE, "PCDecode: Still waiting for sufficient capture wait");
 	return isFrameNew;
 
 }
@@ -187,7 +195,8 @@ void PCDecode::updateSpacePreview(int width, int height, unsigned char data[], o
 	
 	for (int iPixel=0; iPixel<nPixels; iPixel++)
 	{
-		foundPixels.at(iPixel)->getData(Xdash, Ydash);
+		Xdash = foundPixels[iPixel]->xdash.x;
+		Ydash = foundPixels[iPixel]->xdash.y;
 		
 		data[iPixel*3] = float(255) * Xdash;
 		data[iPixel*3+1] = float(255) * Ydash;
@@ -206,14 +215,14 @@ void PCDecode::updateCameraSpacePreview()
 	int maxNFinds=0;
 	//find maximum
 	for (int iPixel=0; iPixel<camWidth*camHeight; iPixel++)
-		if (camPixels[iPixel]->_nFinds > maxNFinds)
-			maxNFinds = camPixels[iPixel]->_nFinds;
+		if (camPixels[iPixel]->nFinds > maxNFinds)
+			maxNFinds = camPixels[iPixel]->nFinds;
 	//convert to float for division
 	float fMaxNFinds = maxNFinds;
 	//fill the char
 	for (int iPixel=0; iPixel<camWidth*camHeight; iPixel++)
 		_charCameraSpaceNFinds[iPixel] = 255.0f *
-				float(camPixels[iPixel]->_nFinds) / fMaxNFinds;
+				float(camPixels[iPixel]->nFinds) / fMaxNFinds;
 	
 	_texCameraSpaceNFinds.loadData(_charCameraSpaceNFinds, camWidth, camHeight, GL_LUMINANCE);
 	///////////////////////////
@@ -231,15 +240,15 @@ void PCDecode::updateProjectorSpacePreview()
 	//find maximum
 	//start from 1 because 0 is where a lot of crap ends up
 	for (int iPixel=1; iPixel<projWidth*projHeight; iPixel++)
-		if (projPixels[iPixel]->_nFinds > maxNFinds)
-			maxNFinds = projPixels[iPixel]->_nFinds;
+		if (projPixels[iPixel]->nFinds > maxNFinds)
+			maxNFinds = projPixels[iPixel]->nFinds;
 	ofLog(OF_LOG_VERBOSE, "PCDecode: max nFinds per projector pix is " + ofToString(maxNFinds,0));
 	//convert to float for division
 	float fMaxNFinds = maxNFinds;
 	//fill the char
 	for (int iPixel=0; iPixel<projWidth*projHeight; iPixel++)
 		_charProjectorSpaceNFinds[iPixel] = 255.0f *
-		log(float(projPixels[iPixel]->_nFinds)) / log(fMaxNFinds);
+		log(float(projPixels[iPixel]->nFinds)) / log(fMaxNFinds);
 	
 	_texProjectorSpaceNFinds.loadData(_charProjectorSpaceNFinds, projWidth, projHeight, GL_LUMINANCE);
 	///////////////////////////
@@ -247,6 +256,9 @@ void PCDecode::updateProjectorSpacePreview()
 
 void PCDecode::moveSendCursor(ofPoint &ptCursorPosition)
 {
+	/*
+	//this function will only work with sdev type PCPixels
+
 	float &x = ptCursorPosition.x;
 	float &y = ptCursorPosition.y;
 	std::vector<ofPoint> *vecXdash;
@@ -267,7 +279,7 @@ void PCDecode::moveSendCursor(ofPoint &ptCursorPosition)
 	} else {
 		_scrFrameData->clearMarkers();
 	}
-
+	*/
 }
 
 void PCDecode::resetCalibration()
@@ -411,7 +423,7 @@ void PCDecode::calcInterleave(int iInterleave)
 	updateProjectorSpacePreview();
 	updateCameraSpacePreview();
 	
-	_camera->clear();
+	_camera->clearTimer();
 }
 
 void PCDecode::checkParity()
@@ -507,15 +519,33 @@ int PCDecode::getFrameParity(int iCameraPixel)
 int PCDecode::getNFinds(int iProjectorPixel)
 {
 	if (iProjectorPixel>=0 && iProjectorPixel<projWidth*projHeight)
-		return projPixels.at(iProjectorPixel)->getNFinds();
+		return projPixels.at(iProjectorPixel)->nFinds;
 	else
 		return 0;
 }
 
+
+void PCDecode::getFoundPixelData(int iProjectorPixel, float &CamMeanX, float &CamMeanY, int &iLastFoundCameraPixel)
+{
+	
+	if (iProjectorPixel>=0 && iProjectorPixel<projWidth*projHeight)
+	{
+		CamMeanX = projPixels[iProjectorPixel]->xdash.x;
+		CamMeanY = projPixels[iProjectorPixel]->xdash.y;
+		iLastFoundCameraPixel = projPixels[iProjectorPixel]->iLastFoundPixel;
+	} else
+		ofLog(OF_LOG_ERROR, "PCEncode::getFoundPixelData : Attempted to access Pixel ID " + ofToString(iProjectorPixel) + " which is out of range");
+}
+
+/*
+only available if sdev exists
 void PCDecode::getFoundPixelData(int iProjectorPixel, float &CamMeanX, float &CamMeanY, float &CamSigmaX, float &CamSigmaY, int &iLastFoundCameraPixel)
 {
 	
 	if (iProjectorPixel>=0 && iProjectorPixel<projWidth*projHeight)
-		projPixels.at(iProjectorPixel)->getData(CamMeanX, CamMeanY, CamSigmaX, CamSigmaY, iLastFoundCameraPixel);
-	
+		projPixels.at(iProjectorPixel)->getData(CamMeanX, CamMeanY, CamSigmaX, CamSigmaY, iLastFoundCameraPixel);	
+	else
+		ofLog(OF_LOG_ERROR, "PCEncode::getFoundPixelData : Attempted to access Pixel ID " + ofToString(iProjectorPixel) + " which is out of range");
 }
+
+*/

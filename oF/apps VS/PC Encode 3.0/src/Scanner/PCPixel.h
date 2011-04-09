@@ -13,37 +13,45 @@
 #include "ofMain.h"
 #include <math.h>
 
-class PCPixelSlim
-{
-public:
-	ofPoint _meanXdash, _sigmaXdash;
-	float				_sigmaRdash; // standard deviation on X
-	
-	int _iLastFoundPixel;
-	int _nFinds;	
-};
 
-class PCPixel : public PCPixelSlim, public PCConfig
+class PCPixel
 {
 	public:
 		PCPixel();
-		void clear();
+		virtual void clear();
 	
-		void addFind(int iCamPixel, float xCamX, float xCamY);
-		
-		void calcDeviation();
+		virtual void addFind(int iCamPixel, float xCamX, float xCamY);
 
-		void getData(float &MeanXdash, float &MeanYdash);
-		void getData(float &MeanXdash, float &MeanYdash, float &SigmaXXdash, float &SigmaXYdash, int &iLastFoundIdash);
-		void getData(std::vector<ofPoint> **ptrFindsXdash);
-	
-		void getFirstData(float &firstXdash, float &firstYdash);
-	
-		int	getNFinds();
-	
+		//data
+		ofPoint xdash;
+		int iLastFoundPixel;
+		int nFinds;	
+
+};
+
+class PCPixelMeans : public PCPixel, public PCConfig
+{
+	public:
+		void addFind(int iCamPixel, float xCamX, float xCamY);
+};
+
+class PCPixelSDev : public PCPixelMeans
+{
+	public:
+		void	clear();
+
+		void	addFind(int iCamPixel, float xCamX, float xCamY);
+
+		void	getFinds(std::vector<ofPoint> **ptrFindsXdash);
+		void	getFirstData(float &firstXdash, float &firstYdash) const;
+
+		void	calcDeviation();
+		
+		ofPoint	sigmaXdash;
+		float	sigmaRdash; // standard deviation	
+
 	protected:
 		std::vector<int>		_findsIdash;
 		std::vector<ofPoint>	_findsXdash;
-	
 
 };

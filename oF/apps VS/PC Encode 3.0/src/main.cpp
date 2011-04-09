@@ -15,9 +15,6 @@ int main( ){
 				  768,
 				  OF_WINDOW);			// <-------- setup the GL context
 	
-	bool test=true;
-	cout << test++ << test++ << test++ << "\n";
-	
 	ofRunApp(new PCApp());
 
 }

@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\addons\ofxDirList\src;..\..\..\addons\ofxPolyFit;..\..\..\addons\ofxThread\src;.\src;.\src\Scanner\Payloads;..\..\..\addons\ofxCLeye;&quot;C:\Program Files\Code Laboratories\CL-Eye Platform SDK\Include&quot;;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src;..\..\..\addons\ofxCVgui\src;..\..\..\libs\openFrameworks;..\..\..\libs\openFrameworks\graphics;..\..\..\libs\openFrameworks\app;..\..\..\libs\openFrameworks\sound;..\..\..\libs\openFrameworks\utils;..\..\..\libs\openFrameworks\communication;..\..\..\libs\openFrameworks\video;..\..\..\libs\openFrameworks\events;..\..\..\libs\glut\include;..\..\..\libs\rtAudio\include;..\..\..\libs\quicktime\include;..\..\..\libs\freetype\include;..\..\..\libs\freetype\include\freetype2;..\..\..\libs\freeImage\include;..\..\..\libs\fmodex\include;..\..\..\libs\videoInput\include;..\..\..\libs\glee\include;..\..\..\libs\glu\include;..\..\..\libs\poco\include;..\..\..\addons;.\src\Scanner;.\src\Correlate"
+				AdditionalIncludeDirectories="&quot;C:\oF\oF 0.61\apps\elliots\PC Encode 3.0\src\Scanner\Camera&quot;;..\..\..\addons\ofxDirList\src;..\..\..\addons\ofxPolyFit;..\..\..\addons\ofxThread\src;.\src;.\src\Scanner\Payloads;..\..\..\addons\ofxCLeye;&quot;C:\Program Files\Code Laboratories\CL-Eye Platform SDK\Include&quot;;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src;..\..\..\addons\ofxCVgui\src;..\..\..\libs\openFrameworks;..\..\..\libs\openFrameworks\graphics;..\..\..\libs\openFrameworks\app;..\..\..\libs\openFrameworks\sound;..\..\..\libs\openFrameworks\utils;..\..\..\libs\openFrameworks\communication;..\..\..\libs\openFrameworks\video;..\..\..\libs\openFrameworks\events;..\..\..\libs\glut\include;..\..\..\libs\rtAudio\include;..\..\..\libs\quicktime\include;..\..\..\libs\freetype\include;..\..\..\libs\freetype\include\freetype2;..\..\..\libs\freeImage\include;..\..\..\libs\fmodex\include;..\..\..\libs\videoInput\include;..\..\..\libs\glee\include;..\..\..\libs\glu\include;..\..\..\libs\poco\include;..\..\..\addons;.\src\Scanner;.\src\Correlate"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;POCO_STATIC"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -222,14 +222,6 @@
 				Name="Scanner"
 				>
 				<File
-					RelativePath=".\src\Scanner\Camera.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\Scanner\Camera.h"
-					>
-				</File>
-				<File
 					RelativePath=".\src\Scanner\PCConfig.cpp"
 					>
 				</File>
@@ -310,6 +302,26 @@
 					</File>
 					<File
 						RelativePath=".\src\Scanner\Payloads\PayloadGraycode.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Camera"
+					>
+					<File
+						RelativePath=".\src\Scanner\Camera\CameraBase.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\Scanner\Camera\CameraBase.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\Scanner\Camera\CameraTheosVideoInput.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\Scanner\Camera\CameraTheosVideoInput.h"
 						>
 					</File>
 				</Filter>

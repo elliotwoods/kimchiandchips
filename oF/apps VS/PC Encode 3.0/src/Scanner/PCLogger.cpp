@@ -95,7 +95,7 @@ void PCLogger::savePixelsBinary(string filename)
 	ofstream iofOutput(filename.c_str(), ios::out | ios::binary);
     
 	bool hasAllFinds;
-	PCPixelSlim *currentPixel;
+	PCPixel *currentPixel;
 	
 	unsigned short iPX, iPY;
 	float fPX, fPY;
@@ -115,7 +115,7 @@ void PCLogger::savePixelsBinary(string filename)
 		for (int iDec=0; iDec<_decoders->size(); iDec++)
 		{
 			currentPixel = _decoders->at(iDec)->projPixels[iPP];
-			hasAllFinds &= currentPixel->_iLastFoundPixel != -1;
+			hasAllFinds &= currentPixel->iLastFoundPixel != -1;
 		}
 		if (!hasAllFinds)
 			continue;
@@ -146,8 +146,8 @@ void PCLogger::savePixelsBinary(string filename)
 		for (int iDec=0; iDec<_decoders->size(); iDec++)
 		{
 			currentPixel = _decoders->at(iDec)->projPixels[iPP];
-			iofOutput.write((char*) &(currentPixel->_meanXdash.x), 4);
-			iofOutput.write((char*) &(currentPixel->_meanXdash.y), 4);
+			iofOutput.write((char*) &(currentPixel->xdash.x), 4);
+			iofOutput.write((char*) &(currentPixel->xdash.y), 4);
 		}
 		//////////////////////////////
 
@@ -168,7 +168,7 @@ void PCLogger::savePixelsText(string filename)
 	
 	dataRow.precision(10);
 	
-	PCPixelSlim *pixelFinds;
+	PCPixel *pixelFinds;
 	
 	bool hasAllFinds;
 
@@ -186,13 +186,16 @@ void PCLogger::savePixelsText(string filename)
 		{
 			pixelFinds = _decoders->at(iDec)->projPixels[iPP];
 	
-			dataRow << "\t"<< pixelFinds->_meanXdash.x << "\t" << pixelFinds->_meanXdash.y << "\t" <<
-								pixelFinds->_sigmaXdash.x << "\t" <<  pixelFinds->_sigmaXdash.y << "\t" <<
-								pixelFinds->_sigmaRdash << "\t" << 
-								pixelFinds->_iLastFoundPixel << "\t" << 
-								pixelFinds->_nFinds;
+			dataRow << "\t"<< pixelFinds->xdash.x << "\t" << pixelFinds->xdash.y << "\t" <<
+				//only for sdev
+				/*
+								pixelFinds->sigmaXdash.x << "\t" <<  pixelFinds->sigmaXdash.y << "\t" <<
+								pixelFinds->sigmaRdash << "\t" << 
+				*/
+								pixelFinds->iLastFoundPixel << "\t" << 
+								pixelFinds->nFinds;
 
-			hasAllFinds &= (pixelFinds->_iLastFoundPixel != -1);
+			hasAllFinds &= (pixelFinds->iLastFoundPixel != -1);
 		}
 			
 		dataRow << endl;
