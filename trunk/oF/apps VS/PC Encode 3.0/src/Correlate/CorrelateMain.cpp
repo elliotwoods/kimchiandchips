@@ -98,7 +98,7 @@ scrGridData("Data pointclouds")
 	nDatasets = 0;
 	//
 	invertXY = true;
-	newFormat = false;
+	newFormat = true;
 	////////////////////////////
 	
 }
