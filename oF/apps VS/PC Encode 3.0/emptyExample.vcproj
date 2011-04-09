@@ -305,8 +305,9 @@
 						>
 					</File>
 				</Filter>
+				
 				<Filter
-					Name="Camera"
+					Name="Cameras"
 					>
 					<File
 						RelativePath=".\src\Scanner\Camera\CameraBase.cpp"
