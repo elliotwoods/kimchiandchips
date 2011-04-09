@@ -6,6 +6,7 @@
  *  Copyright 2011 Kimchi and Chips. All rights reserved.
  *
  */
+#ifdef TARGET_WIN32
 
 #include "CameraBase.h"
 #include "videoInput.h"
@@ -23,3 +24,5 @@ class CameraTheosVideoInput : public CameraBase
 		void	grab();
 		videoInput		_grabber;
 };
+
+#endif

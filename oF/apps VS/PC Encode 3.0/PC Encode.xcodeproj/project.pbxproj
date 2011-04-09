@@ -13,7 +13,10 @@
 		8B0EFAF71282BD460095D621 /* ofxPolyFit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B0EFAEA1282BD450095D621 /* ofxPolyFit.cpp */; };
 		8B0EFAF91282BD460095D621 /* polyNfit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B0EFAEE1282BD450095D621 /* polyNfit.cpp */; };
 		8B0EFAFB1282BD460095D621 /* powerBases.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B0EFAF21282BD450095D621 /* powerBases.cpp */; };
-		8B0EFB9B1282CCE90095D621 /* ScanTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B0EFB9A1282CCE90095D621 /* ScanTime.cpp */; };
+		8B3042561350B8EC00ED4961 /* CameraBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B3042521350B8EC00ED4961 /* CameraBase.cpp */; };
+		8B3042571350B8EC00ED4961 /* CameraTheosVideoInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B3042541350B8EC00ED4961 /* CameraTheosVideoInput.cpp */; };
+		8B30425A1350C08200ED4961 /* CameraDefault.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B3042581350C08200ED4961 /* CameraDefault.cpp */; };
+		8B3042621350C40F00ED4961 /* ofxThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B3042601350C40F00ED4961 /* ofxThread.cpp */; };
 		8B3A2E26127805AC006144DE /* scrGroupBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B3A2E25127805AC006144DE /* scrGroupBase.cpp */; };
 		8B5C88631271898400AA9B44 /* btnBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B5C884F1271898400AA9B44 /* btnBase.cpp */; };
 		8B5C88641271898400AA9B44 /* ofxKCScreensGUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B5C88521271898400AA9B44 /* ofxKCScreensGUI.cpp */; };
@@ -26,7 +29,6 @@
 		8B5C886B1271898400AA9B44 /* scrTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B5C88611271898400AA9B44 /* scrTexture.cpp */; };
 		8B620B5712813DFA00DDD683 /* CorrelateMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B620B5512813DFA00DDD683 /* CorrelateMain.cpp */; };
 		8B620B5A12813E0500DDD683 /* PCManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B620B5812813E0500DDD683 /* PCManager.cpp */; };
-		8B620B5D12813E1800DDD683 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B620B5B12813E1800DDD683 /* Camera.cpp */; };
 		8B620B6012813E2000DDD683 /* PCPixel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B620B5E12813E2000DDD683 /* PCPixel.cpp */; };
 		8B620B6B12813E3B00DDD683 /* PCConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B620B6112813E3B00DDD683 /* PCConfig.cpp */; };
 		8B620B6C12813E3B00DDD683 /* PCDecode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B620B6412813E3B00DDD683 /* PCDecode.cpp */; };
@@ -133,8 +135,16 @@
 		8B0EFAEF1282BD450095D621 /* polyNfit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = polyNfit.h; sourceTree = "<group>"; };
 		8B0EFAF21282BD450095D621 /* powerBases.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = powerBases.cpp; sourceTree = "<group>"; };
 		8B0EFAF31282BD450095D621 /* powerBases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = powerBases.h; sourceTree = "<group>"; };
-		8B0EFB991282CCE90095D621 /* ScanTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanTime.h; sourceTree = "<group>"; };
-		8B0EFB9A1282CCE90095D621 /* ScanTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScanTime.cpp; sourceTree = "<group>"; };
+		8B3042521350B8EC00ED4961 /* CameraBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CameraBase.cpp; path = Scanner/Camera/CameraBase.cpp; sourceTree = "<group>"; };
+		8B3042531350B8EC00ED4961 /* CameraBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraBase.h; path = Scanner/Camera/CameraBase.h; sourceTree = "<group>"; };
+		8B3042541350B8EC00ED4961 /* CameraTheosVideoInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CameraTheosVideoInput.cpp; path = Scanner/Camera/CameraTheosVideoInput.cpp; sourceTree = "<group>"; };
+		8B3042551350B8EC00ED4961 /* CameraTheosVideoInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraTheosVideoInput.h; path = Scanner/Camera/CameraTheosVideoInput.h; sourceTree = "<group>"; };
+		8B3042581350C08200ED4961 /* CameraDefault.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CameraDefault.cpp; sourceTree = "<group>"; };
+		8B3042591350C08200ED4961 /* CameraDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraDefault.h; sourceTree = "<group>"; };
+		8B30425D1350C40F00ED4961 /* Instructions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Instructions.txt; sourceTree = "<group>"; };
+		8B30425E1350C40F00ED4961 /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
+		8B3042601350C40F00ED4961 /* ofxThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxThread.cpp; sourceTree = "<group>"; };
+		8B3042611350C40F00ED4961 /* ofxThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxThread.h; sourceTree = "<group>"; };
 		8B3A2E24127805AC006144DE /* scrGroupBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrGroupBase.h; sourceTree = "<group>"; };
 		8B3A2E25127805AC006144DE /* scrGroupBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scrGroupBase.cpp; sourceTree = "<group>"; };
 		8B5C88491271898400AA9B44 /* button-plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-plus.png"; sourceTree = "<group>"; };
@@ -165,8 +175,6 @@
 		8B620B5612813DFA00DDD683 /* CorrelateMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CorrelateMain.h; path = src/Correlate/CorrelateMain.h; sourceTree = "<group>"; };
 		8B620B5812813E0500DDD683 /* PCManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PCManager.cpp; path = Scanner/PCManager.cpp; sourceTree = "<group>"; };
 		8B620B5912813E0500DDD683 /* PCManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCManager.h; path = Scanner/PCManager.h; sourceTree = "<group>"; };
-		8B620B5B12813E1800DDD683 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Camera.cpp; path = Scanner/Camera.cpp; sourceTree = "<group>"; };
-		8B620B5C12813E1800DDD683 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Camera.h; path = Scanner/Camera.h; sourceTree = "<group>"; };
 		8B620B5E12813E2000DDD683 /* PCPixel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PCPixel.cpp; path = Scanner/PCPixel.cpp; sourceTree = "<group>"; };
 		8B620B5F12813E2000DDD683 /* PCPixel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCPixel.h; path = Scanner/PCPixel.h; sourceTree = "<group>"; };
 		8B620B6112813E3B00DDD683 /* PCConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PCConfig.cpp; path = Scanner/PCConfig.cpp; sourceTree = "<group>"; };
@@ -329,6 +337,47 @@
 			path = ../../../addons/ofxPolyFit;
 			sourceTree = SOURCE_ROOT;
 		};
+		8B3042511350B8AA00ED4961 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				8B3042521350B8EC00ED4961 /* CameraBase.cpp */,
+				8B3042531350B8EC00ED4961 /* CameraBase.h */,
+				8B3042541350B8EC00ED4961 /* CameraTheosVideoInput.cpp */,
+				8B3042551350B8EC00ED4961 /* CameraTheosVideoInput.h */,
+				8B3042581350C08200ED4961 /* CameraDefault.cpp */,
+				8B3042591350C08200ED4961 /* CameraDefault.h */,
+			);
+			name = Camera;
+			sourceTree = "<group>";
+		};
+		8B30425B1350C40F00ED4961 /* ofxThread */ = {
+			isa = PBXGroup;
+			children = (
+				8B30425C1350C40F00ED4961 /* docs */,
+				8B30425E1350C40F00ED4961 /* install.xml */,
+				8B30425F1350C40F00ED4961 /* src */,
+			);
+			name = ofxThread;
+			path = ../../../addons/ofxThread;
+			sourceTree = "<group>";
+		};
+		8B30425C1350C40F00ED4961 /* docs */ = {
+			isa = PBXGroup;
+			children = (
+				8B30425D1350C40F00ED4961 /* Instructions.txt */,
+			);
+			path = docs;
+			sourceTree = "<group>";
+		};
+		8B30425F1350C40F00ED4961 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				8B3042601350C40F00ED4961 /* ofxThread.cpp */,
+				8B3042611350C40F00ED4961 /* ofxThread.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		8B5C88461271898400AA9B44 /* ofxKCScreensGUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -487,8 +536,6 @@
 		8BC0FB0C127F2A5300FD3F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				8B620B5B12813E1800DDD683 /* Camera.cpp */,
-				8B620B5C12813E1800DDD683 /* Camera.h */,
 				8B620B5E12813E2000DDD683 /* PCPixel.cpp */,
 				8B620B5F12813E2000DDD683 /* PCPixel.h */,
 			);
@@ -515,8 +562,6 @@
 			children = (
 				8B620B5512813DFA00DDD683 /* CorrelateMain.cpp */,
 				8B620B5612813DFA00DDD683 /* CorrelateMain.h */,
-				8B0EFB991282CCE90095D621 /* ScanTime.h */,
-				8B0EFB9A1282CCE90095D621 /* ScanTime.cpp */,
 			);
 			name = Stages;
 			sourceTree = "<group>";
@@ -711,9 +756,9 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				8BD2072612730D0E00A9AB03 /* settings.xml */,
 				8BE13660127C72FA008C822D /* Calibrate App */,
 				E4B69B5B0A3A1756003C02F2 /* ScannerDebug.app */,
-				8BD2072612730D0E00A9AB03 /* settings.xml */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4B69E1C0A3A1BDC003C02F2 /* PC scanner */,
 				8BC0FE171280731D00FD3F66 /* Stages */,
@@ -722,6 +767,7 @@
 				8B64D56C128257FA00DB4369 /* ofxFBOTexture */,
 				8B64D48E1281C4A900DB4369 /* ofxDirList */,
 				8B6B964E12717C2F0090C147 /* ofxXmlSettings */,
+				8B30425B1350C40F00ED4961 /* ofxThread */,
 				E4C2422310CC54B6004149E2 /* openFrameworks */,
 				E45BE0360E8CC5DE009D7055 /* libs */,
 				8BD206BC1271B73C00A9AB03 /* todo.rtf */,
@@ -731,6 +777,7 @@
 		E4B69E1C0A3A1BDC003C02F2 /* PC scanner */ = {
 			isa = PBXGroup;
 			children = (
+				8B3042511350B8AA00ED4961 /* Camera */,
 				8B620B5812813E0500DDD683 /* PCManager.cpp */,
 				8B620B5912813E0500DDD683 /* PCManager.h */,
 				8BC0FB0C127F2A5300FD3F66 /* Classes */,
@@ -863,6 +910,7 @@
 			isa = PBXProject;
 			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "PC Encode" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -935,7 +983,6 @@
 				8BC0FC341280327300FD3F66 /* wdgSlider.cpp in Sources */,
 				8B620B5712813DFA00DDD683 /* CorrelateMain.cpp in Sources */,
 				8B620B5A12813E0500DDD683 /* PCManager.cpp in Sources */,
-				8B620B5D12813E1800DDD683 /* Camera.cpp in Sources */,
 				8B620B6012813E2000DDD683 /* PCPixel.cpp in Sources */,
 				8B620B6B12813E3B00DDD683 /* PCConfig.cpp in Sources */,
 				8B620B6C12813E3B00DDD683 /* PCDecode.cpp in Sources */,
@@ -958,7 +1005,10 @@
 				8B0EFAF71282BD460095D621 /* ofxPolyFit.cpp in Sources */,
 				8B0EFAF91282BD460095D621 /* polyNfit.cpp in Sources */,
 				8B0EFAFB1282BD460095D621 /* powerBases.cpp in Sources */,
-				8B0EFB9B1282CCE90095D621 /* ScanTime.cpp in Sources */,
+				8B3042561350B8EC00ED4961 /* CameraBase.cpp in Sources */,
+				8B3042571350B8EC00ED4961 /* CameraTheosVideoInput.cpp in Sources */,
+				8B30425A1350C08200ED4961 /* CameraDefault.cpp in Sources */,
+				8B3042621350C40F00ED4961 /* ofxThread.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1008,7 +1058,7 @@
 					"-lpthread",
 				);
 				OTHER_LDFLAGS = "";
-				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT = "";
 			};
 			name = ReleaseUniversal;
 		};
@@ -1091,7 +1141,7 @@
 					"-lpthread",
 				);
 				OTHER_LDFLAGS = "";
-				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -1127,7 +1177,7 @@
 					"-lpthread",
 				);
 				OTHER_LDFLAGS = "";
-				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
