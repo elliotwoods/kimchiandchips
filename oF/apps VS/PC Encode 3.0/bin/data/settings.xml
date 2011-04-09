@@ -14,11 +14,11 @@
 	<decoding>
     <!--cameras width="2592" height="1944">
 			gain="40" exposure="128" delay="40" /-->
-		<cameras width="1280" height="720"
-			gain="40" exposure="128" delay="100">	
+		<cameras width="1920" height="1080"
+			gain="40" exposure="128" delay="50">
 
-			<camera id="0" />
-			<camera id="1" />
+      <!--camera id="0" />
+			<camera id="1" /-->
 		</cameras>
 
     <data sdev="0" />
