@@ -8,16 +8,17 @@
 			-->
 			<projector width="1440" height="900" />
 			<interleave width="2" height="2" />
-			<errorcheck nFrames="0" />
+			<errorcheck nFrames="6" />
 	</encoding>
 	
 	<decoding>
     <!--cameras width="2592" height="1944">
 			gain="40" exposure="128" delay="40" /-->
-		<cameras width="640" height="480">
+		<cameras width="640" height="480"
 			gain="40" exposure="128" delay="10" />	
+
 			<camera id="0" />
-			<!--camera id="1" /-->
+			<camera id="1" />
 		</cameras>
 
     <data sdev="0" />
