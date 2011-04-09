@@ -111,6 +111,7 @@ vector<double> ofxPolyFit::evaluate(vector<double> input)
 	}
 	
 	float basis, coeff;
+    #pragma omp parallel for
 	for (int iDimOut=0; iDimOut< _fit->_outdim; iDimOut++)
 	{
 		output[iDimOut] = 0;
@@ -134,7 +135,7 @@ void ofxPolyFit::save(string filename)
 #else
 	filename = "../../../data/" + filename;
 #endif
-	ofstream fileout(filename.c_str(), ios::out | ios::binary);
+	ofstream fileout(filename.c_str(), ios::out | ios::binary | ios::trunc);
 	
 	//write:
 	//order, dimensionsIn, dimensionsOut, basisType, nBases
