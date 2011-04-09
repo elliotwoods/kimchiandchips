@@ -51,12 +51,13 @@ scrGridData("Data pointclouds")
 	bangLoad = new wdgButton("Load data");
 	bangCorrelate = new wdgButton("Run polyfit");
 	bangTestData = new wdgButton("Test dataset");
-	bangWrite = new wdgButton("Save fit");
+	bangLoadFit = new wdgButton("Load fit");
+	bangSaveFit = new wdgButton("Save fit");
 	bangSaveProjectionXYZ = new wdgButton("Save projection space XYZ");
 	
 	bangCorrelate->enabled=false;
 	bangTestData->enabled=false;
-	bangWrite->enabled=false;
+	bangSaveFit->enabled=false;
 	bangSaveProjectionXYZ->enabled=false;
 	
 	scrControl.push(wdgCameraCount);
@@ -67,7 +68,8 @@ scrGridData("Data pointclouds")
 	scrControl.push(wdgScreenHeight);
 	scrControl.push(wdgPolyOrder);
 	scrControl.push(bangTestData);
-	scrControl.push(bangWrite);
+	scrControl.push(bangLoadFit);
+	scrControl.push(bangSaveFit);
 	scrControl.push(new wdgButton("Invert XY", invertXY));
 	scrControl.push(new wdgButton("File format v0.2", newFormat));
 	scrControl.push(new wdgButton("Swap cameras", swapCameras));
@@ -112,11 +114,18 @@ void CorrelateMain::update()
 	if (bangTestData->getBang())
 		runTestSet();
 	
-	if (bangWrite->getBang())
+	if (bangLoadFit->getBang())
 	{
-		string fname =	"order=" + ofToString(polyOrder, 0) +
-						",nSets=" + ofToString(nDatasets, 0);
-		
+		string fname = "calib.fit";
+		fit.load(fname);
+		bangTestData->enabled = true;
+	}
+
+	if (bangSaveFit->getBang())
+	{
+		//string fname =	"order=" + ofToString(polyOrder, 0) +
+		//				",nSets=" + ofToString(nDatasets, 0);
+		string fname = "calib.fit";
 		fit.save(fname);
 	}
 	
@@ -257,7 +266,7 @@ void CorrelateMain::loadData()
 	scrTestCorrelate.setWith(*test_pos, *input_col, 0);
 	
 	bangCorrelate->enabled=true;
-	bangWrite->enabled=false;
+	bangSaveFit->enabled=false;
 }
 
 float CorrelateMain::getDepthFromFilename(string filename)
@@ -293,7 +302,7 @@ void CorrelateMain::runPolyfit()
 	fit.correlate(polyInput, polyOutput);
 	
 	bangTestData->enabled=true;
-	bangWrite->enabled=true;
+	bangSaveFit->enabled=true;
 }
 
 void CorrelateMain::runTestSet()

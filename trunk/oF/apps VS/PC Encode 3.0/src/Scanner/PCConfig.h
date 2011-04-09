@@ -42,7 +42,6 @@ class PCConfig
 		static bool		isLogging;
 	
 	private:
-		ofxXmlSettings	_configFileXML;
 		static string	_configFilename;
 		static bool		_loaded;
 

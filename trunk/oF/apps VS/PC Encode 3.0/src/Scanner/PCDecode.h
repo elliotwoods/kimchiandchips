@@ -9,6 +9,7 @@
  *
  */
 
+#include "CameraBase.h"
 #include "PCconstants.h"
 #include "PCConfig.h"
 
@@ -18,7 +19,6 @@
 #include "PCEncode.h"
 #include "ofxKCScreensGUI.h"
 
-#include "Camera.h"
 #include "PCPixel.h"
 
 #include "PayloadBase.h"
@@ -28,10 +28,10 @@
 class PCDecode : public PCConfig 
 {
 	public:
-		PCDecode(PayloadBase *payload, Camera *camera, bool *boolProjectorMask);
+		PCDecode(PayloadBase *payload, CameraBase *camera, bool *boolProjectorMask);
 		~PCDecode();
 	
-		bool capture(bool logDeltaT=false);
+		bool capture(bool needFreshFrame=false);
 	
 		void updateCameraSpacePreview();
 		void updateProjectorSpacePreview();
@@ -51,6 +51,7 @@ class PCDecode : public PCConfig
 		int	getFrameData(int iCameraPixel);
 		int getFrameParity(int iCameraPixel);
 		int	getNFinds(int iProjectorPixel);
+		void getFoundPixelData(int iProjectorPixel, float &CamMeanX, float &CamMeanY, int &iLastFoundCameraPixel);
 		void getFoundPixelData(int iProjectorPixel, float &CamMeanX, float &CamMeanY, float &CamSigmaX, float &CamSigmaY, int &iLastFoundCameraPixel);
 
 		unsigned char *			_charCameraSpacePreview;
@@ -74,7 +75,7 @@ class PCDecode : public PCConfig
 		void					moveSendCursor(ofPoint &ptCursorPosition);
 	
 		PayloadBase				*_payload;
-		Camera					*_camera;
+		CameraBase				*_camera;
 		
 		ofTexture				*_texBinary, *_texFrameDataPreview;
 		ofTexture				*_texThreshold, *_texThresholdMasked, *_texThresholdMask;

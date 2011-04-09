@@ -69,11 +69,17 @@ void PCManager::setup()
 		//instantiate cameras, decoders
 		FOREACH_CAMERA
 		{
-			_camera.push_back(new Camera());
+			#ifdef PCENCODE_CAM_DEFAULT
+			_camera.push_back(new CameraDefault());
+			#endif
+			
+			#ifdef PCENCODE_CAM_VIDEO_INPUT
+			_camera.push_back(new CameraTheosVideoInput());
+			#endif
+
 			_decoder.push_back(new PCDecode(_payload, _camera[iCam], _boolProjectorMask));
 			
-			_camera[iCam]->ID = camIDs[iCam];
-			if (!_camera[iCam]->init())
+			if (!_camera[iCam]->setup(camIDs[iCam]))
 				std::exit(0);
 		}
 		
@@ -115,7 +121,7 @@ void PCManager::update()
 		FOREACH_CAMERA
 			if (!hasNewImage[iCam])
 			{
-				//set logdeltat=true if we're state>0
+				//set forceFreshFrame=true if we're state>0
 				hasNewImage[iCam] = _decoder[iCam]->capture(state>0);
 				hasNewImageSum &= hasNewImage[iCam];
 			}
@@ -291,7 +297,7 @@ void PCManager::writeFrame()
 	
 	if (state>0)
 		FOREACH_CAMERA
-			_camera[iCam]->clear();
+			_camera[iCam]->clearTimer();
 }
 
 void PCManager::clearProjectorMask()
@@ -316,7 +322,7 @@ void PCManager::updateProjectorMask()
 	{
 		current = true;
 		FOREACH_CAMERA
-			current &= _decoder[iCam]->projPixels[iPP]->_nFinds>0;
+			current &= _decoder[iCam]->projPixels[iPP]->nFinds>0;
 		
 		_boolProjectorMask[iPP] = !current;
 		_charProjectorMask[iPP] = (current ? 0 : 255);

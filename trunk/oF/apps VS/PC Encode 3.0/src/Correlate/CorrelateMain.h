@@ -42,7 +42,7 @@ protected:
 	
 	//
 	
-	wdgButton		*bangLoad, *bangCorrelate, *bangTestData, *bangWrite;
+	wdgButton		*bangLoad, *bangCorrelate, *bangTestData, *bangLoadFit, *bangSaveFit;
 	wdgButton		*bangSaveProjectionXYZ;
 	bool			invertXY;
 	bool			newFormat;

@@ -25,6 +25,28 @@
 #define STATE_CALIBRATING			1
 #define STATE_SCANNING				2
 
+/////////////////////////////////////
+// CAMERAS
+/////////////////////////////////////
+//
+#ifdef TARGET_OSX
+	#define PCENCODE_CAM_DEFAULT
+#else
+	#define PCENCODE_CAM_VIDEO_INPUT
+#endif
+//
+///////
+//
+#ifdef PCENCODE_CAM_DEFAULT
+	#include "CameraDefault.h"
+#endif
+//
+#ifdef PCENCODE_CAM_VIDEO_INPUT
+	#include "CameraTheosVideoInput.h"
+#endif
+//
+/////////////////////////////////////
+
 class PCManager : public PCConfig 
 {
 public:
@@ -56,7 +78,7 @@ public:
 	
 	PCLogger			*_logger;
 	
-	vector<Camera*>		_camera;
+	vector<CameraBase*>		_camera;
 		
 	//interface
 	scrTexture				_scrProjectorMask;
