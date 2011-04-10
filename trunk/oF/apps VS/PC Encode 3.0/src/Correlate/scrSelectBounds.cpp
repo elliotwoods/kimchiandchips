@@ -69,9 +69,9 @@ void scrSelectBounds::drawContent()
     shader.begin();
 
     //set properties
-    shader.setUniform("testFloat", (float)sin(ofGetElapsedTimef())/2.0f + 0.5f);
-    shader.setUniform("lbf", lbf.x, lbf.y, lbf.z);
-    shader.setUniform("rtb", rtb.x, rtb.y, rtb.z);
+    shader.setUniform1f("testFloat", (float)sin(ofGetElapsedTimef())/2.0f + 0.5f);
+    shader.setUniform3f("lbf", lbf.x, lbf.y, lbf.z);
+    shader.setUniform3f("rtb", rtb.x, rtb.y, rtb.z);
     
     
     //draw content
