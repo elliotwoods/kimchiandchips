@@ -25,12 +25,7 @@ ofxPolyFit::~ofxPolyFit()
 void ofxPolyFit::init(int order, int dimensionsIn, int dimensionsOut, int basisType)
 {
 	if (_isInitialised)
-	{
-		for (int i=0; i<_fit->_outdim; i++)
-			delete[] coefficients[i];
-		coefficients.clear();
-		delete _fit;
-	}
+		uninitialise();
 	
 	_fit = new polyNfit(order, dimensionsIn, dimensionsOut, basisType);
 	
@@ -47,6 +42,18 @@ void ofxPolyFit::init(int order, int dimensionsIn, int dimensionsOut, int basisT
 	
 	_success = false;
 	_isInitialised = true;
+}
+
+void ofxPolyFit::uninitialise()
+{
+    for (int i=0; i<_fit->_outdim; i++)
+        delete[] coefficients[i];
+    coefficients.clear();
+    delete _fit;
+    nBases = 0;
+    
+    _isInitialised = false;
+    _success = false;
 }
 
 void ofxPolyFit::correlate(std::vector<std::vector<double> > &input, std::vector<std::vector<double> > &output)
@@ -111,7 +118,6 @@ vector<double> ofxPolyFit::evaluate(vector<double> input)
 	}
 	
 	float basis, coeff;
-    #pragma omp parallel for
 	for (int iDimOut=0; iDimOut< _fit->_outdim; iDimOut++)
 	{
 		output[iDimOut] = 0;
@@ -126,6 +132,46 @@ vector<double> ofxPolyFit::evaluate(vector<double> input)
 		
 	}
 	return output;
+}
+
+void ofxPolyFit::evaluate(double* input, double* output)
+{
+    float basis, coeff;
+    
+    vector<double> inputVec(input, input + _fit->_indim);
+
+	for (int iDimOut=0; iDimOut< _fit->_outdim; iDimOut++)
+	{
+		output[iDimOut] = 0;
+		
+		for (int iBasis=0; iBasis < nBases; iBasis++)
+		{
+			basis=_fit->basis(iBasis, inputVec);
+			
+			output[iDimOut]+= basis * coefficients[iDimOut][iBasis];
+		}
+		
+	}    
+}
+
+void ofxPolyFit::evaluate(float* input, float* output)
+{
+    float basis, coeff;
+    
+    vector<double> inputVec(input, input + _fit->_indim);
+    
+	for (int iDimOut=0; iDimOut< _fit->_outdim; iDimOut++)
+	{
+		output[iDimOut] = 0;
+		
+		for (int iBasis=0; iBasis < nBases; iBasis++)
+		{
+			basis=_fit->basis(iBasis, inputVec);
+			
+			output[iDimOut]+= basis * coefficients[iDimOut][iBasis];
+		}
+		
+	}    
 }
 
 void ofxPolyFit::save(string filename)
@@ -157,12 +203,13 @@ void ofxPolyFit::save(string filename)
 	
 	for (int iBasis=0; iBasis<nBases; iBasis++)
 		fileout.write((char*) basisIndicies->at(iBasis),
-					  _fit->_indim * 4);
+					  sizeof(unsigned int) * _fit->_indim);
 	
 	for (int iDimOut=0; iDimOut<_fit->_outdim; iDimOut++)
 		fileout.write((char*) coefficients[iDimOut],
 					  sizeof(double) * nBases);
-	
+    
+	ofLog(OF_LOG_VERBOSE, "ofxPolyFit: Fit saved");
 }
 
 void ofxPolyFit::load(string filename)
@@ -179,11 +226,16 @@ void ofxPolyFit::load(string filename)
 		ofLog(OF_LOG_ERROR, "ofxPolyFit: failed to load file " + filename);
 		return;
 	}
-	
-	filein.read((char*) &_fit->_order, 2);
-	filein.read((char*) &_fit->_indim, 2);
-	filein.read((char*) &_fit->_outdim, 2);
-	filein.read((char*) &_fit->_basesShape, 1);
+	unsigned short order, indim, outdim;
+    unsigned char basesShape;
+    
+	filein.read((char*) &order, 2);
+	filein.read((char*) &indim, 2);
+	filein.read((char*) &outdim, 2);
+	filein.read((char*) &basesShape, 1);
+    
+    init(order, indim, outdim, basesShape);
+    
 	filein.read((char*) &nBases, 4);
 	
 	for (int iBasis=0; iBasis<nBases; iBasis++)

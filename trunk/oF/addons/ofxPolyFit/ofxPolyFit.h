@@ -18,10 +18,12 @@ public:
 	~ofxPolyFit();
 	
 	void								init(int order, int dimensionsIn, int dimensionsOut, int basisType);
-	
+	void                                uninitialise();
+    
 	void								correlate(vector<vector<double> > &input, std::vector<std::vector<double> > &output);
 	vector<double>						evaluate(vector<double> input);
-	
+    void                                evaluate(double* input, double* output);
+    void                                evaluate(float* input, float* output);	
 	void								save(string filename);
 	void								load(string filename);
 	
