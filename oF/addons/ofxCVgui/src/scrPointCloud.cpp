@@ -9,12 +9,16 @@
 
 #include "scrPointCloud.h"
 
+ofPoint scrPointCloud::spin = ofPoint();
+ofPoint scrPointCloud::translate = ofPoint();
+float scrPointCloud::distance = 1;
+
+
 scrPointCloud::scrPointCloud(string caption) :
 scrBase(cursor_none, false, caption)
 {
 	_nPoints = 0;
 	pointSize = 2;
-	distance = 1;
 	glGenBuffersARB(1, &vbo[0]);
 	glGenBuffersARB(1, &vbo[1]);
 //	ofAddListener(ofEvents.keyPressed, this, &scrPointCloud::keyPressed);
@@ -27,11 +31,19 @@ scrPointCloud::~scrPointCloud()
 
 void scrPointCloud::drawContent()
 {
-	ofPushStyle();
+
+    begin();
+    drawPoints();
+    end();
+	
+}
+
+void scrPointCloud::begin()
+{
+    ofPushStyle();
 	
 	//temporarily store the viewport
-	int viewport_temp[4];
-	glGetIntegerv(GL_VIEWPORT, viewport_temp);
+	glGetIntegerv(GL_VIEWPORT, _viewport_temp);
 	
 	//set the viewport to our screen only
 	int boundsx,boundsy,boundswidth,boundsheight;
@@ -56,14 +68,17 @@ void scrPointCloud::drawContent()
 	
 	glEnable(GL_DEPTH_TEST);
 	glPointSize(pointSize);
-	
-	glEnableClientState(GL_VERTEX_ARRAY);
+}
+
+void scrPointCloud::drawPoints()
+{
+    glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
 	
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, vbo[0]);
 	glBufferDataARB(GL_ARRAY_BUFFER_ARB, _nPoints * 3 * sizeof(float), _positions, GL_STATIC_DRAW_ARB);
 	glVertexPointer(3, GL_FLOAT, 0, 0);
-
+    
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, vbo[1]);
 	glBufferDataARB(GL_ARRAY_BUFFER_ARB, _nPoints * 3 * sizeof(float), _colours, GL_STATIC_DRAW_ARB);
 	glColorPointer(3, GL_FLOAT, 0, 0);
@@ -74,8 +89,11 @@ void scrPointCloud::drawContent()
 	glDisableClientState(GL_COLOR_ARRAY);
 	
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
-	
-	//clear world states
+}
+
+void scrPointCloud::end()
+{
+    //clear world states
 	glDisable(GL_DEPTH_TEST);	
 	
 	//clear matricies
@@ -85,9 +103,8 @@ void scrPointCloud::drawContent()
 	glPopMatrix();
 	
 	//let's get our full viewport back
-	glViewport(viewport_temp[0], viewport_temp[1],
-			   viewport_temp[2], viewport_temp[3]);
-	
+	glViewport(_viewport_temp[0], _viewport_temp[1],
+			   _viewport_temp[2], _viewport_temp[3]);
 }
 
 void scrPointCloud::mouseDragged(int x, int y, int dx, int dy, int button)
@@ -107,7 +124,6 @@ void scrPointCloud::mouseDragged(int x, int y, int dx, int dy, int button)
 		
 		translate.z +=float(dx) / float(boundswidth) * 2.0f;
 	}
-
 }
 
 void scrPointCloud::setWith(float *positions, float *colours, int nPoints)

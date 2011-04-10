@@ -30,7 +30,9 @@ void wdgCounter::setMax(int myMax)
 void wdgCounter::draw()
 {
 
-	string numDisplay = ofToString(_value, 0);
+	string numDisplay = ofToString(_value);
+    if (_max > 0)
+        numDisplay += "/" + ofToString(_max);
 	
 	ofPushStyle();
 	ofSetColor(255, 255, 255);
