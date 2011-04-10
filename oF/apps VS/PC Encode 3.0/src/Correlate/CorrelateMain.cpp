@@ -70,7 +70,6 @@ scrGridData("Data pointclouds")
 	scrControl.push(bangTestData);
 	scrControl.push(bangLoadFit);
 	scrControl.push(bangSaveFit);
-	scrControl.push(new wdgButton("Invert XY", invertXY));
 	scrControl.push(new wdgButton("File format v0.2", newFormat));
 	scrControl.push(new wdgButton("Swap cameras", swapCameras));
 	scrControl.push(bangSaveProjectionXYZ);
@@ -97,7 +96,6 @@ scrGridData("Data pointclouds")
 	polyOrder = 4;
 	nDatasets = 0;
 	//
-	invertXY = true;
 	newFormat = true;
 	////////////////////////////
 	
@@ -205,7 +203,7 @@ void CorrelateMain::loadData()
 			
 			
 			///////////////////////////////
-			// Read data
+			// Read data points
 			///////////////////////////////
 			thisNPoints = (thisFileSize-1) / ((newFormat ? 4 : 0)+8+8*nCameras);
 			//
@@ -222,8 +220,8 @@ void CorrelateMain::loadData()
 				inFile.read((char*) &thisvalx, 4);
 				inFile.read((char*) &thisvaly, 4);
 				
-				outputRow[0] = screenWidth * (thisvalx-0.5);
-				outputRow[1] = screenHeight * (thisvaly-0.5);
+				outputRow[0] = screenWidth * (0.5 - thisvalx);
+				outputRow[1] = screenHeight * (0.5 - thisvaly);
 				outputRow[2] = getDepthFromFilename(scrFileSelection.getName(iFile));
 				
 				for (int iCam=0; iCam<nCameras; iCam++)
@@ -276,15 +274,14 @@ float CorrelateMain::getDepthFromFilename(string filename)
 
 void CorrelateMain::copyToInputScreen()
 {
-	double inv = (invertXY ? -1 : 1);
 	
 	if (nPoints>MAXPOINTS)
 		ofLog(OF_LOG_WARNING, "CorrelateMain: nPoints > MAXPOINTS. only drawing first MAXPOINTS");
 	
 	for (int iPoint = 0; iPoint<min(nPoints,MAXPOINTS); iPoint++)
 	{
-		input_pos[iPoint][0] = inv * polyOutput[iPoint][0];
-		input_pos[iPoint][1] = inv * polyOutput[iPoint][1];
+		input_pos[iPoint][0] = polyOutput[iPoint][0];
+		input_pos[iPoint][1] = polyOutput[iPoint][1];
 		input_pos[iPoint][2] = polyOutput[iPoint][2];
 		
 		input_col[iPoint][0] = polyOutput[iPoint][0] / screenWidth + 0.5;
@@ -307,20 +304,19 @@ void CorrelateMain::runPolyfit()
 
 void CorrelateMain::runTestSet()
 {
-	vector<double> *input;
-	vector<double> output(3);
+    //HARDCODED FOR 2 CAMERAS
+    
+	float input[4];
 	
-	double inv = (invertXY ? -1 : 1);
-	
+    #pragma omp parallel for private(input)
 	for (int iPoint = 0; iPoint<min(nPoints,MAXPOINTS); iPoint++)
-	{
-		input = &polyInput[iPoint];
-		
-		output = fit.evaluate(*input);
-		
-		test_pos[iPoint][0] = inv * output[0];
-		test_pos[iPoint][1] = inv * output[1];
-		test_pos[iPoint][2] = output[2];
+    {
+        input[0] = polyInput[iPoint][0];
+        input[1] = polyInput[iPoint][1];
+        input[2] = polyInput[iPoint][2];
+        input[3] = polyInput[iPoint][3];
+        
+        fit.evaluate(input, test_pos[iPoint]);
 	}
 	
 	scrTestCorrelate.setWith(*test_pos, *input_col, nPoints);
@@ -335,23 +331,31 @@ void CorrelateMain::saveProjector()
 	imgSave.setImageType(OF_IMAGE_COLOR);
 	imgSave.allocate(projWidth, projHeight, OF_IMAGE_COLOR);
 	
-	ofPoint lbr = ofPoint(-1,-1,0);
-	ofPoint rtb = ofPoint(1,1,2);
-	
 	//clear all values out to black
 	memset(imgSave.getPixels(), 0, projWidth*projHeight*3);
 	
+    ofPoint& lbf(scrTestCorrelate.lbf);
+    ofPoint& rtb(scrTestCorrelate.rtb);
+    
 	int iPP;
 	unsigned char col[3];
+    float* point;
 	
 	for (int iPoint=0; iPoint<nPoints; iPoint++)
 	{
+        point = test_pos[iPoint];
+        
+        //check if not within selected bounds
+        if (point[0] > lbf.x || point[1] > lbf.y || point[2] > lbf.z || point[0] < rtb.x || point[2] < rtb.y || point[2] < rtb.z)
+            continue;
+        
 		//convert position to colour values
-		col[0] = ofMap(test_pos[iPoint][0],lbr.x,rtb.x,0,255,true);
-		col[1] = ofMap(test_pos[iPoint][1],lbr.y,rtb.y,0,255,true);
-		col[2] = ofMap(test_pos[iPoint][2],lbr.z,rtb.z,0,255,true);
+		col[0] = ofMap(test_pos[iPoint][0],lbf.x,rtb.x,0,255,true);
+		col[1] = ofMap(test_pos[iPoint][1],lbf.y,rtb.y,0,255,true);
+		col[2] = ofMap(test_pos[iPoint][2],lbf.z,rtb.z,0,255,true);
 		
 		iPP = dataset_iPX[iPoint] + projWidth * dataset_iPY[iPoint];
+        
 		if (iPP<projWidth*projHeight && iPP>=0)
 			memcpy(imgSave.getPixels()+3*iPP, col, 3);
 	}

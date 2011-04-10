@@ -52,6 +52,8 @@
 		8BC0FB2E1280252500FD3F66 /* wdgBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BC0FB2D1280252500FD3F66 /* wdgBase.cpp */; };
 		8BC0FB35128026E600FD3F66 /* scrWidgets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BC0FB34128026E600FD3F66 /* scrWidgets.cpp */; };
 		8BC0FC341280327300FD3F66 /* wdgSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BC0FC331280327300FD3F66 /* wdgSlider.cpp */; };
+		8BC380801351A86900B050A1 /* ofxShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BC3807E1351A86900B050A1 /* ofxShader.cpp */; };
+		8BC380831351A88900B050A1 /* scrSelectBounds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BC380811351A88900B050A1 /* scrSelectBounds.cpp */; };
 		8BE1355C127B0543008C822D /* scrGroupGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BE1355B127B0543008C822D /* scrGroupGrid.cpp */; };
 		8BE136F7127D4464008C822D /* scrGroupTabbed.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BE136F6127D4464008C822D /* scrGroupTabbed.cpp */; };
 		E45BE0AA0E8CC67C009D7055 /* GLee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE0A90E8CC67C009D7055 /* GLee.a */; };
@@ -223,6 +225,11 @@
 		8BC0FB33128026E600FD3F66 /* scrWidgets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrWidgets.h; sourceTree = "<group>"; };
 		8BC0FB34128026E600FD3F66 /* scrWidgets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scrWidgets.cpp; sourceTree = "<group>"; };
 		8BC0FC331280327300FD3F66 /* wdgSlider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wdgSlider.cpp; sourceTree = "<group>"; };
+		8BC3807C1351A86900B050A1 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		8BC3807E1351A86900B050A1 /* ofxShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxShader.cpp; sourceTree = "<group>"; };
+		8BC3807F1351A86900B050A1 /* ofxShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxShader.h; sourceTree = "<group>"; };
+		8BC380811351A88900B050A1 /* scrSelectBounds.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scrSelectBounds.cpp; sourceTree = "<group>"; };
+		8BC380821351A88900B050A1 /* scrSelectBounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrSelectBounds.h; sourceTree = "<group>"; };
 		8BD206BC1271B73C00A9AB03 /* todo.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = todo.rtf; sourceTree = "<group>"; };
 		8BD2072612730D0E00A9AB03 /* settings.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = settings.xml; path = bin/data/settings.xml; sourceTree = "<group>"; };
 		8BE13557127B0527008C822D /* scrGroupSwap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrGroupSwap.h; sourceTree = "<group>"; };
@@ -562,8 +569,29 @@
 			children = (
 				8B620B5512813DFA00DDD683 /* CorrelateMain.cpp */,
 				8B620B5612813DFA00DDD683 /* CorrelateMain.h */,
+				8BC380811351A88900B050A1 /* scrSelectBounds.cpp */,
+				8BC380821351A88900B050A1 /* scrSelectBounds.h */,
 			);
 			name = Stages;
+			sourceTree = "<group>";
+		};
+		8BC3807B1351A86900B050A1 /* ofxShader */ = {
+			isa = PBXGroup;
+			children = (
+				8BC3807C1351A86900B050A1 /* README.md */,
+				8BC3807D1351A86900B050A1 /* src */,
+			);
+			name = ofxShader;
+			path = ../../../addons/ofxShader;
+			sourceTree = "<group>";
+		};
+		8BC3807D1351A86900B050A1 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				8BC3807E1351A86900B050A1 /* ofxShader.cpp */,
+				8BC3807F1351A86900B050A1 /* ofxShader.h */,
+			);
+			path = src;
 			sourceTree = "<group>";
 		};
 		8BE13660127C72FA008C822D /* Calibrate App */ = {
@@ -768,6 +796,7 @@
 				8B64D48E1281C4A900DB4369 /* ofxDirList */,
 				8B6B964E12717C2F0090C147 /* ofxXmlSettings */,
 				8B30425B1350C40F00ED4961 /* ofxThread */,
+				8BC3807B1351A86900B050A1 /* ofxShader */,
 				E4C2422310CC54B6004149E2 /* openFrameworks */,
 				E45BE0360E8CC5DE009D7055 /* libs */,
 				8BD206BC1271B73C00A9AB03 /* todo.rtf */,
@@ -1009,6 +1038,8 @@
 				8B3042571350B8EC00ED4961 /* CameraTheosVideoInput.cpp in Sources */,
 				8B30425A1350C08200ED4961 /* CameraDefault.cpp in Sources */,
 				8B3042621350C40F00ED4961 /* ofxThread.cpp in Sources */,
+				8BC380801351A86900B050A1 /* ofxShader.cpp in Sources */,
+				8BC380831351A88900B050A1 /* scrSelectBounds.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1033,6 +1064,7 @@
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/";
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
+				ENABLE_OPENMP_SUPPORT = YES;
 				GCC_AUTO_VECTORIZATION = YES;
 				GCC_ENABLE_SSE3_EXTENSIONS = YES;
 				GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS = YES;
@@ -1118,6 +1150,7 @@
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
+				ENABLE_OPENMP_SUPPORT = YES;
 				GCC_AUTO_VECTORIZATION = YES;
 				GCC_ENABLE_SSE3_EXTENSIONS = YES;
 				GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS = YES;
@@ -1152,6 +1185,7 @@
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/";
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
+				ENABLE_OPENMP_SUPPORT = YES;
 				GCC_AUTO_VECTORIZATION = YES;
 				GCC_ENABLE_SSE3_EXTENSIONS = YES;
 				GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS = YES;
