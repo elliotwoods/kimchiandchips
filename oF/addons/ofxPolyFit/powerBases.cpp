@@ -12,6 +12,8 @@
 powerBases::powerBases(int basesShape)
 {
 	_basesShape=basesShape;
+    _renderedNDimensions=0;
+    _renderedNPowerOrder=0;
 }
 
 int powerBases::updateBasisIndicies(int nDimensions, int nPowerOrder)
