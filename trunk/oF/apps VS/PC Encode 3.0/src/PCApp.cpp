@@ -69,8 +69,11 @@ void PCApp::setup(){
 	_scrTabMain = new scrGroupTabbed(32);
 	
 	_scrTabMain->push(gridScan);
+
+#ifndef TARGET_WIN32
 	_scrTabMain->push(&_Correlator.scrGridMain);
-	
+#endif	
+
 	_screens->mainScreen = _scrTabMain;
 	/////////////////////////////////////////////////////////
 	
@@ -91,7 +94,9 @@ void PCApp::update(){
 			
 		case 1:
 			//we're looking at correlate
+			#ifndef TARGET_WIN32
 			_Correlator.update();
+			#endif
 			break;
 			
 		default:

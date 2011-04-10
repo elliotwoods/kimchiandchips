@@ -6,6 +6,9 @@
  *  Copyright 2011 Kimchi and Chips. All rights reserved.
  *
  */
+
+#include "ofMain.h"
+
 #ifdef TARGET_WIN32
 
 #include "CameraBase.h"

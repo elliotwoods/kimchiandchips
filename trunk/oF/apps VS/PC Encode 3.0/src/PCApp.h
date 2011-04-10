@@ -11,13 +11,6 @@
 
 #include "CorrelateMain.h"
 
-//#include "PCConfig.h"
-//#include "PCEncode.h"
-//#include "PCDecode.h"
-//#include "PCLogger.h"
-//#include "PayloadGraycode.h"
-//#include "PayloadBinary.h"
-
 class PCApp : public ofBaseApp {
 
 	public:
@@ -54,9 +47,11 @@ class PCApp : public ofBaseApp {
 	
 
 protected:
-	
+
+#ifndef TARGET_WIN32
 	//correlator
 	CorrelateMain			_Correlator;
+#endif
 	
 	//calibration variables
 	float					_screenWidth, _screenHeight;

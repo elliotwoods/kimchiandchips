@@ -7,9 +7,9 @@
  *
  */
 
-#ifdef TARGET_WIN32
-
 #include "CameraTheosVideoInput.h"
+
+#ifdef TARGET_WIN32
 
 bool CameraTheosVideoInput::setup(int ID)
 {
