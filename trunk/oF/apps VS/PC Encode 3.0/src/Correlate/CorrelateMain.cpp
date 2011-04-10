@@ -220,8 +220,8 @@ void CorrelateMain::loadData()
 				inFile.read((char*) &thisvalx, 4);
 				inFile.read((char*) &thisvaly, 4);
 				
-				outputRow[0] = screenWidth * (0.5 - thisvalx);
-				outputRow[1] = screenHeight * (0.5 - thisvaly);
+				outputRow[0] = screenWidth * (thisvalx - 0.5);
+				outputRow[1] = screenHeight * (thisvaly - 0.5);
 				outputRow[2] = getDepthFromFilename(scrFileSelection.getName(iFile));
 				
 				for (int iCam=0; iCam<nCameras; iCam++)
@@ -346,7 +346,7 @@ void CorrelateMain::saveProjector()
         point = test_pos[iPoint];
         
         //check if not within selected bounds
-        if (point[0] > lbf.x || point[1] > lbf.y || point[2] > lbf.z || point[0] < rtb.x || point[2] < rtb.y || point[2] < rtb.z)
+        if (point[0] < lbf.x || point[1] < lbf.y || point[2] < lbf.z || point[0] > rtb.x || point[1] > rtb.y || point[2] > rtb.z)
             continue;
         
 		//convert position to colour values
