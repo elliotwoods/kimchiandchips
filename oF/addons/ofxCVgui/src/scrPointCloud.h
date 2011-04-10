@@ -1,3 +1,4 @@
+#pragma once
 /*
  *  scrPointCloud.h
  *  PC Encode
@@ -23,15 +24,22 @@ public:
 	void			setWith(float *positions, float *colours, int nPoints);
 	void			keyPressed(int key);
 	
-	ofPoint			spin;
-	ofPoint			translate;
-	float			distance;
+	static ofPoint	spin;
+	static ofPoint	translate;
+	static float	distance;
+    
 protected:
-	void			drawContent();
+	virtual void	drawContent();
+    
+    void            begin();
+    void            drawPoints();
+    void            end();
 	
 	void			* _onMouseOver(float x, float y);
 
 	float			*_positions, *_colours;
 	int				_nPoints;
-	GLuint			vbo[2];		
+	GLuint			vbo[2];	
+	
+    int             _viewport_temp[4];
 };
