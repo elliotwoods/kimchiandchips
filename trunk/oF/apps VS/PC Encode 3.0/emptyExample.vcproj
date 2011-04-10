@@ -217,6 +217,14 @@
 					RelativePath=".\src\Correlate\CorrelateMain.h"
 					>
 				</File>
+				<File
+					RelativePath=".\src\Correlate\scrSelectBounds.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Correlate\scrSelectBounds.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Scanner"
