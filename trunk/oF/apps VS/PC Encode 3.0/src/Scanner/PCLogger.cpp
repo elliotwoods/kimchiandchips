@@ -126,7 +126,7 @@ void PCLogger::savePixelsBinary(string filename)
 		//write projector data
 		//////////////////////////////
 		iPX = iPP % projWidth;
-		iPY = iPP / projHeight;
+		iPY = iPP / projWidth;
 		
 		fPX = float(iPX) / float (projWidth);
 		fPY = float(iPY) / float (projHeight);

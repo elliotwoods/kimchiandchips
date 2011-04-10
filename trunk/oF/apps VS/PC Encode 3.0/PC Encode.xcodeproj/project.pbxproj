@@ -564,7 +564,7 @@
 			name = widgets;
 			sourceTree = "<group>";
 		};
-		8BC0FE171280731D00FD3F66 /* Stages */ = {
+		8BC0FE171280731D00FD3F66 /* Correlate */ = {
 			isa = PBXGroup;
 			children = (
 				8B620B5512813DFA00DDD683 /* CorrelateMain.cpp */,
@@ -572,7 +572,7 @@
 				8BC380811351A88900B050A1 /* scrSelectBounds.cpp */,
 				8BC380821351A88900B050A1 /* scrSelectBounds.h */,
 			);
-			name = Stages;
+			name = Correlate;
 			sourceTree = "<group>";
 		};
 		8BC3807B1351A86900B050A1 /* ofxShader */ = {
@@ -789,7 +789,7 @@
 				E4B69B5B0A3A1756003C02F2 /* ScannerDebug.app */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4B69E1C0A3A1BDC003C02F2 /* PC scanner */,
-				8BC0FE171280731D00FD3F66 /* Stages */,
+				8BC0FE171280731D00FD3F66 /* Correlate */,
 				8B5C88461271898400AA9B44 /* ofxKCScreensGUI */,
 				8B0EFAE31282BD450095D621 /* ofxPolyFit */,
 				8B64D56C128257FA00DB4369 /* ofxFBOTexture */,

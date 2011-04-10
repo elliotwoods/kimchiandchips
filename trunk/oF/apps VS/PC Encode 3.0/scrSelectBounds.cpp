@@ -10,8 +10,8 @@
 
 scrSelectBounds::scrSelectBounds(string caption) :
 scrPointCloud(caption),
-lbf(-0.4,-0.4,0.7),
-rtb(0.4,0.5,1.3)
+lbf(-0.8,-0.6,0.9),
+rtb(0.4,0.5,3.0)
 {
     
     shader.setup("selectBounds");
