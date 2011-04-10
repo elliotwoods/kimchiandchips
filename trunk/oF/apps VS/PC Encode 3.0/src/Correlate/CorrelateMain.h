@@ -12,6 +12,8 @@
 #include "ofxKCScreensGUI.h"
 #include "ofxPolyfit.h"
 
+#include "scrSelectBounds.h"
+
 #include <fstream>
 #include <iostream>
 
@@ -28,7 +30,8 @@ public:
 	scrGroupGrid	scrGridMain, scrGridData;
 	scrWidgets		scrControl;
 	scrFileSelect	scrFileSelection;
-	scrPointCloud	scrInputPoints, scrTestCorrelate;
+	scrPointCloud	scrInputPoints;
+    scrSelectBounds scrTestCorrelate;
 	
 protected:
 	void			loadData();	
@@ -44,7 +47,6 @@ protected:
 	
 	wdgButton		*bangLoad, *bangCorrelate, *bangTestData, *bangLoadFit, *bangSaveFit;
 	wdgButton		*bangSaveProjectionXYZ;
-	bool			invertXY;
 	bool			newFormat;
 
 	int				nCameras;
