@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\src\Scanner\Camera;..\..\..\addons\ofxDirList\src;..\..\..\addons\ofxPolyFit;..\..\..\addons\ofxThread\src;.\src;.\src\Scanner\Payloads;..\..\..\addons\ofxCLeye;&quot;C:\Program Files\Code Laboratories\CL-Eye Platform SDK\Include&quot;;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src;..\..\..\addons\ofxCVgui\src;..\..\..\libs\openFrameworks;..\..\..\libs\openFrameworks\graphics;..\..\..\libs\openFrameworks\app;..\..\..\libs\openFrameworks\sound;..\..\..\libs\openFrameworks\utils;..\..\..\libs\openFrameworks\communication;..\..\..\libs\openFrameworks\video;..\..\..\libs\openFrameworks\events;..\..\..\libs\glut\include;..\..\..\libs\rtAudio\include;..\..\..\libs\quicktime\include;..\..\..\libs\freetype\include;..\..\..\libs\freetype\include\freetype2;..\..\..\libs\freeImage\include;..\..\..\libs\fmodex\include;..\..\..\libs\videoInput\include;..\..\..\libs\glee\include;..\..\..\libs\glu\include;..\..\..\libs\poco\include;..\..\..\addons;.\src\Scanner;.\src\Correlate"
+				AdditionalIncludeDirectories="&quot;C:\oF\oF 0.61\addons\ofxShader\src&quot;;.\src\Scanner\Camera;..\..\..\addons\ofxDirList\src;..\..\..\addons\ofxPolyFit;..\..\..\addons\ofxThread\src;.\src;.\src\Scanner\Payloads;..\..\..\addons\ofxCLeye;&quot;C:\Program Files\Code Laboratories\CL-Eye Platform SDK\Include&quot;;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src;..\..\..\addons\ofxCVgui\src;..\..\..\libs\openFrameworks;..\..\..\libs\openFrameworks\graphics;..\..\..\libs\openFrameworks\app;..\..\..\libs\openFrameworks\sound;..\..\..\libs\openFrameworks\utils;..\..\..\libs\openFrameworks\communication;..\..\..\libs\openFrameworks\video;..\..\..\libs\openFrameworks\events;..\..\..\libs\glut\include;..\..\..\libs\rtAudio\include;..\..\..\libs\quicktime\include;..\..\..\libs\freetype\include;..\..\..\libs\freetype\include\freetype2;..\..\..\libs\freeImage\include;..\..\..\libs\fmodex\include;..\..\..\libs\videoInput\include;..\..\..\libs\glee\include;..\..\..\libs\glu\include;..\..\..\libs\poco\include;..\..\..\addons;.\src\Scanner;.\src\Correlate"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;POCO_STATIC"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -125,7 +125,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="..\..\..\addons\ofxDirList\src;..\..\..\addons\ofxPolyFit;..\..\..\addons\ofxThread\src;.\src;.\src\Scanner\Payloads;..\..\..\addons\ofxCLeye;&quot;C:\Program Files\Code Laboratories\CL-Eye Platform SDK\Include&quot;;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src;..\..\..\addons\ofxCVgui\src;..\..\..\libs\openFrameworks;..\..\..\libs\openFrameworks\graphics;..\..\..\libs\openFrameworks\app;..\..\..\libs\openFrameworks\sound;..\..\..\libs\openFrameworks\utils;..\..\..\libs\openFrameworks\communication;..\..\..\libs\openFrameworks\video;..\..\..\libs\openFrameworks\events;..\..\..\libs\glut\include;..\..\..\libs\rtAudio\include;..\..\..\libs\quicktime\include;..\..\..\libs\freetype\include;..\..\..\libs\freetype\include\freetype2;..\..\..\libs\freeImage\include;..\..\..\libs\fmodex\include;..\..\..\libs\videoInput\include;..\..\..\libs\glee\include;..\..\..\libs\glu\include;..\..\..\libs\poco\include;..\..\..\addons;.\src\Scanner;.\src\Scanner\Camera;.\src\Correlate"
+				AdditionalIncludeDirectories="&quot;C:\oF\oF 0.61\addons\ofxShader\src&quot;;..\..\..\addons\ofxDirList\src;..\..\..\addons\ofxPolyFit;..\..\..\addons\ofxThread\src;.\src;.\src\Scanner\Payloads;..\..\..\addons\ofxCLeye;&quot;C:\Program Files\Code Laboratories\CL-Eye Platform SDK\Include&quot;;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src;..\..\..\addons\ofxCVgui\src;..\..\..\libs\openFrameworks;..\..\..\libs\openFrameworks\graphics;..\..\..\libs\openFrameworks\app;..\..\..\libs\openFrameworks\sound;..\..\..\libs\openFrameworks\utils;..\..\..\libs\openFrameworks\communication;..\..\..\libs\openFrameworks\video;..\..\..\libs\openFrameworks\events;..\..\..\libs\glut\include;..\..\..\libs\rtAudio\include;..\..\..\libs\quicktime\include;..\..\..\libs\freetype\include;..\..\..\libs\freetype\include\freetype2;..\..\..\libs\freeImage\include;..\..\..\libs\fmodex\include;..\..\..\libs\videoInput\include;..\..\..\libs\glee\include;..\..\..\libs\glu\include;..\..\..\libs\poco\include;..\..\..\addons;.\src\Scanner;.\src\Scanner\Camera;.\src\Correlate"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;POCO_STATIC"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -814,6 +814,18 @@
 					>
 				</File>
 			</Filter>
+		</Filter>
+		<Filter
+			Name="ofxShader"
+			>
+			<File
+				RelativePath="..\..\..\addons\ofxShader\src\ofxShader.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\addons\ofxShader\src\ofxShader.h"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\bin\data\settings.xml"
