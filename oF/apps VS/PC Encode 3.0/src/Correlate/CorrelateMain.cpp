@@ -356,7 +356,9 @@ void CorrelateMain::saveProjector()
 		
 		iPP = dataset_iPX[iPoint] + projWidth * dataset_iPY[iPoint];
         
-		if (iPP<projWidth*projHeight && iPP>=0)
+        cout << projWidth << ":" << projHeight << "\n";
+        
+		if (iPP<int(projWidth*projHeight) && iPP>=0)
 			memcpy(imgSave.getPixels()+3*iPP, col, 3);
 	}
 	
