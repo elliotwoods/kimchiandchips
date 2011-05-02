@@ -12,7 +12,10 @@
 scrGroupGrid::scrGroupGrid(string caption) :
 scrGroupBase(caption)
 {
-	gridWidth = -1;
+	_gridWidth = 0;
+    _gridHeight = 1;
+    
+    constraint = 0;
 }
 //////////////////////////////////////////////////////
 
@@ -34,8 +37,8 @@ int scrGroupGrid::findScreen(int x, int y)
 	
 	int iScreen; // return value
 	
-	int w = _width / gridWidth;
-	int h = _height / gridHeight;
+	int w = _width / _gridWidth;
+	int h = _height / _gridHeight;
 	
 	
 	if (_isFullscreen)
@@ -48,7 +51,7 @@ int scrGroupGrid::findScreen(int x, int y)
 		iScreenX = (x - _x) / w;
 		iScreenY = (y - _y) / h;
 		
-		iScreen = iScreenY * gridWidth + iScreenX;
+		iScreen = iScreenY * _gridWidth + iScreenX;
 	}
 	
 	if (iScreen<0 || iScreen>screens.size()-1)
@@ -58,35 +61,64 @@ int scrGroupGrid::findScreen(int x, int y)
 	
 }
 
-void scrGroupGrid::setGridWidth(int _gridWidth)
+void scrGroupGrid::setGridWidth(int gridWidth)
 {
-	gridWidth = _gridWidth;
+	_gridWidth = gridWidth;
+    constraint = 1;
+    
+	doResize();
+}
+
+void scrGroupGrid::setGridHeight(int gridHeight)
+{
+	_gridHeight = gridHeight;
+    constraint = 2;
+    
 	doResize();
 }
 
 void scrGroupGrid::doResize()
 {
-	double nScreens = screens.size();
-	
-	if (nScreens==0)
+    int nScreens = screens.size();
+    
+    if (nScreens==0)
 		return;
 	
-	if (gridWidth==-1)
-		gridWidth = ceil(sqrt(double(nScreens)));
-	
-	gridHeight = ceil(nScreens / double(gridWidth));
+    
+    switch (constraint) {
+            
+        case 0: // SQUARE
+            
+            _gridWidth = ceil(sqrt( float(nScreens) ));
+            _gridHeight = ceil(float(nScreens) / float(_gridWidth));
+            
+            break;
+            
+        case 1: // WIDTH
+            
+            _gridHeight = ceil(float(nScreens) / float(_gridWidth));
+            
+            break;
+            
+        case 2: // HEIGHT
+            
+            _gridWidth = ceil(float(nScreens) / float(_gridHeight));
+            
+            break;
+
+    }
 	
 	//code for arranging grid
 	int ix, iy;
 	float x, y, w, h;
 	
-	w = _width/gridWidth;
-	h = _height/gridHeight;
+	w = _width / _gridWidth;
+	h = _height / _gridHeight;
 	
-	for (int i=0; i<screens.size(); i++)
+	for (int i=0; i<nScreens; i++)
 	{
-		ix = i % gridWidth;
-		iy = i / gridWidth;
+		ix = i % _gridWidth;
+		iy = i / _gridWidth;
 		
 		x = _x + ix * w;
 		y = _y + iy * h;

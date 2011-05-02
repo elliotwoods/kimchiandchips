@@ -19,6 +19,7 @@ class Histogram : public GUIAssets
 		void				add(int iClass);
 		void				clear();
 		int					getSelection();
+        void                setSelection(int value);
 	
 		void				update();
 		void				draw(int x, int y, int width, int height);

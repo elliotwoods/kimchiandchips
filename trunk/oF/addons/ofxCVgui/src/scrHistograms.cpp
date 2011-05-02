@@ -48,7 +48,8 @@ void scrHistograms::mouseDown(int x, int y)
 
 	if (nHistograms>0)
 	{
-		int iHistogram = xY/float(nHistograms);
+		int iHistogram = xY * float(nHistograms);
+        
 		xY = xY*float(nHistograms);
 		xY -= floor(xY);
 		
