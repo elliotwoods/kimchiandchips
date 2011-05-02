@@ -16,5 +16,5 @@ class PayloadBinary : public PayloadBase
 public:
 	void			setup(); // calc vars, data, error check
 
-	bool			decode(int reading, int &iX, int &iY);
+	bool			decode(unsigned long reading, unsigned long &iX, unsigned long &iY, int subScanWidth, int subScanHeight);
 };

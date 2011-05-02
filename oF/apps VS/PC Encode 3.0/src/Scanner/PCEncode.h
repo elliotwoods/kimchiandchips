@@ -15,14 +15,14 @@
 #include "scrTexture.h"
 #include "PCConfig.h"
 
-#include "scrTexture.h"
-
 #include "PayloadBase.h"
+
+#include "scrTexture.h"
 
 class PCEncode : public PCConfig 
 {
 public:
-	PCEncode(PayloadBase *payload, bool* boolProjectorMask);
+	PCEncode(bool* boolProjectorMask);
 	~PCEncode();
 	
 	int						getnProjectorPixels();
@@ -40,8 +40,6 @@ private:
 	
 	ofTexture				_texOutput;
 	unsigned char *			_texCharOutput;
-	
-	PayloadBase				*_payload;
 	
 	bool *					_boolProjectorMask;
 	

@@ -28,7 +28,7 @@ void PCApp::setup(){
 	scrGroupGrid *gridScan = new scrGroupGrid("Scan");
 	
 	//add the send message group
-	scrGroupTabbed *scrMessageGroup = new scrGroupTabbed();
+	scrGroupTabbed *scrMessageGroup = new scrGroupTabbed("Send message");
 	scrMessageGroup->push(&_scanner._encoder->scrSend);
 	scrMessageGroup->push(&_scanner._scrProjectorMask);
 	gridScan->push(scrMessageGroup);
@@ -38,35 +38,28 @@ void PCApp::setup(){
 	for (int iCam=0; iCam<PCConfig().nCameras; iCam++)
 	{
 		//add projection space preview to the send group
-		scrGroupTabbed *scrProjDataGroup = new scrGroupTabbed();
+		scrGroupTabbed *scrProjDataGroup = new scrGroupTabbed("Projector data");
 		scrProjDataGroup->push(_scanner._decoder[iCam]->_scrProjectorSpace);
 		scrProjDataGroup->push(_scanner._decoder[iCam]->_scrProjectorNFinds);
 		gridScan->push(scrProjDataGroup);
 		
-		scrGroupTabbed *scrCamDataGroup = new scrGroupTabbed();
-		scrCamDataGroup->push(_scanner._decoder[iCam]->_scrFrameData);
+		scrGroupTabbed *scrCamDataGroup = new scrGroupTabbed("Camera space");
 		scrCamDataGroup->push(_scanner._decoder[iCam]->_scrCameraSpace);
 		scrCamDataGroup->push(_scanner._decoder[iCam]->_scrCameraNFinds);
 		gridScan->push(scrCamDataGroup);
 		
-		scrGroupTabbed *scrCamSourceGroup = new scrGroupTabbed();
-		scrCamSourceGroup->push(_scanner._decoder[iCam]->_scrCamera);
-		scrCamSourceGroup->push(_scanner._decoder[iCam]->_scrBinary);
-		gridScan->push(scrCamSourceGroup);
+		gridScan->push(&_scanner._decoder[iCam]->_scrCamera);
 		
-		scrGroupTabbed *scrThresoldGroup = new scrGroupTabbed();
-		scrThresoldGroup->push(_scanner._decoder[iCam]->_scrThreshold);
-		scrThresoldGroup->push(_scanner._decoder[iCam]->_scrThresholdMask);
-		gridScan->push(scrThresoldGroup);
-		
-		gridScan->screens.push_back(_scanner._decoder[iCam]->_scrHistograms);
+		gridScan->push(_scanner._decoder[iCam]->_scrHistograms);
+        
+        gridScan->push(_scanner._decoder[iCam]->_scrSubScans);
 	}
 	/////////////////////////////////////////////////////////
 
 	/////////////////////////////////////////////////////////
 	// MAIN TAB GROUP
 	/////////////////////////////////////////////////////////
-	_scrTabMain = new scrGroupTabbed(32);
+	_scrTabMain = new scrGroupTabbed("Overview group", 32);
 	
 	_scrTabMain->push(gridScan);
 
@@ -111,7 +104,7 @@ void PCApp::update(){
 void PCApp::draw(){
 
 	if (_scanner.state==PC_STATE_SCANNING)
-		ofLog(OF_LOG_VERBOSE, "PCApp: drawing interleave frame " + ofToString(_scanner._payload->iScanInterleaveFrame(_scanner.iFrame)));
+		ofLog(OF_LOG_VERBOSE, "PCApp: drawing interleave frame " + ofToString(Payload::Pointer->iScanInterleaveFrame(_scanner.iFrame)));
 
 	if (_scanner.state==PC_STATE_CALIBRATING)
 		ofLog(OF_LOG_VERBOSE, "PCApp: drawing calibration frame " + ofToString(_scanner.iFrame, 0));

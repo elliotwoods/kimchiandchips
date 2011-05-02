@@ -7,7 +7,7 @@
  *
  */
 
-#include "PCincludes.h"
+#include "PCPixel.h"
 
 PCPixel::PCPixel()
 {

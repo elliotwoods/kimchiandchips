@@ -9,6 +9,7 @@
  */
 
 #include "PCconstants.h"
+#include "PCConfig.h"
 
 #include "ofMain.h"
 #include <math.h>

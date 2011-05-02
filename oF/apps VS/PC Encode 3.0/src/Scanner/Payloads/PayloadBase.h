@@ -18,19 +18,17 @@ public:
 	////////////////////////////////////////
 	// VALUES
 	////////////////////////////////////////
-	int			interleaves;
-	int			nPixels;
 	int			nPixelsPerInterleave;
 	int			nPixelsPerInterleaveX, nPixelsPerInterleaveY;
 	
-	int			calibrateFrames;
+	int			calibrateFrameCount;
 	int			totalFrames;
 	int			totalFramesPerInterleave;
 	int			dataFramesPerInterleave;
 	
-	long long int			*data;
-	long long int			*dataInverse;
-	long long int			*errorCheck;
+	unsigned long			*data;
+	unsigned long			*dataInverse;
+	unsigned long			*errorCheck;
 
 	int			maxIndex;
 	////////////////////////////////////////
@@ -39,9 +37,11 @@ public:
 	// FUCNTIONS
 	////////////////////////////////////////
 	PayloadBase()		{isInitialised=false;};
+    ~PayloadBase();
+    
 	void				calcCommon();
 	virtual void		setup();
-	virtual bool		decode(int reading, int &iX, int &iY) = 0;
+	virtual bool		decode(unsigned long reading, unsigned long &iX, unsigned long &iY, int subScanWidth, int subScanHeight) = 0;
 	
 	int					iScanInterleaveFrame(int iFrame);
 	int					iInterleave(int iFrame);
@@ -51,4 +51,10 @@ protected:
 	bool		isInitialised;
 	void		clear();
 	double		Log2(double n) { return log( n ) / log((double)2); };
+};
+
+class Payload
+{
+    public:
+        static PayloadBase* Pointer;
 };

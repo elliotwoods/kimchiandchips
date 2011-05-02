@@ -13,6 +13,7 @@ ID(_ID),
 _initialised(false)
 {
 	startThread(true, false);
+    clearTimer();
 }
 
 CameraBase::~CameraBase()

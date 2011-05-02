@@ -22,7 +22,7 @@ void PayloadGraycode::setup()
 
 	dataFramesPerInterleave = nBitsX + nBitsY;
 	totalFramesPerInterleave = dataFramesPerInterleave + errorBits;
-	totalFrames = totalFramesPerInterleave * interleaves;
+	totalFrames = totalFramesPerInterleave * interleaveCount;
 	maxIndex = pow(2,ceil(Log2(nPixelsPerInterleave)));
 	////////////////////////////////////////
 
@@ -31,10 +31,10 @@ void PayloadGraycode::setup()
 	////////////////////////////////////////
 	// BUILD DATA ARRAYS
 	////////////////////////////////////////
-	int grayCode, grayCodeX, grayCodeY;
-	int iX, iY;
+	unsigned long grayCode, grayCodeX, grayCodeY;
+	unsigned long iX, iY;
 	
-	for (int i=0; i<nPixelsPerInterleave; i++)
+	for (unsigned long i=0; i<nPixelsPerInterleave; i++)
 	{
 		iX = i % nPixelsPerInterleaveX;
 		iY = i / nPixelsPerInterleaveX;
@@ -46,8 +46,9 @@ void PayloadGraycode::setup()
 		data[i] = grayCode;
 		dataInverse[grayCode] =i;
 
-		//make a 64bit random int for the error check
-		errorCheck[i] = rand() + (rand()*(long long int)(1)<<32);
+		//make a 32bit random int for the error check
+        //mask to error check bits
+		errorCheck[i] = data[i] & ((1 << errorBits) - 1);
 		
 //		//make first 2 frames of error check low/high
 //		errorCheck[i] = errorCheck[i] | 1; //high
@@ -57,20 +58,20 @@ void PayloadGraycode::setup()
 	////////////////////////////////////////
 }
 
-bool PayloadGraycode::decode(int reading, int &iX, int &iY)
+bool PayloadGraycode::decode(unsigned long reading, unsigned long &iX, unsigned long &iY, int subScanWidth, int subScanHeight)
 {
 	bool valid = (reading > 0) && (reading < maxIndex);
 
 	if (!valid)
 		return false;
 
-	int pixIndex = dataInverse[reading];
+	unsigned long pixIndex = dataInverse[reading];
 				
-	iX = pixIndex % nPixelsPerInterleaveX;
-	iY = pixIndex / nPixelsPerInterleaveX;
+	iX = pixIndex % subScanWidth;
+	iY = pixIndex / subScanWidth;
 
-	valid &= (iX>=0) && (iX<nPixelsPerInterleaveX);
-	valid &= (iY>=0) && (iY<nPixelsPerInterleaveY);
+	valid &= (iX<subScanWidth);
+	valid &= (iY<subScanHeight);
 	
 	return valid;
 }

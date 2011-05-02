@@ -23,12 +23,15 @@ vector<int> PCConfig::camIDs = vector<int>();
 
 unsigned short PCConfig::camWidth=0;
 unsigned short PCConfig::camHeight=0;
+int PCConfig::camPixelCount=0;
 
 unsigned short PCConfig::projWidth=0;
 unsigned short PCConfig::projHeight=0;
+int PCConfig::projPixelCount=0;
 
 unsigned short PCConfig::interleaveWidth=0;
 unsigned short PCConfig::interleaveHeight=0;
+unsigned short PCConfig::interleaveCount=0;
 
 unsigned short PCConfig::errorBits=0;
 
@@ -42,6 +45,11 @@ PCConfig::PCConfig()
 
 	_configFilename = "settings.xml";
 
+    //setup some default vars.
+    //
+    //does this make any sesnse?
+    //we're already doing this in xml load
+    //
 	captureDelay = 100; //ms
 	thresholdPercentile = 0.5;
 	
@@ -127,6 +135,15 @@ bool PCConfig::configLoad(string filename)
 		cout << "Loading settings file " << _configFilename << " failed.\n";
 	else
 		cout << "Loading settings file " << _configFilename << " success.\n";
+    
+    calc();
 	
 	return success;
+}
+
+void PCConfig::calc()
+{
+    camPixelCount = camWidth * camHeight;
+    projPixelCount = projWidth * projHeight;
+    interleaveCount = interleaveWidth * interleaveHeight;
 }
