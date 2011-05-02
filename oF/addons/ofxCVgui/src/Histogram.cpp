@@ -72,6 +72,12 @@ int Histogram::getSelection()
 	return _selectionIClass;
 }
 
+void Histogram::setSelection(int value)
+{
+    _selectionIClass = value;
+    ofNotifyEvent(updateSelection, _selectionIClass, this);
+}
+
 void Histogram::update()
 {
 	//clear all colour values to background colour
@@ -176,9 +182,7 @@ void Histogram::mouseDown(float x, float y)
 	if (x>=0 && x<=1)
 	{
 		_selectionX = x;
-		_selectionIClass = x*_nClasses;
-		
-		ofNotifyEvent(updateSelection, _selectionIClass, this);
+		setSelection(x*_nClasses);
 	}
 }
 

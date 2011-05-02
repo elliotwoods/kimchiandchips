@@ -14,12 +14,12 @@
 class scrTexture : public scrBase {
 
 public:
-	scrTexture(enumShowCursor showCursor, bool hasCursorEvents, ofTexture *texture, string _caption);
+	scrTexture(enumShowCursor showCursor, bool hasCursorEvents, ofTexture &texture, string _caption);
 	
 protected:
 	void			drawContent();
 	
-	ofTexture		* _texture;
+	ofTexture		& _texture;
 	
 	void			* _onMouseOver(float x, float y);
 	

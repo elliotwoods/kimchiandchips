@@ -11,7 +11,8 @@
 
 ////////////////////////////////////////////////////////////
 
-scrGroupTabbed::scrGroupTabbed(int _tabRegionHeight)
+scrGroupTabbed::scrGroupTabbed(string caption, int _tabRegionHeight) :
+scrGroupSwap(caption)
 {
 	tabRegionHeight = _tabRegionHeight;
 }

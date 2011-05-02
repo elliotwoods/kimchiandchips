@@ -17,9 +17,11 @@ public:
 	
 	int			findScreen(int x, int y);
 	
-	void		setGridWidth(int _gridWidth);
+	void		setGridWidth(int gridWidth);
+	void		setGridHeight(int gridHeight);
 	
 protected:
 	void		doResize();
-	int			gridWidth, gridHeight;
+	int			_gridWidth, _gridHeight;
+    int         constraint; // 0=square, 1=width, 2=height
 };

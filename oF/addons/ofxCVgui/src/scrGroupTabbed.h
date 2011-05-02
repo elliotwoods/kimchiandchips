@@ -14,7 +14,7 @@
 class scrGroupTabbed : public scrGroupSwap
 {
 public:
-	scrGroupTabbed(int _tabRegionHeight=16);
+	scrGroupTabbed(string caption, int _tabRegionHeight=16);
 	void		drawContent();
 	
 	void		mouseDown(int x, int y);

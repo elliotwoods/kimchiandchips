@@ -12,6 +12,7 @@
 class scrGroupSwap : public scrGroupBase
 {
 public:
-	scrGroupSwap() { iSelection = 0; };
+	scrGroupSwap(string caption) : scrGroupBase(caption)
+    { iSelection = 0; };
 	int			iSelection;
 };
