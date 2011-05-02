@@ -18,7 +18,7 @@ void PayloadBinary::setup()
 	////////////////////////////////////////
 	dataFramesPerInterleave = ceil(Log2(nPixelsPerInterleave));
 	totalFramesPerInterleave = dataFramesPerInterleave + errorBits;
-	totalFrames = totalFramesPerInterleave * interleaves;
+	totalFrames = totalFramesPerInterleave * interleaveCount;
 	maxIndex = nPixelsPerInterleave;
 	////////////////////////////////////////
 
@@ -45,12 +45,12 @@ void PayloadBinary::setup()
 	////////////////////////////////////////
 }
 
-bool PayloadBinary::decode(int reading, int &iX, int &iY)
+bool PayloadBinary::decode(unsigned long reading, unsigned long &iX, unsigned long &iY, int subScanWidth, int subScanHeight)
 {
 	bool valid = (reading > 0) && (reading < maxIndex);
 				
-	iX = reading % nPixelsPerInterleaveX;
-	iY = reading / nPixelsPerInterleaveX;
+	iX = reading % subScanWidth;
+	iY = reading / subScanWidth;
 	
 	return valid;
 }

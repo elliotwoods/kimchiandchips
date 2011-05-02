@@ -7,7 +7,7 @@
  *
  */
 
-#include "PCincludes.h"
+#include "PCLogger.h"
 
 PCLogger::PCLogger(PCEncode *encoder, vector<PCDecode*> *decoders)
 {
@@ -106,7 +106,7 @@ void PCLogger::savePixelsBinary(string filename)
 	iofOutput.write((char*) &projHeight, 2);
 	//could write rest of config here if it's useful..
 	
-	for (int iPP=0; iPP<projWidth*projHeight; iPP++)
+	for (int iPP=0; iPP<projPixelCount; iPP++)
 	{
 		//////////////////////////////
 		//check exists in all cameras
@@ -172,7 +172,7 @@ void PCLogger::savePixelsText(string filename)
 	
 	bool hasAllFinds;
 
-	for (int iPP=0; iPP<projWidth*projHeight; iPP++)
+	for (int iPP=0; iPP<projPixelCount; iPP++)
 	{
 		dataRow.str("");
 

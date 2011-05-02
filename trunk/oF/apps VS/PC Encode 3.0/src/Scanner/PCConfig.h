@@ -29,9 +29,13 @@ class PCConfig
 		static char		nCameras;
 	
 		static vector<int> camIDs;
+        
 		static unsigned short		camWidth, camHeight;
-		static unsigned short		projWidth, projHeight;
+        static int                  camPixelCount;
+        static unsigned short		projWidth, projHeight;
+        static int                  projPixelCount;
 		static unsigned short		interleaveWidth, interleaveHeight;
+        static unsigned short       interleaveCount;
 		static unsigned short		errorBits;
 		
 		static int		exposure, gain;
@@ -42,6 +46,7 @@ class PCConfig
 		static bool		isLogging;
 	
 	private:
+        void            calc();
 		static string	_configFilename;
 		static bool		_loaded;
 

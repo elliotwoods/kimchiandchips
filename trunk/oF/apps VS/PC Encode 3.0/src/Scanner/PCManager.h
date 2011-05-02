@@ -16,6 +16,9 @@
 #include "PCLogger.h"
 #include "PCDecode.h"
 
+#include "SubScanSet.h"
+#include "SubScanBasic.h"
+
 #include "PayloadGraycode.h"
 #include "PayloadBinary.h"
 
@@ -74,9 +77,10 @@ public:
 
 	PCEncode			*_encoder;
 	vector<PCDecode*>	_decoder;
-	PayloadBase			*_payload;
 	
 	PCLogger			*_logger;
+    
+    SubScanSet          *_subScans;
 	
 	vector<CameraBase*>		_camera;
 		

@@ -7,19 +7,16 @@
  *
  */
 
-#include "PCincludes.h"
+#include "PCEncode.h"
 
-PCEncode::PCEncode(PayloadBase *payload, bool* boolProjectorMask) : 
-scrSend(cursor_none, false, &_texOutput, "Message")
-{
-	_payload = payload;
-	
-	_texCharOutput = new unsigned char[projWidth*projHeight];
+PCEncode::PCEncode(bool* boolProjectorMask) : 
+scrSend(cursor_none, false, _texOutput, "Message")
+{	
+	_texCharOutput = new unsigned char[projPixelCount];
 	_texOutput.allocate(projWidth,projHeight,GL_LUMINANCE);
 	_texOutput.setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
 	
 	_boolProjectorMask = boolProjectorMask;
-
 }
 
 PCEncode::~PCEncode()
@@ -38,13 +35,13 @@ void PCEncode::updateScanFrame(int iScanInterleaveFrame, int iInterleave)
 	iInterleaveX = iInterleave % interleaveWidth;
 	iInterleaveY = iInterleave / interleaveHeight;
 
-	iScanParityFrame = iScanInterleaveFrame - _payload->dataFramesPerInterleave;
+	iScanParityFrame = iScanInterleaveFrame - Payload::Pointer->dataFramesPerInterleave;
 	
 	binaryFrame = (1<<iScanInterleaveFrame);
 	binaryParityFrame = (1<<iScanParityFrame);
 	
 	//reset all the pixels to black
-	memset(_texCharOutput, 0, _payload->nPixels);
+	memset(_texCharOutput, 0, projPixelCount);
 
 	
 	//**TODO** calculations here presume
@@ -66,12 +63,12 @@ void PCEncode::updateScanFrame(int iScanInterleaveFrame, int iInterleave)
 			iInterleavePixel = iIX +
 								iIY* (projWidth/interleaveWidth);
 			
-			if (iScanInterleaveFrame < _payload->dataFramesPerInterleave)
+			if (iScanInterleaveFrame < Payload::Pointer->dataFramesPerInterleave)
 				//send index data
-				isOn=(_payload->data[iInterleavePixel] & binaryFrame)>>iScanInterleaveFrame;
+				isOn=(Payload::Pointer->data[iInterleavePixel] & binaryFrame)>>iScanInterleaveFrame;
 			else
 				//send error check
-				isOn=(_payload->errorCheck[iInterleavePixel] & binaryParityFrame)>>iScanParityFrame;
+				isOn=(Payload::Pointer->errorCheck[iInterleavePixel] & binaryParityFrame)>>iScanParityFrame;
 			
 			_texCharOutput[iPixel]= 255 * isOn * _boolProjectorMask[iPixel];
 		}

@@ -9,19 +9,28 @@
 
 #include "PayloadBase.h"
 
+PayloadBase* Payload::Pointer = 0;
+
+PayloadBase::~PayloadBase()
+{
+    if (isInitialised)
+    {
+        delete[] data;
+        delete[] dataInverse;
+        delete[] errorCheck;
+    }
+}
+
 void PayloadBase::calcCommon()
 {
 	////////////////////////////////////////
 	// CALCULATE COMMON VALUES
 	////////////////////////////////////////
-	interleaves = interleaveWidth * interleaveHeight;
-	
-	nPixels = projWidth * projHeight;
 	nPixelsPerInterleaveX = projWidth / interleaveWidth;
 	nPixelsPerInterleaveY = projHeight / interleaveHeight;
 	nPixelsPerInterleave = nPixelsPerInterleaveX * nPixelsPerInterleaveY;
 
-	calibrateFrames = 1 + interleaves;
+	calibrateFrameCount = 1 + interleaveCount;
 	////////////////////////////////////////
 }
 
@@ -36,9 +45,9 @@ void PayloadBase::setup()
 		delete[] dataInverse;
 		delete[] errorCheck;
 	}
-	data = new long long int[maxIndex];
-	dataInverse = new long long int[maxIndex];
-	errorCheck = new long long int[maxIndex];
+	data = new unsigned long[maxIndex];
+	dataInverse = new unsigned long[maxIndex];
+	errorCheck = new unsigned long[maxIndex];
 	isInitialised=true;
 	////////////////////////////////////////
 }

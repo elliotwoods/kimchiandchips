@@ -13,7 +13,7 @@
 #define FOREACH_CAMERA for (int iCam=0; iCam<nCameras; iCam++)
 
 PCManager::PCManager() :
-_scrProjectorMask(cursor_none, false, &_texProjectorMask, "Projector mask"),
+_scrProjectorMask(cursor_none, false, _texProjectorMask, "Projector mask"),
 _wdgStartScan("Start scan"),
 _wdgClear("Clear all (including mask)"),
 _scrControls("Controls"),
@@ -29,8 +29,8 @@ _wdgScanForever("Scan forever", scanForever)
 	_firstFrame=false;
 	
 	//projector mask
-	_charProjectorMask = new unsigned char[projWidth*projHeight];
-	_boolProjectorMask = new bool[projWidth*projHeight];
+	_charProjectorMask = new unsigned char[projPixelCount];
+	_boolProjectorMask = new bool[projPixelCount];
 	_texProjectorMask.allocate(projWidth, projHeight, GL_LUMINANCE);
 	_texProjectorMask.setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
 	
@@ -49,6 +49,9 @@ _wdgScanForever("Scan forever", scanForever)
 
 PCManager::~PCManager()
 {
+    delete[] _charProjectorMask;
+    delete[] _boolProjectorMask;
+    
 	if (isInitialised)
 		close();
 	
@@ -58,13 +61,14 @@ void PCManager::setup()
 {
 	
 	if (!isInitialised)
-	{		
+	{
+        
 		//initialise payload
-		_payload = new PayloadGraycode();
-		_payload->setup();
+		Payload::Pointer = new PayloadGraycode();
+		Payload::Pointer->setup();
 		
 		//instantiate the encoder
-		_encoder = new PCEncode(_payload, _boolProjectorMask);
+		_encoder = new PCEncode(_boolProjectorMask);
 		
 		//instantiate cameras, decoders
 		FOREACH_CAMERA
@@ -77,7 +81,7 @@ void PCManager::setup()
 			_camera.push_back(new CameraTheosVideoInput());
 			#endif
 
-			_decoder.push_back(new PCDecode(_payload, _camera[iCam], _boolProjectorMask));
+			_decoder.push_back(new PCDecode(_camera[iCam], _boolProjectorMask));
 			
 			if (!_camera[iCam]->setup(camIDs[iCam]))
 				std::exit(0);
@@ -134,8 +138,11 @@ void PCManager::update()
 		ofSleepMillis(10);
 	}
 	delete[] hasNewImage;
+    //
 	//////////////////////////
+
 	
+    
 	//////////////////////////
 	// SCANNING STEPS
 	//////////////////////////
@@ -150,6 +157,7 @@ void PCManager::update()
 	
 	if (state>0) //if we are (still) scanning
 		writeFrame();
+    //
 	//////////////////////////
 	
 	_firstFrame=false;
@@ -165,7 +173,6 @@ void PCManager::close()
 	
 	delete _logger;
 	delete _encoder;
-	delete _payload;
 }
 
 ////////////////////////////////////////////////////////////
@@ -180,13 +187,13 @@ void PCManager::videoSettings()
 void PCManager::calibrate()
 {
 	FOREACH_CAMERA
-		_decoder[iCam]->resetCalibration();
+		_decoder[iCam]->initCalibration();
 	
 	state = STATE_CALIBRATING;
 	iFrame=0;
 	_firstFrame=true;	
 	
-	_wdgIFrame.setMax(_payload->interleaves + 1);
+	_wdgIFrame.setMax(Payload::Pointer->calibrateFrameCount);
 }
 
 void PCManager::start()
@@ -197,7 +204,7 @@ void PCManager::start()
 	iFrame=0;
 	_firstFrame=true;
 	
-	_wdgIFrame.setMax(_payload->totalFrames);
+	_wdgIFrame.setMax(Payload::Pointer->totalFrames);
 }
 
 void PCManager::stop()
@@ -224,26 +231,25 @@ void PCManager::readFrame()
 {
 	if (state==STATE_CALIBRATING)
 		FOREACH_CAMERA
-			_decoder[iCam]->addCalibrationFrame();
+			_decoder[iCam]->addCalibrationFrame(iFrame-1);
 	
 	else if(state==STATE_SCANNING)
 	{
 		FOREACH_CAMERA
-			_decoder[iCam]->addScanFrame(_payload->iScanInterleaveFrame(iFrame),
-									 _payload->iInterleave(iFrame));
+			_decoder[iCam]->addScanFrame(Payload::Pointer->iScanInterleaveFrame(iFrame), Payload::Pointer->iInterleave(iFrame));
 		
-		ofLog(OF_LOG_VERBOSE, "PCManager: Read interleave frame " + ofToString(_payload->iScanInterleaveFrame(iFrame), 0));
+		ofLog(OF_LOG_VERBOSE, "PCManager: Read interleave frame " + ofToString(Payload::Pointer->iScanInterleaveFrame(iFrame), 0));
 
 		//check whether we're changing interleaves
-		if (_payload->iInterleave(iFrame) !=
-			_payload->iInterleave(iFrame+1))
+		if (Payload::Pointer->iInterleave(iFrame) !=
+			Payload::Pointer->iInterleave(iFrame+1))
 		{
 			//if so, calculate for this interleave
 			FOREACH_CAMERA
-			_decoder[iCam]->calcInterleave(_payload->iInterleave(iFrame));
+                _decoder[iCam]->calcInterleave(Payload::Pointer->iInterleave(iFrame));
 			
 			ofLog(OF_LOG_VERBOSE, "PCManager: Calc interleave " + 
-				  ofToString(_payload->iInterleave(iFrame), 0));
+				  ofToString(Payload::Pointer->iInterleave(iFrame), 0));
 		}
 	}
 }
@@ -257,7 +263,7 @@ void PCManager::advanceFrame()
 	//check whether we've hit the end
 	switch (state) {
 		case STATE_CALIBRATING:
-			if (iFrame >= _payload->interleaves+1)
+			if (iFrame >= Payload::Pointer->calibrateFrameCount)
 			{
 				FOREACH_CAMERA
 					_decoder[iCam]->calcThreshold();
@@ -269,7 +275,7 @@ void PCManager::advanceFrame()
 			break;
 			
 		case STATE_SCANNING:
-			if (iFrame >= _payload->totalFrames)
+			if (iFrame >= Payload::Pointer->totalFrames)
 			{
 				stop();
 				updateProjectorMask();
@@ -289,10 +295,10 @@ void PCManager::writeFrame()
 	
 	else if(state==STATE_SCANNING)
 	{
-		_encoder->updateScanFrame(_payload->iScanInterleaveFrame(iFrame),
-								  _payload->iInterleave(iFrame));
+		_encoder->updateScanFrame(Payload::Pointer->iScanInterleaveFrame(iFrame),
+								  Payload::Pointer->iInterleave(iFrame));
 
-		ofLog(OF_LOG_VERBOSE, "PCManager: Write interleave frame " + ofToString(_payload->iScanInterleaveFrame(iFrame), 0));
+		ofLog(OF_LOG_VERBOSE, "PCManager: Write interleave frame " + ofToString(Payload::Pointer->iScanInterleaveFrame(iFrame), 0));
 	}	
 	
 	if (state>0)
@@ -302,7 +308,7 @@ void PCManager::writeFrame()
 
 void PCManager::clearProjectorMask()
 {
-	for (int iPP=0; iPP<projWidth*projHeight; iPP++)
+	for (int iPP=0; iPP<projPixelCount; iPP++)
 	{
 		_boolProjectorMask[iPP]=true;
 		_charProjectorMask[iPP]=255;
@@ -316,16 +322,16 @@ void PCManager::clearProjectorMask()
 
 void PCManager::updateProjectorMask()
 {
-	bool current;
+	bool hasFinds;
 	
-	for (int iPP=0; iPP<projWidth*projHeight; iPP++)
+	for (int iPP=0; iPP<projPixelCount; iPP++)
 	{
-		current = true;
+		hasFinds = true;
 		FOREACH_CAMERA
-			current &= _decoder[iCam]->projPixels[iPP]->nFinds>0;
+			hasFinds &= _decoder[iCam]->projPixels[iPP]->nFinds>0;
 		
-		_boolProjectorMask[iPP] = !current;
-		_charProjectorMask[iPP] = (current ? 255 : 0);
+		_boolProjectorMask[iPP] = !hasFinds;
+		_charProjectorMask[iPP] = (hasFinds ? 255 : 0);
 	}
 	
 	_texProjectorMask.loadData(_charProjectorMask, projWidth, projHeight, GL_LUMINANCE);
