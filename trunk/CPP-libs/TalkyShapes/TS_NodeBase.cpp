@@ -9,6 +9,28 @@
 
 #include "TS_NodeBase.h"
 
+TS_NodeBase::TS_NodeBase()
+{
+    //for debug purposes, let's put some items
+    //into the palette
+    TS_ShapePalette item;
+    item.ID = 0;
+    item.Name = "Quad A";
+    item.Type = TS_Type_Quad;
+    Palettes[item.ID] = item;
+    
+    item.ID = 1;
+    item.Name = "Quad B";
+    item.Type = TS_Type_Quad;
+    Palettes[item.ID] = item;
+    
+    item.ID = 2;
+    item.Name = "Quad C";
+    item.Type = TS_Type_Quad;
+    Palettes[item.ID] = item;
+    
+}
+
 TS_NodeBase::~TS_NodeBase()
 {
     //can we cleanly delete on a base type?
@@ -18,6 +40,7 @@ TS_NodeBase::~TS_NodeBase()
     //
     if (isSetup())
         delete TalkyNode;
+    
 }
 
 void TS_NodeBase::draw(TS_DrawBase &drawClass)

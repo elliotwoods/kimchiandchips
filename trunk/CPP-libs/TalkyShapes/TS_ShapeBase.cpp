@@ -21,9 +21,9 @@ TS_ShapeBase::~TS_ShapeBase()
 		delete[] vertices;
 }
 
-void TS_ShapeBase::init(Vector2f XY, float scale)
+void TS_ShapeBase::init(TS_ShapePalette *Palette, Vector2f XY, float scale)
 {
-    init(XY.x, XY.y, scale);
+    init(Palette, XY.x, XY.y, scale);
 }
 
 int TS_ShapeBase::getNVertices()
@@ -179,4 +179,22 @@ string TS_ShapeBase::toString()
             out << "(" << vertices[i].x << ", " << vertices[i].y << ") ";
 
     return out.str();
+}
+
+Vector2f TS_ShapeBase::getCenter()
+{
+    if (!verticesInitialised)
+    {
+        TS_Error::passError(TS_ERROR__SHAPE_VERTICES_NOT_INITIALISED);
+        return Vector2f(0,0);
+    }
+
+    Vector2f center;
+    
+    for (int i=0; i<verticesInitialised; i++)
+        center += vertices[i];
+    
+    center /= float(verticesInitialised);
+    
+    return center;
 }
