@@ -24,7 +24,7 @@ public:
 	powerBases(int basesShape);
 	int							updateBasisIndicies(int nDimensions, int nPowerOrder);
 
-	std::vector<unsigned int*>	vecBasisIndicies;
+	std::vector<unsigned int*>	vecBasisIndices;
 	unsigned char				_basesShape; //0=triangle, 1=square
 	unsigned int				_nBases;
 	

@@ -49,7 +49,7 @@ double polyNfit::basis(int n, std::vector<double> &x)
 	
 	for (int iDimension=0; iDimension<_indim; iDimension++)
 	{
-		output *= pow(x[iDimension],(double)vecBasisIndicies.at(n)[iDimension]);
+		output *= pow(x[iDimension],(double)vecBasisIndices.at(n)[iDimension]);
 	}
 	
 	return output;
