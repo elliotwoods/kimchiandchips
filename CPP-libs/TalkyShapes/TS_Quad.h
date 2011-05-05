@@ -16,7 +16,8 @@ class TS_Quad : public TS_ShapeHomographyBase
 public:
 	TS_Quad();
     
-    void    init(float x, float y, float scale);
+    void    init(TS_ShapePalette *
+                 Palette, float x, float y, float scale);
 	
 	void	serialise(TalkyMessage &msg);
 	void	deSerialise(TalkyMessage const &msg);

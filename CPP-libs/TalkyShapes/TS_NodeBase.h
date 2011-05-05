@@ -12,9 +12,11 @@
 #include "TS_Quad.h"
 #include "TS_ShapeBase.h"
 #include "TS_DrawBase.h"
+#include "TS_ShapePalette.h"
 
 #include "TalkyBase.h"
 #include "TalkyBundleMessage.h"
+
 
 
 #include <map>
@@ -25,12 +27,16 @@ using namespace std;
 typedef map<unsigned long, TS_ShapeBase*>::iterator ShapesIterator;
 typedef map<unsigned long, TS_ShapeBase*>::reverse_iterator ShapesReverseIterator;
 
+typedef map<unsigned short, TS_ShapePalette>::iterator PalettesIterator;
+
 class TS_NodeBase
 {
     public:
+        TS_NodeBase();
         ~TS_NodeBase();
     
         map<unsigned long, TS_ShapeBase*>  Shapes;
+        map<unsigned short, TS_ShapePalette> Palettes;
     
         void    draw(TS_DrawBase &drawClass);
         string  toString();
@@ -65,6 +71,8 @@ class TS_NodeBase
         //push all
         ///////////////////////
     
+    
+    
         ///////////////////////
         // SHAPE DATA
         int         getClosestVertex(int ShapeID, Vector2f const &pipet, float radius = 99999);
@@ -73,6 +81,8 @@ class TS_NodeBase
         void    moveVertex(int ID, int iVertex, Vector2f const &dXY);
         void    moveShape(int ID, Vector2f const &dXY);
         ///////////////////////
+    
+    
     
         ///////////////////////
         // CONNECTION

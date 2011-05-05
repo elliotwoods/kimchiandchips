@@ -40,7 +40,7 @@ string TS_ErrorHandler::getErrorString(int errorCode)
         case TS_ERROR__DESERIALISE_MISMATCH_SHAPE_TYPE:
             return "Cannot deserialise this shape message to this shape. Shape types do not match";
             
-        case TS_ERROR__DESERIALISE_MISMATCH_NVERTICIES:
+        case TS_ERROR__DESERIALISE_MISMATCH_NVERTICES:
             return "Cannot deserialise this shape message to this shape. Number of vertices do not match";
         
         case TS_ERROR__MSG_DESERIALISE_TOO_SHORT:

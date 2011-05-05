@@ -52,3 +52,8 @@ bool TS_ShapeHomographyBase::isHit(Vector2f XY)
     
     return (pointInShape.x <= 1 && pointInShape.x >= -1 && pointInShape.y <= 1 && pointInShape.y >= -1);
 }
+
+Vector2f TS_ShapeHomographyBase::applyTo(Vector2f XY)
+{
+    return getHomography().applyTo(XY);
+}

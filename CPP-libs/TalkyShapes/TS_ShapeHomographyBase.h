@@ -17,6 +17,7 @@ class TS_ShapeHomographyBase : public TS_ShapeBase
         Matrix4f    getInverseHomography();
     
         bool        isHit(Vector2f XY);
+        Vector2f    applyTo(Vector2f XY);
     
         int         homographyPoints[4];
     

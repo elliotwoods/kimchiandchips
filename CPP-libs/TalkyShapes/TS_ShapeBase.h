@@ -24,8 +24,19 @@ public:
 	TS_ShapeBase();
 	~TS_ShapeBase();
 	
-    virtual void    init(float x, float y, float scale) = 0;
-    void            init(Vector2f XY, float scale);
+    ////////////////////////
+    // VIRTUALS
+    ////////////////////////
+    //
+    virtual void    init(TS_ShapePalette *Palette, float x, float y, float scale) = 0;
+    virtual void	serialise(TalkyMessage &msg) = 0;
+	virtual void	deSerialise(TalkyMessage const &msg) = 0;
+    
+    virtual bool    isHit(Vector2f XY) = 0;
+    //
+    ////////////////////////
+    
+    void            init(TS_ShapePalette *Palette, Vector2f XY, float scale);
     
 	int		getNVertices();
 	int		getNVerticesX();
@@ -39,15 +50,13 @@ public:
     
     void            moveVertex(int iVertex, Vector2f const &dXY);
     void            moveShape(Vector2f const &dXY);
-	
-	virtual void	serialise(TalkyMessage &msg) = 0;
-	virtual void	deSerialise(TalkyMessage const &msg) = 0;
     
-    virtual bool    isHit(Vector2f XY) = 0;
+    virtual Vector2f getCenter();
     
     string          toString();
     
 	unsigned long			ID;
+    TS_ShapePalette         *Palette;
 	TS_ShapeType			Type;
 	vector<unsigned short>	Tags;
 	

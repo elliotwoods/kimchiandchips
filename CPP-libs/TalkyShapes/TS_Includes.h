@@ -12,3 +12,4 @@
 #include "TS_Constants.h"
 #include "vmath.h"
 #include "Homography.h"
+#include "TS_ShapePalette.h"

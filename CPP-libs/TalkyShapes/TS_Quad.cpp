@@ -20,8 +20,10 @@ TS_Quad::TS_Quad()
     initialiseVertices();
 }
 
-void TS_Quad::init(float x, float y, float scale)
+void TS_Quad::init(TS_ShapePalette *Palette, float x, float y, float scale)
 {
+    this->Palette = Palette;
+    
     scale *= 0.5f;
     //TL
     vertices[0].x = x - scale;
@@ -37,7 +39,7 @@ void TS_Quad::init(float x, float y, float scale)
     
     //BL
     vertices[3].x = x - scale;
-    vertices[3].y = y + scale;    
+    vertices[3].y = y + scale;   
 }
 
 
@@ -94,7 +96,7 @@ void TS_Quad::deSerialise(TalkyMessage const &msg)
 	
 	if (nVerticesFixed)
 		if (msgVerticesX != nVerticesX || msgVerticesY != nVerticesY)
-			TS_Error::passError(TS_ERROR__DESERIALISE_MISMATCH_NVERTICIES);
+			TS_Error::passError(TS_ERROR__DESERIALISE_MISMATCH_NVERTICES);
 	
 	ID = *(unsigned long*) Payload;
 	
