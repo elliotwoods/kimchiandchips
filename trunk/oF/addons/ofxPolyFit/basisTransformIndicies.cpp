@@ -71,18 +71,18 @@ void basisTransformIndicies::calc()
 		int idxBasisIndicies;
 		if (present)
 		{
-			vecBasisIndicies.push_back(new unsigned int[_nDimensions]);
-			idxBasisIndicies = vecBasisIndicies.size()-1;
+			vecBasisIndices.push_back(new unsigned int[_nDimensions]);
+			idxBasisIndicies = vecBasisIndices.size()-1;
 			
 			for (int iDimension=0; iDimension<_nDimensions; iDimension++)
 			{
-				vecBasisIndicies.at(idxBasisIndicies)[iDimension]=iPossibleItemX[iDimension];
+				vecBasisIndices.at(idxBasisIndicies)[iDimension]=iPossibleItemX[iDimension];
 				
 			}
 		}		
 	}
 	
-	_nBases = vecBasisIndicies.size();
+	_nBases = vecBasisIndices.size();
 	
 	_renderedNDimensions = _nDimensions;
 	_renderedNPowerOrder = _nPowerOrder;
@@ -90,9 +90,9 @@ void basisTransformIndicies::calc()
 
 void basisTransformIndicies::clear()
 {
-	for (int iBasis=0; iBasis < vecBasisIndicies.size(); iBasis++)
-		delete[] vecBasisIndicies[iBasis];
+	for (int iBasis=0; iBasis < vecBasisIndices.size(); iBasis++)
+		delete[] vecBasisIndices[iBasis];
 
-	vecBasisIndicies.clear();
+	vecBasisIndices.clear();
 	_nBases=0;
 }

@@ -10,6 +10,7 @@
 #include "polyNfit.h"
 #include "ofMain.h"
 #include <fstream>
+#include <set>
 
 class ofxPolyFit
 {
@@ -21,12 +22,29 @@ public:
 	void                                uninitialise();
     
 	void								correlate(vector<vector<double> > &input, std::vector<std::vector<double> > &output);
-	vector<double>						evaluate(vector<double> input);
+    void                                correlate(double* input, double* output, int nDataPoints); //presume xyzxyzxyz format
+    void                                correlate(double* input, double* output, set<int> activeIndices);
+    
+    
+    
+    
+	vector<double>						evaluate(vector<double> &input);
     void                                evaluate(double* input, double* output);
     void                                evaluate(float* input, float* output);	
+    
+    //special 1D case
+    float                               evaluate(float input);
+    
+    double                              residual(vector<double> input, vector<double> output);
+    double                              residual(double* input, double* output);
+    double                              residual(double* input, double* output, set<int> activeIndices);
+    
 	void								save(string filename);
 	void								load(string filename);
 	
+    //experimental RANSAC function
+    void                                RANSAC(double* input, double* output, int nDataPoints, int maxIterations, float selectionProbability, float residualThreshold, float inclusionThreshold);
+    
 	vector<unsigned int*>				*basisIndicies;
 	vector<double*>						coefficients;
 	

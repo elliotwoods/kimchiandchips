@@ -29,7 +29,7 @@ void ofxPolyFit::init(int order, int dimensionsIn, int dimensionsOut, int basisT
 	
 	_fit = new polyNfit(order, dimensionsIn, dimensionsOut, basisType);
 	
-	basisIndicies = &(_fit->vecBasisIndicies);
+	basisIndicies = &(_fit->vecBasisIndices);
 	
 	//create space for coefficients
 	coefficients.resize(_fit->_outdim);
@@ -106,7 +106,67 @@ void ofxPolyFit::correlate(std::vector<std::vector<double> > &input, std::vector
 		ofLog(OF_LOG_ERROR, "ofxPolyFit: Cannot evaluate, not yet initiliased");
 }
 
-vector<double> ofxPolyFit::evaluate(vector<double> input)
+void ofxPolyFit::correlate(double* input, double* output, int nDataPoints)
+{
+    unsigned short &indim(_fit->_indim);
+    unsigned short &outdim(_fit->_outdim);
+    
+    vector<double> inpoint;
+    vector<double> outpoint;
+    vector< vector<double> > vecInput, vecOutput;
+    
+    inpoint.resize(indim);
+    outpoint.resize(outdim);
+    vecInput.resize(nDataPoints);
+    vecOutput.resize(nDataPoints);
+    
+    for (int i=0; i<nDataPoints; i++)
+    {
+        memcpy(&inpoint[0], input + indim * i, indim * sizeof(double));
+        memcpy(&outpoint[0], output + outdim * i, outdim * sizeof(double));
+        
+        vecInput[i] = inpoint;
+        vecOutput[i] = outpoint;
+    }
+    
+    correlate(vecInput, vecOutput);
+}
+
+void ofxPolyFit::correlate(double* input, double* output, set<int> activeIndices)
+{
+    unsigned short &indim(_fit->_indim);
+    unsigned short &outdim(_fit->_outdim);
+    
+    vector<double> inpoint;
+    vector<double> outpoint;
+    vector< vector<double> > vecInput, vecOutput;
+    
+    int nDataPoints = activeIndices.size();
+    
+    inpoint.resize(indim);
+    outpoint.resize(outdim);
+    
+    vecInput.resize(nDataPoints);
+    vecOutput.resize(nDataPoints);
+    
+    set<int>::iterator it;
+    int i = 0;
+    
+    for (it = activeIndices.begin(); it != activeIndices.end(); it++)
+    {
+        memcpy(&inpoint[0], input + indim * *it, indim * sizeof(double));
+        memcpy(&outpoint[0], output + outdim * *it, outdim * sizeof(double));
+        
+        vecInput[i] = inpoint;
+        vecOutput[i] = outpoint;
+        
+        i++;
+    }
+    
+    correlate(vecInput, vecOutput);    
+}
+
+vector<double> ofxPolyFit::evaluate(vector<double> &input)
 {
 	vector<double> output;
 	output.assign(_fit->_outdim, 0);
@@ -173,6 +233,81 @@ void ofxPolyFit::evaluate(float* input, float* output)
 		
 	}    
 }
+
+float ofxPolyFit::evaluate(float input)
+{
+    if (_fit->_outdim != 1 || _fit->_indim != 1)
+    {
+        ofLog(OF_LOG_WARNING, "Cannot use ofxPolyFit::evaluate(float) unless indim=1, outdim=1");
+        return 0;
+    }
+    
+    float output = 0;
+    float basis;
+    
+    vector<double> inputVec(1);
+    inputVec[0] = input;
+    
+    for (int iBasis=0; iBasis < nBases; iBasis++)
+    {
+        basis=_fit->basis(iBasis, inputVec);
+        
+        output += basis * coefficients[0][iBasis];
+    }
+    
+    return output;
+    
+}
+
+double ofxPolyFit::residual(vector<double> input, vector<double> output)
+{
+    if (input.size() != _fit->_indim || output.size() != _fit->_outdim)
+    {
+        ofLog(OF_LOG_ERROR, "ofxPolyFit::residual(vector<double> input, vector<double> output) input dimensions do not match my local dimensions");
+        return 0;
+    }
+    vector<double> evaluatedOutput = evaluate(input);
+    vector<double>::iterator it;
+    
+    double error = 0;
+    
+    for (int i=0; i<output.size(); i++)
+        error += pow(output[i] - evaluatedOutput[i], 2);
+
+    return sqrt(error);
+}
+
+double ofxPolyFit::residual(double* input, double* output)
+{
+    //residual for an individual point
+    double *evaluatedOutput = new double[_fit->_outdim];
+    
+    evaluate(input, evaluatedOutput);
+    
+    double error = 0;
+    
+    for (int i=0; i<_fit->_outdim; i++)
+        error += pow(output[i] - evaluatedOutput[i], 2);
+    
+    return sqrt(error);
+    
+}
+
+double ofxPolyFit::residual(double* input, double* output, set<int> activeIndices)
+{
+    //calculae the mean error
+    double error = 0;
+    set<int>::iterator it;
+    
+    for (it = activeIndices.begin(); it != activeIndices.end(); it++)
+        error += residual(input + _fit->_indim * (*it), output + _fit->_outdim* (*it));
+    
+    error /= double(activeIndices.size());
+    
+    return error;
+    
+}
+
 
 void ofxPolyFit::save(string filename)
 {
@@ -246,4 +381,136 @@ void ofxPolyFit::load(string filename)
 		filein.read((char*) coefficients[iDimOut],
 					  sizeof(double) * nBases);
 }
+
+
+
+void ofxPolyFit::RANSAC(double* input, double* output, int nDataPoints, int maxIterations, float selectionProbability, float residualThreshold, float inclusionThreshold)
+{
+    //////////////////////////////////////////////////////////////////
+    //taken from pseudocode at http://en.wikipedia.org/wiki/RANSAC
+    //////////////////////////////////////////////////////////////////
+    //
+    // residualThreshold = 0.0..+INF    ;   Maximum residual a data
+    //                                      point can have to be
+    //                                      added to the consensus
+    //                                      set.
+    //
+    // inclusionThreshold = 0.0..1.0    ;   What percentage of data
+    //                                      points must be included
+    //                                      in the consenus set.
+    //////////////////////////////////////////////////////////////////
+    
+    double bestError = + INFINITY;
+    set<int> bestConsensus;
+    double *bestModel = new double[_fit->_outdim * nBases];
+    
+    set<int> maybeInlierIndices;
+    set<int> currentConsensus;
+    set<int>::iterator idxIt;
+    double currentError;
+    
+    vector<double> vecInputPoint(_fit->_indim);
+    vector<double> vecOutputPoint(_fit->_outdim);
+//    vector< vector<double> > vecInput, vecOutput;
+    
+    //loop through allowed number of iterations
+    for (int iteration=0; iteration<maxIterations; iteration++)
+    {
+        //////////////////////////////////
+        // Randomly select maybe inliers
+        //////////////////////////////////
+        //
+        maybeInlierIndices.clear();
+        for (int iPoint=0; iPoint<nDataPoints; iPoint++)
+            if (ofRandomuf() < selectionProbability)
+                maybeInlierIndices.insert(iPoint);
+        
+        if (maybeInlierIndices.size() < nBases)
+            continue;
+        //
+        //////////////////////////////////
+        
+        
+        ////////////////////////////////////
+        // Perform a fit with maybe inliers
+        ////////////////////////////////////
+        //
+        correlate(input, output, maybeInlierIndices);
+        //
+        ////////////////////////////////////
+        
+        
+        ////////////////////////////////////
+        // Build consensus set
+        ////////////////////////////////////
+        //
+        currentConsensus = maybeInlierIndices;
+        
+        for (int iPoint=0; iPoint<nDataPoints; iPoint++)
+        {
+            //first check if already in set
+            if (currentConsensus.count(iPoint) != 0)
+                continue;
+            
+            memcpy(&vecInputPoint[0], input + (iPoint * _fit->_indim), _fit->_indim * sizeof(double)); 
+            memcpy(&vecOutputPoint[0], output + (iPoint * _fit->_outdim), _fit->_outdim * sizeof(double)); 
+            
+            //if residual for this point is less than threshold
+            //then add it to the consensus set
+            if (residual(vecInputPoint, vecOutputPoint) < residualThreshold)
+                currentConsensus.insert(iPoint);
+            
+        }
+        //
+        ////////////////////////////////////
+        
+        
+        ////////////////////////////////////////
+        // Check if we meet inclusion threshold
+        ////////////////////////////////////////
+        //
+        if (currentConsensus.size() < inclusionThreshold * float(nDataPoints))
+            continue;
+        //
+        ////////////////////////////////////////
+        
+        
+        ////////////////////////////////////
+        // Check to see if this iteration
+        // is best so far
+        ////////////////////////////////////
+        //
+        correlate(input, output, currentConsensus);
+        currentError = residual(input, output, currentConsensus);
+        
+        if (currentError < bestError)
+        {
+            //we've got a better fit
+            bestError = currentError;
+            bestConsensus = currentConsensus;
+            
+            for (int iOutDim=0; iOutDim<_fit->_outdim; iOutDim++)
+                for (int iBasis=0; iBasis<nBases; iBasis++)
+                {
+                    bestModel[iOutDim * nBases + iBasis] = coefficients[iOutDim][iBasis];
+                }
+        }
+        //        
+        ////////////////////////////////////
+    }
+    
+    
+    ////////////////////////////////////
+    // Reload best model as current fit
+    ////////////////////////////////////
+    //
+    for (int iOutDim=0; iOutDim<_fit->_outdim; iOutDim++)
+        for (int iBasis=0; iBasis<nBases; iBasis++)
+        {
+            coefficients[iOutDim][iBasis] = bestModel[iOutDim * nBases + iBasis];
+        }    
+    //
+    ////////////////////////////////////
+}
+                   
 

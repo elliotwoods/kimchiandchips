@@ -94,18 +94,18 @@ void powerBases::calcBases()
 			int idxBasisIndicies;
 			if (present)
 			{
-				vecBasisIndicies.push_back(new unsigned int[_nDimensions]);
-				idxBasisIndicies = vecBasisIndicies.size()-1;
+				vecBasisIndices.push_back(new unsigned int[_nDimensions]);
+				idxBasisIndicies = vecBasisIndices.size()-1;
 				
 				for (int iDimension=0; iDimension<_nDimensions; iDimension++)
 				{
-					vecBasisIndicies.at(idxBasisIndicies)[iDimension]=iPossibleItemX[iDimension];
+					vecBasisIndices.at(idxBasisIndicies)[iDimension]=iPossibleItemX[iDimension];
 					
 				}
 			}		
 		}
 		
-		_nBases = vecBasisIndicies.size();
+		_nBases = vecBasisIndices.size();
 		
 		_renderedNDimensions = _nDimensions;
 		_renderedNPowerOrder = _nPowerOrder;
@@ -116,39 +116,39 @@ void powerBases::calcBases()
 		//
 
 		_nDimensions=4;
-		vecBasisIndicies.clear();
+		vecBasisIndices.clear();
 		for (int iBasis=0; iBasis<7; iBasis++)
 		{
-			vecBasisIndicies.push_back(new unsigned int[_nDimensions]);
+			vecBasisIndices.push_back(new unsigned int[_nDimensions]);
 			for (int iDimension=0; iDimension<_nDimensions; iDimension++)
-				vecBasisIndicies[iBasis][iDimension]=0;
+				vecBasisIndices[iBasis][iDimension]=0;
 		}
 
 		//x x'
-		vecBasisIndicies[0][0]=1;
-		vecBasisIndicies[0][3]=1;
+		vecBasisIndices[0][0]=1;
+		vecBasisIndices[0][3]=1;
 
 		//y x'
-		vecBasisIndicies[1][1]=1;
-		vecBasisIndicies[1][3]=1;
+		vecBasisIndices[1][1]=1;
+		vecBasisIndices[1][3]=1;
 
 		//z x'
-		vecBasisIndicies[2][2]=1;
-		vecBasisIndicies[2][3]=1;
+		vecBasisIndices[2][2]=1;
+		vecBasisIndices[2][3]=1;
 
 		//x
-		vecBasisIndicies[3][0]=1;
+		vecBasisIndices[3][0]=1;
 
 		//y
-		vecBasisIndicies[4][1]=1;
+		vecBasisIndices[4][1]=1;
 
 		//z
-		vecBasisIndicies[5][2]=1;
+		vecBasisIndices[5][2]=1;
 
 		//constant
 		//
 
-		_nBases = vecBasisIndicies.size();
+		_nBases = vecBasisIndices.size();
 		
 		_renderedNDimensions = _nDimensions;
 		_renderedNPowerOrder = _nPowerOrder;
@@ -157,9 +157,9 @@ void powerBases::calcBases()
 
 void powerBases::clearBases()
 {
-	for (int iBasis=0; iBasis < vecBasisIndicies.size(); iBasis++)
-		delete[] vecBasisIndicies[iBasis];
+	for (int iBasis=0; iBasis < vecBasisIndices.size(); iBasis++)
+		delete[] vecBasisIndices[iBasis];
 
-	vecBasisIndicies.clear();
+	vecBasisIndices.clear();
 	_nBases=0;
 }

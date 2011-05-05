@@ -17,7 +17,7 @@ public:
 	basisTransformIndicies() { };
 	int							updateBasisIndicies(int nDimensions, int nPowerOrder);
 	
-	std::vector<unsigned int*>	vecBasisIndicies;
+	std::vector<unsigned int*>	vecBasisIndices;
 	
 private:
 	void						calc();
