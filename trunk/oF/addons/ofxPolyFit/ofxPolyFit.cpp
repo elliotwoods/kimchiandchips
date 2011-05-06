@@ -407,7 +407,7 @@ void ofxPolyFit::RANSAC(double* input, double* output, int nDataPoints, int maxI
     //                                      in the consenus set.
     //////////////////////////////////////////////////////////////////
     
-    bestError = + INFINITY;
+    bestError = + 1e37;
     bestConsensus.clear();
     
     if (bestModel != 0)
