@@ -1,3 +1,4 @@
+#pragma once
 /*
  *  ofxPolyFit.h
  *  ofxPolyFit example
@@ -41,14 +42,18 @@ public:
     
 	void								save(string filename);
 	void								load(string filename);
-	
-    //experimental RANSAC function
-    void                                RANSAC(double* input, double* output, int nDataPoints, int maxIterations, float selectionProbability, float residualThreshold, float inclusionThreshold);
     
 	vector<unsigned int*>				*basisIndicies;
 	vector<double*>						coefficients;
 	
 	unsigned int						nBases;
+    
+    //RANSAC (experimental)
+    void                                RANSAC(double* input, double* output, int nDataPoints, int maxIterations, float selectionProbability, float residualThreshold, float inclusionThreshold);
+    
+    double bestError;
+    set<int> bestConsensus;
+    double *bestModel;
 protected:
 
 	polyNfit		*_fit;
