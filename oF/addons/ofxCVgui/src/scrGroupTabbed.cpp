@@ -22,7 +22,7 @@ scrGroupSwap(caption)
 void scrGroupTabbed::drawContent()
 {
 	bool selected;
-	int textOffset = (tabRegionHeight>24 ? BORDER_OFFSET*2 : 0);
+	int textOffset = (tabRegionHeight>24 ? BORDER_OFFSET * 2 : 0);
 	
 	for (int i=0; i<screens.size(); i++)
 	{
