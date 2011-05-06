@@ -65,6 +65,7 @@ void PCApp::setup(){
 
 #ifndef TARGET_WIN32
 	_scrTabMain->push(&_Correlator.scrGridMain);
+    _scrTabMain->push(&_Processor.scrGridMain);
 #endif	
 
 	_screens->mainScreen = _scrTabMain;
@@ -91,6 +92,13 @@ void PCApp::update(){
 			_Correlator.update();
 			#endif
 			break;
+            
+        case 2:
+            //processing
+#ifndef TARGET_WIN32
+			_Processor.update();
+#endif
+            break;
 			
 		default:
 			break;

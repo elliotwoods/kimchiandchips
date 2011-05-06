@@ -41,12 +41,12 @@ protected:
 	void			runPolyfit();
 	void			runTestSet();
 	
-	void			saveProjector();
+	void			save3DScan();
 	
 	//
 	
 	wdgButton		*bangLoad, *bangCorrelate, *bangTestData, *bangLoadFit, *bangSaveFit;
-	wdgButton		*bangSaveProjectionXYZ;
+	wdgButton		*bangSave3DScan;
 	bool			newFormat;
 
 	int				nCameras;

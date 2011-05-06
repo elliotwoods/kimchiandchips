@@ -10,6 +10,7 @@
 #include "PCManager.h"
 
 #include "CorrelateMain.h"
+#include "ProcessMain.h"
 
 class PCApp : public ofBaseApp {
 
@@ -51,6 +52,9 @@ protected:
 #ifndef TARGET_WIN32
 	//correlator
 	CorrelateMain			_Correlator;
+    
+    //process
+    ProcessMain             _Processor;
 #endif
 	
 	//calibration variables
