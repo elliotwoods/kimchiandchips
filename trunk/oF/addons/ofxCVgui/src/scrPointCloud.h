@@ -21,6 +21,7 @@ public:
 	void			mouseDragged(int x, int y, int dx, int dy, int button);
 	int				pointSize;
 
+    void            clear();
 	void			setWith(float *positions, float *colours, int nPoints);
 	void			keyPressed(int key);
 	
@@ -37,6 +38,7 @@ protected:
 	
 	void			* _onMouseOver(float x, float y);
 
+    bool            _isSet;
 	float			*_positions, *_colours;
 	int				_nPoints;
 	GLuint			vbo[2];	

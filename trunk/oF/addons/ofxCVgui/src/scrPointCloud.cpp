@@ -15,7 +15,8 @@ float scrPointCloud::distance = 1;
 
 
 scrPointCloud::scrPointCloud(string caption) :
-scrBase(cursor_none, false, caption)
+scrBase(cursor_none, false, caption),
+_isSet(false)
 {
 	_nPoints = 0;
 	pointSize = 2;
@@ -31,7 +32,9 @@ scrPointCloud::~scrPointCloud()
 
 void scrPointCloud::drawContent()
 {
-
+    if (!_isSet)
+        return;
+    
     begin();
     drawPoints();
     end();
@@ -105,6 +108,11 @@ void scrPointCloud::end()
 	//let's get our full viewport back
 	glViewport(_viewport_temp[0], _viewport_temp[1],
 			   _viewport_temp[2], _viewport_temp[3]);
+    
+    int x, y, w, h;
+    getLiveBounds(x,y,w,h);
+    
+    ofDrawBitmapString(ofToString(_nPoints), x + 10, y + 20);
 }
 
 void scrPointCloud::mouseDragged(int x, int y, int dx, int dy, int button)
@@ -126,11 +134,18 @@ void scrPointCloud::mouseDragged(int x, int y, int dx, int dy, int button)
 	}
 }
 
+void scrPointCloud::clear()
+{
+    _isSet = false;
+}
+
 void scrPointCloud::setWith(float *positions, float *colours, int nPoints)
 {
 	_positions = positions;
 	_colours = colours;
 	_nPoints = nPoints;
+    
+    _isSet = true;
 }
 
 void scrPointCloud::keyPressed(int key)

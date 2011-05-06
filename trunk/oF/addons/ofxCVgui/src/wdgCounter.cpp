@@ -29,7 +29,15 @@ void wdgCounter::setMax(int myMax)
 
 void wdgCounter::draw()
 {
-
+    int valueScaled = _value;
+    int maxScaled = _max;
+    
+    while (valueScaled > 50)
+    {
+        valueScaled /= 10;
+        maxScaled /= 10;
+    }
+    
 	string numDisplay = ofToString(_value);
     if (_max > 0)
         numDisplay += "/" + ofToString(_max);
@@ -43,11 +51,11 @@ void wdgCounter::draw()
 	
 	int row, col;
 	int rowWidth = _width / (COUNTER_RADIUS*3);
-	int maxCounters = max(_value,_max);
+	int maxCounters = max(valueScaled,maxScaled);
 	
 	for (int i=0; i < maxCounters; i++)
 	{
-		if (i>_value)
+		if (valueScaled>_value)
 			ofNoFill();
 		else
 			ofFill();
