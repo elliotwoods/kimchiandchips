@@ -22,7 +22,7 @@ screensFrameData("Frame data  " + indexString())
     _calibrateMax = new unsigned char[camPixelCount];
     
     _calibrateThresholdMid = new unsigned char[camPixelCount];
-    _calibrateThresholdRange = new float[camPixelCount];
+    _calibrateThresholdRange = new unsigned char[camPixelCount];
     
     _calibrateThresholdMask = new bool[camPixelCount];
     _calibrateThresholdMasked = new unsigned char[camPixelCount];
@@ -116,9 +116,17 @@ void SubScanBase::calcCalibration()
     
 	for (int i=0; i<camPixelCount; i++)
 	{
-        _calibrateThresholdRange[i] = _calibrateMax[i] - _calibrateMin[i];
+        if (_calibrateMax[i] < _calibrateMin[i])
+        {
+            _calibrateThresholdMid[i] = 255;
+            _calibrateThresholdRange[i] = 0;
+            
+            continue;
+        }
+        
+        _calibrateThresholdRange[i] = int(_calibrateMax[i]) - int(_calibrateMin[i]);
 		
-        _calibrateThresholdMid[i] = (unsigned char)(_calibrateThresholdRange[i] * thresholdPercentile) + _calibrateMin[i];
+        _calibrateThresholdMid[i] = (unsigned char)(float(_calibrateThresholdRange[i]) * thresholdPercentile) + _calibrateMin[i];
 		
 		_histThrehsoldRange.add(_calibrateThresholdRange[i]);        
 		

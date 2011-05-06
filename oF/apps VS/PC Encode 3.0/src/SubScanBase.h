@@ -116,7 +116,7 @@ class SubScanBase : public PCConfig
         unsigned char *     _calibrateMax;
     
         unsigned char *     _calibrateThresholdMid;
-        float *             _calibrateThresholdRange;
+        unsigned char *     _calibrateThresholdRange;
     
         bool *              _calibrateThresholdMask;
         unsigned char *     _calibrateThresholdMasked;

@@ -13,6 +13,7 @@
 		8B0EFAF71282BD460095D621 /* ofxPolyFit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B0EFAEA1282BD450095D621 /* ofxPolyFit.cpp */; };
 		8B0EFAF91282BD460095D621 /* polyNfit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B0EFAEE1282BD450095D621 /* polyNfit.cpp */; };
 		8B0EFAFB1282BD460095D621 /* powerBases.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B0EFAF21282BD450095D621 /* powerBases.cpp */; };
+		8B132C59137383390011315A /* ProcessMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B132C57137383390011315A /* ProcessMain.cpp */; };
 		8B3042561350B8EC00ED4961 /* CameraBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B3042521350B8EC00ED4961 /* CameraBase.cpp */; };
 		8B3042571350B8EC00ED4961 /* CameraTheosVideoInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B3042541350B8EC00ED4961 /* CameraTheosVideoInput.cpp */; };
 		8B30425A1350C08200ED4961 /* CameraDefault.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B3042581350C08200ED4961 /* CameraDefault.cpp */; };
@@ -58,6 +59,7 @@
 		8BC380801351A86900B050A1 /* ofxShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BC3807E1351A86900B050A1 /* ofxShader.cpp */; };
 		8BC380831351A88900B050A1 /* scrSelectBounds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BC380811351A88900B050A1 /* scrSelectBounds.cpp */; };
 		8BC88879136E997B00D8ED2B /* SubScanInterleave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BC88877136E997B00D8ED2B /* SubScanInterleave.cpp */; };
+		8BC888CF13736FAA00D8ED2B /* wdgXYZ.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BC888CD13736FA300D8ED2B /* wdgXYZ.cpp */; };
 		8BE1355C127B0543008C822D /* scrGroupGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BE1355B127B0543008C822D /* scrGroupGrid.cpp */; };
 		8BE136F7127D4464008C822D /* scrGroupTabbed.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BE136F6127D4464008C822D /* scrGroupTabbed.cpp */; };
 		E45BE0AA0E8CC67C009D7055 /* GLee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE0A90E8CC67C009D7055 /* GLee.a */; };
@@ -141,6 +143,8 @@
 		8B0EFAEF1282BD450095D621 /* polyNfit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = polyNfit.h; sourceTree = "<group>"; };
 		8B0EFAF21282BD450095D621 /* powerBases.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = powerBases.cpp; sourceTree = "<group>"; };
 		8B0EFAF31282BD450095D621 /* powerBases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = powerBases.h; sourceTree = "<group>"; };
+		8B132C57137383390011315A /* ProcessMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProcessMain.cpp; sourceTree = "<group>"; };
+		8B132C58137383390011315A /* ProcessMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProcessMain.h; sourceTree = "<group>"; };
 		8B3042521350B8EC00ED4961 /* CameraBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CameraBase.cpp; path = Scanner/Camera/CameraBase.cpp; sourceTree = "<group>"; };
 		8B3042531350B8EC00ED4961 /* CameraBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraBase.h; path = Scanner/Camera/CameraBase.h; sourceTree = "<group>"; };
 		8B3042541350B8EC00ED4961 /* CameraTheosVideoInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CameraTheosVideoInput.cpp; path = Scanner/Camera/CameraTheosVideoInput.cpp; sourceTree = "<group>"; };
@@ -241,6 +245,8 @@
 		8BC380821351A88900B050A1 /* scrSelectBounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrSelectBounds.h; sourceTree = "<group>"; };
 		8BC88877136E997B00D8ED2B /* SubScanInterleave.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SubScanInterleave.cpp; sourceTree = "<group>"; };
 		8BC88878136E997B00D8ED2B /* SubScanInterleave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubScanInterleave.h; sourceTree = "<group>"; };
+		8BC888CD13736FA300D8ED2B /* wdgXYZ.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wdgXYZ.cpp; sourceTree = "<group>"; };
+		8BC888CE13736FA600D8ED2B /* wdgXYZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wdgXYZ.h; sourceTree = "<group>"; };
 		8BD206BC1271B73C00A9AB03 /* todo.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = todo.rtf; sourceTree = "<group>"; };
 		8BD2072612730D0E00A9AB03 /* settings.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = settings.xml; path = bin/data/settings.xml; sourceTree = "<group>"; };
 		8BE13557127B0527008C822D /* scrGroupSwap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrGroupSwap.h; sourceTree = "<group>"; };
@@ -354,6 +360,15 @@
 			name = ofxPolyFit;
 			path = ../../../addons/ofxPolyFit;
 			sourceTree = SOURCE_ROOT;
+		};
+		8B132C56137383240011315A /* Process */ = {
+			isa = PBXGroup;
+			children = (
+				8B132C57137383390011315A /* ProcessMain.cpp */,
+				8B132C58137383390011315A /* ProcessMain.h */,
+			);
+			name = Process;
+			sourceTree = "<group>";
 		};
 		8B3042511350B8AA00ED4961 /* Camera */ = {
 			isa = PBXGroup;
@@ -594,6 +609,8 @@
 				8B620BBF12813F7900DDD683 /* wdgCounter.cpp */,
 				8B620C6F1281483E00DDD683 /* wdgButton.h */,
 				8B620C701281483E00DDD683 /* wdgButton.cpp */,
+				8BC888CD13736FA300D8ED2B /* wdgXYZ.cpp */,
+				8BC888CE13736FA600D8ED2B /* wdgXYZ.h */,
 			);
 			name = widgets;
 			sourceTree = "<group>";
@@ -824,6 +841,7 @@
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4B69E1C0A3A1BDC003C02F2 /* PC scanner */,
 				8BC0FE171280731D00FD3F66 /* Correlate */,
+				8B132C56137383240011315A /* Process */,
 				8B5C88461271898400AA9B44 /* ofxKCScreensGUI */,
 				8B0EFAE31282BD450095D621 /* ofxPolyFit */,
 				8B64D56C128257FA00DB4369 /* ofxFBOTexture */,
@@ -1078,6 +1096,8 @@
 				8B56ED501361B17500E9CDD3 /* SubScanSet.cpp in Sources */,
 				8BAFAF2E136425F900BE51E9 /* SubScanBasic.cpp in Sources */,
 				8BC88879136E997B00D8ED2B /* SubScanInterleave.cpp in Sources */,
+				8BC888CF13736FAA00D8ED2B /* wdgXYZ.cpp in Sources */,
+				8B132C59137383390011315A /* ProcessMain.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

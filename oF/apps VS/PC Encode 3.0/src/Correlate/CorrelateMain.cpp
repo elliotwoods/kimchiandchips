@@ -48,17 +48,30 @@ scrGridData("Data pointclouds")
 											polyOrder,
 											1, 10,
 											1);
+    
+    wdgXYZ *wdgLBF = new wdgXYZ("Bounds Left, Bottom, Front",
+                                &scrTestCorrelate.lbf.x,
+                                -10, 10,
+                                0.05,
+                                "m");
+    
+    wdgXYZ *wdgRTB = new wdgXYZ("Bounds Right, Top, Back",
+                                &scrTestCorrelate.rtb.x,
+                                -10, 10,
+                                0.05,
+                                "m");
+    
 	bangLoad = new wdgButton("Load data");
 	bangCorrelate = new wdgButton("Run polyfit");
 	bangTestData = new wdgButton("Test dataset");
 	bangLoadFit = new wdgButton("Load fit");
 	bangSaveFit = new wdgButton("Save fit");
-	bangSaveProjectionXYZ = new wdgButton("Save projection space XYZ");
+	bangSave3DScan = new wdgButton("Save projection space XYZ");
 	
 	bangCorrelate->enabled=false;
 	bangTestData->enabled=false;
 	bangSaveFit->enabled=false;
-	bangSaveProjectionXYZ->enabled=false;
+	bangSave3DScan->enabled=false;
 	
 	scrControl.push(wdgCameraCount);
 	scrControl.push(wdgDatasetCount);
@@ -72,7 +85,10 @@ scrGridData("Data pointclouds")
 	scrControl.push(bangSaveFit);
 	scrControl.push(new wdgButton("File format v0.2", newFormat));
 	scrControl.push(new wdgButton("Swap cameras", swapCameras));
-	scrControl.push(bangSaveProjectionXYZ);
+    scrControl.push(wdgLBF);
+    scrControl.push(wdgRTB);
+	scrControl.push(bangSave3DScan);
+        
 	
 	
 	scrGridData.push(&scrInputPoints);
@@ -127,8 +143,8 @@ void CorrelateMain::update()
 		fit.save(fname);
 	}
 	
-	if (bangSaveProjectionXYZ->getBang())
-		saveProjector();
+	if (bangSave3DScan->getBang())
+		save3DScan();
 }
 
 void CorrelateMain::loadData()
@@ -322,11 +338,15 @@ void CorrelateMain::runTestSet()
 	scrTestCorrelate.setWith(*test_pos, *input_col, nPoints);
 	
 	//we'll enable the save xyz, if we're in new format
-	bangSaveProjectionXYZ->enabled = newFormat;
+	bangSave3DScan->enabled = newFormat;
 }
 
-void CorrelateMain::saveProjector()
+void CorrelateMain::save3DScan()
 {
+    //////////////////////////
+    // BMP file
+    //////////////////////////
+    //
 	ofImage imgSave;
 	imgSave.setImageType(OF_IMAGE_COLOR);
 	imgSave.allocate(projWidth, projHeight, OF_IMAGE_COLOR);
@@ -360,6 +380,55 @@ void CorrelateMain::saveProjector()
 			memcpy(imgSave.getPixels()+3*iPP, col, 3);
 	}
 	
-	imgSave.saveImage("projector.bmp");
+	imgSave.saveImage("3Dscan.bmp");
+    //
+    //////////////////////////
+    
+    
+    
+    //////////////////////////
+    // Binary data
+    //////////////////////////
+    //
+    int nPointsSelected = 0, null;
+    
+    string filename = "3DScan.bin";
+#ifdef TARGET_WIN32
+	filename = ".\\data\\" + filename;
+#else
+	filename = "../../../data/" + filename;
+#endif
+    ofstream outFile(filename.c_str(), ios::out | ios::binary);
+    
+    //write overall data
+
+    outFile << "3D";
+    outFile.write((char*) &null, 4);
+    outFile.write((char*) &projWidth, 2);
+    outFile.write((char*) &projHeight, 2);
+    outFile.write((char*) &scrTestCorrelate.lbf.x, 4 * 3);
+    outFile.write((char*) &scrTestCorrelate.rtb.x, 4 * 3);
+
+    
+    for (int i=0; i<nPoints; i++)
+    {
+        point = test_pos[i];
+        
+        //check if not within selected bounds
+        if (point[0] < lbf.x || point[1] < lbf.y || point[2] < lbf.z || point[0] > rtb.x || point[1] > rtb.y || point[2] > rtb.z)
+            continue;
+        
+        outFile.write((char*) &dataset_iPX[i], 4);
+        outFile.write((char*) &dataset_iPY[i], 4);
+        outFile.write((char*) &test_pos[i], 4 * 3);
+        
+        nPointsSelected++;
+    }
+    
+    outFile.seekp(2);
+    outFile.write((char*) &nPointsSelected, 4);    
+    outFile.close();
+    //
+    //////////////////////////
 }
 

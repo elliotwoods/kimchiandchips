@@ -151,7 +151,7 @@ void PCLogger::savePixelsBinary(string filename)
 		}
 		//////////////////////////////
 
-}
+    }
 	
     iofOutput.close();
 }
