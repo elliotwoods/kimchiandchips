@@ -9,7 +9,8 @@
 
 #include "ofxPolyFit.h"
 
-ofxPolyFit::ofxPolyFit()
+ofxPolyFit::ofxPolyFit() : 
+bestModel(0)
 {
 	_isInitialised = false;
 	_success = false;
@@ -390,6 +391,12 @@ void ofxPolyFit::RANSAC(double* input, double* output, int nDataPoints, int maxI
     //taken from pseudocode at http://en.wikipedia.org/wiki/RANSAC
     //////////////////////////////////////////////////////////////////
     //
+    // selectionProbability = 0.0..1.0  ;   Possibility of each data
+    //                                      point being within
+    //                                      "maybeInlier" set at
+    //                                      the start of each
+    //                                      iteration.
+    //
     // residualThreshold = 0.0..+INF    ;   Maximum residual a data
     //                                      point can have to be
     //                                      added to the consensus
@@ -400,9 +407,12 @@ void ofxPolyFit::RANSAC(double* input, double* output, int nDataPoints, int maxI
     //                                      in the consenus set.
     //////////////////////////////////////////////////////////////////
     
-    double bestError = + INFINITY;
-    set<int> bestConsensus;
-    double *bestModel = new double[_fit->_outdim * nBases];
+    bestError = + INFINITY;
+    bestConsensus.clear();
+    
+    if (bestModel != 0)
+        delete[] bestModel;
+    bestModel = new double[_fit->_outdim * nBases];
     
     set<int> maybeInlierIndices;
     set<int> currentConsensus;
@@ -411,11 +421,14 @@ void ofxPolyFit::RANSAC(double* input, double* output, int nDataPoints, int maxI
     
     vector<double> vecInputPoint(_fit->_indim);
     vector<double> vecOutputPoint(_fit->_outdim);
-//    vector< vector<double> > vecInput, vecOutput;
+    
+    float startTime;
     
     //loop through allowed number of iterations
     for (int iteration=0; iteration<maxIterations; iteration++)
     {
+        startTime = ofGetElapsedTimef();
+        
         //////////////////////////////////
         // Randomly select maybe inliers
         //////////////////////////////////
@@ -497,6 +510,8 @@ void ofxPolyFit::RANSAC(double* input, double* output, int nDataPoints, int maxI
         }
         //        
         ////////////////////////////////////
+        
+        cout << "Iteration #" << iteration << " took " << (ofGetElapsedTimef() - startTime) << "s to complete. bestError=" << bestError << " bestConsensus count=" << bestConsensus.size() << "\n";
     }
     
     

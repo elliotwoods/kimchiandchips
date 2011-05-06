@@ -114,6 +114,9 @@ void powerBases::calcBases()
 		//
 		// PADE BASES
 		//
+        
+        // Input X Y Z X'
+        // Output X' Y'
 
 		_nDimensions=4;
 		vecBasisIndices.clear();
