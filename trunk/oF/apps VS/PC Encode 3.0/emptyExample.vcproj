@@ -144,7 +144,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="CLEyeMulticam.lib  openframeworksLib.lib OpenGL32.lib GLu32.lib kernel32.lib setupapi.lib glut32.lib rtAudio.lib videoInput.lib libfreetype.lib FreeImage.lib qtmlClient.lib dsound.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib GLee.lib fmodex_vc.lib glu32.lib PocoFoundationmt.lib PocoNetmt.lib PocoUtilmt.lib PocoXMLmt.lib"
+				AdditionalDependencies="CLEyeMulticam.lib openframeworksLib.lib OpenGL32.lib GLu32.lib kernel32.lib setupapi.lib glut32.lib rtAudio.lib videoInput.lib libfreetype.lib FreeImage.lib qtmlClient.lib dsound.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib GLee.lib fmodex_vc.lib glu32.lib PocoFoundationmt.lib PocoNetmt.lib PocoUtilmt.lib PocoXMLmt.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;C:\Program Files\Code Laboratories\CL-Eye Platform SDK\Lib&quot;;..\..\..\libs\glut\lib\vs2008;..\..\..\libs\rtAudio\lib\vs2008;..\..\..\libs\FreeImage\lib\vs2008;..\..\..\libs\freetype\lib\vs2008;..\..\..\libs\quicktime\lib\vs2008;..\..\..\libs\fmodex\lib\vs2008;..\..\..\libs\videoInput\lib\vs2008;..\..\..\libs\glee\lib\vs2008;..\..\..\libs\glu\lib\vs2008;..\..\..\libs\Poco\lib\vs2008;..\..\..\libs\openFrameworksCompiled\lib\vs2008"
 				IgnoreAllDefaultLibraries="false"
@@ -330,6 +330,42 @@
 					</File>
 					<File
 						RelativePath=".\src\Scanner\Camera\CameraTheosVideoInput.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="SubScan"
+					>
+					<File
+						RelativePath=".\src\SubScanBase.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\SubScanBase.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\SubScanBasic.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\SubScanBasic.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\SubScanInterleave.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\SubScanInterleave.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\SubScanSet.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\SubScanSet.h"
 						>
 					</File>
 				</Filter>
