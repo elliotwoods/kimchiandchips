@@ -370,6 +370,18 @@
 					</File>
 				</Filter>
 			</Filter>
+			<Filter
+				Name="Processing"
+				>
+				<File
+					RelativePath=".\ProcessMain.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ProcessMain.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="ofxCVgui"
