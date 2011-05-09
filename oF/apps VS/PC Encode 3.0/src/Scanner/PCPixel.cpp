@@ -43,6 +43,12 @@ void PCPixel::addFind(int iPixelDash, float xXdash, float xYdash)
 
 void PCPixelMeans::addFind(int iPixelDash, float xXdash, float xYdash)
 {
+    float xMove = xXdash - xdash.x;
+    float yMove = xYdash - xdash.y;
+    
+    if (xMove * xMove + yMove * yMove > maxPixelMoveSquared)
+        return;
+    
 	nFinds++;
 	xdash.x = (xdash.x*(nFinds-1) + xXdash) / nFinds;
 	xdash.y = (xdash.y*(nFinds-1) + xYdash) / nFinds;

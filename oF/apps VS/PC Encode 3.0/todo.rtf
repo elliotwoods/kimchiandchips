@@ -6,41 +6,11 @@
 \pard\pardeftab720\ql\qnatural
 
 \f0\fs20 \cf0 ///////////////////////////////////////////////////////////////\
->CURRENT = Move all scanning to subscan\
+>CURRENT\
 \
-NOTE!!!!\
-I changed _calibrateThresholdRange from flat to unsigned char\
-maybe this breaks things \
+Image output on ScanSet\
+doesn't match bmp's produced in CorrelateMain\
 \
-\
-!!!There's each subscan per decoder (for individual data)\
-\
-We've initialised the lookup, now we should\
-a) use the lookup\
-b) setup the screens (both add them to the interface and make them)\
-\
-Somehow we need some visual / compilable results so can start coding.\
-\
-\
-SubScanSet or other?\
-\
-Histogram + actions\
-\
-Subscan typess:\
-* SubScanInterleave\
-* SubScanFull\
-\
-Subscan set has properties:\
-* nSubScans\
-* Dictionary of properties\
-Are these stored in Payload or SubScanSet?\
-\
-\
-Subscan has interface (from PCDecode):\
-* scrFrameData\
-\
-Subscan encoding is defined by a full projector lookup table (+inverse?)\
---> subscan set should be accesible from both PCEncode and PCDecode\
 ///////////////////////////////////////////////////////////////\
 >BACKGROUND THOUGHTS\
 \
@@ -125,4 +95,42 @@ Subscan has data:\
 * framedata\
 \
 Subscan has properties:\
-* Index}
+* Index\
+\
+\
+NOTE!!!!\
+I changed _calibrateThresholdRange from flat to unsigned char\
+maybe this breaks things \
+\
+\
+!!!There's each subscan per decoder (for individual data)\
+\
+We've initialised the lookup, now we should\
+a) use the lookup\
+b) setup the screens (both add them to the interface and make them)\
+\
+Somehow we need some visual / compilable results so can start coding.\
+\
+\
+SubScanSet or other?\
+\
+Histogram + actions\
+\
+Subscan typess:\
+* SubScanInterleave\
+* SubScanFull\
+\
+Subscan set has properties:\
+* nSubScans\
+* Dictionary of properties\
+Are these stored in Payload or SubScanSet?\
+\
+\
+Subscan has interface (from PCDecode):\
+* scrFrameData\
+\
+Subscan encoding is defined by a full projector lookup table (+inverse?)\
+--> subscan set should be accesible from both PCEncode and PCDecode\
+\
+Fix ScanSet saving/loading\
+Somehow "shouldbethesame" doesn't match "3DScan"}

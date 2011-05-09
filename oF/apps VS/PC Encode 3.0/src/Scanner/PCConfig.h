@@ -41,7 +41,8 @@ class PCConfig
 		static int		exposure, gain;
 		static int		captureDelay;
 		static float	thresholdPercentile;
-		
+        static float    maxPixelMoveSquared;
+    
 		static bool		sdev;
 		static bool		isLogging;
 	

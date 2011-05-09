@@ -14,6 +14,7 @@ bool PCConfig::isLogging=true;
 
 float PCConfig::thresholdPercentile=0.5;
 int PCConfig::captureDelay=200;
+float PCConfig::maxPixelMoveSquared = 0.01;
 
 int PCConfig::gain=CONFIG_DEFAULT_GAIN;
 int PCConfig::exposure=CONFIG_DEFAULT_EXPOSURE;
@@ -117,8 +118,11 @@ bool PCConfig::configLoad(string filename)
 				}
 				
 				thresholdPercentile = configFileXML.getAttribute("threshold", "percentile", 0.5, 0);
+                
 				sdev = configFileXML.getAttribute("data", "sdev", 0, 0);
 				
+                maxPixelMoveSquared = configFileXML.getAttribute("PCPixel", "maxPixelMoveSquared", 0.01, 0);
+                
 				configFileXML.popTag();
 			}
 			

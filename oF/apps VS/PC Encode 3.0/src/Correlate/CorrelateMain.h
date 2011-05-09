@@ -39,14 +39,17 @@ protected:
 	void			copyToInputScreen();
 	
 	void			runPolyfit();
-	void			runTestSet();
+	void			evaluate();
 	
 	void			save3DScan();
+    void            addToImage();
+    void            saveImage();
+    void            clearImage();
 	
 	//
 	
-	wdgButton		*bangLoad, *bangCorrelate, *bangTestData, *bangLoadFit, *bangSaveFit;
-	wdgButton		*bangSave3DScan;
+	wdgButton		*bangLoad, *bangCorrelate, *bangEvaluate, *bangLoadFit, *bangSaveFit;
+	wdgButton		*bangSave3DScan, *bangAddToImage, *bangSaveImage, *bangClearImage;
 	bool			newFormat;
 
 	int				nCameras;
@@ -54,6 +57,7 @@ protected:
 	int				nPoints;
 	float			screenWidth, screenHeight;
 	bool			swapCameras;
+    string          lastFilename;
 	
 	// input point cloud
 	float			input_pos[MAXPOINTS][3];
@@ -73,6 +77,10 @@ protected:
 	float			polyOrder; //it's a float because of slider
 	vector<vector<double> >	polyInput;
 	vector<vector<double> >	polyOutput;
+    
+    // image output
+    unsigned char * longImage;
+    int             longImageCount;
 
 	
 };

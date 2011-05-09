@@ -10,7 +10,8 @@
 #include "PCManager.h"
 
 #include "CorrelateMain.h"
-#include "ProcessMain.h"
+#include "RANSACFilter.h"
+#include "AssembleScans.h"
 
 class PCApp : public ofBaseApp {
 
@@ -54,7 +55,8 @@ protected:
 	CorrelateMain			_Correlator;
     
     //process
-    ProcessMain             _Processor;
+    RANSACFilter            _Processor;
+    AssembleScans           _Assembler;
 #endif
 	
 	//calibration variables
