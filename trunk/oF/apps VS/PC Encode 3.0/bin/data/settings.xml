@@ -21,8 +21,9 @@
 			<!--camera id="1" /-->
 		</cameras>
 
-    <data sdev="0" />
+        <data sdev="0" />
 		<threshold percentile="0.7" />
+        <PCPixel maxPixelMoveSquared="0.02" />
 	</decoding>
 	
 	<logging on="1" />

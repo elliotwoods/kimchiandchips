@@ -13,11 +13,14 @@
 		8B0EFAF71282BD460095D621 /* ofxPolyFit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B0EFAEA1282BD450095D621 /* ofxPolyFit.cpp */; };
 		8B0EFAF91282BD460095D621 /* polyNfit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B0EFAEE1282BD450095D621 /* polyNfit.cpp */; };
 		8B0EFAFB1282BD460095D621 /* powerBases.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B0EFAF21282BD450095D621 /* powerBases.cpp */; };
-		8B132C59137383390011315A /* ProcessMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B132C57137383390011315A /* ProcessMain.cpp */; };
+		8B132C5C13745FAF0011315A /* RANSACFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B132C5A13745FAF0011315A /* RANSACFilter.cpp */; };
 		8B3042561350B8EC00ED4961 /* CameraBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B3042521350B8EC00ED4961 /* CameraBase.cpp */; };
 		8B3042571350B8EC00ED4961 /* CameraTheosVideoInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B3042541350B8EC00ED4961 /* CameraTheosVideoInput.cpp */; };
 		8B30425A1350C08200ED4961 /* CameraDefault.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B3042581350C08200ED4961 /* CameraDefault.cpp */; };
 		8B3042621350C40F00ED4961 /* ofxThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B3042601350C40F00ED4961 /* ofxThread.cpp */; };
+		8B39FB7F1376BC30005062D5 /* ScanSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B39FB7D1376BC30005062D5 /* ScanSet.cpp */; };
+		8B39FB821376C1AB005062D5 /* scrScanSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B39FB801376C1AB005062D5 /* scrScanSet.cpp */; };
+		8B39FB871376CFEA005062D5 /* AssembleScans.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B39FB851376CFEA005062D5 /* AssembleScans.cpp */; };
 		8B3A2E26127805AC006144DE /* scrGroupBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B3A2E25127805AC006144DE /* scrGroupBase.cpp */; };
 		8B4E4C2E135547B700B521CC /* SubScanBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B4E4C2C135547B700B521CC /* SubScanBase.cpp */; };
 		8B56ED501361B17500E9CDD3 /* SubScanSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8B56ED4E1361B17500E9CDD3 /* SubScanSet.cpp */; };
@@ -143,8 +146,8 @@
 		8B0EFAEF1282BD450095D621 /* polyNfit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = polyNfit.h; sourceTree = "<group>"; };
 		8B0EFAF21282BD450095D621 /* powerBases.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = powerBases.cpp; sourceTree = "<group>"; };
 		8B0EFAF31282BD450095D621 /* powerBases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = powerBases.h; sourceTree = "<group>"; };
-		8B132C57137383390011315A /* ProcessMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProcessMain.cpp; sourceTree = "<group>"; };
-		8B132C58137383390011315A /* ProcessMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProcessMain.h; sourceTree = "<group>"; };
+		8B132C5A13745FAF0011315A /* RANSACFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RANSACFilter.cpp; path = src/RANSACFilter.cpp; sourceTree = "<group>"; };
+		8B132C5B13745FAF0011315A /* RANSACFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RANSACFilter.h; path = src/RANSACFilter.h; sourceTree = "<group>"; };
 		8B3042521350B8EC00ED4961 /* CameraBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CameraBase.cpp; path = Scanner/Camera/CameraBase.cpp; sourceTree = "<group>"; };
 		8B3042531350B8EC00ED4961 /* CameraBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraBase.h; path = Scanner/Camera/CameraBase.h; sourceTree = "<group>"; };
 		8B3042541350B8EC00ED4961 /* CameraTheosVideoInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CameraTheosVideoInput.cpp; path = Scanner/Camera/CameraTheosVideoInput.cpp; sourceTree = "<group>"; };
@@ -155,6 +158,12 @@
 		8B30425E1350C40F00ED4961 /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
 		8B3042601350C40F00ED4961 /* ofxThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxThread.cpp; sourceTree = "<group>"; };
 		8B3042611350C40F00ED4961 /* ofxThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxThread.h; sourceTree = "<group>"; };
+		8B39FB7D1376BC30005062D5 /* ScanSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScanSet.cpp; sourceTree = "<group>"; };
+		8B39FB7E1376BC30005062D5 /* ScanSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanSet.h; sourceTree = "<group>"; };
+		8B39FB801376C1AB005062D5 /* scrScanSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scrScanSet.cpp; sourceTree = "<group>"; };
+		8B39FB811376C1AB005062D5 /* scrScanSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrScanSet.h; sourceTree = "<group>"; };
+		8B39FB851376CFEA005062D5 /* AssembleScans.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AssembleScans.cpp; sourceTree = "<group>"; };
+		8B39FB861376CFEA005062D5 /* AssembleScans.h */ = {isa = PBXFileReference; fileEncoding = 4; path = AssembleScans.h; sourceTree = "<group>"; };
 		8B3A2E24127805AC006144DE /* scrGroupBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrGroupBase.h; sourceTree = "<group>"; };
 		8B3A2E25127805AC006144DE /* scrGroupBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scrGroupBase.cpp; sourceTree = "<group>"; };
 		8B4E4C2C135547B700B521CC /* SubScanBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SubScanBase.cpp; sourceTree = "<group>"; };
@@ -364,8 +373,13 @@
 		8B132C56137383240011315A /* Process */ = {
 			isa = PBXGroup;
 			children = (
-				8B132C57137383390011315A /* ProcessMain.cpp */,
-				8B132C58137383390011315A /* ProcessMain.h */,
+				8BC0FE171280731D00FD3F66 /* Correlate */,
+				8B39FB831376CFC0005062D5 /* RANSAC */,
+				8B39FB841376CFD4005062D5 /* Assemble */,
+				8B39FB7D1376BC30005062D5 /* ScanSet.cpp */,
+				8B39FB7E1376BC30005062D5 /* ScanSet.h */,
+				8B39FB801376C1AB005062D5 /* scrScanSet.cpp */,
+				8B39FB811376C1AB005062D5 /* scrScanSet.h */,
 			);
 			name = Process;
 			sourceTree = "<group>";
@@ -409,6 +423,24 @@
 				8B3042611350C40F00ED4961 /* ofxThread.h */,
 			);
 			path = src;
+			sourceTree = "<group>";
+		};
+		8B39FB831376CFC0005062D5 /* RANSAC */ = {
+			isa = PBXGroup;
+			children = (
+				8B132C5A13745FAF0011315A /* RANSACFilter.cpp */,
+				8B132C5B13745FAF0011315A /* RANSACFilter.h */,
+			);
+			name = RANSAC;
+			sourceTree = "<group>";
+		};
+		8B39FB841376CFD4005062D5 /* Assemble */ = {
+			isa = PBXGroup;
+			children = (
+				8B39FB851376CFEA005062D5 /* AssembleScans.cpp */,
+				8B39FB861376CFEA005062D5 /* AssembleScans.h */,
+			);
+			name = Assemble;
 			sourceTree = "<group>";
 		};
 		8B4E4C2B135547A400B521CC /* Subscan */ = {
@@ -840,7 +872,6 @@
 				E4B69B5B0A3A1756003C02F2 /* ScannerDebug.app */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4B69E1C0A3A1BDC003C02F2 /* PC scanner */,
-				8BC0FE171280731D00FD3F66 /* Correlate */,
 				8B132C56137383240011315A /* Process */,
 				8B5C88461271898400AA9B44 /* ofxKCScreensGUI */,
 				8B0EFAE31282BD450095D621 /* ofxPolyFit */,
@@ -1097,7 +1128,10 @@
 				8BAFAF2E136425F900BE51E9 /* SubScanBasic.cpp in Sources */,
 				8BC88879136E997B00D8ED2B /* SubScanInterleave.cpp in Sources */,
 				8BC888CF13736FAA00D8ED2B /* wdgXYZ.cpp in Sources */,
-				8B132C59137383390011315A /* ProcessMain.cpp in Sources */,
+				8B132C5C13745FAF0011315A /* RANSACFilter.cpp in Sources */,
+				8B39FB7F1376BC30005062D5 /* ScanSet.cpp in Sources */,
+				8B39FB821376C1AB005062D5 /* scrScanSet.cpp in Sources */,
+				8B39FB871376CFEA005062D5 /* AssembleScans.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

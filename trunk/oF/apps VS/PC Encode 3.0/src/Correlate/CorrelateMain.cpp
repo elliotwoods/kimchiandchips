@@ -17,7 +17,9 @@ scrInputPoints("Input data"),
 scrTestCorrelate("Test correlation"),
 
 scrGridMain("Correlate"),
-scrGridData("Data pointclouds")
+scrGridData("Data pointclouds"),
+
+longImageCount(0)
 {
 	////////////////////////////
 	// INITIALISE VARIABLES
@@ -63,13 +65,17 @@ scrGridData("Data pointclouds")
     
 	bangLoad = new wdgButton("Load data");
 	bangCorrelate = new wdgButton("Run polyfit");
-	bangTestData = new wdgButton("Test dataset");
+	bangEvaluate = new wdgButton("Evaluate dataset");
 	bangLoadFit = new wdgButton("Load fit");
 	bangSaveFit = new wdgButton("Save fit");
 	bangSave3DScan = new wdgButton("Save projection space XYZ");
+	bangAddToImage = new wdgButton("Add current projector to Image");
+    wdgCounter *counterNProjectors = new wdgCounter("Projectors in Long Image", longImageCount);
+	bangSaveImage = new wdgButton("Save image");
+    bangClearImage = new wdgButton("Clear image");
 	
 	bangCorrelate->enabled=false;
-	bangTestData->enabled=false;
+	bangEvaluate->enabled=false;
 	bangSaveFit->enabled=false;
 	bangSave3DScan->enabled=false;
 	
@@ -80,7 +86,7 @@ scrGridData("Data pointclouds")
 	scrControl.push(wdgScreenWidth);
 	scrControl.push(wdgScreenHeight);
 	scrControl.push(wdgPolyOrder);
-	scrControl.push(bangTestData);
+	scrControl.push(bangEvaluate);
 	scrControl.push(bangLoadFit);
 	scrControl.push(bangSaveFit);
 	scrControl.push(new wdgButton("File format v0.2", newFormat));
@@ -88,6 +94,10 @@ scrGridData("Data pointclouds")
     scrControl.push(wdgLBF);
     scrControl.push(wdgRTB);
 	scrControl.push(bangSave3DScan);
+    scrControl.push(bangAddToImage);
+    scrControl.push(counterNProjectors);
+    scrControl.push(bangSaveImage);
+    scrControl.push(bangClearImage);
         
 	
 	
@@ -125,14 +135,14 @@ void CorrelateMain::update()
 	if (bangCorrelate->getBang())
 		runPolyfit();
 
-	if (bangTestData->getBang())
-		runTestSet();
+	if (bangEvaluate->getBang())
+		evaluate();
 	
 	if (bangLoadFit->getBang())
 	{
 		string fname = "calib.fit";
 		fit.load(fname);
-		bangTestData->enabled = true;
+		bangEvaluate->enabled = true;
 	}
 
 	if (bangSaveFit->getBang())
@@ -145,6 +155,15 @@ void CorrelateMain::update()
 	
 	if (bangSave3DScan->getBang())
 		save3DScan();
+    
+    if (bangAddToImage->getBang())
+        addToImage();
+    
+    if (bangSaveImage->getBang())
+        saveImage();
+    
+    if (bangClearImage->getBang())
+        clearImage();
 }
 
 void CorrelateMain::loadData()
@@ -173,6 +192,7 @@ void CorrelateMain::loadData()
 			// Open file
 			///////////////////////////////
 			thisFilename = scrFileSelection.getPath(iFile);
+            lastFilename = thisFilename;
 			ifstream inFile(thisFilename.c_str(),
 							ios::in | ios::binary);
 			//
@@ -314,11 +334,11 @@ void CorrelateMain::runPolyfit()
 	fit.init(polyOrder, 2*nCameras, 3, BASIS_SHAPE_TRIANGLE);
 	fit.correlate(polyInput, polyOutput);
 	
-	bangTestData->enabled=true;
+	bangEvaluate->enabled=true;
 	bangSaveFit->enabled=true;
 }
 
-void CorrelateMain::runTestSet()
+void CorrelateMain::evaluate()
 {
     //HARDCODED FOR 2 CAMERAS
     
@@ -370,9 +390,9 @@ void CorrelateMain::save3DScan()
             continue;
         
 		//convert position to colour values
-		col[0] = ofMap(test_pos[iPoint][0],lbf.x,rtb.x,0,255,true);
-		col[1] = ofMap(test_pos[iPoint][1],lbf.y,rtb.y,0,255,true);
-		col[2] = ofMap(test_pos[iPoint][2],lbf.z,rtb.z,0,255,true);
+		col[0] = ofMap(point[0],lbf.x,rtb.x,0,255,true);
+		col[1] = ofMap(point[1],lbf.y,rtb.y,0,255,true);
+		col[2] = ofMap(point[2],lbf.z,rtb.z,0,255,true);
 		
 		iPP = dataset_iPX[iPoint] + projWidth * dataset_iPY[iPoint];
         
@@ -380,7 +400,7 @@ void CorrelateMain::save3DScan()
 			memcpy(imgSave.getPixels()+3*iPP, col, 3);
 	}
 	
-	imgSave.saveImage("3Dscan.bmp");
+	imgSave.saveImage(lastFilename + ".bmp");
     //
     //////////////////////////
     
@@ -392,12 +412,8 @@ void CorrelateMain::save3DScan()
     //
     int nPointsSelected = 0, null;
     
-    string filename = "3DScan.bin";
-#ifdef TARGET_WIN32
-	filename = ".\\data\\" + filename;
-#else
-	filename = "../../../data/" + filename;
-#endif
+    string filename = lastFilename + ".scan";
+    
     ofstream outFile(filename.c_str(), ios::out | ios::binary);
     
     //write overall data
@@ -432,3 +448,88 @@ void CorrelateMain::save3DScan()
     //////////////////////////
 }
 
+void CorrelateMain::addToImage()
+{
+    int oldLongImageCount = longImageCount;
+    int oldWidth = projWidth * oldLongImageCount;
+    longImageCount++;
+    int newWidth = projWidth * longImageCount;    
+    
+    //setup new image
+    unsigned char * newImage = new unsigned char[projWidth*projHeight*3*longImageCount];
+    memset(newImage, 0, 3*projWidth*projHeight*longImageCount);
+    
+    
+    
+    //copy old contents around
+    for (int j = 0; j < projHeight; j++)
+        memcpy(newImage + newWidth*3*j, longImage + oldWidth*3*j, oldWidth * 3);
+    
+    
+    
+    //////////////////////////
+    // copy new contents in
+    //////////////////////////
+    //	
+    ofPoint& lbf(scrTestCorrelate.lbf);
+    ofPoint& rtb(scrTestCorrelate.rtb);
+    
+	int iPP, iLIP;
+	unsigned char col[3];
+    float* point;
+	
+	for (int iPoint=0; iPoint<nPoints; iPoint++)
+	{
+        point = test_pos[iPoint];
+        
+        //check if not within selected bounds
+        if (point[0] < lbf.x || point[1] < lbf.y || point[2] < lbf.z || point[0] > rtb.x || point[1] > rtb.y || point[2] > rtb.z)
+            continue;
+        
+		//convert position to colour values
+		col[0] = ofMap(test_pos[iPoint][0],lbf.x,rtb.x,0,255,true);
+		col[1] = ofMap(test_pos[iPoint][1],lbf.y,rtb.y,0,255,true);
+		col[2] = ofMap(test_pos[iPoint][2],lbf.z,rtb.z,0,255,true);
+		
+		iPP = dataset_iPX[iPoint] + projWidth * dataset_iPY[iPoint];
+        
+		if (iPP < int(projWidth*projHeight) && iPP>=0)
+        {
+            //put pixels at right of image
+            iLIP =  dataset_iPX[iPoint] + newWidth * dataset_iPY[iPoint] + oldWidth;
+            
+			memcpy(newImage + 3*iLIP, col, 3);
+        }
+	}
+    //
+    //////////////////////////
+    
+    
+    //delete old image and reassign
+    if (longImageCount > 0)
+        delete[] longImage;
+    longImage = newImage;
+    
+    
+}
+
+void CorrelateMain::saveImage()
+{
+    ofImage imgSave;
+	imgSave.setImageType(OF_IMAGE_COLOR);
+	imgSave.allocate(projWidth * longImageCount, projHeight, OF_IMAGE_COLOR);
+    
+    memcpy(imgSave.getPixels(), longImage, projWidth*projHeight*longImageCount*3);
+    
+    imgSave.saveImage("long image.bmp");
+}
+
+void CorrelateMain::clearImage()
+{
+    if (longImageCount > 0)
+    {
+        delete[] longImage;
+        longImageCount = 0;
+    }
+        
+}

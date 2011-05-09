@@ -66,6 +66,7 @@ void PCApp::setup(){
 #ifndef TARGET_WIN32
 	_scrTabMain->push(&_Correlator.scrGridMain);
     _scrTabMain->push(&_Processor.scrGridMain);
+    _scrTabMain->push(&_Assembler.scrGridMain);
 #endif	
 
 	_screens->mainScreen = _scrTabMain;
@@ -85,18 +86,20 @@ void PCApp::update(){
 			//we're looking at scan
 			_scanner.update();
 			break;
-			
+            
+#ifndef TARGET_WIN32
 		case 1:
 			//we're looking at correlate
-			#ifndef TARGET_WIN32
 			_Correlator.update();
-			#endif
 			break;
             
         case 2:
-            //processing
-#ifndef TARGET_WIN32
+            //RANSAC
 			_Processor.update();
+            
+        case 3:
+            //Assembler
+			_Assembler.update();
 #endif
             break;
 			
