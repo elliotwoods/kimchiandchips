@@ -72,6 +72,12 @@ namespace VVVV.Nodes.OpenNI
         private IValueIn FPinInPipetXY;
         private IValueIn FPinInBackgroundCapture;
         private IValueIn FPinInBackgroundThreshold;
+        private IValueIn FPinInTemporalSmoothing;
+        private IValueIn FPinInTemporalSmoothingThreshold;
+        private IValueIn FPinInTrackHands;
+        private IValueIn FPinInTrackPointXYZ;
+        private IValueIn FPinInTrackPointSet;
+        private IValueIn FPinInTrackPointClear;
 
         //outputs
         private IDXTextureOut FPinOutTextureDepth16;
@@ -93,6 +99,8 @@ namespace VVVV.Nodes.OpenNI
 
         //image data
         private IntPtr FDataDepth = new IntPtr();
+        private IntPtr FDataDepthTemp = new IntPtr();
+
         private IntPtr FDataXYZ = new IntPtr();
         private IntPtr FDataRGB = new IntPtr();
 
@@ -106,6 +114,7 @@ namespace VVVV.Nodes.OpenNI
 
 
         //thread locking
+        private object FLockSmoothingParameters = new object();
         private object FLockDataDepthOut = new object();
         private object FLockDataRGBOut = new object();
         private object FLockDataXYZOut = new object();
@@ -123,6 +132,14 @@ namespace VVVV.Nodes.OpenNI
         private bool FBackgroundCaptured = false;
         private UInt16 FBackgroundThreshold = 0;
         private bool FBackgroundDoCopy = false;
+
+        //Smoothing
+        private double FSmoothingValue = 0;
+        private double FSmoothingThreshold = 0.05;
+        private bool isSmoothing = false;
+
+        //Tracking
+        private bool FTrackingHandsEnabled = true;
 
         //OpenNI
         private int FWidth = 640;
@@ -166,6 +183,23 @@ namespace VVVV.Nodes.OpenNI
             this.FHost.CreateValueInput("Background threshold", 1, null, TSliceMode.Single, TPinVisibility.True, out FPinInBackgroundThreshold);
             FPinInBackgroundThreshold.SetSubType(0, 10, 0.001, 0, false, false, false);
 
+            this.FHost.CreateValueInput("Smoothing amount", 1, null, TSliceMode.Single, TPinVisibility.True, out FPinInTemporalSmoothing);
+            FPinInTemporalSmoothing.SetSubType(0, 1, 0.001, 0, false, false, false);
+
+            this.FHost.CreateValueInput("Smoothing position threshold", 1, null, TSliceMode.Single, TPinVisibility.True, out FPinInTemporalSmoothingThreshold);
+            FPinInTemporalSmoothingThreshold.SetSubType(0, double.MaxValue, 0.001, 0.05, false, false, false);
+
+            this.FHost.CreateValueInput("Track hands", 1, null, TSliceMode.Single, TPinVisibility.True, out FPinInTrackHands);
+            FPinInTrackHands.SetSubType(0, 1, 1, 1, false, true, false);
+
+            this.FHost.CreateValueInput("Track point", 3, null, TSliceMode.Dynamic, TPinVisibility.True, out FPinInTrackPointXYZ);
+            FPinInTrackPointXYZ.SetSubType3D(double.MinValue, double.MaxValue, 0.001, 0, 0, 0, false, false, false);
+
+            this.FHost.CreateValueInput("Start tracking", 1, null, TSliceMode.Single, TPinVisibility.True, out FPinInTrackPointSet);
+            FPinInTrackPointSet.SetSubType(0, 1, 1, 0, true, false, false);
+            
+            this.FHost.CreateValueInput("Stop tracking", 1, null, TSliceMode.Single, TPinVisibility.True, out FPinInTrackPointClear);
+            FPinInTrackPointClear.SetSubType(0, 1, 1, 0, true, false, false);
 
             //outputs
             this.FHost.CreateTextureOutput("Depth 16", TSliceMode.Single, TPinVisibility.True, out this.FPinOutTextureDepth16);
@@ -270,7 +304,8 @@ namespace VVVV.Nodes.OpenNI
                         FPipetRequests.Add(id);
                     }
 
-                    FPipetRequestsReady = true;
+                    FPipetRequestsReady = (FPipetRequests.Count > 0);
+                        
                     FPipetResultsReady = false;
                 }
             }
@@ -296,6 +331,88 @@ namespace VVVV.Nodes.OpenNI
                 FPinInBackgroundThreshold.GetValue(0, out currentValue);
 
                 FBackgroundThreshold = System.Convert.ToUInt16(currentValue * 1000.0);
+            }
+
+            //are we turning smoothing on/off?
+            if (FPinInTemporalSmoothing.PinIsChanged)
+            {
+                lock (FLockSmoothingParameters)
+                {
+                    FPinInTemporalSmoothing.GetValue(0, out FSmoothingValue);
+
+                    if (FSmoothingValue > 0 && FDataDepthTemp == IntPtr.Zero)
+                    {
+                        // we're turning smoothing on
+                        FDataDepthTemp = Marshal.AllocCoTaskMem(FWidth * FHeight * 2);
+                        isSmoothing = true;
+                    }
+
+                    if (FSmoothingValue == 0 && FDataDepthTemp != IntPtr.Zero)
+                    {
+                        // we're turning smoothing off
+                        Marshal.FreeCoTaskMem(FDataDepthTemp);
+
+                        FDataDepthTemp = IntPtr.Zero;
+                        isSmoothing = false;
+                    }
+                }
+            }
+
+            //changing the smoothing threshold
+            if (FPinInTemporalSmoothingThreshold.PinIsChanged)
+            {
+                lock (FLockSmoothingParameters)
+                {
+                    double currentValue;
+                    FPinInTemporalSmoothingThreshold.GetValue(0, out currentValue);
+
+                    FSmoothingThreshold = System.Convert.ToInt16(1000.0 * currentValue);
+                }
+            }
+
+            if (FPinInBackgroundThreshold.PinIsChanged)
+            {
+                FPinInBackgroundThreshold.GetValue(0, out FSmoothingThreshold);
+            }
+
+            //check if need to change hand tracking state
+            if (FPinInTrackHands.PinIsChanged)
+            {
+                double currentValue;
+                FPinInTrackHands.GetValue(0, out currentValue);
+                FTrackingHandsEnabled = (currentValue > 0.5);
+            }
+
+            if (FPinInTrackPointSet.PinIsChanged)
+            {
+                double currentValue;
+
+                FPinInTrackPointSet.GetValue(0, out currentValue);
+
+                if (currentValue > 0.5)
+                {
+                    Point3D position;
+                    double[] dblPosition = new double[3];
+
+                    FPinInTrackPointXYZ.GetValue3D(0, out dblPosition[0], out dblPosition[1], out dblPosition[2]);
+
+                    position.X = (float)dblPosition[0];
+                    position.Y = (float)dblPosition[1];
+                    position.Z = (float)dblPosition[2];
+
+                    FGeneratorHands.StartTracking(ref position);
+                }
+            }
+
+            if (FPinInTrackPointClear.PinIsChanged)
+            {
+                double currentValue;
+                FPinInTrackPointClear.GetValue(0, out currentValue);
+
+                if (currentValue > 0.5)
+                {
+                    FGeneratorHands.StopTrackingAll();
+                }
             }
 
             //output hands
@@ -526,8 +643,11 @@ namespace VVVV.Nodes.OpenNI
 
                 if (FOutputEnabledD16 || FOutputEnabledXYZ)
                 {
+                    if (!isSmoothing)
+                        CopyMemory(FDataDepth, this.FGeneratorDepth.GetDepthMapPtr(), FWidth * FHeight * 2);
+                    else
+                        CopyAndSmooth();
 
-                    CopyMemory(FDataDepth, this.FGeneratorDepth.GetDepthMapPtr(), FWidth * FHeight * 2);
                     if (FBackgroundDoCopy)
                     {
                         CopyMemory(FBackgroundDepth, FDataDepth, FWidth * FHeight * 2);
@@ -620,7 +740,7 @@ namespace VVVV.Nodes.OpenNI
         {
             DebugMessages.Add(new DebugMessage(TLogType.Message, "Gesture " + strGesture + " found at " + endPosition.ToString() + " id" + idPosition.ToString()));
 
-            if (strGesture=="Wave")
+            if (strGesture == "Wave" && FTrackingHandsEnabled)
             {
                 if (FHandsVector.Count == 0)
                     FGeneratorHands.StartTracking(ref endPosition);
@@ -634,7 +754,7 @@ namespace VVVV.Nodes.OpenNI
             float* DataXYZ = (float*)FDataXYZ.ToPointer();
             ushort* DataDepth = (ushort*)FDataDepth.ToPointer();
 
-            //calculate world positions
+            //calculate world positions and move pointer
             for (int iY = 0; iY < FHeight; iY++)
                 for (int iX = 0; iX < FWidth; iX++, DataXYZ += 4, DataDepth++)
                     DepthToWorld(iX, iY, DataDepth[0], DataXYZ);
@@ -642,22 +762,35 @@ namespace VVVV.Nodes.OpenNI
 
 
             //check pipet requests
-            if (FPipetRequestsReady)
+            lock (FLockPipets)
             {
-                //move pointer back to start
-                DataXYZ = (float*)FDataXYZ.ToPointer();
-
-                FPipetResults.Clear();
-                for (int iPipet = 0; iPipet < FPipetRequests.Count; iPipet++)
+                if (FPipetRequestsReady)
                 {
-                    FPipetResults.Add(new double[3]);
-                    FPipetResults[iPipet][0] = System.Convert.ToDouble(DataXYZ[FPipetRequests[iPipet] * 4]);
-                    FPipetResults[iPipet][1] = System.Convert.ToDouble(DataXYZ[FPipetRequests[iPipet] * 4 + 1]);
-                    FPipetResults[iPipet][2] = System.Convert.ToDouble(DataXYZ[FPipetRequests[iPipet] * 4 + 2]);
-                }
+                    // reset pointer back to start
+                    DataXYZ = (float*)FDataXYZ.ToPointer();
 
-                FPipetRequestsReady = false;
-                FPipetResultsReady = true;
+                    FPipetResults.Clear();
+                    for (int iPipet = 0; iPipet < FPipetRequests.Count; iPipet++)
+                    {
+                        if (FPipetRequests[iPipet] < 0 || FPipetRequests[iPipet] > FWidth * FHeight)
+                        {
+                            //we're outside data range
+                            FPipetResults.Add(new double[3]);
+                            FPipetResults[iPipet][0] = 0;
+                            FPipetResults[iPipet][1] = 0;
+                            FPipetResults[iPipet][2] = 0;
+                        }
+                        else
+                        {
+                            FPipetResults.Add(new double[3]);
+                            FPipetResults[iPipet][0] = System.Convert.ToDouble(DataXYZ[FPipetRequests[iPipet] * 4]);
+                            FPipetResults[iPipet][1] = System.Convert.ToDouble(DataXYZ[FPipetRequests[iPipet] * 4 + 1]);
+                            FPipetResults[iPipet][2] = System.Convert.ToDouble(DataXYZ[FPipetRequests[iPipet] * 4 + 2]);
+                        }
+                    }
+
+                    FPipetResultsReady = true;
+                }
             }
         }
 
@@ -690,6 +823,34 @@ namespace VVVV.Nodes.OpenNI
             data[3] = ((data[2] > 0.0f) &&
                         (Math.Abs(background - depthValue) > this.FBackgroundThreshold)
                         ? 1.0f : 0.0f);
+        }
+
+        private unsafe void CopyAndSmooth()
+        {
+            lock (FLockSmoothingParameters)
+            {
+
+                int nBytes = FWidth * FHeight;
+                float factor = (float)FSmoothingValue;
+
+                CopyMemory(FDataDepthTemp, this.FGeneratorDepth.GetDepthMapPtr(), FWidth * FHeight * 2);
+
+                short* SourceArray = (short*)FDataDepthTemp.ToPointer();
+                short* TargetArray = (short*)FDataDepth.ToPointer();
+
+                for (int i = 0; i < nBytes; i++)
+                {
+                    if (SourceArray[i] == 0)
+                    {
+                        TargetArray[i] = 0;
+                        continue;
+                    }
+                    if (Math.Abs(SourceArray[i] - TargetArray[i]) > FSmoothingThreshold || TargetArray[i] == 0)
+                        TargetArray[i] = SourceArray[i];
+                    else
+                        TargetArray[i] = System.Convert.ToInt16(((float)TargetArray[i]) * factor + (((float)SourceArray[i]) * (1 - factor)));
+                }
+            }
         }
     }
 }
