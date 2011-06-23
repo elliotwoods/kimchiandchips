@@ -172,7 +172,7 @@ namespace PolyFitND
 		// RUN FIT
 		// ----------------------------
 		
-		int nCoefficients = (_order==1 ? 7 : 11);
+		int nCoefficients = (_order==1 ? 7 : 14);
 		try {
 			if (_nDataPoints>0)
 			{
@@ -246,7 +246,7 @@ namespace PolyFitND
 			for (int iCoeff=0; iCoeff<16; iCoeff++)
 				vPinOutOutput->SetValue(iCoeff, Output[iCoeff]);
 		} else if (_order==2) {
-			double Output[26];
+			double Output[(nCoefficients+1)*2];
 
 			double *out = Output;
 			double *coefficients;
@@ -255,27 +255,30 @@ namespace PolyFitND
 				coefficients = (iDim==0 ? coefficientsX : coefficientsY);
 
 				//1st order
+				*out++ = -coefficients[0];
+				*out++ = -coefficients[1];
+				*out++ = -coefficients[2];
+
+				//2nd order
 				*out++ = -coefficients[3];
 				*out++ = -coefficients[4];
 				*out++ = -coefficients[5];
-
-				//2nd order
 				*out++ = -coefficients[6];
 				*out++ = -coefficients[7];
 				*out++ = -coefficients[8];
 				*out++ = -coefficients[9];
 
 				//0th order
-				*out++ = -coefficientsX[10];
+				*out++ = -coefficients[10];
 				
 				//denominator
-				*out++ = coefficientsX[0];
-				*out++ = coefficientsX[1];
-				*out++ = coefficientsX[2];
+				*out++ = coefficients[11];
+				*out++ = coefficients[12];
+				*out++ = coefficients[13];
 				*out++ = 1;
 			}
 
-			for (int iCoeff=0; iCoeff<26; iCoeff++)
+			for (int iCoeff=0; iCoeff<(nCoefficients+1)*2; iCoeff++)
 				vPinOutOutput->SetValue(iCoeff, Output[iCoeff]);
 		}
 

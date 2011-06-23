@@ -157,59 +157,69 @@ void powerBases::calc()
 
 		//
 		// PADE BASES 2nd order
+		// 14 coefficients
 		//
 
 		_nDimensions=4;
 		vecBasisIndicies.clear();
-		for (int iBasis=0; iBasis<11; iBasis++)
+		for (int iBasis=0; iBasis<14; iBasis++)
 		{
 			vecBasisIndicies.push_back(new unsigned int[_nDimensions]);
 			for (int iDimension=0; iDimension<_nDimensions; iDimension++)
 				vecBasisIndicies[iBasis][iDimension]=0;
 		}
 
-		//I x x'
+		//0 A x
 		vecBasisIndicies[0][0]=1;
-		vecBasisIndicies[0][3]=1;
 
-		//J y x'
+		//1 B y
 		vecBasisIndicies[1][1]=1;
-		vecBasisIndicies[1][3]=1;
 
-		//K z x'
+		//2 C z
 		vecBasisIndicies[2][2]=1;
-		vecBasisIndicies[2][3]=1;
 
-		//A x
-		vecBasisIndicies[3][0]=1;
+		//3 D x x
+		vecBasisIndicies[3][0]=2;
 
-		//B y
-		vecBasisIndicies[4][1]=1;
+		//4 E y y
+		vecBasisIndicies[4][1]=2;
 
-		//C z
-		vecBasisIndicies[5][2]=1;
+		//5 F z z
+		vecBasisIndicies[5][2]=2;
 
-		//D xy
+		//6 G x y
 		vecBasisIndicies[6][0]=1;
 		vecBasisIndicies[6][1]=1;
 
-		//E yz
+		//7 H y z
 		vecBasisIndicies[7][1]=1;
 		vecBasisIndicies[7][2]=1;
 
-		//F zx
+		//8 I z x
 		vecBasisIndicies[8][0]=1;
 		vecBasisIndicies[8][2]=1;
 
-		//G xyz
+		//9 J x y z
 		vecBasisIndicies[9][0]=1;
 		vecBasisIndicies[9][1]=1;
 		vecBasisIndicies[9][2]=1;
 
-		//H
 
+		//10 K - 
 		//constant
 		//
+
+		//11 L x x'
+		vecBasisIndicies[11][0]=1;
+		vecBasisIndicies[11][3]=1;
+
+		//12 M y x'
+		vecBasisIndicies[12][1]=1;
+		vecBasisIndicies[12][3]=1;
+
+		//13 N z x'
+		vecBasisIndicies[13][2]=1;
+		vecBasisIndicies[13][3]=1;
 
 		_nBases = vecBasisIndicies.size();
 		
